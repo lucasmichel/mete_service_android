@@ -8,7 +8,7 @@ public class ListarAcompanhanteActivity extends Activity{
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_main);
+	setContentView(R.layout.detalhes_acomp);
 	//oi
 }
 }
