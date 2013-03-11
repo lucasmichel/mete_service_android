@@ -13,10 +13,10 @@ protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.detalhes_acomp);
 	// criando acompanhantes para exemplo
-//	
+
 //	this.id = id;
-//	this.nome = nome;
 //	this.idade = idade;
+//	this.nome = nome;
 //	this.altura = altura;
 //	this.busto = busto;
 //	this.cintura = cintura;
@@ -31,8 +31,14 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	acomp = new ArrayList<Acompanhante>();
     
-    acomp.add(new Acompanhante(1,"JOANA",20,"1.80","80","60","50",
-    		"azuis","50","tudo","sxo", "15:00", "60 kg",));
+    acomp.add(new Acompanhante(1,20,"joana","1.80","90","50","60","azuis","R$50",
+    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
+    acomp.add(new Acompanhante(1,21,"joana","1.80","90","50","60","azuis","R$50",
+    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
+    acomp.add(new Acompanhante(1,22,"joana","1.80","90","50","60","azuis","R$50",
+    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
+    acomp.add(new Acompanhante(1,23,"joana","1.80","90","50","60","azuis","R$50",
+    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
    
 }
 }

@@ -8,27 +8,51 @@ public class Acompanhante extends Activity {
 
 	private int id, idade;
 	private String nome, altura,busto ,cintura, quadril, olhos, pernoite, atendo;
-	private String especialidade, horario_atentimento;
+	private String especialidade, horario_atentimento,peso;
 	//FOTO PARA TESTE NO LAYOUT
-	private String foto;
+		private String foto;
 	
+	
+	public Acompanhante(int id, int idade, String nome, String altura,
+			String busto, String cintura, String quadril, String olhos,
+			String pernoite, String atendo, String especialidade,
+			String horario_atentimento, String peso, String foto) {
+		super();
+		this.id = id;
+		this.idade = idade;
+		this.nome = nome;
+		this.altura = altura;
+		this.busto = busto;
+		this.cintura = cintura;
+		this.quadril = quadril;
+		this.olhos = olhos;
+		this.pernoite = pernoite;
+		this.atendo = atendo;
+		this.especialidade = especialidade;
+		this.horario_atentimento = horario_atentimento;
+		this.peso = peso;
+		this.foto = foto;
+	}
+	public Acompanhante() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 	public int getIdade() {
 		return idade;
 	}
 	public void setIdade(int idade) {
 		this.idade = idade;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public String getAltura() {
 		return altura;
@@ -84,34 +108,20 @@ public class Acompanhante extends Activity {
 	public void setHorario_atentimento(String horario_atentimento) {
 		this.horario_atentimento = horario_atentimento;
 	}
+	public String getPeso() {
+		return peso;
+	}
+	public void setPeso(String peso) {
+		this.peso = peso;
+	}
 	public String getFoto() {
 		return foto;
 	}
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public Acompanhante(int id, String nome, int idade, String altura,
-			String busto, String cintura, String quadril, String olhos,
-			String pernoite, String atendo, String especialidade,
-			String horario_atentimento, String foto) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.idade = idade;
-		this.altura = altura;
-		this.busto = busto;
-		this.cintura = cintura;
-		this.quadril = quadril;
-		this.olhos = olhos;
-		this.pernoite = pernoite;
-		this.atendo = atendo;
-		this.especialidade = especialidade;
-		this.horario_atentimento = horario_atentimento;
-		this.foto = foto;
-	}
-	public Acompanhante() {
-		super();
-	}
+	
+	
 	
 	
 }
