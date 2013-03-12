@@ -1,7 +1,10 @@
-package com.example.meeting_service;
+package mete_service.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.meeting_service.R;
+
 
 import android.app.Activity;
 import android.os.Bundle;
