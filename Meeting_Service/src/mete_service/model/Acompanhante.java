@@ -120,8 +120,4 @@ public class Acompanhante extends Activity {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
-	
-	
-	
 }
