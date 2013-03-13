@@ -3,46 +3,88 @@ package mete_service.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import br.edu.unibratec.Proxenetarecife.ListaMeninasActivity;
+import br.edu.unibratec.Proxenetarecife.Meninas;
+import br.edu.unibratec.Proxenetarecife.MeninasAdapter;
+import br.edu.unibratec.Proxenetarecife.MeninasList;
+
 import com.example.meeting_service.R;
 
 
 import android.app.Activity;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
-public class ListarAcompanhanteActivity extends Activity{
+public class ListarAcompanhanteActivity extends ListActivity{
 
-List<Acompanhante> acomp;
-protected void onCreate(Bundle savedInstanceState) {
+	Acomp_Adapter acomp_adapter;
+
+	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.detalhes_acomp);
-	// criando acompanhantes para exemplo
-
-//	this.id = id;
-//	this.idade = idade;
-//	this.nome = nome;
-//	this.altura = altura;
-//	this.busto = busto;
-//	this.cintura = cintura;
-//	this.quadril = quadril;
-//	this.olhos = olhos;
-//	this.pernoite = pernoite;
-//	this.atendo = atendo;
-//	this.especialidade = especialidade;
-//	this.horario_atentimento = horario_atentimento;
-//	this.peso = peso;
-//	this.foto = foto;
 	
-	acomp = new ArrayList<Acompanhante>();
-    
-    acomp.add(new Acompanhante(1,20,"joana","1.80","90","50","60","azuis","R$50",
-    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
-    acomp.add(new Acompanhante(1,21,"joana","1.80","90","50","60","azuis","R$50",
-    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
-    acomp.add(new Acompanhante(1,22,"joana","1.80","90","50","60","azuis","R$50",
-    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
-    acomp.add(new Acompanhante(1,23,"joana","1.80","90","50","60","azuis","R$50",
-    		"tudo","sexo","15:00","60kg","garota.png.jpg"));
-   
-}
+	setContentView(R.layout.lista_acomp);
+	}
+	class AcompanhanteAsyncTask extends AsyncTask<Void, Void, AcompanhanteList> {
+
+		ProgressDialog dialog;
+		
+		//inicio da thread
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = ProgressDialog.show(ListarAcompanhanteActivity.this, "Relaxe",
+					"Caregando Lista", true, false);
+		}
+		
+		@Override
+		protected AcompanhanteList doInBackground(Void... params) {
+			HttpClient cliente = new DefaultHttpClient();
+			
+			HttpGet get = new HttpGet(
+					/*link do listar*/);
+			AcompanhanteList acompList = new AcompanhanteList();
+			try {
+				HttpResponse resposta = cliente.execute(get);
+
+				JSONArray jsonAray = new JSONArray(toString(resposta
+						.getEntity().getContent()));
+				for (int i = 0; i < jsonAray.length(); i++) {
+					JSONObject objeto = jsonAray.getJSONObject(i);
+
+					Acompanhante a = new Acompanhante();
+					
+					a.setNome(objeto.getString("nome"));
+				
+
+					acompList.getResults().add(a);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return acompList;
+		}
+		
+		protected void onPostExecute(AcompanhanteList result) {
+			super.onPostExecute(result);
+			dialog.dismiss();
+			if (result != null) {
+				setListAdapter(new MeninasAdapter(ListarAcompanhanteActivity.this,
+						result.getResults()));
+
+			}
+		}
+			
+	}
+
 }
 
