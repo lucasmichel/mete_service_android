@@ -1,4 +1,4 @@
-package mete_service.exception;
+package mete_service.model;
 
 import android.view.View;
 import android.view.ViewGroup;
