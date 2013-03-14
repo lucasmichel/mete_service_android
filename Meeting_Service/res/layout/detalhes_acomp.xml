@@ -23,12 +23,12 @@
                 android:text="@string/Nome"
                 android:textAppearance="?android:attr/textAppearanceMedium"  />
 
-            <EditText
-                android:id="@+id/editText1"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/AcompNome"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
-
+                android:text="TextViewNome" />
+            
             <TextView
                 android:id="@+id/textIdade"
                 android:layout_width="wrap_content"
@@ -36,13 +36,11 @@
                 android:text="@string/Idade"
                 android:textAppearance="?android:attr/textAppearanceMedium"  />
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/AcompIdade"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" >
-
-            </EditText>
+                android:text="TextViewIdade" />
 
             <TextView
                 android:id="@+id/textAltura"
@@ -51,11 +49,11 @@
                 android:text="@string/altura" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="match_parent"
+        <TextView
+                android:id="@+id/AcompAltura"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewAltura" />
 
             <TextView
                 android:id="@+id/textPeso"
@@ -64,11 +62,11 @@
                 android:text="@string/peso" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="match_parent"
+           <TextView
+                android:id="@+id/AcompPeso"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewPeso" />
 
             <TextView
                 android:id="@+id/textBusto"
@@ -77,11 +75,11 @@
                 android:text="@string/busto"
                 android:textAppearance="?android:attr/textAppearanceMedium"  />
 
-            <EditText
-                android:id="@+id/editText5"
-                android:layout_width="match_parent"
+           <TextView
+                android:id="@+id/AcompBusto"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewBusto" />
 
             <TextView
                 android:id="@+id/textCintura"
@@ -90,24 +88,24 @@
                 android:text="@string/cintura" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText6"
-                android:layout_width="match_parent"
+           <TextView
+                android:id="@+id/AcompCintura"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewCintura" />
             
             <TextView
-                android:id="@+id/textQaudril"
+                android:id="@+id/textQuadril"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/quadril" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText7"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/AcompQuadril"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewQuadril" />
             
             <TextView
                 android:id="@+id/textOlhos"
@@ -116,11 +114,11 @@
                 android:text="@string/olhos" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText8"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/AcompOlhos"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewOlhos" />
             
             <TextView
                 android:id="@+id/textPernoite"
@@ -129,11 +127,11 @@
                 android:text="@string/pernoite" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText9"
-                android:layout_width="match_parent"
+           <TextView
+                android:id="@+id/AcompPernoite"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewPernoite" />
             
              <TextView
                 android:id="@+id/textEspecialidades"
@@ -142,11 +140,11 @@
                 android:text="@string/especialidade" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText9"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/AcompEspecialidades"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewEspecialidades" />
             
              <TextView
                 android:id="@+id/textHorarioAtent"
@@ -155,11 +153,11 @@
                 android:text="@string/horario_atent" 
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <EditText
-                android:id="@+id/editText9"
-                android:layout_width="match_parent"
+           <TextView
+                android:id="@+id/AcompHorarioAtent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10" />
+                android:text="TextViewHorarioAtent" />
 
         </LinearLayout>
     </ScrollView>

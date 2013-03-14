@@ -1,5 +1,8 @@
 package mete_service.model;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +12,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import br.edu.unibratec.Proxenetarecife.ListaMeninasActivity;
-import br.edu.unibratec.Proxenetarecife.Meninas;
-import br.edu.unibratec.Proxenetarecife.MeninasAdapter;
-import br.edu.unibratec.Proxenetarecife.MeninasList;
 
 import com.example.meeting_service.R;
 
@@ -33,6 +31,8 @@ public class ListarAcompanhanteActivity extends ListActivity{
 	
 	setContentView(R.layout.lista_acomp);
 	}
+	
+	
 	class AcompanhanteAsyncTask extends AsyncTask<Void, Void, AcompanhanteList> {
 
 		ProgressDialog dialog;
@@ -63,6 +63,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					Acompanhante a = new Acompanhante();
 					
 					a.setNome(objeto.getString("nome"));
+					// pegar idade foto e status
 				
 
 					acompList.getResults().add(a);
@@ -78,11 +79,22 @@ public class ListarAcompanhanteActivity extends ListActivity{
 			super.onPostExecute(result);
 			dialog.dismiss();
 			if (result != null) {
-				setListAdapter(new MeninasAdapter(ListarAcompanhanteActivity.this,
+				setListAdapter(new Acomp_Adapter(ListarAcompanhanteActivity.this,
 						result.getResults()));
 
 			}
 		}
+		
+		private String toString(InputStream is) throws IOException {
+
+			byte[] bytes = new byte[1024];
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			int lidos;
+			while ((lidos = is.read(bytes)) > 0) {
+				baos.write(bytes, 0, lidos);
+			}
+			return new String(baos.toByteArray());
+		}	
 			
 	}
 

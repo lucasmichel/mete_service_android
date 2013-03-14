@@ -9,6 +9,7 @@ public class Acompanhante extends Activity {
 	private int id, idade;
 	private String nome, altura,busto ,cintura, quadril, olhos, pernoite, atendo;
 	private String especialidade, horario_atentimento,peso;
+	private String status;
 	//FOTO PARA TESTE NO LAYOUT
 	private String foto;
 	
