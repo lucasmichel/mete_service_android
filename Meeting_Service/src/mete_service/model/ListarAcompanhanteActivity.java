@@ -28,7 +28,6 @@ public class ListarAcompanhanteActivity extends ListActivity{
 
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	
 	setContentView(R.layout.lista_acomp);
 	}
 	
