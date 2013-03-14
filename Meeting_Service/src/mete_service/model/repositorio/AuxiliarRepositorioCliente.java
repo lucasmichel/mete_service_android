@@ -2,8 +2,9 @@ package mete_service.model.repositorio;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-public class AuxiliarRepositorioCliente {
+public class AuxiliarRepositorioCliente extends SQLiteOpenHelper{
 
 	private static final String NOME_BANCO = "cliente";
 	private static final int VERSAO_DO_BANCO = 2;

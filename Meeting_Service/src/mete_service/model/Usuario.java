@@ -1,17 +1,19 @@
 package mete_service.model;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable{
 
 	private long id;
 	private String senha;
 	private String email;
 
-	public Usuario() {
+	public Usuario(String senha, String email) {
+		this(0, senha, email);
 
 	}
 
 	public Usuario(long id, String senha, String email) {
-		super();
 		this.id = id;
 		this.senha = senha;
 		this.email = email;

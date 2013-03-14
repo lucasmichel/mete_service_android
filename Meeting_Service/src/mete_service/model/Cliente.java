@@ -2,19 +2,21 @@ package mete_service.model;
 
 import java.io.Serializable;
 
-public class Cliente extends Usuario implements Serializable {
+public class Cliente extends Usuario {
 
 	private String nome;
 	private String cpf;
 	private String telefone;
 
-	public Cliente() {
-		super();
+	
+	public Cliente(long id, String senha, String email) {
+		super(id, senha, email);
+		// TODO Auto-generated constructor stub
 	}
 
-	public Cliente(long id, String senha, String email, String nome,
+	public Cliente(String senha, String email, String nome,
 			String cpf, String telefone) {
-		super(id, senha, email);
+		super( senha, email);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
