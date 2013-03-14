@@ -24,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="mete_service.model.CadastroAcompanhanteActivity"></activity>
+        <activity android:name="mete_service.model.TelaAcompanhanteActivity"></activity>
     </application>
 
 </manifest>

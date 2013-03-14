@@ -23,5 +23,8 @@
     <string name="senha">SENHA</string>
     <string name="avancar">Avançar</string>
     <string name="voltar">Voltar</string>
+    <string name="alterarstatus">Alterar Status de Atendimento</string>
+    <string name="sair">Sair</string>
+    <string name="editarperfil">Editar Perfil</string>
 
 </resources>
