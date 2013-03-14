@@ -11,10 +11,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class RepositorioCliente {
-	private AuxiliarCliente helper;
+	private AuxiliarRepositorioCliente helper;
 
 	public RepositorioCliente(Context ctx) {
-		helper = new AuxiliarCliente(ctx);
+		helper = new AuxiliarRepositorioCliente(ctx);
 	}
 
 	public void inserir(Cliente cliente) {
