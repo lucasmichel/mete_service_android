@@ -23,6 +23,7 @@ public class CadastroAcompanhanteActivity extends Activity
 	private EditText edtCinturaAcomp;
 	private EditText edtQuadrilAcomp;
 	private EditText edtOlhosAcomp;
+	private EditText edtPernoiteAcomp;
 	private EditText edtEspecialidadeAcomp;
 	private EditText edtHorarioAtentAcomp;
 
@@ -36,6 +37,26 @@ public class CadastroAcompanhanteActivity extends Activity
 		setContentView(R.layout.activity_cadastro_acompanhante);
 		
 		inicializar();
+		
+		//objacompanhante = (Acompanhante)getIntent().getSerializableExtra("acompanhanteLogado");
+		
+		boolean emEdicao = objacompanhante != null;
+		
+		if(emEdicao){
+		
+		edtNomeAcomp.setText(objacompanhante.getNome());
+		edtIdadeAcomp.setText(objacompanhante.getIdade());
+		edtAlturaAcomp.setText(objacompanhante.getAltura());
+		edtPesoAcomp.setText(objacompanhante.getPeso());
+		edtBustoAcomp.setText(objacompanhante.getBusto());
+		edtCinturaAcomp.setText(objacompanhante.getCintura());
+		edtQuadrilAcomp.setText(objacompanhante.getQuadril());
+		edtOlhosAcomp.setText(objacompanhante.getOlhos());
+		edtPernoiteAcomp.setText(objacompanhante.getPernoite());
+		edtEspecialidadeAcomp.setText(objacompanhante.getEspecialidade());
+		edtHorarioAtentAcomp.setText(objacompanhante.getHorario_atentimento());
+			
+		}
 	}
 	
 	
@@ -48,6 +69,7 @@ public class CadastroAcompanhanteActivity extends Activity
 		edtCinturaAcomp = (EditText)findViewById(R.id.AcompCintura);
 		edtQuadrilAcomp = (EditText)findViewById(R.id.AcompQuadril);
 		edtOlhosAcomp = (EditText)findViewById(R.id.AcompOlhos);
+		edtPernoiteAcomp= (EditText)findViewById(R.id.AcompPernoite);
 		edtEspecialidadeAcomp = (EditText)findViewById(R.id.AcompEspecialidades);
 		edtHorarioAtentAcomp = (EditText)findViewById(R.id.AcompHorarioAtent);
 		
