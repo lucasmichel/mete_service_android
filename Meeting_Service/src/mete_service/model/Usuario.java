@@ -3,7 +3,6 @@ package mete_service.model;
 public class Usuario {
 
 	private int id;
-	private String login;
 	private String senha;
 	private String email;
 
@@ -11,10 +10,9 @@ public class Usuario {
 
 	}
 
-	public Usuario(int id, String login, String senha, String email) {
+	public Usuario(int id, String senha, String email) {
 		super();
 		this.id = id;
-		this.login = login;
 		this.senha = senha;
 		this.email = email;
 	}
@@ -25,14 +23,6 @@ public class Usuario {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	public String getSenha() {

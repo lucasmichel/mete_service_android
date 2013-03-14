@@ -16,7 +16,12 @@
     <string name="especialidade">Especialidade</string>
     <string name="pernoite">Pernoite</string>
     <string name="horario_atent">Horario de Atendimento</string>
-    
-    
+    <string name="cpf">CPF</string>
+    <string name="telefone">Telefone</string>
+    <string name="email">Email</string>
+    <string name="login">LOGIN</string>
+    <string name="senha">SENHA</string>
+    <string name="avancar">Avançar</string>
+    <string name="voltar">Voltar</string>
 
 </resources>
