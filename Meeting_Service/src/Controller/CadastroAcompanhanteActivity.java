@@ -1,6 +1,8 @@
-package mete_service.model;
+package Controller;
 
 
+
+import mete_service.model.Acompanhante;
 
 import com.example.meeting_service.R;
 
