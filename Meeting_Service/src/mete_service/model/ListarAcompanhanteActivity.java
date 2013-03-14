@@ -65,7 +65,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					a.setNome(objeto.getString("nome"));
 					a.setIdade(objeto.getInt("idade"));
 					a.setEspecialidade(objeto.getString("especilidades"));
-					
+					a.setStatus(objeto.getString("status"));
 					
 					// pegar idade foto e status
 				

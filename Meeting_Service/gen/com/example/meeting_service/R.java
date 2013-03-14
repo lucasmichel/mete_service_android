@@ -64,8 +64,8 @@ public final class R {
         public static final int edtNomeCliente=0x7f08001f;
         public static final int edtSenhaCliente=0x7f080027;
         public static final int edtTelefoneCliente=0x7f080023;
-        public static final int imageFoto=0x7f080041;
         public static final int imageStatus=0x7f080042;
+        public static final int imgFoto=0x7f080041;
         public static final int listView1=0x7f080043;
         public static final int scrollView1=0x7f080003;
         public static final int textAltura=0x7f08002f;
