@@ -1,6 +1,8 @@
 package mete_service.model;
 
-public class Cliente extends Usuario {
+import java.io.Serializable;
+
+public class Cliente extends Usuario implements Serializable {
 
 	private String nome;
 	private String cpf;
@@ -8,12 +10,14 @@ public class Cliente extends Usuario {
 
 	public Cliente() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Cliente(int id, String senha, String email) {
+	public Cliente(long id, String senha, String email, String nome,
+			String cpf, String telefone) {
 		super(id, senha, email);
-		// TODO Auto-generated constructor stub
+		this.nome = nome;
+		this.cpf = cpf;
+		this.telefone = telefone;
 	}
 
 	public String getNome() {

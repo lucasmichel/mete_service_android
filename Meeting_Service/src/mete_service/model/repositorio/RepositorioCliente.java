@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class RepositorioCliente {
+
 	private AuxiliarRepositorioCliente helper;
 
 	public RepositorioCliente(Context ctx) {
@@ -20,49 +21,53 @@ public class RepositorioCliente {
 	public void inserir(Cliente cliente) {
 		SQLiteDatabase db = helper.getWritableDatabase();
 
-		db.insert("car", null, obterParametros(cliente));
+		db.insert("meteservice", null, obterParametros(cliente));
 
 		db.close();
 	}
 
-	public void alterar(Car c) {
+	public void alterar(Cliente cliente) {
 		SQLiteDatabase db = helper.getWritableDatabase();
 
-		db.update("car", obterParametros(c), "_id=" + c.getId(), null);
+		db.update("meteservice", obterParametros(cliente), "_id=" + cliente.getId(), null);
 
 		db.close();
 	}
 
-	public void excluir(Car c) {
+	public void excluir(Cliente cliente) {
 		SQLiteDatabase db = helper.getWritableDatabase();
 
-		db.delete("car", "_id=" + c.getId(), null);
+		db.delete("meteservice", "_id=" + cliente.getId(), null);
 
 		db.close();
 	}
 
-	private ContentValues obterParametros(Car c) {
+	private ContentValues obterParametros(Cliente cliente) {
 		ContentValues parametros = new ContentValues();
-		parametros.put("nome", c.getNome());
-		parametros.put("ano", c.getAno());
-		parametros.put("placa", c.getPlaca());
+		parametros.put("nome", cliente.getNome());
+		parametros.put("cpf", cliente.getCpf());
+		parametros.put("email", cliente.getEmail());
+		parametros.put("telefone", cliente.getTelefone());
+		parametros.put("senha", cliente.getSenha());
+
 		return parametros;
 	}
 
-	public List<Car> listar() {
-		List<Car> lista = new ArrayList<Car>();
+	public List<Cliente> listar() {
+		List<Cliente> lista = new ArrayList<Cliente>();
 
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("select * from car order by nome", null);
+		Cursor cursor = db.rawQuery("select * from meteservice order by nome", null);
 
 		while (cursor.moveToNext()) {
 			long id = cursor.getLong(0);
 			String nome = cursor.getString(1);
-			String placa = cursor.getString(cursor.getColumnIndex("placa"));
-			String ano = cursor.getString(cursor.getColumnIndex("ano"));
-
-			Car c = new Car(id, nome, placa, ano);
-			lista.add(c);
+			String cpf = cursor.getString(cursor.getColumnIndex("cpf"));
+			String telefone = cursor.getString(cursor.getColumnIndex("telefone"));
+			String email = cursor.getString(cursor.getColumnIndex("email"));			
+			String senha = cursor.getString(cursor.getColumnIndex("senha"));
+			Cliente cliente = new Cliente(id, nome, cpf,telefone, email, senha);
+			lista.add(cliente);
 		}
 		cursor.close();
 		db.close();
