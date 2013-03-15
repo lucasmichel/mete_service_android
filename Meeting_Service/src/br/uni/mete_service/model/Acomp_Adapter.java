@@ -3,9 +3,9 @@ package br.uni.mete_service.model;
 import java.util.List;
 
 
+import br.uni.meeting_service.R;
 import br.uni.mete_service.util.BitmapManager;
 
-import com.example.meeting_service.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

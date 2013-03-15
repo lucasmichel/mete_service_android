@@ -1,7 +1,7 @@
 package br.uni.mete_service.Controller;
 
-import com.example.meeting_service.R;
 
+import br.uni.meeting_service.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;

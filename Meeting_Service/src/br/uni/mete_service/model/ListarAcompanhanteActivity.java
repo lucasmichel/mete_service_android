@@ -13,7 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.example.meeting_service.R;
+import br.uni.meeting_service.R;
+
 
 
 import android.app.Activity;

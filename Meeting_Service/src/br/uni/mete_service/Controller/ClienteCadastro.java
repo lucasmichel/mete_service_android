@@ -2,10 +2,10 @@ package br.uni.mete_service.Controller;
 
 
 
+import br.uni.meeting_service.R;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.repositorio.RepositorioCliente;
 
-import com.example.meeting_service.R;
 
 import android.app.Activity;
 import android.content.Intent;
