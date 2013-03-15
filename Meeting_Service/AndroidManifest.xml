@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Controller.CadastroAcompanhanteActivity"></activity>
+        <activity android:name="Controller.AcompanhanteCadastroActivity"></activity>
         <activity android:name="Controller.TelaAcompanhanteActivity"></activity>
     </application>
 

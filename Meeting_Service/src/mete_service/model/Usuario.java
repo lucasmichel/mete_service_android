@@ -7,16 +7,16 @@ public class Usuario implements Serializable{
 	private long id;
 	private String senha;
 	private String email;
+	private int tipo;// definir se é cliente ou acompanhante
 
-	public Usuario(String senha, String email) {
-		this(0, senha, email);
+	
+	public Usuario() {	}
 
-	}
-
-	public Usuario(long id, String senha, String email) {
+	public Usuario(long id, String senha, String email, int tipo) {
 		this.id = id;
 		this.senha = senha;
 		this.email = email;
+		this.tipo = tipo;
 	}
 
 	public long getId() {
@@ -25,6 +25,14 @@ public class Usuario implements Serializable{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getSenha() {

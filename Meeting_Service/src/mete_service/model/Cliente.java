@@ -8,15 +8,11 @@ public class Cliente extends Usuario {
 	private String cpf;
 	private String telefone;
 
-	
-	public Cliente(long id, String senha, String email) {
-		super(id, senha, email);
-		// TODO Auto-generated constructor stub
-	}
+	public Cliente() {	}
 
-	public Cliente(String senha, String email, String nome,
+	public Cliente(long id, String senha, String email, int tipo, String nome,
 			String cpf, String telefone) {
-		super( senha, email);
+		super(id, senha, email, tipo);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;

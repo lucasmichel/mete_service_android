@@ -3,7 +3,6 @@ package Controller;
 import mete_service.model.Cliente;
 import mete_service.model.repositorio.RepositorioCliente;
 
-
 import com.example.meeting_service.R;
 
 import android.app.Activity;
@@ -15,7 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ClienteCadastro extends Activity implements OnClickListener {
+public class ClienteCadastroActivity extends Activity implements
+		OnClickListener {
 
 	private RepositorioCliente rep;
 	private Cliente cliente;
@@ -64,11 +64,13 @@ public class ClienteCadastro extends Activity implements OnClickListener {
 				setResult(RESULT_OK);
 
 			} else {
-				Cliente c = new Cliente(this.CCnome.getText().toString(),
-										this.CCcpf.getText().toString(), 
-										this.CCtelefone.getText().toString(), 
-										this.CCemail.getText().toString(), 
-										this.CCsenha.getText().toString());
+				Cliente c = new Cliente();
+				c.setNome(this.CCnome.getText().toString());
+				c.setCpf(this.CCcpf.getText().toString());
+				c.setTipo(1);
+				c.setTelefone(this.CCtelefone.getText().toString());
+				c.setEmail(this.CCemail.getText().toString());
+				c.setSenha(this.CCsenha.getText().toString());
 				rep.inserir(c);
 				Intent it = new Intent();
 				it.putExtra("cliente", c);

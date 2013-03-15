@@ -54,25 +54,4 @@ public class RepositorioCliente {
 		return parametros;
 	}
 
-	public List<Cliente> listar() {
-		List<Cliente> lista = new ArrayList<Cliente>();
-
-		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("select * from meteservice order by nome",
-				null);
-
-		while (cursor.moveToNext()) {
-			long id = cursor.getLong(0);
-			String nome = cursor.getString(1);
-			String cpf = cursor.getString(cursor.getColumnIndex("cpf"));
-			String telefone = cursor.getString(cursor.getColumnIndex("telefone"));
-			String email = cursor.getString(cursor.getColumnIndex("email"));
-			String senha = cursor.getString(cursor.getColumnIndex("senha"));
-			Cliente cliente = new Cliente(nome, cpf, telefone, email, senha);
-			lista.add(cliente);
-		}
-		cursor.close();
-		db.close();
-		return lista;
-	}
 }
