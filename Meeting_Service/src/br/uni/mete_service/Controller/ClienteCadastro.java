@@ -1,7 +1,5 @@
 package br.uni.mete_service.Controller;
 
-
-
 import br.uni.meeting_service.R;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.repositorio.RepositorioCliente;
@@ -65,11 +63,13 @@ public class ClienteCadastro extends Activity implements OnClickListener {
 				setResult(RESULT_OK);
 
 			} else {
-				Cliente c = new Cliente(this.CCnome.getText().toString(),
-										this.CCcpf.getText().toString(), 
-										this.CCtelefone.getText().toString(), 
-										this.CCemail.getText().toString(), 
-										this.CCsenha.getText().toString());
+				Cliente c = new Cliente();
+				c.setNome(this.CCnome.getText().toString());
+				c.setCpf(this.CCcpf.getText().toString());
+				c.setTelefone(this.CCtelefone.getText().toString());
+				c.setEmail(this.CCemail.getText().toString());
+				c.setSenha(this.CCsenha.getText().toString());
+				c.setTipo(1);
 				rep.inserir(c);
 				Intent it = new Intent();
 				it.putExtra("cliente", c);
