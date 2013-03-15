@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ClienteCadastro extends Activity implements OnClickListener {
+public class CadastroClienteActivity extends Activity implements OnClickListener {
 
 	private RepositorioCliente rep;
 	private Cliente cliente;
