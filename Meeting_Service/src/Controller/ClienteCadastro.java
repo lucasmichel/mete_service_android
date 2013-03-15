@@ -1,5 +1,6 @@
-package mete_service.model;
+package Controller;
 
+import mete_service.model.Cliente;
 import mete_service.model.repositorio.RepositorioCliente;
 
 
