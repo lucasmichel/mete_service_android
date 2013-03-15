@@ -3,7 +3,7 @@ package br.uni.mete_service.model;
 import java.util.List;
 
 
-import br.uni.meeting_service.R;
+import br.uni.mete_service.R;
 import br.uni.mete_service.util.BitmapManager;
 
 import android.content.Context;

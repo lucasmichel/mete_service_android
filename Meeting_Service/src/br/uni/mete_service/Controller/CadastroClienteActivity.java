@@ -1,6 +1,6 @@
 package br.uni.mete_service.Controller;
 
-import br.uni.meeting_service.R;
+import br.uni.mete_service.R;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.repositorio.RepositorioCliente;
 

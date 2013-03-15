@@ -13,7 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.uni.meeting_service.R;
+import br.uni.mete_service.R;
 import br.uni.mete_service.model.Acompanhante;
 import br.uni.mete_service.model.AcompanhanteAdapter;
 import br.uni.mete_service.model.AcompanhanteList;
@@ -53,7 +53,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 			HttpClient cliente = new DefaultHttpClient();
 			
 			HttpGet get = new HttpGet(
-					/*link do listar*/);
+					"https://dl-web.dropbox.com/get/jsonn/js.json.json?w=AADIBfcKaTBR9Gj3CiJbykJRdAkmJvwzXOri7NjyKysZsw");
 			AcompanhanteList acompList = new AcompanhanteList();
 			try {
 				HttpResponse resposta = cliente.execute(get);
