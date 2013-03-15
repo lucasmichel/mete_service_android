@@ -25,14 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Controller.AcompanhanteCadastroActivity" >
-        </activity>
-        <activity android:name="Controller.TelaAcompanhanteActivity" >
-        </activity>
-        <activity android:name="br.uni.mete_service.Controller.CadastroAcompanhanteActivity" >
+        <activity android:name="br.uni.mete_service.Controller.AcompanhanteCadastroActivity" >
         </activity>
         <activity android:name="br.uni.mete_service.Controller.TelaAcompanhanteActivity" >
         </activity>
-    </application>
+        <activity android:name="br.uni.mete_service.Controller.CadastroAcompanhanteActivity" >
+        </activity>
+            </application>
 
 </manifest>

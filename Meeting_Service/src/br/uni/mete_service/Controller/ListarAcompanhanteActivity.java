@@ -25,14 +25,18 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 public class ListarAcompanhanteActivity extends ListActivity{
 
 	AcompanhanteAdapter acomp_adapter;
+	
 
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.lista_acomp);
+	new AcompanhanteAsyncTask().execute();
+//	setContentView(R.layout.lista_acomp);
+	
 	}
 	
 	
@@ -65,14 +69,15 @@ public class ListarAcompanhanteActivity extends ListActivity{
 
 					Acompanhante a = new Acompanhante();
 					
-					a.setId(objeto.getInt("id"));
+//					a.setId(objeto.getInt("id"));
 					a.setNome(objeto.getString("nome"));
 					a.setIdade(objeto.getInt("idade"));
 					a.setEspecialidade(objeto.getString("especilidades"));
 					a.setStatus(objeto.getString("status"));
 					
 					// pegar idade foto e status
-				
+					Log.i("NGVL",   
+						       "id="+ objeto.getString("nome"));
 
 					acompList.getResults().add(a);
 				}

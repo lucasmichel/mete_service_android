@@ -38,7 +38,7 @@ public class AcompanhanteAdapter extends ArrayAdapter<Acompanhante> {
 		convertView = LayoutInflater.from(getContext()).inflate(
 				R.layout.linha_acomp,null);
 		
-		ImageView imgFoto = (ImageView) convertView.findViewById(R.id.imgFoto);
+//		ImageView imgFoto = (ImageView) convertView.findViewById(R.id.imgFoto);
 		TextView txtNome = (TextView) convertView.findViewById(R.id.textNome);
 		TextView txtidade = (TextView) convertView.findViewById(R.id.textIdade);
 		ImageView imgStatus = (ImageView) convertView
@@ -53,7 +53,7 @@ public class AcompanhanteAdapter extends ArrayAdapter<Acompanhante> {
 			imgStatus.setImageResource(R.drawable.livre);
 		}
 
-		BitmapManager.getInstance().loadBitmap(acomp.getFoto(), imgFoto);
+//		BitmapManager.getInstance().loadBitmap(acomp.getFoto(), imgFoto);
 		
 		
 		
