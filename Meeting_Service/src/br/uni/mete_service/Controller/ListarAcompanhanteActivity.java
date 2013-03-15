@@ -1,4 +1,4 @@
-package br.uni.mete_service.model;
+package br.uni.mete_service.Controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,6 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.uni.meeting_service.R;
+import br.uni.mete_service.model.Acompanhante;
+import br.uni.mete_service.model.AcompanhanteAdapter;
+import br.uni.mete_service.model.AcompanhanteList;
 
 
 
