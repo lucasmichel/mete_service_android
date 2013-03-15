@@ -1,8 +1,9 @@
-package Controller;
+package br.uni.mete_service.Controller;
 
 
 
-import mete_service.model.Acompanhante;
+
+import br.uni.mete_service.model.Acompanhante;
 
 import com.example.meeting_service.R;
 

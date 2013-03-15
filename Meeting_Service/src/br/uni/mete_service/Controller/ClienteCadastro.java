@@ -1,8 +1,9 @@
-package Controller;
+package br.uni.mete_service.Controller;
 
-import mete_service.model.Cliente;
-import mete_service.model.repositorio.RepositorioCliente;
 
+
+import br.uni.mete_service.model.Cliente;
+import br.uni.mete_service.model.repositorio.RepositorioCliente;
 
 import com.example.meeting_service.R;
 

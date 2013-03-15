@@ -1,4 +1,4 @@
-package Controller;
+package br.uni.mete_service.Controller;
 
 import com.example.meeting_service.R;
 

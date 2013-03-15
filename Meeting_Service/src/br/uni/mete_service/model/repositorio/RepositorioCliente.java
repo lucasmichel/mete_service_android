@@ -1,9 +1,10 @@
-package mete_service.model.repositorio;
+package br.uni.mete_service.model.repositorio;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mete_service.model.Cliente;
+import br.uni.mete_service.model.Cliente;
+
 
 import android.content.ContentValues;
 import android.content.Context;

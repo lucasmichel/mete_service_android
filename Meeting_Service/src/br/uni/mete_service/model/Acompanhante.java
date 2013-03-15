@@ -1,4 +1,4 @@
-package mete_service.model;
+package br.uni.mete_service.model;
 
 import android.os.Bundle;
 import android.app.Activity;

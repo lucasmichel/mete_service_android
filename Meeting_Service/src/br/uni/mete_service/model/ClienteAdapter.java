@@ -1,4 +1,4 @@
-package mete_service.model;
+package br.uni.mete_service.model;
 import java.util.List;
 import android.content.Context;
 import android.view.View;

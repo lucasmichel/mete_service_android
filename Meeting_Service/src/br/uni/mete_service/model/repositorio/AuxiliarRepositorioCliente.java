@@ -1,4 +1,4 @@
-package mete_service.model.repositorio;
+package br.uni.mete_service.model.repositorio;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

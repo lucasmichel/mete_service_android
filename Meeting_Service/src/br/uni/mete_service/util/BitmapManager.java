@@ -1,4 +1,4 @@
-package mete_service.util;
+package br.uni.mete_service.util;
 
 import java.io.IOException;
 import java.io.InputStream;

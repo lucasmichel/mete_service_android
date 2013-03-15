@@ -1,4 +1,4 @@
-package mete_service.model;
+package br.uni.mete_service.model;
 
 import java.util.ArrayList;
 import java.util.List;
