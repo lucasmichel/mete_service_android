@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.uni.mete_service.R;
@@ -40,7 +41,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 	}
 	
 	
-	class AcompanhanteAsyncTask extends AsyncTask<Void, Void, AcompanhanteList> {
+	 class AcompanhanteAsyncTask extends AsyncTask<String, Void, AcompanhanteList> {
 
 		ProgressDialog dialog;
 		
@@ -50,16 +51,19 @@ public class ListarAcompanhanteActivity extends ListActivity{
 			super.onPreExecute();
 			dialog = ProgressDialog.show(ListarAcompanhanteActivity.this, "Relaxe",
 					"Caregando Lista", true, false);
+			
 		}
 		
-		@Override
-		protected AcompanhanteList doInBackground(Void... params) {
+		protected AcompanhanteList doInBackground(String... params) {
 			HttpClient cliente = new DefaultHttpClient();
 			
 			HttpGet get = new HttpGet(
-					"https://dl-web.dropbox.com/get/jsonn/js.json.json?w=AADIBfcKaTBR9Gj3CiJbykJRdAkmJvwzXOri7NjyKysZsw");
+					"https://dl-web.dropbox.com/get/js.json?w=AAAEEtGh-m2H3VaGG4PFiOwy0l9_B79caOs-5iWSaLDl_A");
+			
 			AcompanhanteList acompList = new AcompanhanteList();
+			
 			try {
+				
 				HttpResponse resposta = cliente.execute(get);
 
 				JSONArray jsonAray = new JSONArray(toString(resposta
@@ -69,7 +73,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 
 					Acompanhante a = new Acompanhante();
 					
-//					a.setId(objeto.getInt("id"));
+					a.setId(objeto.getInt("id"));
 					a.setNome(objeto.getString("nome"));
 					a.setIdade(objeto.getInt("idade"));
 					a.setEspecialidade(objeto.getString("especilidades"));
@@ -84,7 +88,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+				Log.i("pedro","O erro foi:  " + e);			}
 			return acompList;
 		}
 		
@@ -98,6 +102,8 @@ public class ListarAcompanhanteActivity extends ListActivity{
 			}
 		}
 		
+		
+				
 		private String toString(InputStream is) throws IOException {
 
 			byte[] bytes = new byte[1024];
@@ -107,7 +113,8 @@ public class ListarAcompanhanteActivity extends ListActivity{
 				baos.write(bytes, 0, lidos);
 			}
 			return new String(baos.toByteArray());
-		}	
+		}
+
 			
 	}
 
