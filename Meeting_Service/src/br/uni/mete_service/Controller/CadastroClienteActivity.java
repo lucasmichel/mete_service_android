@@ -1,5 +1,6 @@
 package br.uni.mete_service.Controller;
 
+
 import br.uni.mete_service.R;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.repositorio.RepositorioCliente;
@@ -8,6 +9,7 @@ import br.uni.mete_service.model.repositorio.RepositorioCliente;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 
 public class CadastroClienteActivity extends Activity implements OnClickListener {
 
-	private RepositorioCliente rep;
+	private ClienteController controler;
 	private Cliente cliente;
 	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha;
 	private Button CCavancar, CCvoltar;
@@ -36,9 +38,8 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
-		// Log.i("teste",
-		// getIntent().getExtras().getString("sexo_1").toString());
-		rep = new RepositorioCliente(this);
+		//Log.i("teste", getIntent().getExtras().getString("nome").toString());
+		//rep = new RepositorioCliente(this);
 
 		if (getIntent().getSerializableExtra("cliente") != null) {
 			cliente = (Cliente) getIntent().getSerializableExtra("cliente");
@@ -59,7 +60,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 				cliente.setTelefone(this.CCtelefone.getText().toString());
 				cliente.setEmail(this.CCemail.getText().toString());
 				cliente.setSenha(this.CCsenha.getText().toString());
-				rep.alterar(cliente);
+				controler.alterarCliente(cliente);
 				setResult(RESULT_OK);
 
 			} else {
@@ -70,9 +71,8 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 				c.setEmail(this.CCemail.getText().toString());
 				c.setSenha(this.CCsenha.getText().toString());
 				c.setTipo(1);
-				rep.inserir(c);
-				Intent it = new Intent();
-				it.putExtra("cliente", c);
+				controler.inserirCliente(c);
+				Intent it = new Intent(this, HomeActivity.class);
 				setResult(RESULT_OK, it);
 			}
 			finish();

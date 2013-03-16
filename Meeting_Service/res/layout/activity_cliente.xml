@@ -2,16 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:gravity="end"
+    android:orientation="horizontal" >
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="end"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -88,6 +91,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="top"
                 android:orientation="vertical" >
 
@@ -105,28 +109,21 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="144dp"
-                android:gravity="center|center_horizontal|end"
-                android:orientation="vertical" >
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="132dp"
-                android:gravity="end"
+                android:layout_width="fill_parent"
+                android:layout_height="199dp"
+                android:gravity="bottom"
                 android:orientation="horizontal" >
 
                 <Button
                     android:id="@+id/btnVoltar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.21"
+                    android:layout_weight="1"
                     android:text="@string/voltar" />
 
                 <Button
                     android:id="@+id/btnAvancar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/avancar" />
