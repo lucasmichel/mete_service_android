@@ -124,7 +124,7 @@ public class Acompanhante extends Activity {
 		this.foto = foto;
 	}
 	public Acompanhante() {
-		super();
+		
 	}
 	
 

@@ -1,4 +1,4 @@
-package br.uni.mete_service.Controller;
+package br.uni.mete_service.Controller.Acompanhante;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

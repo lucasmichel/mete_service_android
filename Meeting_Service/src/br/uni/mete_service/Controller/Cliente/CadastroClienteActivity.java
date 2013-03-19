@@ -1,10 +1,10 @@
-package br.uni.mete_service.Controller;
-
+package br.uni.mete_service.Controller.Cliente;
 
 import br.uni.mete_service.R;
+import br.uni.mete_service.Controller.HomeActivity;
 import br.uni.mete_service.model.Cliente;
+import br.uni.mete_service.model.repositorio.ClienteController;
 import br.uni.mete_service.model.repositorio.RepositorioCliente;
-
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class CadastroClienteActivity extends Activity implements OnClickListener {
+public class CadastroClienteActivity extends Activity implements
+		OnClickListener {
 
 	private ClienteController controler;
 	private Cliente cliente;
@@ -38,14 +39,20 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
-		//Log.i("teste", getIntent().getExtras().getString("nome").toString());
-		//rep = new RepositorioCliente(this);
+		// rep = new RepositorioCliente(this);
+		cliente = new Cliente(1, "Tiago", "030123433876", 1, "87290729","gomes.tg@hotmail.com", "123456");
+		inicializacaoVerificacao();
+
+	}
+
+	private void inicializacaoVerificacao() {
 
 		if (getIntent().getSerializableExtra("cliente") != null) {
 			cliente = (Cliente) getIntent().getSerializableExtra("cliente");
 			this.CCnome.setText(cliente.getNome());
 			this.CCcpf.setText(cliente.getCpf());
 			this.CCtelefone.setText(cliente.getTelefone());
+			this.CCemail.setText(cliente.getEmail());
 			this.CCsenha.setText(cliente.getSenha());
 			atualizar = true;
 		}

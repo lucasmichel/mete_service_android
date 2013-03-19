@@ -1,4 +1,4 @@
-package br.uni.mete_service.Controller;
+package br.uni.mete_service.util;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package br.uni.mete_service.Controller;
+package br.uni.mete_service.model.repositorio.Cliente;
 
 import java.text.ParseException;
 import java.util.ArrayList;

@@ -108,13 +108,12 @@ public final class R {
         public static final int acitivity_tela_acompanhante=0x7f030000;
         public static final int activity_cadastro_acompanhante=0x7f030001;
         public static final int activity_cliente=0x7f030002;
-        public static final int activity_dialog=0x7f030003;
-        public static final int activity_login=0x7f030004;
-        public static final int activity_main=0x7f030005;
-        public static final int activity_teste=0x7f030006;
-        public static final int detalhes_acomp=0x7f030007;
-        public static final int linha_acomp=0x7f030008;
-        public static final int lista_acomp=0x7f030009;
+        public static final int activity_login=0x7f030003;
+        public static final int activity_main=0x7f030004;
+        public static final int activity_teste=0x7f030005;
+        public static final int detalhes_acomp=0x7f030006;
+        public static final int linha_acomp=0x7f030007;
+        public static final int lista_acomp=0x7f030008;
     }
     public static final class menu {
         public static final int homemenu=0x7f070000;

@@ -1,4 +1,4 @@
-package br.uni.mete_service.Controller;
+package br.uni.mete_service.model.repositorio;
 
 import org.json.JSONObject;
 
@@ -15,8 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.Base64;
+import android.util.Base64InputStream;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.Usuario;
+import br.uni.mete_service.model.repositorio.Cliente.ClienteParser;
+import br.uni.mete_service.util.ConversorGson;
 
 public class ClienteController {
 
@@ -48,8 +52,6 @@ public class ClienteController {
 		return cliLogged;
 	}
 
-	
-
 	public synchronized String inserirCliente(Cliente cli) {
 
 		try {
@@ -68,7 +70,8 @@ public class ClienteController {
 			os.write(gson.toJson(cli).getBytes());
 			os.flush();
 			InputStream is = conexao.getInputStream();
-			return HttpCliente.toString(is);
+
+			return ConversorGson.toString(is);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,7 +97,7 @@ public class ClienteController {
 			os.write(gson.toJson(cli).getBytes());
 			os.flush();
 			InputStream is = conexao.getInputStream();
-			return HttpCliente.toString(is);
+			return ConversorGson.toString(is);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,7 +123,7 @@ public class ClienteController {
 			os.write(gson.toJson(cli).getBytes());
 			os.flush();
 			InputStream is = conexao.getInputStream();
-			return HttpCliente.toString(is);
+			return ConversorGson.toString(is);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,7 +134,7 @@ public class ClienteController {
 	public synchronized List<Cliente> getAllClientes() throws ParseException {
 		List<Cliente> listAllUsuarios = null;
 
-		String result = HttpCliente.getRESTFileContent(urlGetAllCliente);
+		String result = ConversorGson.getRESTFileContent(urlGetAllCliente);
 
 		if (result != null) {
 			listAllUsuarios = clienteParser.lerTodosClientes(result);

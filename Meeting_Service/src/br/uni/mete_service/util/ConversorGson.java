@@ -1,24 +1,16 @@
-package br.uni.mete_service.Controller;
+package br.uni.mete_service.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import br.uni.mete_service.model.Usuario;
-
-import android.util.Log;
-
-public class HttpCliente {
+public class ConversorGson {
 
 	public static String toString(InputStream is) throws IOException {
 
@@ -48,7 +40,6 @@ public class HttpCliente {
 			if (entity != null) {
 				InputStream instream = entity.getContent();
 				String result = toString(instream);
-
 				instream.close();
 				return result;
 			}
@@ -57,6 +48,5 @@ public class HttpCliente {
 		}
 		return null;
 	}
-
 
 }

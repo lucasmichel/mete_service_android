@@ -4,7 +4,10 @@ import java.util.Date;
 import java.util.Map;
 
 import br.uni.mete_service.R;
+import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.Cliente;
+import br.uni.mete_service.model.repositorio.ClienteController;
+import br.uni.mete_service.util.PreferencesController;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar.LayoutParams;
@@ -42,7 +45,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_login);
 		instantiateComponents();
 		// esta parte será retirada quando o web service estiver pronto
-		cliente = new Cliente(1, "Tiago", "030123433876", 1, "87290729","gomes.tg@hotmail.com", "123456");
+		//cliente = new Cliente(1, "Tiago", "030123433876", 1, "87290729","gomes.tg@hotmail.com", "123456");
 
 	}
 

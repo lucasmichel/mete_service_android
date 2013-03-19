@@ -1,9 +1,4 @@
-package br.uni.mete_service.Controller;
-
-
-
-
-
+package br.uni.mete_service.Controller.Acompanhante;
 
 import br.uni.mete_service.R;
 import br.uni.mete_service.model.Acompanhante;
