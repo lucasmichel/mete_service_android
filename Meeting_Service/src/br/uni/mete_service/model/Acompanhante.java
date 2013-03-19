@@ -2,24 +2,18 @@ package br.uni.mete_service.model;
 
 import java.io.Serializable;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
 
-public class Acompanhante implements Serializable {
 
-	private int id;
+public class Acompanhante extends Usuario implements Serializable{
+
 	private String nome,idade, altura,busto ,cintura, quadril, olhos, pernoite, atendo;
 	private String especialidade, horario_atentimento,peso;
 	private String status;
 	//FOTO PARA TESTE NO LAYOUT
 	private String foto;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
+	
+	
 	public String getIdade() {
 		return idade;
 	}
@@ -104,12 +98,12 @@ public class Acompanhante implements Serializable {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public Acompanhante(int id,String idade, String nome, String altura,
+	
+	public Acompanhante(String idade, String nome, String altura,
 			String busto, String cintura, String quadril, String olhos,
 			String pernoite, String atendo, String especialidade,
 			String horario_atentimento, String peso, String status, String foto) {
 		super();
-		this.id = id;
 		this.idade = idade;
 		this.nome = nome;
 		this.altura = altura;
@@ -125,9 +119,20 @@ public class Acompanhante implements Serializable {
 		this.status = status;
 		this.foto = foto;
 	}
-	public Acompanhante() {
+	
+	public Acompanhante(){
 		
 	}
+//	public Acompanhante(String idade, String nome, String altura, String busto,
+//			String cintura, String quadril, String olhos, String pernoite,
+//			String atendo, String especialidade, String horario_atentimento,
+//			String peso, String status, String foto) {
+//		this(0, idade, nome, altura ,busto, cintura, quadril, olhos, pernoite, atendo, especialidade, horario_atentimento,
+//				peso, status, foto);
+//	}
+//	
+	
+	
 	
 
 	

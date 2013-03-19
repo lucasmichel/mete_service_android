@@ -2,6 +2,7 @@ package br.uni.mete_service.Controller.Acompanhante;
 
 import br.uni.mete_service.R;
 import br.uni.mete_service.model.Acompanhante;
+import br.uni.mete_service.model.repositorio.acompanhante.RepositorioAcompanhante;
 
 
 import android.app.Activity;
@@ -76,6 +77,47 @@ public class CadastroAcompanhanteActivity extends Activity
 
 	public void salvarClick(View v)
 	{
+		String nome          = edtNomeAcomp.getText().toString();
+		String idade         = edtIdadeAcomp.getText().toString();
+		String peso          = edtPesoAcomp.getText().toString();
+		String busto         = edtBustoAcomp.getText().toString();
+		String altura        = edtAlturaAcomp.getText().toString();
+		String cintura       = edtCinturaAcomp.getText().toString();
+		String quadril       = edtQuadrilAcomp.getText().toString();
+		String olhos         = edtOlhosAcomp.getText().toString();
+		String pernoite      = edtPernoiteAcomp.getText().toString();
+		String especialidade = edtEspecialidadeAcomp.getText().toString();
+		String horarioatent  = edtHorarioAtentAcomp.getText().toString();
+		String atendo = "Disponível";
+		String status = "Disponível";
+		String foto = "url";
+		
+		RepositorioAcompanhante repo = new RepositorioAcompanhante();
+		
+		if (objacompanhante == null){
+			objacompanhante = new Acompanhante(idade, nome, peso, busto, altura, cintura, quadril, olhos
+					, pernoite, especialidade, horarioatent, atendo, status, foto);
+			repo.inserirAcompanhante(objacompanhante);
+//			Toast.makeText(this, "Vaga criada com sucesso!", Toast.LENGTH_LONG).show();
+		} else {
+			objacompanhante.setNome(nome);
+			objacompanhante.setIdade(idade);
+			objacompanhante.setPeso(peso);
+			objacompanhante.setBusto(busto);
+			objacompanhante.setAltura(altura);
+			objacompanhante.setNome(cintura);
+			objacompanhante.setNome(quadril);
+			objacompanhante.setNome(olhos);
+			objacompanhante.setNome(pernoite);
+			objacompanhante.setNome(especialidade);
+			objacompanhante.setNome(horarioatent);
+			objacompanhante.setAtendo(atendo);
+			objacompanhante.setStatus(status);
+			
+			
+			repo.alterarAcompanhante(objacompanhante);
+			//Toast.makeText(this, "Vaga Alterada com sucesso!", Toast.LENGTH_LONG).show();
+		}
 		
 	}
 	
