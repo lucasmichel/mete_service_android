@@ -81,6 +81,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					m.setIdade(objeto.getString("idade"));
 					m.setStatus(objeto.getString("status"));
 					m.setBusto(objeto.getString("busto"));
+					m.setAltura(objeto.getString("altura"));
 
 					acompanhanteList.getResults().add(m);
 

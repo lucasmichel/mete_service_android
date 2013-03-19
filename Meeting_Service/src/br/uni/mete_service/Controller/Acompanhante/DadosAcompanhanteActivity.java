@@ -63,7 +63,7 @@ class informacaoMeninasAsyncTask extends AsyncTask<Void, Void, Acompanhante> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 		dialog = ProgressDialog.show(DadosAcompanhanteActivity.this, "Aguarde",
-				acomp.getNome() + " toda sua!", true, false);
+				acomp.getNome() + " toda sua companheiro!", true, false);
 	}
 
 	@Override
