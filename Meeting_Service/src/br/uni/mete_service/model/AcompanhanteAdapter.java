@@ -48,9 +48,9 @@ public class AcompanhanteAdapter extends ArrayAdapter<Acompanhante> {
 		ImageView imgStatus = (ImageView) convertView
 				.findViewById(R.id.imageStatus);
 
-		txtNome.setText(acomp.getNome());
-		txtidade.setText(acomp.getIdade());
-		txtEspecialidade.setText(acomp.getEspecialidade());
+		txtNome.setText("Nome: "+acomp.getNome());
+		txtidade.setText("Idade: "+acomp.getIdade());
+		txtEspecialidade.setText("Especialidade: "+acomp.getEspecialidade());
 
 		if (acomp.getStatus().equals("ocupada")) {
 			imgStatus.setImageResource(R.drawable.ocupada);
