@@ -74,8 +74,7 @@ class informacaoMeninasAsyncTask extends AsyncTask<Void, Void, Acompanhante> {
 				"https://dl.dropbox.com/s/itwq2o3knlomodo/js.json");
 
 		try {
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-					2);
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(0);
 			nameValuePairs.add(new BasicNameValuePair("id", String
 					.valueOf(acomp.getId())));
 			get.setEntity(new UrlEncodedFormEntity(nameValuePairs));
