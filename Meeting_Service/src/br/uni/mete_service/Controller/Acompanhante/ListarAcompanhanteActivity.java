@@ -75,11 +75,12 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					JSONObject objeto = jsonAray.getJSONObject(i);
 
 					Acompanhante m = new Acompanhante();
-//					m.setId(objeto.getInt("id"));
+					m.setId(objeto.getInt("id"));
 					m.setNome(objeto.getString("nome"));
 					m.setEspecialidade(objeto.getString("especialidade"));
 					m.setIdade(objeto.getString("idade"));
 					m.setStatus(objeto.getString("status"));
+					m.setBusto(objeto.getString("busto"));
 
 					acompanhanteList.getResults().add(m);
 
@@ -119,15 +120,15 @@ public class ListarAcompanhanteActivity extends ListActivity{
 		}
 
 	}
-//	protected void onListItemClick(ListView l, View v, int position, long id) {
-//		// TODO Auto-generated method stub
-//		super.onListItemClick(l, v, position, id);
-//		Acompanhante acompanhantes = (Acompanhante) l.getItemAtPosition(position);
-//
-//		Intent it = new Intent(this, InformacoesAcomp.class);
-//		it.putExtra("acompan", acomp);
-//		startActivity(it);
-//	}
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		Acompanhante acomp = (Acompanhante) l.getItemAtPosition(position);
+
+		Intent it = new Intent(this, DadosAcompanhanteActivity.class);
+		it.putExtra("acompan", acomp);
+		startActivity(it);
+	}
 
 		
 
