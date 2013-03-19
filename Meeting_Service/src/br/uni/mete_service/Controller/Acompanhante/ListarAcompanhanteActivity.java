@@ -24,24 +24,29 @@ import br.uni.mete_service.model.AcompanhanteList;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 public class ListarAcompanhanteActivity extends ListActivity{
 
-	AcompanhanteAdapter acomp_adapter;
-	
+	AcompanhanteAdapter acompAdapter;
 
-	protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	new AcompanhanteAsyncTask().execute();
-//	setContentView(R.layout.lista_acomp);
-	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		//executa a chamada assincronica da thread
+		new MeninasAsyncTask().execute();
+		
+		setContentView(R.layout.lista_acomp);
+
 	}
-	
-	
-	 class AcompanhanteAsyncTask extends AsyncTask<String, Void, AcompanhanteList> {
+
+	class MeninasAsyncTask extends AsyncTask<Void, Void, AcompanhanteList> {
 
 		ProgressDialog dialog;
 		
@@ -49,21 +54,19 @@ public class ListarAcompanhanteActivity extends ListActivity{
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(ListarAcompanhanteActivity.this, "Relaxe",
-					"Caregando Lista", true, false);
-			
+			dialog = ProgressDialog.show(ListarAcompanhanteActivity.this, "Calma amiguinho.",
+					"Sua lista de acompanhante logo ser� carregada.", true, false);
 		}
-		
-		protected AcompanhanteList doInBackground(String... params) {
+
+		//execução propriamnete dita da thread
+		@Override
+		protected AcompanhanteList doInBackground(Void... params) {
 			HttpClient cliente = new DefaultHttpClient();
-			
+
 			HttpGet get = new HttpGet(
-					"https://dl-web.dropbox.com/get/js.json?w=AAAEEtGh-m2H3VaGG4PFiOwy0l9_B79caOs-5iWSaLDl_A");
-			
-			AcompanhanteList acompList = new AcompanhanteList();
-			
+					"https://dl.dropbox.com/s/itwq2o3knlomodo/js.json");
+			AcompanhanteList acompanhanteList = new AcompanhanteList();
 			try {
-				
 				HttpResponse resposta = cliente.execute(get);
 
 				JSONArray jsonAray = new JSONArray(toString(resposta
@@ -71,27 +74,29 @@ public class ListarAcompanhanteActivity extends ListActivity{
 				for (int i = 0; i < jsonAray.length(); i++) {
 					JSONObject objeto = jsonAray.getJSONObject(i);
 
-					Acompanhante a = new Acompanhante();
-					
-					a.setId(objeto.getInt("id"));
-					a.setNome(objeto.getString("nome"));
-					a.setIdade(objeto.getInt("idade"));
-					a.setEspecialidade(objeto.getString("especilidades"));
-					a.setStatus(objeto.getString("status"));
-					
-					// pegar idade foto e status
-					Log.i("NGVL",   
-						       "id="+ objeto.getString("nome"));
+					Acompanhante m = new Acompanhante();
+//					m.setId(objeto.getInt("id"));
+					m.setNome(objeto.getString("nome"));
+					m.setEspecialidade(objeto.getString("especialidade"));
+					m.setIdade(objeto.getString("idade"));
+					m.setStatus(objeto.getString("status"));
 
-					acompList.getResults().add(a);
+					acompanhanteList.getResults().add(m);
+
+					Log.i("pedro", "nomes:" + objeto.getString("nome"));
+					Log.i("pedro", "------------------------");
+					Log.i("pedro", "nomes:" + objeto.getInt("idade"));
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				Log.i("pedro","O erro foi:  " + e);			}
-			return acompList;
+				Log.i("pedro", "ERRO:::" + e);
+			}
+			return acompanhanteList;
 		}
 		
+		//executada quando a thread é concluida
+		@Override
 		protected void onPostExecute(AcompanhanteList result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
@@ -101,9 +106,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 
 			}
 		}
-		
-		
-				
+
 		private String toString(InputStream is) throws IOException {
 
 			byte[] bytes = new byte[1024];
@@ -115,8 +118,19 @@ public class ListarAcompanhanteActivity extends ListActivity{
 			return new String(baos.toByteArray());
 		}
 
-			
 	}
+//	protected void onListItemClick(ListView l, View v, int position, long id) {
+//		// TODO Auto-generated method stub
+//		super.onListItemClick(l, v, position, id);
+//		Acompanhante acompanhantes = (Acompanhante) l.getItemAtPosition(position);
+//
+//		Intent it = new Intent(this, InformacoesAcomp.class);
+//		it.putExtra("acompan", acomp);
+//		startActivity(it);
+//	}
+
+		
+
 
 }
 

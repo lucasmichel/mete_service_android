@@ -1,13 +1,15 @@
 package br.uni.mete_service.model;
 
+import java.io.Serializable;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class Acompanhante extends Activity {
+public class Acompanhante implements Serializable {
 
-	private int id, idade;
-	private String nome, altura,busto ,cintura, quadril, olhos, pernoite, atendo;
+	private int id;
+	private String nome,idade, altura,busto ,cintura, quadril, olhos, pernoite, atendo;
 	private String especialidade, horario_atentimento,peso;
 	private String status;
 	//FOTO PARA TESTE NO LAYOUT
@@ -18,10 +20,10 @@ public class Acompanhante extends Activity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdade() {
+	public String getIdade() {
 		return idade;
 	}
-	public void setIdade(int idade) {
+	public void setIdade(String idade) {
 		this.idade = idade;
 	}
 	public String getNome() {
@@ -102,7 +104,7 @@ public class Acompanhante extends Activity {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public Acompanhante(int id, int idade, String nome, String altura,
+	public Acompanhante(int id,String idade, String nome, String altura,
 			String busto, String cintura, String quadril, String olhos,
 			String pernoite, String atendo, String especialidade,
 			String horario_atentimento, String peso, String status, String foto) {

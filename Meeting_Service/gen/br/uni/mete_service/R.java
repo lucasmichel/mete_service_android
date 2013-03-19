@@ -40,7 +40,7 @@ public final class R {
         public static final int AcompQuadril=0x7f08003f;
         public static final int LinearLayout2=0x7f080030;
         public static final int TextView01=0x7f08002a;
-        public static final int action_settings=0x7f08004b;
+        public static final int action_settings=0x7f08004a;
         public static final int btnAvancar=0x7f080029;
         public static final int btnEntrar=0x7f08002e;
         public static final int btnTeste=0x7f080031;
@@ -69,7 +69,6 @@ public final class R {
         public static final int edtTelefoneCliente=0x7f080023;
         public static final int imageStatus=0x7f080049;
         public static final int imgFoto=0x7f080048;
-        public static final int listView1=0x7f08004a;
         public static final int loginEmail=0x7f08002b;
         public static final int loginSenha=0x7f08002d;
         public static final int scrollView1=0x7f080003;
