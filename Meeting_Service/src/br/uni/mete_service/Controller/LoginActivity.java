@@ -85,7 +85,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.textoCadastre:
 			Cliente cli = null;
-			Intent it = new Intent(this, CadastroClienteActivity.class);
+			Intent it = new Intent(this, EscolhaDoUsuarioActivity.class);
 			it.putExtra("cliente", cli);
 			startActivity(it);
 			break;
