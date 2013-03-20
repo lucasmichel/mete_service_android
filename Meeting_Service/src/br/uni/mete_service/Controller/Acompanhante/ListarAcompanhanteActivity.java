@@ -65,6 +65,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 
 			HttpGet get = new HttpGet(
 					"https://dl.dropbox.com/s/itwq2o3knlomodo/js.json");
+//					"https://www.dropbox.com/s/md17s4cazpj63fj/js%20-%20Copia.json");
 			AcompanhanteList acompanhanteList = new AcompanhanteList();
 			try {
 				HttpResponse resposta = cliente.execute(get);
@@ -82,12 +83,22 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					m.setStatus(objeto.getString("status"));
 					m.setBusto(objeto.getString("busto"));
 					m.setAltura(objeto.getString("altura"));
+					m.setCintura(objeto.getString("cintura"));
+					m.setQuadril(objeto.getString("quadril"));
+					m.setOlhos(objeto.getString("olhos"));
+					m.setPernoite(objeto.getString("pernoite"));
+					m.setAtendo(objeto.getString("atendo"));
+					m.setHorario_atentimento(objeto.getString("horario_aten"));
+					m.setPeso(objeto.getString("peso"));
+					m.setStatus(objeto.getString("status"));
+					
 
 					acompanhanteList.getResults().add(m);
 
-					Log.i("pedro", "nomes:" + objeto.getString("nome"));
-					Log.i("pedro", "------------------------");
-					Log.i("pedro", "nomes:" + objeto.getInt("idade"));
+					Log.i("pedro", "nomes:" + objeto.getInt("id"));
+//					Log.i("pedro", "------------------------");
+//					Log.i("pedro", "nomes:" + objeto.getInt("idade"));
+					Log.i("thayse"," ATENDOO" + objeto.getString("atendo"));
 				}
 
 			} catch (Exception e) {
