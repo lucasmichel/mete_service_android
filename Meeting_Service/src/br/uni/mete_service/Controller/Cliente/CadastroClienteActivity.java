@@ -1,10 +1,10 @@
 package br.uni.mete_service.Controller.Cliente;
 
 import br.uni.mete_service.R;
+
 import br.uni.mete_service.Controller.HomeActivity;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.repositorio.ClienteController;
-import br.uni.mete_service.model.repositorio.RepositorioCliente;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,57 +1,117 @@
 package br.uni.mete_service.model.repositorio;
 
+import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.uni.mete_service.model.Cliente;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+public class RepositorioCliente extends RepositorioClass {
 
-public class RepositorioCliente {
-
-	private AuxiliarRepositorioCliente helper;
-
-	public RepositorioCliente(Context ctx) {
-		helper = new AuxiliarRepositorioCliente(ctx);
+	protected RepositorioCliente(String nomeConexao) {
+		super(nomeConexao);
+		// TODO Auto-generated constructor stub
 	}
 
-	public void inserir(Cliente cliente) {
-		SQLiteDatabase db = helper.getWritableDatabase();
+	private static RepositorioCliente instancia = null;
+	private static String nomeConexao = "http://leonardogalvao.com.br/mete_service/src/";
 
-		db.insert("meteservice", null, obterParametros(cliente));
+	public static RepositorioCliente getInstance() {
 
-		db.close();
+		if (instancia == null) {
+			instancia = new RepositorioCliente(nomeConexao);
+			return instancia;
+		} else {
+			return instancia;
+		}
 	}
 
-	public void alterar(Cliente cliente) {
-		SQLiteDatabase db = helper.getWritableDatabase();
+	public Cliente logarAndroid(Cliente cliente) throws JSONException {
 
-		db.update("meteservice", obterParametros(cliente),
-				"_id=" + cliente.getId(), null);
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
+				2);
+		listaCamposPesquisa.add(new BasicNameValuePair("email", String
+				.valueOf(cliente.getEmail())));
+		listaCamposPesquisa.add(new BasicNameValuePair("senha", String
+				.valueOf(cliente.getSenha())));
 
-		db.close();
+		Cliente clienteRetorno = new Cliente();
+		String nomeDaAcao = "logarAndroid";
+		JSONObject objetoJSON = this
+				.getPorPost(nomeDaAcao, listaCamposPesquisa);
+		/*
+		 * usuarioRetorno.setEmail(objeto.getString("email"));
+		 * usuarioRetorno.setSenha(objeto.getString("senha"));
+		 */
+		clienteRetorno.setStatus(objetoJSON.getInt("status"));
+		clienteRetorno.setMensagem(objetoJSON.getString("mesagem"));
+
+		return clienteRetorno;
 	}
 
-	public void excluir(Cliente cliente) {
-		SQLiteDatabase db = helper.getWritableDatabase();
+	public List<Cliente> lerTodosClientes(String todosClientesJson)
+			throws ParseException {
 
-		db.delete("meteservice", "_id=" + cliente.getId(), null);
+		List<Cliente> listclientes = new ArrayList<Cliente>();
+		try {
 
-		db.close();
+			JSONObject json = new JSONObject(todosClientesJson);
+			if (json.has("cliente") && json.optJSONArray("cliente") != null) {
+				JSONArray clienteArray = json.getJSONArray("cliente");
+				listclientes = parserClienteArray(clienteArray);
+			} else {
+				listclientes = new ArrayList<Cliente>();
+				listclientes.add(parseClienteJsonObject(json
+						.getJSONObject("cliene")));
+			}
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return listclientes;
+
 	}
 
-	private ContentValues obterParametros(Cliente cliente) {
-		ContentValues parametros = new ContentValues();
-		parametros.put("nome", cliente.getNome());
-		parametros.put("cpf", cliente.getCpf());
-		parametros.put("email", cliente.getEmail());
-		parametros.put("telefone", cliente.getTelefone());
-		parametros.put("senha", cliente.getSenha());
+	private List<Cliente> parserClienteArray(JSONArray clienteArray)
+			throws ParseException {
+		List<Cliente> listcliente = new ArrayList<Cliente>();
 
-		return parametros;
+		for (int i = 0; i < clienteArray.length(); i++) {
+			try {
+
+				listcliente.add(parseClienteJsonObject(clienteArray
+						.getJSONObject(i)));
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return listcliente;
+	}
+
+	public static Cliente parseClienteJsonObject(JSONObject usuarioJson)
+			throws JSONException {
+
+		Cliente cli = new Cliente();
+
+		cli.setId(usuarioJson.getInt("id"));
+		cli.setNome(usuarioJson.optString("name"));
+		cli.setEmail(usuarioJson.optString("email"));
+		cli.setTelefone((usuarioJson.optString("telefone")));
+		cli.setSenha(usuarioJson.optString("senha"));
+		cli.setTipo((usuarioJson.optInt("tipo")));
+		cli.setCpf(usuarioJson.optString("cpf"));
+
+		return cli;
+
 	}
 
 }
