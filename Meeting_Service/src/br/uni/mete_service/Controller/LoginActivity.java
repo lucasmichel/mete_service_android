@@ -1,6 +1,7 @@
 package br.uni.mete_service.Controller;
 
 import java.util.Date;
+
 import java.util.Map;
 
 import br.uni.mete_service.R;
@@ -10,7 +11,6 @@ import br.uni.mete_service.model.repositorio.Cliente.ClienteController;
 import br.uni.mete_service.util.PreferencesController;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
