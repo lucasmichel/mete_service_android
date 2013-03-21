@@ -26,5 +26,6 @@
     <string name="alterarstatus">Alterar Status de Atendimento</string>
     <string name="sair">Sair</string>
     <string name="editarperfil">Editar Perfil</string>
+    <string name="textoCadastre"><u>Cadastre-se já. É gratuito e sempre será</u></string>
 
 </resources>

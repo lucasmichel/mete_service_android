@@ -25,7 +25,7 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 
 		this.btnHomem = (ImageButton) findViewById(R.id.homem);
 		this.btnMulher = (ImageButton) findViewById(R.id.mulher);
-		
+
 		btnHomem.setOnClickListener(this);
 		btnMulher.setOnClickListener(this);
 
@@ -36,15 +36,11 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.homem:
-			Intent ith = new Intent(this,CadastroClienteActivity.class);
-			this.cli.setTipo(1);
-			ith.putExtra("cliente", cli);
+			Intent ith = new Intent(this, CadastroClienteActivity.class);
 			startActivity(ith);
 			break;
 		case R.id.mulher:
 			Intent it = new Intent(this, CadastroAcompanhanteActivity.class);
-			this.aco.setTipo(0);
-			it.putExtra("acompanhante", aco);
 			startActivity(it);
 			break;
 		}

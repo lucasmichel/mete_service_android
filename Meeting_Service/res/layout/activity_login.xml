@@ -68,9 +68,9 @@
         <TextView
             android:id="@+id/textoCadastre"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cadastre-se já. É gratuito e sempre será"
-            android:textColor="@color/blue" />
+            android:layout_height="wrap_content" 
+            android:text="@string/textoCadastre"
+            android:textColor="@color/blue"/>
     </LinearLayout>
 
 </LinearLayout>

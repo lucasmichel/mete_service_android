@@ -169,6 +169,7 @@ public final class R {
         public static final int sair=0x7f060017;
         public static final int senha=0x7f060013;
         public static final int telefone=0x7f060010;
+        public static final int textoCadastre=0x7f060019;
         public static final int voltar=0x7f060015;
     }
     public static final class style {
