@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -14,8 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
     <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/textNomeAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,6 +24,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editNomeAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,8 +34,10 @@
 
         <requestFocus />
     </EditText>
-
+
+
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textIdadeAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,12 +45,17 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editIdadeAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
-
+
+
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textAlturaAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,12 +63,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editAlturaAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textPesoAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,12 +80,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editPesoAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textBustoAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,25 +97,35 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editBustoAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textCinturaAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cintura"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+
+
     <EditText
         android:id="@+id/editCinturaAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textQuadrilAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,12 +133,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editQuadrilAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textOlhosAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -117,12 +150,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editOlhosAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textPernoiteAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,12 +167,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editPernoiteAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textAtendoAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,12 +184,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editAtendoAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
 
     <TextView
+        android:layout_marginLeft="20dp"
         android:id="@+id/textEspecialidadeAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -156,12 +201,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editEspecialidadeAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
     
      <TextView
+         android:layout_marginLeft="20dp"
         android:id="@+id/textHorarioAtentAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,6 +218,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editHorarioAtentAcomp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -185,6 +237,9 @@
         android:orientation="horizontal" >
 
         <Button
+            android:layout_marginLeft="20dp"
+        
+        android:layout_marginTop="10dp"
             android:id="@+id/buttonCadastrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -195,9 +250,11 @@
             android:id="@+id/buttonCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:layout_gravity="center" 
-            android:layout_weight="1"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="Cancelar" />
 
     </LinearLayout>
 </LinearLayout>
