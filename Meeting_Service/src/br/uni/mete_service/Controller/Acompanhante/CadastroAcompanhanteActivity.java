@@ -95,7 +95,7 @@ public class CadastroAcompanhanteActivity extends Activity
 		if (objacompanhante == null){
 			objacompanhante = new Acompanhante(idade, nome, peso, busto, altura, cintura, quadril, olhos
 					, pernoite, especialidade, horarioatent, atendo, status, foto);
-			repo.inserirAcompanhante(objacompanhante);
+			//repo.inserirAcompanhante(objacompanhante);
 //			Toast.makeText(this, "Vaga criada com sucesso!", Toast.LENGTH_LONG).show();
 		} else {
 			objacompanhante.setNome(nome);
@@ -110,10 +110,10 @@ public class CadastroAcompanhanteActivity extends Activity
 			objacompanhante.setNome(especialidade);
 			objacompanhante.setNome(horarioatent);
 			objacompanhante.setAtendo(atendo);
-			objacompanhante.setStatus(status);
+			objacompanhante.setStatusAt(status);
 			
 			
-			repo.alterarAcompanhante(objacompanhante);
+		//	repo.alterarAcompanhante(objacompanhante);
 			//Toast.makeText(this, "Vaga Alterada com sucesso!", Toast.LENGTH_LONG).show();
 		}
 		

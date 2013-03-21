@@ -2,7 +2,9 @@ package br.uni.mete_service.model;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable{
+import br.uni.mete_service.model.repositorio.ModelClass;
+
+public class Usuario extends ModelClass implements Serializable{
 
 	private long id;
 	private String senha;

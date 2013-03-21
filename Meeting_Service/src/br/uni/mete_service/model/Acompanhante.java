@@ -8,7 +8,7 @@ public class Acompanhante extends Usuario implements Serializable{
 
 	private String nome,idade, altura,busto ,cintura, quadril, olhos, pernoite, atendo;
 	private String especialidade, horario_atentimento,peso;
-	private String status;
+	private String statusAt;
 	//FOTO PARA TESTE NO LAYOUT
 	private String foto;
 	
@@ -86,11 +86,11 @@ public class Acompanhante extends Usuario implements Serializable{
 	public void setPeso(String peso) {
 		this.peso = peso;
 	}
-	public String getStatus() {
-		return status;
+	public String getStatusAt() {
+		return statusAt;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusAt(String status) {
+		this.statusAt = status;
 	}
 	public String getFoto() {
 		return foto;
@@ -102,7 +102,7 @@ public class Acompanhante extends Usuario implements Serializable{
 	public Acompanhante(String idade, String nome, String altura,
 			String busto, String cintura, String quadril, String olhos,
 			String pernoite, String atendo, String especialidade,
-			String horario_atentimento, String peso, String status, String foto) {
+			String horario_atentimento, String peso, String statusAt, String foto) {
 		super();
 		this.idade = idade;
 		this.nome = nome;
@@ -116,7 +116,7 @@ public class Acompanhante extends Usuario implements Serializable{
 		this.especialidade = especialidade;
 		this.horario_atentimento = horario_atentimento;
 		this.peso = peso;
-		this.status = status;
+		this.statusAt = statusAt;
 		this.foto = foto;
 	}
 	

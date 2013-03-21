@@ -21,11 +21,12 @@ import android.util.Base64;
 import android.util.Base64InputStream;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.Usuario;
+import br.uni.mete_service.model.repositorio.ModelClass;
 import br.uni.mete_service.model.repositorio.RepositorioClass;
 
 public class ClienteController {
 
-	private static ClienteController clienteController = null;
+/*	private static ClienteController clienteController = null;
 	private RepositorioCliente clienteParser = null;
 	private final String urlGetAllCliente = "";
 	private Cliente cliLogged;
@@ -36,7 +37,7 @@ public class ClienteController {
 
 	/*public ClienteController() {
 		clienteParser = new RepositorioCliente();
-	}*/
+	}
 
 	public static ClienteController getInstance() {
 		if (clienteController == null) {
@@ -95,7 +96,7 @@ public class ClienteController {
 			os.write(gson.toJson(cli).getBytes());
 			os.flush();
 			InputStream is = conexao.getInputStream();
-			return RepositorioClass.toString(is);
+			//return //ModelClass.toString(is);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,7 +122,7 @@ public class ClienteController {
 			os.write(gson.toJson(cli).getBytes());
 			os.flush();
 			InputStream is = conexao.getInputStream();
-			return RepositorioClass.toString(is);
+			//return RepositorioClass.toString(is);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,12 +133,12 @@ public class ClienteController {
 	public synchronized List<Cliente> getAllClientes() throws ParseException {
 		List<Cliente> listAllUsuarios = null;
 
-		String result = RepositorioClass.getRESTFileContent(urlGetAllCliente);
+	//	String result = RepositorioClass.getRESTFileContent(urlGetAllCliente);
 
 		if (result != null) {
 			listAllUsuarios = clienteParser.lerTodosClientes(result);
 		}
 		return listAllUsuarios;
-	}
+	}*/
 
 }

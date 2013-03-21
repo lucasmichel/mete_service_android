@@ -65,13 +65,15 @@ public class Cliente extends Usuario {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	
+
 	public Usuario logarAndroid(Usuario usuario) throws JSONException {
-
 		RepositorioCliente bd = RepositorioCliente.getInstance();
-
 		return bd.logarAndroid(this);
+	}
 
+	public Usuario cadastrarCliente(Usuario usuario) throws JSONException {
+		RepositorioCliente bd = RepositorioCliente.getInstance();
+		return bd.cadastrarCliente(this);
 	}
 
 	private JSONObject converteParaJson() throws JSONException {

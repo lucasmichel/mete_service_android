@@ -69,9 +69,9 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	horario_atent.setText(acomp.getHorario_atentimento());
 	peso.setText(acomp.getPeso());
 	
-	if (acomp.getStatus().equals("ocupada")) {
+	if (acomp.getStatusAt().equals("ocupada")) {
 		status.setImageResource(R.drawable.ocupada);
-	} else if (acomp.getStatus().equals("livre")) {
+	} else if (acomp.getStatusAt().equals("livre")) {
 		status.setImageResource(R.drawable.livre);
 	}
 	

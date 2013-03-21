@@ -79,7 +79,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	public void sair() {
 
-		ClienteController.getInstance().setUsuarioLogged(null);
+		//ClienteController.getInstance().setUsuarioLogged(null);
 		Intent it;
 		PreferencesController.clearUserPreferences(this);
 		it = new Intent(this, LoginActivity.class);

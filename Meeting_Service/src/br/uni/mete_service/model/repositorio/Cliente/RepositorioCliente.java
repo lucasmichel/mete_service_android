@@ -36,83 +36,98 @@ public class RepositorioCliente extends RepositorioClass {
 
 	public Cliente logarAndroid(Cliente cliente) throws JSONException {
 
-		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
-				2);
-		listaCamposPesquisa.add(new BasicNameValuePair("email", String
-				.valueOf(cliente.getEmail())));
-		listaCamposPesquisa.add(new BasicNameValuePair("senha", String
-				.valueOf(cliente.getSenha())));
+		//
+		// cria o json com os paramterso que se quer..
+		//
+		JSONObject jsonObjectEntrada = new JSONObject();
+		jsonObjectEntrada.put("senha", cliente.getSenha());
+		jsonObjectEntrada.put("email", cliente.getEmail());
 
-		Cliente clienteRetorno = new Cliente();
+		//
+		// criptogrfa o json gerando uma string na base64..
+		//
+		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
+				.toString());
+
+		//
+		// cria a lista de parâmetros para o post seguindo este padrão
+		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
+		// String.valueOf(textoCriptografado)));
+		//
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
+				1);
+		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
+				String.valueOf(textoCriptografado)));
+
+		//
+		// passa o nome da açao do webservice
+		//
 		String nomeDaAcao = "logarAndroid";
-		JSONObject objetoJSON = this
-				.getPorPost(nomeDaAcao, listaCamposPesquisa);
-		/*
-		 * usuarioRetorno.setEmail(objeto.getString("email"));
-		 * usuarioRetorno.setSenha(objeto.getString("senha"));
-		 */
-		clienteRetorno.setStatus(objetoJSON.getInt("status"));
-		clienteRetorno.setMensagem(objetoJSON.getString("mesagem"));
+
+		//
+		// recebe um json descriptografado com as informações de retorno do
+		// post
+		//
+		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
+				listaCamposPesquisa);
+
+		//
+		// cria um usuario pra receber os dados do post em status e msgm...
+		//
+		Cliente clienteRetorno = new Cliente();
+		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
+		clienteRetorno.setMenssagem(jsonObjectSaida.getString("messagem"));
 
 		return clienteRetorno;
 	}
 
-	public List<Cliente> lerTodosClientes(String todosClientesJson)
-			throws ParseException {
+	public Cliente cadastrarCliente(Cliente cliente) throws JSONException {
+		//
+		// cria o json com os paramterso que se quer..
+		//
+		JSONObject jsonObjectEntrada = new JSONObject();
+		jsonObjectEntrada.put("senha", cliente.getSenha());
+		jsonObjectEntrada.put("email", cliente.getEmail());
 
-		List<Cliente> listclientes = new ArrayList<Cliente>();
-		try {
+		//
+		// criptogrfa o json gerando uma string na base64..
+		//
+		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
+				.toString());
 
-			JSONObject json = new JSONObject(todosClientesJson);
-			if (json.has("cliente") && json.optJSONArray("cliente") != null) {
-				JSONArray clienteArray = json.getJSONArray("cliente");
-				listclientes = parserClienteArray(clienteArray);
-			} else {
-				listclientes = new ArrayList<Cliente>();
-				listclientes.add(parseClienteJsonObject(json
-						.getJSONObject("cliene")));
-			}
+		//
+		// cria a lista de parâmetros para o post seguindo este padrão
+		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
+		// String.valueOf(textoCriptografado)));
+		//
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
+				1);
+		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
+				String.valueOf(textoCriptografado)));
 
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		//
+		// passa o nome da açao do webservice
+		//
+		// String nomeDaAcao = "cadastrarUsuario";
+		String nomeDaAcao = "cadastrarUsuarioBUUU";
 
-		return listclientes;
+		//
+		// recebe um json descriptografado com as informações de retorno do
+		// post
+		//
+		// JSONObject jsonObjectSaida = this.postInformacao(nomeDaAcao,
+		// listaCamposPesquisa);
+		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
+				listaCamposPesquisa);
 
-	}
+		//
+		// cria um usuario pra receber os dados do post em status e msgm...
+		//
+		Cliente clienteRetorno = new Cliente();
+		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
+		clienteRetorno.setMenssagem(jsonObjectSaida.getString("messagem"));
 
-	private List<Cliente> parserClienteArray(JSONArray clienteArray)
-			throws ParseException {
-		List<Cliente> listcliente = new ArrayList<Cliente>();
-
-		for (int i = 0; i < clienteArray.length(); i++) {
-			try {
-
-				listcliente.add(parseClienteJsonObject(clienteArray
-						.getJSONObject(i)));
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		return listcliente;
-	}
-
-	public static Cliente parseClienteJsonObject(JSONObject usuarioJson)
-			throws JSONException {
-
-		Cliente cli = new Cliente();
-
-		cli.setId(usuarioJson.getInt("id"));
-		cli.setNome(usuarioJson.optString("name"));
-		cli.setEmail(usuarioJson.optString("email"));
-		cli.setTelefone((usuarioJson.optString("telefone")));
-		cli.setSenha(usuarioJson.optString("senha"));
-		cli.setTipo((usuarioJson.optInt("tipo")));
-		cli.setCpf(usuarioJson.optString("cpf"));
-
-		return cli;
-
+		return clienteRetorno;
 	}
 
 }

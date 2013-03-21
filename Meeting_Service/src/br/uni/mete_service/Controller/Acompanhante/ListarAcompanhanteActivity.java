@@ -80,7 +80,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					m.setNome(objeto.getString("nome"));
 					m.setEspecialidade(objeto.getString("especialidade"));
 					m.setIdade(objeto.getString("idade"));
-					m.setStatus(objeto.getString("status"));
+					m.setStatusAt(objeto.getString("status"));
 					m.setBusto(objeto.getString("busto"));
 					m.setAltura(objeto.getString("altura"));
 					m.setCintura(objeto.getString("cintura"));
@@ -90,7 +90,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					m.setAtendo(objeto.getString("atendo"));
 					m.setHorario_atentimento(objeto.getString("horario_aten"));
 					m.setPeso(objeto.getString("peso"));
-					m.setStatus(objeto.getString("status"));
+					m.setStatusAt(objeto.getString("status"));
 					
 
 					acompanhanteList.getResults().add(m);

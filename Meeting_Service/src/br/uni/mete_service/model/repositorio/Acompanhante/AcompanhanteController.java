@@ -14,7 +14,7 @@ import br.uni.mete_service.model.repositorio.RepositorioClass;
 
 public class AcompanhanteController {
 
-	private static AcompanhanteController repositorioAcompanhante = null;
+	/*private static AcompanhanteController repositorioAcompanhante = null;
 	private AcompanhanteParser acompanhanteParser = null;
 	private final String urlGetAllAcompanhante = "";
 	private Acompanhante acompLogged;
@@ -132,6 +132,6 @@ public class AcompanhanteController {
 			listAllUsuarios = acompanhanteParser.lerTodosAcompanhantes(result);
 		}
 		return listAllUsuarios;
-	}
+	}*/
 
 }

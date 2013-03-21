@@ -67,7 +67,7 @@ public class CadastroClienteActivity extends Activity implements
 				cliente.setTelefone(this.CCtelefone.getText().toString());
 				cliente.setEmail(this.CCemail.getText().toString());
 				cliente.setSenha(this.CCsenha.getText().toString());
-				controler.alterarCliente(cliente);
+				//controler.alterarCliente(cliente);
 				setResult(RESULT_OK);
 
 			} else {
@@ -78,7 +78,7 @@ public class CadastroClienteActivity extends Activity implements
 				c.setEmail(this.CCemail.getText().toString());
 				c.setSenha(this.CCsenha.getText().toString());
 				c.setTipo(1);
-				controler.inserirCliente(c);
+				//controler.inserirCliente(c);
 				Intent it = new Intent(this, HomeActivity.class);
 				setResult(RESULT_OK, it);
 			}

@@ -3,22 +3,24 @@ package br.uni.mete_service.model.repositorio;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
+import java.io.UnsupportedEncodingException;
+
 import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
+
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Base64;
+import android.util.Log;
 
 public class RepositorioClass {
 
@@ -28,7 +30,14 @@ public class RepositorioClass {
 		this.nomeConexao = nomeConexao;
 	}
 
-	public static String toString(InputStream is) throws IOException {
+	/*
+	 * Esse primeiro método é uma "receita de bolo". Ele será pelo método
+	 * getRESTFileContent(String) (a seguir) e servirá para ler byte-a-byte (na
+	 * verdade de 1024 em 1024 bytes) o conteúdo do arquivo JSON que é
+	 * retornado pelo servidor, retornando-o em forma de String.
+	 */
+
+	private String toString(InputStream is) throws IOException {
 
 		byte[] bytes = new byte[1024];
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -39,76 +48,22 @@ public class RepositorioClass {
 		return new String(baos.toByteArray());
 	}
 
-	/**
-	 * @param url
-	 *            Caminho do m�todo desejado no web-service.
-	 * @return O json em formato de String.
+	/*
+	 * O método acima, utiliza o HttpClient (da Apache, que vem nativamente no
+	 * Android) para estabelecer a conexão com o servidor, abrir o fluxo de
+	 * leitura (InpuStream) e retornar o conteúdo do arquivo JSON em forma de
+	 * String (feito pelo método toString(InputStream)).
 	 */
-	public static String getRESTFileContent(String url) {
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpGet httpget = new HttpGet(url);
 
-		try {
-			HttpResponse response = httpclient.execute(httpget);
-
-			HttpEntity entity = response.getEntity();
-
-			if (entity != null) {
-				InputStream instream = entity.getContent();
-				String result = toString(instream);
-				instream.close();
-				return result;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public String executaPost(JSONObject objetoJson, String nomeDoObjeto) {
-		try {
-			URL url = new URL(nomeConexao + nomeDoObjeto);
-			HttpURLConnection conexao = (HttpURLConnection) url
-					.openConnection();
-
-			conexao.setRequestMethod("POST");
-			conexao.addRequestProperty("Content-type", "application/json");
-
-			conexao.setDoOutput(true);
-
-			conexao.connect();
-
-			// faz o encode64 do json
-			byte[] bytes = Base64.encode(objetoJson.toString().getBytes(),
-					Base64.DEFAULT);
-			String stringInserir = new String(bytes, "UTF-8");
-
-			OutputStream os = conexao.getOutputStream();
-			// os.write(objetoJson.toString().getBytes());
-			os.write(stringInserir.getBytes());
-
-			os.flush();
-
-			InputStream is = conexao.getInputStream();
-			return toString(is);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "ERRO! " + e.getMessage();
-		}
-	}
-
-	public JSONObject getPorPost(String nomeDaAcao,
+	public JSONObject getInformacao(String nomeDaAcao,
 			List<NameValuePair> listaCamposPesquisa) {
 
 		JSONObject objetoJSONAQUI = null;
 		try {
 
 			HttpClient cliente = new DefaultHttpClient();
-
-			String a = nomeConexao + nomeDaAcao;
-
-			HttpPost get = new HttpPost(a);
+			String url = nomeConexao + nomeDaAcao;
+			HttpPost get = new HttpPost(url);
 
 			try {
 
@@ -116,7 +71,10 @@ public class RepositorioClass {
 
 				HttpResponse resposta = cliente.execute(get);
 				String s = toString(resposta.getEntity().getContent());
-				objetoJSONAQUI = new JSONObject(s);
+				// objetoJSONAQUI = new JSONObject(s);
+
+				String retornoDesciptografado = toBase64StringDecode(s);
+				objetoJSONAQUI = new JSONObject(retornoDesciptografado);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -127,6 +85,84 @@ public class RepositorioClass {
 
 		}
 		return objetoJSONAQUI;
+	}
+
+	public JSONObject postInformacao(String nomeDaAcao,
+			List<NameValuePair> listaCamposPesquisa) {
+
+		JSONObject objetoJSONAQUI = null;
+
+		String retornoDesciptografado = null;
+
+		HttpResponse resposta = null;
+
+		String s = null;
+
+		HttpClient cliente = new DefaultHttpClient();
+
+		String url = nomeConexao + nomeDaAcao;
+
+		HttpPost get = new HttpPost(url);
+
+		try {
+			get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
+		} catch (UnsupportedEncodingException e) {
+			Log.e("LUCASMICHEL", "UnsupportedEncodingException", e);
+			e.printStackTrace();
+		}
+		try {
+			resposta = cliente.execute(get);
+		} catch (ClientProtocolException e) {
+			Log.e("LUCASMICHEL", "ClientProtocolException", e);
+			e.printStackTrace();
+
+		} catch (IOException e) {
+			Log.e("LUCASMICHEL", "IOException", e);
+			e.printStackTrace();
+		}
+		try {
+			s = toString(resposta.getEntity().getContent());
+		} catch (IllegalStateException e) {
+			Log.e("LUCASMICHEL", "IllegalStateException", e);
+			e.printStackTrace();
+		} catch (IOException e) {
+			Log.e("LUCASMICHEL", "IOException", e);
+			e.printStackTrace();
+		}
+		try {
+			objetoJSONAQUI = new JSONObject(s);
+		} catch (JSONException e) {
+			Log.e("LUCASMICHEL", "JSONException", e);
+			e.printStackTrace();
+		}
+		try {
+			retornoDesciptografado = toBase64StringDecode(s);
+		} catch (UnsupportedEncodingException e) {
+			Log.e("LUCASMICHEL", "UnsupportedEncodingException", e);
+			e.printStackTrace();
+		}
+		try {
+			objetoJSONAQUI = new JSONObject(retornoDesciptografado);
+		} catch (JSONException e) {
+			Log.e("LUCASMICHEL", "JSONException", e);
+			e.printStackTrace();
+		}
+
+		return objetoJSONAQUI;
+	}
+
+	protected String toBase64StringEncode(String text) {
+		byte bytes[] = text.getBytes();
+		return Base64.encodeToString(bytes, Base64.DEFAULT);
+	}
+
+	private String toBase64StringDecode(String text)
+			throws UnsupportedEncodingException {
+		byte bytes[] = text.getBytes();
+		Base64.decode(bytes, Base64.DEFAULT);
+		String valor = new String(Base64.decode(bytes, Base64.DEFAULT),
+				"ISO-8859-1");
+		return valor;
 	}
 
 }
