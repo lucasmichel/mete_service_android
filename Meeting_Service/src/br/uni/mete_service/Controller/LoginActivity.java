@@ -9,7 +9,7 @@ import org.json.JSONException;
 import br.uni.mete_service.R;
 import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.Cliente;
-import br.uni.mete_service.model.repositorio.Cliente.ClienteController;
+
 import br.uni.mete_service.model.repositorio.Cliente.RepositorioCliente;
 import br.uni.mete_service.util.PreferencesController;
 
@@ -102,15 +102,16 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	
+
 	public void logar() {
 		Intent it;
+
 		if ((!edtEmail.getText().toString().equals(""))
 				&& (!edtSenha.getText().toString().equals(""))) {
-
 			if ((!cliente.getEmail().equals(edtEmail.getText().toString()))
 					|| (!cliente.getSenha().equals(
 							edtSenha.getText().toString()))) {
-
 				Toast.makeText(this,
 						"Nome de usuário incorreto ou senha incorreta",
 						Toast.LENGTH_LONG).show();
@@ -127,7 +128,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 				it = new Intent(this, HomeActivity.class);
 				startActivity(it);
 				finish();
-
 			}
 		} else {
 			Toast.makeText(this, "Digite todos os campos", Toast.LENGTH_LONG)

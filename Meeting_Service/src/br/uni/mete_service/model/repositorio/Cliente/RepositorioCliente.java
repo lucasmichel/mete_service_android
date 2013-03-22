@@ -76,7 +76,7 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		Cliente clienteRetorno = new Cliente();
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		clienteRetorno.setMenssagem(jsonObjectSaida.getString("messagem"));
+		clienteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
 
 		return clienteRetorno;
 	}
@@ -125,7 +125,7 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		Cliente clienteRetorno = new Cliente();
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		clienteRetorno.setMenssagem(jsonObjectSaida.getString("messagem"));
+		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
 
 		return clienteRetorno;
 	}

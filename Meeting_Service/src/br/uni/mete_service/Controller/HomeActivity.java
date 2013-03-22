@@ -2,10 +2,11 @@ package br.uni.mete_service.Controller;
 
 import br.uni.mete_service.R;
 
+
 import br.uni.mete_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.Cliente;
-import br.uni.mete_service.model.repositorio.Cliente.ClienteController;
+
 import br.uni.mete_service.util.PreferencesController;
 import android.app.Activity;
 import android.content.Intent;

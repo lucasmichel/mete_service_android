@@ -19,11 +19,13 @@ public class Cliente extends Usuario {
 	}
 
 	public Cliente(long id, String nome, String cpf, int tipo, String telefone,
-			String email, String senha) {
+			String email, String senha,int status, String mensagem) {
 		super(id, senha, email, tipo);
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
+		this.setMensagem(mensagem);
+		this.setStatus(status);
 	}
 
 	public String getNome() {
