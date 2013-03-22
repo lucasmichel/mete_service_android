@@ -102,37 +102,33 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	
-
 	public void logar() {
 		Intent it;
 
-		if ((!edtEmail.getText().toString().equals(""))
-				&& (!edtSenha.getText().toString().equals(""))) {
-			if ((!cliente.getEmail().equals(edtEmail.getText().toString()))
-					|| (!cliente.getSenha().equals(
-							edtSenha.getText().toString()))) {
-				Toast.makeText(this,
-						"Nome de usuário incorreto ou senha incorreta",
-						Toast.LENGTH_LONG).show();
-			} else {
+		/*
+		 * if ((!edtEmail.getText().toString().equals("")) &&
+		 * (!edtSenha.getText().toString().equals(""))) { if
+		 * ((!cliente.getEmail().equals(edtEmail.getText().toString())) ||
+		 * (!cliente.getSenha().equals( edtSenha.getText().toString()))) {
+		 * Toast.makeText(this, "Nome de usuário incorreto ou senha incorreta",
+		 * Toast.LENGTH_LONG).show(); } else {
+		 */
 
-				try {
-					RepositorioCliente.getInstance().logarAndroid(cliente);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				PreferencesController.setUserPreferences(this, edtEmail
-						.getText().toString(), edtSenha.getText().toString());
-				it = new Intent(this, HomeActivity.class);
-				startActivity(it);
-				finish();
-			}
-		} else {
-			Toast.makeText(this, "Digite todos os campos", Toast.LENGTH_LONG)
-					.show();
+		try {
+			RepositorioCliente.getInstance().logarAndroid(cliente);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		PreferencesController.setUserPreferences(this, edtEmail.getText()
+				.toString(), edtSenha.getText().toString());
+		it = new Intent(this, HomeActivity.class);
+		startActivity(it);
+		finish();
+		/*
+		 * } } else { Toast.makeText(this, "Digite todos os campos",
+		 * Toast.LENGTH_LONG) .show(); }
+		 */
 
 	}
 

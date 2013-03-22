@@ -86,12 +86,16 @@ public class RepositorioCliente extends RepositorioClass {
 		// cria o json com os paramterso que se quer..
 		//
 		JSONObject jsonObjectEntrada = new JSONObject();
+		jsonObjectEntrada.put("nome", cliente.getNome());
+		jsonObjectEntrada.put("cpf", cliente.getCpf());
+		jsonObjectEntrada.put("tipo", cliente.getTipo());
+		jsonObjectEntrada.put("telefone", cliente.getTelefone());
 		jsonObjectEntrada.put("senha", cliente.getSenha());
 		jsonObjectEntrada.put("email", cliente.getEmail());
-
 		//
-		// criptogrfa o json gerando uma string na base64..
+		// criptografando o json gerando uma string na base64..
 		//
+	 	
 		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
 				.toString());
 
@@ -100,10 +104,8 @@ public class RepositorioCliente extends RepositorioClass {
 		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
 		// String.valueOf(textoCriptografado)));
 		//
-		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
-				1);
-		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-				String.valueOf(textoCriptografado)));
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);
+		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",String.valueOf(textoCriptografado)));
 
 		//
 		// passa o nome da açao do webservice
@@ -124,6 +126,7 @@ public class RepositorioCliente extends RepositorioClass {
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
 		Cliente clienteRetorno = new Cliente();
+		clienteRetorno.setId(jsonObjectSaida.getString("id"));
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
 		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
 

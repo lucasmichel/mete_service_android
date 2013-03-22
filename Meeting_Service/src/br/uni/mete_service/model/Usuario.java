@@ -6,34 +6,34 @@ import br.uni.mete_service.model.repositorio.ModelClass;
 
 public class Usuario extends ModelClass implements Serializable{
 
-	private long id;
+	private String id;
 	private String senha;
 	private String email;
-	private int tipo;// definir se é cliente ou acompanhante
+	private String tipo;// definir se é cliente ou acompanhante
 
 	
 	public Usuario() {	}
 
-	public Usuario(long id, String senha, String email, int tipo) {
+	public Usuario(String id, String senha, String email, String tipo) {
 		this.id = id;
 		this.senha = senha;
 		this.email = email;
 		this.tipo = tipo;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public int getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(int tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 

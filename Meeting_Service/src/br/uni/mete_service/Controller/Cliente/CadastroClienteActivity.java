@@ -61,57 +61,55 @@ public class CadastroClienteActivity extends Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:
-			if (atualizar) {
-				Cliente cliente = new Cliente();
-				cliente.setNome(CCnome.getText().toString());
-				cliente.setCpf(CCcpf.getText().toString());
-				cliente.setTipo(1);
-				cliente.setTelefone(CCtelefone.getText().toString());
-				cliente.setEmail(CCemail.getText().toString());
-				cliente.setSenha(CCsenha.getText().toString());
-				cliente.setStatus(0);
-				cliente.setMensagem("");
-				try {
-					Toast.makeText(getApplicationContext(),
-							"nome " + cliente.getNome().toString(),
-							Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),
-							"cpf " + cliente.getCpf().toString(),
-							Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),
-							"telefone " + cliente.getTelefone().toString(),
-							Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),
-							"email " + cliente.getEmail().toString(),
-							Toast.LENGTH_SHORT).show();
-					Toast.makeText(getApplicationContext(),
-							"Senha " + cliente.getSenha().toString(),
-							Toast.LENGTH_SHORT).show();
+			// if (atualizar) { 
+			Cliente cliente = new Cliente();
+			cliente.setNome(CCnome.getText().toString());
+			cliente.setCpf(CCcpf.getText().toString());
+			cliente.setTipo("1");
+			cliente.setTelefone(CCtelefone.getText().toString());
+			cliente.setEmail(CCemail.getText().toString());
+			cliente.setSenha(CCsenha.getText().toString());
+			cliente.setStatus(0);
+			cliente.setMensagem("");
+			try {
+				Toast.makeText(getApplicationContext(),
+						"nome " + cliente.getNome().toString(),
+						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						"cpf " + cliente.getCpf().toString(),
+						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						"telefone " + cliente.getTelefone().toString(),
+						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						"email " + cliente.getEmail().toString(),
+						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),
+						"Senha " + cliente.getSenha().toString(),
+						Toast.LENGTH_SHORT).show();
+				
+				Cliente userRetorno = new Cliente();
 
-					Cliente userRetorno = new Cliente();
+				userRetorno = (Cliente) cliente.cadastrarCliente(cliente);
 
-					userRetorno = (Cliente) cliente.cadastrarCliente(cliente);
+				Toast.makeText(getApplicationContext(),
+						userRetorno.getMensagem().toString(), Toast.LENGTH_LONG)
+						.show();
 
-					Toast.makeText(getApplicationContext(),
-							userRetorno.getMensagem().toString(),
-							Toast.LENGTH_LONG).show();
-
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				Cliente c = new Cliente();
-				c.setNome(this.CCnome.getText().toString());
-				c.setCpf(this.CCcpf.getText().toString());
-				c.setTelefone(this.CCtelefone.getText().toString());
-				c.setEmail(this.CCemail.getText().toString());
-				c.setSenha(this.CCsenha.getText().toString());
-				c.setTipo(1);
-				// controler.inserirCliente(c);
-				Intent it = new Intent(this, HomeActivity.class);
-				setResult(RESULT_OK, it);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			/*
+			 * } else { Cliente c = new Cliente();
+			 * c.setNome(this.CCnome.getText().toString());
+			 * c.setCpf(this.CCcpf.getText().toString());
+			 * c.setTelefone(this.CCtelefone.getText().toString());
+			 * c.setEmail(this.CCemail.getText().toString());
+			 * c.setSenha(this.CCsenha.getText().toString()); c.setTipo(1); //
+			 * controler.inserirCliente(c); Intent it = new Intent(this,
+			 * HomeActivity.class); setResult(RESULT_OK, it); }
+			 */
 			finish();
 			break;
 		case R.id.btnVoltar:

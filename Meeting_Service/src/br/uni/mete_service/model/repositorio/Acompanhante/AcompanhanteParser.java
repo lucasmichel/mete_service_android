@@ -61,7 +61,7 @@ public class AcompanhanteParser {
 
 		Acompanhante acomp = new Acompanhante();
 
-		acomp.setId(usuarioJson.getInt("id"));
+		acomp.setId(usuarioJson.getString("id"));
 		acomp.setEmail(usuarioJson.optString("email"));
 		acomp.setSenha(usuarioJson.optString("senha"));
 		acomp.setNome(usuarioJson.optString("name"));

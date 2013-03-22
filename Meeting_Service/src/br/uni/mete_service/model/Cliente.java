@@ -18,7 +18,7 @@ public class Cliente extends Usuario {
 	public Cliente() {
 	}
 
-	public Cliente(long id, String nome, String cpf, int tipo, String telefone,
+	public Cliente(String id, String nome, String cpf, String tipo, String telefone,
 			String email, String senha,int status, String mensagem) {
 		super(id, senha, email, tipo);
 		this.nome = nome;
@@ -68,7 +68,7 @@ public class Cliente extends Usuario {
 		this.mensagem = mensagem;
 	}
 
-	public Usuario logarAndroid(Usuario usuario) throws JSONException {
+	public Cliente logarAndroid(Cliente cliente) throws JSONException {
 		RepositorioCliente bd = RepositorioCliente.getInstance();
 		return bd.logarAndroid(this);
 	}

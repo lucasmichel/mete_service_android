@@ -76,7 +76,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					JSONObject objeto = jsonAray.getJSONObject(i);
 
 					Acompanhante m = new Acompanhante();
-					m.setId(objeto.getInt("id"));
+					m.setId(objeto.getString("id"));
 					m.setNome(objeto.getString("nome"));
 					m.setEspecialidade(objeto.getString("especialidade"));
 					m.setIdade(objeto.getString("idade"));

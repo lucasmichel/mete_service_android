@@ -89,8 +89,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 	}
 
 	public void editarPerfil() {
-		
-		
+			
 		Intent it;
 		it = new Intent(this, CadastroClienteActivity.class);
 		startActivity(it);

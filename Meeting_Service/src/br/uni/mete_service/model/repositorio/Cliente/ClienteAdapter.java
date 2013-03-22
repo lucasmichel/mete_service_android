@@ -1,6 +1,7 @@
 package br.uni.mete_service.model.repositorio.Cliente;
 import java.util.List;
 
+
 import br.uni.mete_service.model.Cliente;
 import android.content.Context;
 import android.view.View;
@@ -30,15 +31,16 @@ public class ClienteAdapter extends BaseAdapter {
 		return listCliente.get(position);
 	}
 
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return listCliente.get(0).getId();
-	}
-
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		Cliente carro = (Cliente) getItem(position);
+		Cliente cliente = (Cliente) getItem(position);
 		return convertView;
+	}
+
+	@Override
+	public long getItemId(int arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

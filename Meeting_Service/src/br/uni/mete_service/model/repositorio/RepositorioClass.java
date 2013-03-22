@@ -147,7 +147,7 @@ public class RepositorioClass {
 			Log.e("LUCASMICHEL", "JSONException", e);
 			e.printStackTrace();
 		}
-
+ 
 		return objetoJSONAQUI;
 	}
 
