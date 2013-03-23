@@ -12,20 +12,18 @@ public class Cliente extends Usuario {
 	private String nome;
 	private String cpf;
 	private String telefone;
-	private int status;
-	private String mensagem;
+	
 
 	public Cliente() {
 	}
 
 	public Cliente(String id, String nome, String cpf, String tipo, String telefone,
-			String email, String senha,int status, String mensagem) {
-		super(id, senha, email, tipo);
+			String email, String senha) {
+		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
-		this.setMensagem(mensagem);
-		this.setStatus(status);
+		
 	}
 
 	public String getNome() {
@@ -52,28 +50,12 @@ public class Cliente extends Usuario {
 		this.telefone = telefone;
 	}
 
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public String getMensagem() {
-		return mensagem;
-	}
-
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
-	}
-
 	public Cliente logarAndroid(Cliente cliente) throws JSONException {
 		RepositorioCliente bd = RepositorioCliente.getInstance();
 		return bd.logarAndroid(this);
 	}
 
-	public Usuario cadastrarCliente(Usuario usuario) throws JSONException {
+	public Cliente cadastrarCliente(Cliente cliente) throws JSONException {
 		RepositorioCliente bd = RepositorioCliente.getInstance();
 		return bd.cadastrarCliente(this);
 	}

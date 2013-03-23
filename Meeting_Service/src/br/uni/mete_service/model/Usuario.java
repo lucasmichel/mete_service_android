@@ -1,24 +1,28 @@
 package br.uni.mete_service.model;
 
-import java.io.Serializable;
 
 import br.uni.mete_service.model.repositorio.ModelClass;
 
-public class Usuario extends ModelClass implements Serializable{
+public class Usuario extends ModelClass {
 
 	private String id;
 	private String senha;
 	private String email;
 	private String tipo;// definir se é cliente ou acompanhante
 
-	
-	public Usuario() {	}
+	public Usuario() {
+		super();
+	}
 
-	public Usuario(String id, String senha, String email, String tipo) {
+	public Usuario(String id, String senha, String email, String tipo,
+			int status, String mensagem) {
+		super();
 		this.id = id;
 		this.senha = senha;
 		this.email = email;
 		this.tipo = tipo;
+		this.setMensagem(mensagem);
+		this.setStatus(status);
 	}
 
 	public String getId() {

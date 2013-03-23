@@ -46,11 +46,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		instantiateComponents();
-		// esta parte será retirada quando o web service estiver pronto
-		// cliente = new Cliente(1, "Tiago", "030123433876", 1,
-		// "87290729","gomes.tg@hotmail.com", "123456");
+		
+		edtEmail = (EditText) findViewById(R.id.loginEmail);
+		edtSenha = (EditText) findViewById(R.id.loginSenha);
+		btnLogin = (Button) findViewById(R.id.btnEntrar);
+		txtLinkCadastro = (TextView) findViewById(R.id.textoCadastre);
 
+		btnLogin.setOnClickListener(this);
+		txtLinkCadastro.setOnClickListener(this);
 	}
 
 	@SuppressLint("NewApi")
@@ -75,17 +78,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	public void instantiateComponents() {
-
-		edtEmail = (EditText) findViewById(R.id.loginEmail);
-		edtSenha = (EditText) findViewById(R.id.loginSenha);
-		btnLogin = (Button) findViewById(R.id.btnEntrar);
-		txtLinkCadastro = (TextView) findViewById(R.id.textoCadastre);
-
-		btnLogin.setOnClickListener(this);
-		txtLinkCadastro.setOnClickListener(this);
-	}
-
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
@@ -94,9 +86,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			logar();
 			break;
 		case R.id.textoCadastre:
-			Cliente cli = null;
 			Intent it = new Intent(this, EscolhaDoUsuarioActivity.class);
-			it.putExtra("cliente", cli);
 			startActivity(it);
 			break;
 		}

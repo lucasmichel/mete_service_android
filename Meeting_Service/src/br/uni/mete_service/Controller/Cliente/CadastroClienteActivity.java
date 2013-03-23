@@ -1,5 +1,7 @@
 package br.uni.mete_service.Controller.Cliente;
 
+import org.json.JSONException;
+
 import br.uni.mete_service.R;
 
 import br.uni.mete_service.Controller.HomeActivity;
@@ -38,9 +40,7 @@ public class CadastroClienteActivity extends Activity implements
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
-		// rep = new RepositorioCliente(this);
-		// cliente = new Cliente(1, "Tiago", "030123433876", 1, "87290729",
-		// "gomes.tg@hotmail.com", "123456");
+
 		inicializacaoVerificacao();
 
 	}
@@ -61,7 +61,7 @@ public class CadastroClienteActivity extends Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:
-			// if (atualizar) { 
+
 			Cliente cliente = new Cliente();
 			cliente.setNome(CCnome.getText().toString());
 			cliente.setCpf(CCcpf.getText().toString());
@@ -71,45 +71,27 @@ public class CadastroClienteActivity extends Activity implements
 			cliente.setSenha(CCsenha.getText().toString());
 			cliente.setStatus(0);
 			cliente.setMensagem("");
+
 			try {
-				Toast.makeText(getApplicationContext(),
-						"nome " + cliente.getNome().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"cpf " + cliente.getCpf().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"telefone " + cliente.getTelefone().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"email " + cliente.getEmail().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"Senha " + cliente.getSenha().toString(),
-						Toast.LENGTH_SHORT).show();
 				
-				Cliente userRetorno = new Cliente();
+				Toast.makeText(getApplicationContext(),"nome " + cliente.getNome().toString(),Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),"cpf " + cliente.getCpf().toString(),Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),"telefone " + cliente.getTelefone().toString(),Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),"email " + cliente.getEmail().toString(),Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(),"senha " + cliente.getSenha().toString(),Toast.LENGTH_SHORT).show();
 
-				userRetorno = (Cliente) cliente.cadastrarCliente(cliente);
+				Cliente clienteRetorno = new Cliente();
 
-				Toast.makeText(getApplicationContext(),
-						userRetorno.getMensagem().toString(), Toast.LENGTH_LONG)
-						.show();
-
-			} catch (Exception e) {
+				clienteRetorno = cliente.cadastrarCliente(cliente);
+				Toast.makeText(getApplicationContext(),clienteRetorno.getMensagem().toString(),	Toast.LENGTH_LONG).show();
+				
+			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			/*
-			 * } else { Cliente c = new Cliente();
-			 * c.setNome(this.CCnome.getText().toString());
-			 * c.setCpf(this.CCcpf.getText().toString());
-			 * c.setTelefone(this.CCtelefone.getText().toString());
-			 * c.setEmail(this.CCemail.getText().toString());
-			 * c.setSenha(this.CCsenha.getText().toString()); c.setTipo(1); //
-			 * controler.inserirCliente(c); Intent it = new Intent(this,
-			 * HomeActivity.class); setResult(RESULT_OK, it); }
-			 */
+
+			Intent it = new Intent(this, HomeActivity.class);
+			setResult(RESULT_OK, it);
 			finish();
 			break;
 		case R.id.btnVoltar:

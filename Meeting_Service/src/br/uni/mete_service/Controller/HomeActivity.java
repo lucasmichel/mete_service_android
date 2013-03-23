@@ -2,7 +2,6 @@ package br.uni.mete_service.Controller;
 
 import br.uni.mete_service.R;
 
-
 import br.uni.mete_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.Cliente;
@@ -66,7 +65,6 @@ public class HomeActivity extends Activity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
 		switch (item.getItemId()) {
-
 		case R.menuComponentes.editar:
 			editarPerfil();
 			return true;
@@ -80,7 +78,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	public void sair() {
 
-		//ClienteController.getInstance().setUsuarioLogged(null);
+		// ClienteController.getInstance().setUsuarioLogged(null);
 		Intent it;
 		PreferencesController.clearUserPreferences(this);
 		it = new Intent(this, LoginActivity.class);
@@ -89,7 +87,6 @@ public class HomeActivity extends Activity implements OnClickListener {
 	}
 
 	public void editarPerfil() {
-			
 		Intent it;
 		it = new Intent(this, CadastroClienteActivity.class);
 		startActivity(it);

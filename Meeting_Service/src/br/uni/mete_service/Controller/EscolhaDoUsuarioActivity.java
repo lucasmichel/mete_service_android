@@ -28,9 +28,7 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 
 		btnHomem.setOnClickListener(this);
 		btnMulher.setOnClickListener(this);
-		
-		//oi
-
+	
 	}
 
 	@Override
