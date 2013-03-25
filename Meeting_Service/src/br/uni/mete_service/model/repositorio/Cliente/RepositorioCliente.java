@@ -79,7 +79,7 @@ public class RepositorioCliente extends RepositorioClass {
 
 		return clienteRetorno;
 	}
-
+ 
 	public Cliente cadastrarCliente(Cliente cliente) throws JSONException {
 		//
 		// cria o json com os paramterso que se quer..
@@ -94,7 +94,7 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		// criptografando o json gerando uma string na base64..
 		//
-
+		System.out.println(jsonObjectEntrada);
 		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
 				.toString());
 
