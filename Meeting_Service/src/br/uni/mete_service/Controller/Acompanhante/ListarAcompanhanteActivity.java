@@ -88,7 +88,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					m.setOlhos(objeto.getString("olhos"));
 					m.setPernoite(objeto.getString("pernoite"));
 					m.setAtendo(objeto.getString("atendo"));
-					m.setHorario_atentimento(objeto.getString("horario_aten"));
+					m.setHorario_atendimento(objeto.getString("horario_aten"));
 					m.setPeso(objeto.getString("peso"));
 					m.setStatusAt(objeto.getString("status"));
 					

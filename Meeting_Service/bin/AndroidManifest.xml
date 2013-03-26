@@ -41,6 +41,7 @@
             android:name="br.uni.mete_service.Controller.EscolhaDoUsuarioActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity android:name=".Controller.Acompanhante.AlterarStatusActivity"></activity>
     </application>
 
 </manifest>

@@ -27,5 +27,9 @@
     <string name="sair">Sair</string>
     <string name="editarperfil">Editar Perfil</string>
     <string name="textoCadastre"><u>Cadastre-se já. É gratuito e sempre será</u></string>
+    <string name="fotourl">Foto de Perfil ( URL ) </string>
+    <string name="statusdisponivel">Disponível</string>
+    <string name="statusocupado">Ocupada</string>
+    <string name="alterandostatus">STATUS DE ATENDIMENTO</string>
 
 </resources>

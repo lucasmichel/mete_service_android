@@ -6,9 +6,9 @@ import br.uni.mete_service.model.repositorio.ModelClass;
 public class Usuario extends ModelClass {
 
 	private String id;
-	private String senha;
-	private String email;
-	private String tipo;// definir se é cliente ou acompanhante
+	protected String senha;
+	protected String email;
+	protected String tipo;// definir se é cliente ou acompanhante
 
 	public Usuario() {
 		super();

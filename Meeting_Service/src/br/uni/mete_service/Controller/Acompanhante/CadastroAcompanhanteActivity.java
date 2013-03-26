@@ -1,12 +1,16 @@
 package br.uni.mete_service.Controller.Acompanhante;
 
+
+
 import br.uni.mete_service.R;
 import br.uni.mete_service.model.Acompanhante;
-import br.uni.mete_service.model.repositorio.Acompanhante.AcompanhanteController;
+import br.uni.mete_service.model.repositorio.Acompanhante.RepositorioAcompanhante;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class CadastroAcompanhanteActivity extends Activity 
@@ -22,10 +26,17 @@ public class CadastroAcompanhanteActivity extends Activity
 	private EditText edtOlhosAcomp;
 	private EditText edtPernoiteAcomp;
 	private EditText edtEspecialidadeAcomp;
-	private EditText edtHorarioAtentAcomp;
+	private EditText edtHorario_AtendimentoAcomp;
+	private EditText edtAtendoAcomp;
+	private EditText edtFotoAcomp;
+	private EditText edtSenhaAcomp;
+	private EditText edtEmailAcomp;
+	
 
+	
 
 	private Acompanhante objacompanhante;
+	RepositorioAcompanhante repositorioAcompanhante;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -51,66 +62,93 @@ public class CadastroAcompanhanteActivity extends Activity
 		edtOlhosAcomp.setText(objacompanhante.getOlhos());
 		edtPernoiteAcomp.setText(objacompanhante.getPernoite());
 		edtEspecialidadeAcomp.setText(objacompanhante.getEspecialidade());
-		edtHorarioAtentAcomp.setText(objacompanhante.getHorario_atentimento());
-			
+		edtHorario_AtendimentoAcomp.setText(objacompanhante.getHorario_atendimento());
+		edtAtendoAcomp.setText(objacompanhante.getAtendo());
+		edtFotoAcomp.setText(objacompanhante.getFoto());
+		edtEmailAcomp.setText(objacompanhante.getEmail());
+		edtSenhaAcomp.setText(objacompanhante.getSenha());	
 		}
 	}
 	
 	
 	private void inicializar() {
-		edtNomeAcomp = (EditText)findViewById(R.id.AcompNome);
-		edtIdadeAcomp = (EditText)findViewById(R.id.AcompIdade);
-		edtPesoAcomp = (EditText)findViewById(R.id.AcompPeso);
-		edtBustoAcomp = (EditText)findViewById(R.id.AcompBusto);
-		edtAlturaAcomp = (EditText)findViewById(R.id.AcompAltura);
-		edtCinturaAcomp = (EditText)findViewById(R.id.AcompCintura);
-		edtQuadrilAcomp = (EditText)findViewById(R.id.AcompQuadril);
-		edtOlhosAcomp = (EditText)findViewById(R.id.AcompOlhos);
-		edtPernoiteAcomp= (EditText)findViewById(R.id.AcompPernoite);
-		edtEspecialidadeAcomp = (EditText)findViewById(R.id.AcompEspecialidades);
-		edtHorarioAtentAcomp = (EditText)findViewById(R.id.AcompHorarioAtent);
+		edtNomeAcomp = (EditText)findViewById(R.id.editNomeAcomp);
+		edtIdadeAcomp = (EditText)findViewById(R.id.editIdadeAcomp);
+		edtPesoAcomp = (EditText)findViewById(R.id.editPesoAcomp);
+		edtBustoAcomp = (EditText)findViewById(R.id.editBustoAcomp);
+		edtAlturaAcomp = (EditText)findViewById(R.id.editAlturaAcomp);
+		edtCinturaAcomp = (EditText)findViewById(R.id.editCinturaAcomp);
+		edtQuadrilAcomp = (EditText)findViewById(R.id.editQuadrilAcomp);
+		edtOlhosAcomp = (EditText)findViewById(R.id.editOlhosAcomp);
+		edtPernoiteAcomp= (EditText)findViewById(R.id.editPernoiteAcomp);
+		edtEspecialidadeAcomp = (EditText)findViewById(R.id.editEspecialidadeAcomp);
+		edtHorario_AtendimentoAcomp = (EditText)findViewById(R.id.editHorarioAtentAcomp);
+		edtAtendoAcomp = (EditText)findViewById(R.id.editAtendoAcomp);
+		edtFotoAcomp = (EditText)findViewById(R.id.editFotoAcomp);
+		edtEmailAcomp = (EditText)findViewById(R.id.editEmailAcomp);
+		edtSenhaAcomp = (EditText)findViewById(R.id.editSenhaAcomp);
 		
 	}
 
 
-	public void salvarClick(View v)	{
+	public void salvarClick(View v) {
 		
-		String nome          = edtNomeAcomp.getText().toString();
-		String idade         = edtIdadeAcomp.getText().toString();
-		String peso          = edtPesoAcomp.getText().toString();
-		String busto         = edtBustoAcomp.getText().toString();
-		String altura        = edtAlturaAcomp.getText().toString();
-		String cintura       = edtCinturaAcomp.getText().toString();
-		String quadril       = edtQuadrilAcomp.getText().toString();
-		String olhos         = edtOlhosAcomp.getText().toString();
-		String pernoite      = edtPernoiteAcomp.getText().toString();
-		String especialidade = edtEspecialidadeAcomp.getText().toString();
-		String horarioatent  = edtHorarioAtentAcomp.getText().toString();
-		String atendo = "Disponível";
-		String status = "Disponível";
-		String foto = "url";
 		
-		AcompanhanteController repo = new AcompanhanteController();
+		String nome          		= edtNomeAcomp.getText().toString();
+		String idade         		= edtIdadeAcomp.getText().toString();
+		String peso          		= edtPesoAcomp.getText().toString();
+		String busto         		= edtBustoAcomp.getText().toString();
+		String altura        		= edtAlturaAcomp.getText().toString();
+		String cintura       		= edtCinturaAcomp.getText().toString();
+		String quadril       		= edtQuadrilAcomp.getText().toString();
+		String olhos         		= edtOlhosAcomp.getText().toString();
+		String pernoite      		= edtPernoiteAcomp.getText().toString();
+		String especialidade 		= edtEspecialidadeAcomp.getText().toString();
+		String horario_atendimento  = edtHorario_AtendimentoAcomp.getText().toString();
+		String atendo 		 		= edtAtendoAcomp.getText().toString();
+		String statusAt = "Disponível";
+		String foto 				= edtFotoAcomp.getText().toString();
+		String email				= edtEmailAcomp.getText().toString();
+		String senha				= edtSenhaAcomp.getText().toString();
+		String tipo 				= "Acompanhante";
+		
 		
 		if (objacompanhante == null){
-			objacompanhante = new Acompanhante(idade, nome, peso, busto, altura, cintura, quadril, olhos
-					, pernoite, especialidade, horarioatent, atendo, status, foto);
-			//repo.inserirAcompanhante(objacompanhante);
-//			Toast.makeText(this, "Vaga criada com sucesso!", Toast.LENGTH_LONG).show();
+			objacompanhante = new Acompanhante(idade, nome, altura, busto, cintura, quadril, olhos, pernoite
+					, especialidade, horario_atendimento, peso, atendo, statusAt, foto, email, senha, tipo);
+		
+		//RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
+		//bd.cadastrarAcompanhante(objacompanhante);
+		
+//		try {
+//			acomp.cadastrarAcompanhante(objacompanhante);
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		Toast.makeText(this, "Vaga criada com sucesso!", Toast.LENGTH_LONG).show();
+		
+		Intent it = new Intent(this, TelaAcompanhanteActivity.class);
+		startActivity(it);
+		
 		} else {
 			objacompanhante.setNome(nome);
 			objacompanhante.setIdade(idade);
 			objacompanhante.setPeso(peso);
 			objacompanhante.setBusto(busto);
 			objacompanhante.setAltura(altura);
-			objacompanhante.setNome(cintura);
-			objacompanhante.setNome(quadril);
-			objacompanhante.setNome(olhos);
-			objacompanhante.setNome(pernoite);
-			objacompanhante.setNome(especialidade);
-			objacompanhante.setNome(horarioatent);
+			objacompanhante.setCintura(cintura);
+			objacompanhante.setQuadril(quadril);
+			objacompanhante.setOlhos(olhos);
+			objacompanhante.setPernoite(pernoite);
+			objacompanhante.setEspecialidade(especialidade);
+			objacompanhante.setHorario_atendimento(horario_atendimento);
 			objacompanhante.setAtendo(atendo);
-			objacompanhante.setStatusAt(status);
+			objacompanhante.setStatusAt(statusAt);
+			objacompanhante.setFoto(foto);
+			objacompanhante.setEmail(email);
+			objacompanhante.setSenha(senha);
 			
 			
 		//	repo.alterarAcompanhante(objacompanhante);
