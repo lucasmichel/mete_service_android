@@ -112,7 +112,7 @@ public class RepositorioCliente extends RepositorioClass {
 		// passa o nome da a√ßao do webservice
 		//
 		// String nomeDaAcao = "cadastrarUsuario";
-		String nomeDaAcao = "cadastrarUsuarioBUUU";
+		String nomeDaAcao = "cadastrarUsuario"; //SÛstenes: Alterado para RealizaÁ„o de testes
 
 		//
 		// recebe um json descriptografado com as informa√ß√µes de retorno do
