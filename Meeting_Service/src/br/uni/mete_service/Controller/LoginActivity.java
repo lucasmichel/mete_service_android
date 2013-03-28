@@ -58,25 +58,25 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	@SuppressLint("NewApi")
 	@Override
-	protected void onResume() {
-		super.onResume();
-		userValuesMap = PreferencesController.getUserPreferences(this);
-		String userLogin = userValuesMap.get(PreferencesController.USER_EMAIL);
-		String userSenha = userValuesMap.get(PreferencesController.USER_SENHA);
-
-		if (!userLogin.isEmpty() && !userSenha.isEmpty()) {
-			try {
-				RepositorioCliente.getInstance().logarAndroid(cliente);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Intent it = new Intent(this, HomeActivity.class);
-			startActivity(it);
-			finish();
-
-		}
-	}
+//	protected void onResume() {
+//		super.onResume();
+//		userValuesMap = PreferencesController.getUserPreferences(this);
+//		String userLogin = userValuesMap.get(PreferencesController.USER_EMAIL);
+//		String userSenha = userValuesMap.get(PreferencesController.USER_SENHA);
+//
+//		if (!userLogin.isEmpty() && !userSenha.isEmpty()) {
+//			try {
+//				RepositorioCliente.getInstance().logarAndroid(cliente);
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			Intent it = new Intent(this, HomeActivity.class);
+//			startActivity(it);
+//			finish();
+//
+//		}
+//	}
 
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
