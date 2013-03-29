@@ -64,9 +64,7 @@ public class CadastroClienteActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.btnAvancar:
 			new cadastrarClienteAsyncTask().execute();
-			Intent it = new Intent(this, HomeActivity.class);
-			setResult(RESULT_OK, it);
-			finish();
+						
 			break;
 		case R.id.btnVoltar:
 			finish();
@@ -74,18 +72,16 @@ public class CadastroClienteActivity extends Activity implements
 		default:
 			break;
 		}
-	}
-
-	class cadastrarClienteAsyncTask extends AsyncTask<String, String, Cliente> {
+	}	
+	class cadastrarClienteAsyncTask extends AsyncTask<String, String, Cliente>{
 		ProgressDialog dialog;
-
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(CadastroClienteActivity.this,
-					"Calma amiguinho.", "Salvando", true, false);
+			dialog = ProgressDialog.show(CadastroClienteActivity.this, "Calma amiguinho.",
+					"Salvando", true, false);
 		}
-
+		
 		@Override
 		protected Cliente doInBackground(String... params) {
 			Cliente cliente = new Cliente();
@@ -95,48 +91,32 @@ public class CadastroClienteActivity extends Activity implements
 			cliente.setTelefone(CCtelefone.getText().toString());
 			cliente.setEmail(CCemail.getText().toString());
 			cliente.setSenha(CCsenha.getText().toString());
+			cliente.setStatus(0);
+			cliente.setMensagem("");
 
 			try {
-
-				Toast.makeText(getApplicationContext(),
-						"nome " + cliente.getNome().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"cpf " + cliente.getCpf().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"telefone " + cliente.getTelefone().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"email " + cliente.getEmail().toString(),
-						Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(),
-						"senha " + cliente.getSenha().toString(),
-						Toast.LENGTH_SHORT).show();
+				
+	
 
 				Cliente clienteRetorno = new Cliente();
 
 				clienteRetorno = cliente.cadastrarCliente(cliente);
-				Toast.makeText(getApplicationContext(),
-						clienteRetorno.getMensagem().toString(),
-						Toast.LENGTH_LONG).show();
 
+				
 			} catch (JSONException e) {
 				Log.i("pedro: ", "ERROOO!!" + e);
 				e.printStackTrace();
 			}
 			return cliente;
 		}
-
 		@Override
 		protected void onPostExecute(Cliente result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
-			Intent it = new Intent(CadastroClienteActivity.this,
-					HomeActivity.class);
+			Intent it = new Intent(CadastroClienteActivity.this ,HomeActivity.class);
 			setResult(RESULT_OK, it);
 			finish();
-		}
+		}	
 	}
-
+	
 }

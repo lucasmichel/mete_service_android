@@ -79,7 +79,7 @@ public class RepositorioCliente extends RepositorioClass {
 
 		return clienteRetorno;
 	}
-
+ 
 	public Cliente cadastrarCliente(Cliente cliente) throws JSONException {
 		//
 		// cria o json com os paramterso que se quer..
@@ -111,7 +111,9 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		// passa o nome da a√ßao do webservice
 		//
-		String nomeDaAcao = "cadastrarUsuario";
+		// String nomeDaAcao = "cadastrarUsuario";
+		String nomeDaAcao = "cadastrarUsuario"; //SÛstenes: Alterado para RealizaÁ„o de testes
+
 		//
 		// recebe um json descriptografado com as informa√ß√µes de retorno do
 		// post
@@ -125,8 +127,9 @@ public class RepositorioCliente extends RepositorioClass {
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
 		Cliente clienteRetorno = new Cliente();
+//		clienteRetorno.setId(jsonObjectSaida.getString("id"));
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		clienteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
+		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
 
 		return clienteRetorno;
 	}
