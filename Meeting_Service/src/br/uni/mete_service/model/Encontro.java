@@ -55,6 +55,5 @@ public class Encontro extends ModelClass {
 
 	public void setHora(String hora) {
 		this.hora = hora;
-	}
-	
+	}	
 }
