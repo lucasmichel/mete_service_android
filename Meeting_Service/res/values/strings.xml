@@ -37,6 +37,8 @@
     <string name="encontro_voceselecionou">Você selecionou: (Realize a Seleção)</string>
     <string name="encontro_data">Data:</string>
     <string name="encontro_hora">Hora:</string>
+    <string name="encontro_marcar">Marcar</string>
+    <string name="encontro_cancelar">Cancelar</string>
     
     
     
