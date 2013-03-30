@@ -43,7 +43,7 @@ public class CadastroClienteActivity extends Activity implements
 		CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
 		CCtelefone.addTextChangedListener(Mask.insert(
-				"(##)####-####", CCtelefone ));
+				"(###)####-####", CCtelefone ));
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
 
@@ -68,16 +68,23 @@ public class CadastroClienteActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.btnAvancar:
 			ControladorCLiente validar = new ControladorCLiente();
+			Cliente cliente = new Cliente();
 			
-//			if (validar.validarCampo(CCnome) && validar.validarCampo(CCcpf)
-//					&& validar.validarCampo(CCemail) && 
-//					validar.validarCampo(CCtelefone) &&
-//					validar.validarCampo(CCemail) && 
-//					validar.validarCampo(CCsenha)== true){
+			cliente.setNome(CCnome.getText().toString());
+			cliente.setCpf(CCcpf.getText().toString());
+			cliente.setTelefone(CCtelefone.getText().toString());
+			cliente.setEmail(CCemail.getText().toString());
+			cliente.setSenha(CCsenha.getText().toString());
+
+			
+			if (validar.validarCampo(CCnome) && 
+					validar.validarCampo(CCcpf)&& 
+					validar.validarCampo(CCtelefone) && 
+					validar.validarCampo(CCemail) && 
+					validar.validarCampo(CCsenha)== true){
 				
-			if (validar.valida()== true){
-				
-				new cadastrarClienteAsyncTask().execute();
+
+					new cadastrarClienteAsyncTask().execute();
 				
 			}
 			
@@ -100,6 +107,7 @@ public class CadastroClienteActivity extends Activity implements
 		
 		@Override
 		protected Cliente doInBackground(String... params) {
+			
 			Cliente cliente = new Cliente();
 			cliente.setNome(CCnome.getText().toString());
 			cliente.setCpf(CCcpf.getText().toString());

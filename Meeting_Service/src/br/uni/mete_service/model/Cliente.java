@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.Toast;
+import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.repositorio.Cliente.RepositorioCliente;
 
 public class Cliente extends Usuario {
@@ -68,4 +70,16 @@ public class Cliente extends Usuario {
 		json.put("nomeJson", manJson);
 		return json;
 	}
+	
+	public boolean validar ( Cliente Cliente) throws Exception{
+		 boolean retorno = true;
+		if (getNome().toString().equals("")){
+			Toast.makeText(null, "Nome errado", Toast.LENGTH_SHORT).show();
+			retorno = false;
+					}
+		
+		return retorno;
+		
+	}
+	
 }
