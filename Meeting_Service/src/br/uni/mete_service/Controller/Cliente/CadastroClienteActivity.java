@@ -6,6 +6,7 @@ import br.uni.mete_service.R;
 
 import br.uni.mete_service.Controller.HomeActivity;
 import br.uni.mete_service.model.Cliente;
+import br.uni.mete_service.util.Mask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -39,7 +40,10 @@ public class CadastroClienteActivity extends Activity implements
 
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);
+		CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
+		CCtelefone.addTextChangedListener(Mask.insert(
+				"(##)####-####", CCtelefone));
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
 
@@ -59,12 +63,24 @@ public class CadastroClienteActivity extends Activity implements
 			atualizar = true;
 		}
 	}
-
-	public void onClick(View v) {
+	
+		public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:
-			new cadastrarClienteAsyncTask().execute();
-						
+			ControladorCLiente validar = new ControladorCLiente();
+			
+//			if (validar.validarCampo(CCnome) && validar.validarCampo(CCcpf)
+//					&& validar.validarCampo(CCemail) && 
+//					validar.validarCampo(CCtelefone) &&
+//					validar.validarCampo(CCemail) && 
+//					validar.validarCampo(CCsenha)== true){
+				
+			if (validar.valida()== true){
+				
+				new cadastrarClienteAsyncTask().execute();
+				
+			}
+			
 			break;
 		case R.id.btnVoltar:
 			finish();
