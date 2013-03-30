@@ -31,5 +31,14 @@
     <string name="statusdisponivel">Disponível</string>
     <string name="statusocupado">Ocupada</string>
     <string name="alterandostatus">STATUS DE ATENDIMENTO</string>
+    
+    <string name="encontro_paraselecionar">Para Selecionar </string>
+    <string name="encontro_cliqueaqui">Clique Aqui</string>
+    <string name="encontro_voceselecionou">Você selecionou: (Realize a Seleção)</string>
+    <string name="encontro_data">Data:</string>
+    <string name="encontro_hora">Hora:</string>
+    
+    
+    
 
 </resources>
