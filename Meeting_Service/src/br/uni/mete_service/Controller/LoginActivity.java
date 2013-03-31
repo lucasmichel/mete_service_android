@@ -57,33 +57,41 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	@SuppressLint("NewApi")
-	@Override
-//	protected void onResume() {
-//		super.onResume();
-//		userValuesMap = PreferencesController.getUserPreferences(this);
-//		String userLogin = userValuesMap.get(PreferencesController.USER_EMAIL);
-//		String userSenha = userValuesMap.get(PreferencesController.USER_SENHA);
-//
-//		if (!userLogin.isEmpty() && !userSenha.isEmpty()) {
-//			try {
-//				RepositorioCliente.getInstance().logarAndroid(cliente);
-//			} catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			Intent it = new Intent(this, HomeActivity.class);
-//			startActivity(it);
-//			finish();
-//
-//		}
-//	}
-
+	public String validarCampos(){
+		
+		if (edtEmail.getText().equals("") && edtSenha.getText().equals("")){
+			return "ATENÇÃO: E-mail e Senha estão em branco!";
+		}
+		
+		if (edtEmail.getText().equals("")){
+			return "ATENÇÃO: E-mail está em branco!";
+		}
+		
+		if (edtSenha.getText().equals("")){
+			return "ATENÇÃO: Senha está em branco!";
+		}
+		
+		return "CamposValidos";
+	}
+	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
 		switch (v.getId()) {
 		case R.id.btnEntrar:
-			logar();
+			
+			boolean valicadao;
+			valicadao = false;
+			
+			if (validarCampos().equals("CamposValidos")){				
+				logar();								
+			}else{
+				AlertDialog dialog = new AlertDialog.Builder(this).
+				setTitle("Notificação").
+				setMessage(validarCampos()).		
+				create();
+				dialog.show();				
+			}
 			break;
 		case R.id.textoCadastre:
 			Intent it = new Intent(this, EscolhaDoUsuarioActivity.class);
