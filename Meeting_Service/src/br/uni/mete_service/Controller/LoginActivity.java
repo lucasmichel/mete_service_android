@@ -59,19 +59,22 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@SuppressLint("NewApi")
 	public String validarCampos(){
 		
-		if (edtEmail.getText().equals("") && edtSenha.getText().equals("")){
-			return "ATENÇÃO: E-mail e Senha estão em branco!";
+		String verificacao;
+		verificacao = "CamposValidos";
+				
+		if (edtEmail.getText().toString().equals("") && !(edtSenha.getText().toString().equals(""))){
+			verificacao = "ATENÇÃO: Campo: E-mail em Branco!";
+		}
+				
+		if (edtSenha.getText().toString().equals("") && !(edtEmail.getText().toString().equals(""))){
+			verificacao = "ATENÇÃO: Campo: Senha em Branco!";
 		}
 		
-		if (edtEmail.getText().equals("")){
-			return "ATENÇÃO: E-mail está em branco!";
+		if (edtEmail.getText().toString().equals("") && edtSenha.getText().toString().equals("")){
+			verificacao = "ATENÇÃO: Campos: E-mail e Senha em Branco!";
 		}
 		
-		if (edtSenha.getText().equals("")){
-			return "ATENÇÃO: Senha está em branco!";
-		}
-		
-		return "CamposValidos";
+		return verificacao;
 	}
 	
 	public void onClick(View v) {
@@ -79,18 +82,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.btnEntrar:
-			
-			boolean valicadao;
-			valicadao = false;
-			
-			if (validarCampos().equals("CamposValidos")){				
-				logar();								
+			if (!validarCampos().toString().equals("CamposValidos")){				
+						AlertDialog dialog = new AlertDialog.Builder(this).
+						setTitle("Notificação").
+						setMessage(validarCampos()).		
+						create();
+						dialog.show();																		
 			}else{
-				AlertDialog dialog = new AlertDialog.Builder(this).
-				setTitle("Notificação").
-				setMessage(validarCampos()).		
-				create();
-				dialog.show();				
+				logar();								
 			}
 			break;
 		case R.id.textoCadastre:
