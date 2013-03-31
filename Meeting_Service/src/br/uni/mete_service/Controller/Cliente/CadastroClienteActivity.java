@@ -9,6 +9,7 @@ import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.util.Mask;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -68,26 +69,33 @@ public class CadastroClienteActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.btnAvancar:
 			ControladorCLiente validar = new ControladorCLiente();
-			Cliente cliente = new Cliente();
+			Cliente clienteValidado = new Cliente();
 			
-			cliente.setNome(CCnome.getText().toString());
-			cliente.setCpf(CCcpf.getText().toString());
-			cliente.setTelefone(CCtelefone.getText().toString());
-			cliente.setEmail(CCemail.getText().toString());
-			cliente.setSenha(CCsenha.getText().toString());
+			clienteValidado.setNome(CCnome.getText().toString());
+			clienteValidado.setCpf(CCcpf.getText().toString());
+			clienteValidado.setTelefone(CCtelefone.getText().toString());
+			clienteValidado.setEmail(CCemail.getText().toString());
+			clienteValidado.setSenha(CCsenha.getText().toString());
 
+			ControladorCLiente contr = new ControladorCLiente();
 			
 			if (validar.validarCampo(CCnome) && 
 					validar.validarCampo(CCcpf)&& 
 					validar.validarCampo(CCtelefone) && 
 					validar.validarCampo(CCemail) && 
 					validar.validarCampo(CCsenha)== true){
-				
-
-					new cadastrarClienteAsyncTask().execute();
-				
-			}
 			
+			if (!contr.validarCampos(clienteValidado).toString().equals("CamposValidos")){	
+				AlertDialog dialog = new AlertDialog.Builder(this).
+				setTitle("Notificação").
+				setMessage(contr.validarCampos(clienteValidado)).		
+				create();
+				dialog.show();
+			
+			}else{
+				new cadastrarClienteAsyncTask().execute();						
+		}
+			}
 			break;
 		case R.id.btnVoltar:
 			finish();

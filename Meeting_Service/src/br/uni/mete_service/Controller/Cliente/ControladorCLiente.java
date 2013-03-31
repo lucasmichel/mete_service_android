@@ -1,5 +1,7 @@
 package br.uni.mete_service.Controller.Cliente;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.util.Log;
 import android.widget.Button;
@@ -19,21 +21,25 @@ public class ControladorCLiente extends CadastroClienteActivity{
             editText.requestFocus();
             retorno = false;   
         } 
-//        if (editText.getText().toString().trim() != null){
-//        	editText.setError("Campo invalido");
-//            editText.requestFocus();
-//            retorno = false;
-//        }
+
         return retorno; 
     }
-//	public boolean validarTexto (Cliente cli){
-//		boolean retorno = true;
-//		if (cli.getNome().toString().equals("pedronks")){
-//		Log.i("PEDRO", "NOMEEEEEEEEEEEEE");
-//		retorno = false;
-//		}
-//		return retorno;
-//	}
-
-
+		public String validarCampos(Cliente clienteValidado){
+		
+		String verificacao;
+		verificacao = "CamposValidos";
+		if (clienteValidado.getNome().toString().equals("pedro")){
+			verificacao = "ATENÇÃO: Nome invalido!";
+		}
+		if (clienteValidado.getEmail().toString().equals("pedronks")){
+			verificacao = "ATENÇÃO: Email invalido!";
+		}
+		
+		Log.i("PEDROOOOOOOO", "NOMEEpedri" + clienteValidado.getNome());
+		Log.i("PEDROOOOOOOO", "NOMEEpedri" + clienteValidado.getEmail());
+		
+		return verificacao;
 	}
+	
+	
+}
