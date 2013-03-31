@@ -58,7 +58,8 @@
         			android:layout_marginTop="10dp"
                     android:id="@+id/edtCPFCliente"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                     android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="phone" />
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout

@@ -41,7 +41,7 @@ public class CadastroClienteActivity extends Activity implements
 
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);
-		CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
+//		CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
 		CCtelefone.addTextChangedListener(Mask.insert(
 				"(###)####-####", CCtelefone ));
@@ -68,7 +68,7 @@ public class CadastroClienteActivity extends Activity implements
 		public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:
-			ControladorCLiente validar = new ControladorCLiente();
+			ValidarCliente validar = new ValidarCliente();
 			Cliente clienteValidado = new Cliente();
 			
 			clienteValidado.setNome(CCnome.getText().toString());
@@ -77,7 +77,7 @@ public class CadastroClienteActivity extends Activity implements
 			clienteValidado.setEmail(CCemail.getText().toString());
 			clienteValidado.setSenha(CCsenha.getText().toString());
 
-			ControladorCLiente contr = new ControladorCLiente();
+			ValidarCliente contr = new ValidarCliente();
 			
 			if (validar.validarCampo(CCnome) && 
 					validar.validarCampo(CCcpf)&& 
@@ -96,6 +96,7 @@ public class CadastroClienteActivity extends Activity implements
 				new cadastrarClienteAsyncTask().execute();						
 		}
 			}
+			
 			break;
 		case R.id.btnVoltar:
 			finish();
@@ -104,7 +105,9 @@ public class CadastroClienteActivity extends Activity implements
 			break;
 		}
 	}	
-	class cadastrarClienteAsyncTask extends AsyncTask<String, String, Cliente>{
+		
+		
+		class cadastrarClienteAsyncTask extends AsyncTask<String, String, Cliente>{
 		ProgressDialog dialog;
 		@Override
 		protected void onPreExecute() {
