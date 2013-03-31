@@ -131,7 +131,7 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		// PARA O NOME DA AÇÃO DO WEBSERVICE
 		//
 		// String nomeDaAcao = "cadastrarUsuario";
-		String nomeDaAcao = "cadastrarAcompanhante";
+		String nomeDaAcao = "cadastrarUsuario";
 
 		//
 		// RECEBE UM JSON DESCRIPTOGRAFADO COM AS INFORMAÇÕES DE RETORNO do

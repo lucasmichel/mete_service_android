@@ -79,7 +79,7 @@ public class CadastroClienteActivity extends Activity implements
 
 			ValidarCliente contr = new ValidarCliente();
 			
-			if (validar.validarCampo(CCnome) && 
+			if (	validar.validarCampo(CCnome) && 
 					validar.validarCampo(CCcpf)&& 
 					validar.validarCampo(CCtelefone) && 
 					validar.validarCampo(CCemail) && 
