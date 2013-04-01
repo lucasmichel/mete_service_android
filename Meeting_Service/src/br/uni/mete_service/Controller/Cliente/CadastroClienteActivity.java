@@ -42,10 +42,9 @@ public class CadastroClienteActivity extends Activity implements
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);
 		// se usar vai passar os .(ponto) para a validação
-//		CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
+		// CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
-		CCtelefone.addTextChangedListener(Mask.insert(
-				"(###)####-####", CCtelefone ));
+		CCtelefone.addTextChangedListener(Mask.insert("(###)####-####",CCtelefone));
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
 
@@ -65,13 +64,13 @@ public class CadastroClienteActivity extends Activity implements
 			atualizar = true;
 		}
 	}
-	
-		public void onClick(View v) {
+
+	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:
 			ValidarCliente validar = new ValidarCliente();
 			Cliente clienteValidado = new Cliente();
-			
+
 			clienteValidado.setNome(CCnome.getText().toString());
 			clienteValidado.setCpf(CCcpf.getText().toString());
 			clienteValidado.setTelefone(CCtelefone.getText().toString());
@@ -79,25 +78,23 @@ public class CadastroClienteActivity extends Activity implements
 			clienteValidado.setSenha(CCsenha.getText().toString());
 
 			ValidarCliente contr = new ValidarCliente();
-			
-			if (	validar.validarCampo(CCnome) && 
-					validar.validarCampo(CCcpf)&& 
-					validar.validarCampo(CCtelefone) && 
-					validar.validarCampo(CCemail) && 
-					validar.validarCampo(CCsenha)== true){
-			
-			if (!contr.validarCampos(clienteValidado).toString().equals("CamposValidos")){	
-				AlertDialog dialog = new AlertDialog.Builder(this).
-				setTitle("Notificação").
-				setMessage(contr.validarCampos(clienteValidado)).		
-				create();
-				dialog.show();
-			
-			}else{
-				new cadastrarClienteAsyncTask().execute();						
-		}
+
+			if (validar.validarCampo(CCnome) && validar.validarCampo(CCcpf)
+					&& validar.validarCampo(CCtelefone)
+					&& validar.validarCampo(CCemail)
+					&& validar.validarCampo(CCsenha) == true) {
+
+				if (!contr.validarCampos(clienteValidado).toString().equals("CamposValidos")) {
+					AlertDialog dialog = new AlertDialog.Builder(this)
+							.setTitle("Notificação")
+							.setMessage(contr.validarCampos(clienteValidado))
+							.create();
+					dialog.show();
+
+				} else {
+					new cadastrarClienteAsyncTask().execute();
+				}
 			}
-			
 			break;
 		case R.id.btnVoltar:
 			finish();
@@ -105,21 +102,20 @@ public class CadastroClienteActivity extends Activity implements
 		default:
 			break;
 		}
-	}	
-		
-		
-		class cadastrarClienteAsyncTask extends AsyncTask<String, String, Cliente>{
+	}
+
+	class cadastrarClienteAsyncTask extends AsyncTask<String, String, Cliente> {
 		ProgressDialog dialog;
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(CadastroClienteActivity.this, "Calma amiguinho.",
-					"Salvando", true, false);
+			dialog = ProgressDialog.show(CadastroClienteActivity.this,"Calma amiguinho.", "Salvando", true, false);
 		}
-		
+
 		@Override
 		protected Cliente doInBackground(String... params) {
-			
+
 			Cliente cliente = new Cliente();
 			cliente.setNome(CCnome.getText().toString());
 			cliente.setCpf(CCcpf.getText().toString());
@@ -131,28 +127,26 @@ public class CadastroClienteActivity extends Activity implements
 			cliente.setMensagem("");
 
 			try {
-				
-	
-Log.i("CPFF", "cpf: " + cliente.getCpf()+ "telefone: "+ cliente.getTelefone());
-				Cliente clienteRetorno = new Cliente();
 
+				Log.i("CPFF", "cpf: " + cliente.getCpf() + "telefone: "	+ cliente.getTelefone());
+				Cliente clienteRetorno = new Cliente();
 				clienteRetorno = cliente.cadastrarCliente(cliente);
 
-				
 			} catch (JSONException e) {
 				Log.i("pedro: ", "ERROOO!!" + e);
 				e.printStackTrace();
 			}
 			return cliente;
 		}
+
 		@Override
 		protected void onPostExecute(Cliente result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
-			Intent it = new Intent(CadastroClienteActivity.this ,HomeActivity.class);
+			Intent it = new Intent(CadastroClienteActivity.this, HomeActivity.class);
 			setResult(RESULT_OK, it);
 			finish();
-		}	
+		}
 	}
-	
+
 }

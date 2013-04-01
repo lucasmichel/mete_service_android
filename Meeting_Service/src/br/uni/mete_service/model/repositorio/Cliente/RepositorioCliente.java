@@ -46,18 +46,15 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		// criptogrfa o json gerando uma string na base64..
 		//
-		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
-				.toString());
+		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada.toString());
 
 		//
 		// cria a lista de parâmetros para o post seguindo este padrão
 		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
 		// String.valueOf(textoCriptografado)));
 		//
-		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
-				1);
-		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-				String.valueOf(textoCriptografado)));
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);
+		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",String.valueOf(textoCriptografado)));
 
 		//
 		// passa o nome da açao do webservice
@@ -68,8 +65,7 @@ public class RepositorioCliente extends RepositorioClass {
 		// recebe um json descriptografado com as informações de retorno do
 		// post
 		//
-		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
-				listaCamposPesquisa);
+		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,listaCamposPesquisa);
 		//
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
@@ -127,7 +123,7 @@ public class RepositorioCliente extends RepositorioClass {
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
 		Cliente clienteRetorno = new Cliente();
-//		clienteRetorno.setId(jsonObjectSaida.getString("id"));
+		//clienteRetorno.setId(jsonObjectSaida.getString("id"));
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
 		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
 
