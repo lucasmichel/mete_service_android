@@ -41,6 +41,7 @@ public class CadastroClienteActivity extends Activity implements
 
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);
+		// se usar vai passar os .(ponto) para a validação
 //		CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
 		CCtelefone.addTextChangedListener(Mask.insert(
@@ -132,7 +133,7 @@ public class CadastroClienteActivity extends Activity implements
 			try {
 				
 	
-
+Log.i("CPFF", "cpf: " + cliente.getCpf()+ "telefone: "+ cliente.getTelefone());
 				Cliente clienteRetorno = new Cliente();
 
 				clienteRetorno = cliente.cadastrarCliente(cliente);

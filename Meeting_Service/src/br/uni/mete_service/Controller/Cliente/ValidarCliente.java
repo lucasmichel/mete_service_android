@@ -43,8 +43,12 @@ public class ValidarCliente extends CadastroClienteActivity{
 			verificacao = "ATENÇÃO: Email incorreto!";
 		}
 		
-		if (validaCPF(clienteValidado)== false ){
+		if (clienteValidado.getCpf().length() < 11 || validaCPF(clienteValidado)== false ){
 			verificacao = "ATENÇÃO: cpf incorreto, leia seu cartao de cpf!";
+		}
+		if (clienteValidado.getNome().toString().equals(" " + 
+		clienteValidado.getNome().toString() )){
+			verificacao = "ATENÇÃO: nome nao pode haver espaço";
 		}
 		
 //		Log.i("TESTEE", "NOMEEpedro" + clienteValidado.getNome());
@@ -69,58 +73,6 @@ public class ValidarCliente extends CadastroClienteActivity{
 			    }  
 			 }	
 		 
-		 
-//		 private static boolean ValidaCPF(Cliente cli) {
-//		        if (cli.getCpf().equals("00000000000") || cli.getCpf().equals("11111111111") ||
-//		        	cli.getCpf().equals("22222222222") || cli.getCpf().equals("33333333333") ||
-//		        	cli.getCpf().equals("44444444444") || cli.getCpf().equals("55555555555") ||
-//		        	cli.getCpf().equals("66666666666") || cli.getCpf().equals("77777777777") ||
-//		        	cli.getCpf().equals("88888888888") || cli.getCpf().equals("99999999999")){
-//		            return false;
-//		        }
-//		 
-//		        char dig10, dig11;
-//		        int sm, i, r, num, peso;
-//		 
-//		        try {
-//		            sm = 0;
-//		            peso = 10;
-//		            for (i = 0; i < 9; i++) {
-//		 
-//		                num = (int) (cli.getCpf().charAt(i) - 48);
-//		                sm = sm + (num * peso);
-//		                peso = peso - 1;
-//		            }
-//		 
-//		            r = 11 - (sm % 11);
-//		            if ((r == 10) || (r == 11))
-//		                dig10 = '0';
-//		            else
-//		                dig10 = (char) (r + 48);
-//		 
-//		            sm = 0;
-//		            peso = 11;
-//		            for (i = 0; i < 10; i++) {
-//		                num = (int) (cli.getCpf().charAt(i) - 48);
-//		                sm = sm + (num * peso);
-//		                peso = peso - 1;
-//		            }
-//		 
-//		            r = 11 - (sm % 11);
-//		            if ((r == 10) || (r == 11))
-//		                dig11 = '0';
-//		            else
-//		                dig11 = (char) (r + 48);
-//		 
-//		            if ((dig10 == cli.getCpf().charAt(9)) && (dig11 == cli.getCpf().charAt(10)))
-//		                return (true);
-//		            else
-//		                return (false);
-//		        } catch (Exception erro) {
-//		            return (false);
-//		        }
-//		 
-//		    }
 		 private static boolean validaCPF(Cliente cli) {  
 		      boolean ret = false;  
 		      String base = "000000000";  
