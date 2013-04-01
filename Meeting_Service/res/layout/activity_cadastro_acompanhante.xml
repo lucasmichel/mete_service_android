@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -15,15 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-    
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/textNomeAcomp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Nome"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/textNomeAcomp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/Nome"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:layout_marginLeft="20dp"
@@ -173,16 +172,27 @@
         android:layout_height="wrap_content"
         android:text="@string/pernoite"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <EditText
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/editPernoiteAcomp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:inputType="number"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdSim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sim" />
+
+        <RadioButton
+            android:id="@+id/rdNao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/nao" />
+    </RadioGroup>
 
     <TextView
         android:layout_marginLeft="20dp"

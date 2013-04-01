@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 
 
@@ -41,6 +42,9 @@ public class CadastroAcompanhanteActivity extends Activity
 	private EditText edtFotoAcomp;
 	private EditText edtSenhaAcomp;
 	private EditText edtEmailAcomp;
+	private RadioButton rdSim;
+	private RadioButton rdNao;
+	
 	
 
 	
@@ -70,7 +74,13 @@ public class CadastroAcompanhanteActivity extends Activity
 		edtCinturaAcomp.setText(objacompanhante.getCintura());
 		edtQuadrilAcomp.setText(objacompanhante.getQuadril());
 		edtOlhosAcomp.setText(objacompanhante.getOlhos());
-		edtPernoiteAcomp.setText(objacompanhante.getPernoite());
+		
+		if (objacompanhante.getPernoite() == 0){
+			rdNao.setChecked(true);
+		}else if (objacompanhante.getPernoite() == 1){
+			rdSim.setChecked(true);
+		}
+		
 		edtEspecialidadeAcomp.setText(objacompanhante.getEspecialidade());
 		edtHorario_AtendimentoAcomp.setText(objacompanhante.getHorario_atendimento());
 		edtAtendoAcomp.setText(objacompanhante.getAtendo());
@@ -100,9 +110,6 @@ public class CadastroAcompanhanteActivity extends Activity
 		edtQuadrilAcomp.addTextChangedListener(Mask.insert(
 				"##", edtQuadrilAcomp ));
 		edtOlhosAcomp = (EditText)findViewById(R.id.editOlhosAcomp);
-		edtPernoiteAcomp= (EditText)findViewById(R.id.editPernoiteAcomp);
-		edtPernoiteAcomp.addTextChangedListener(Mask.insert(
-				"###.##", edtPernoiteAcomp ));
 		edtEspecialidadeAcomp = (EditText)findViewById(R.id.editEspecialidadeAcomp);
 		edtHorario_AtendimentoAcomp = (EditText)findViewById(R.id.editHorarioAtentAcomp);
 		edtHorario_AtendimentoAcomp.addTextChangedListener(Mask.insert(
@@ -111,6 +118,8 @@ public class CadastroAcompanhanteActivity extends Activity
 		edtFotoAcomp = (EditText)findViewById(R.id.editFotoAcomp);
 		edtEmailAcomp = (EditText)findViewById(R.id.editEmailAcomp);
 		edtSenhaAcomp = (EditText)findViewById(R.id.editSenhaAcomp);
+		rdSim = (RadioButton)findViewById(R.id.rdSim);
+		rdNao = (RadioButton)findViewById(R.id.rdNao);
 		
 	}
 
@@ -130,7 +139,7 @@ public class CadastroAcompanhanteActivity extends Activity
 		acompanhanteValidado.setCintura(edtCinturaAcomp.getText().toString());
 		acompanhanteValidado.setQuadril(edtQuadrilAcomp.getText().toString());
 		acompanhanteValidado.setOlhos(edtOlhosAcomp.getText().toString());
-		acompanhanteValidado.setPernoite(edtPernoiteAcomp.getText().toString());
+		//acompanhanteValidado.setPernoite(edtPernoiteAcomp.geti().toString());
 		acompanhanteValidado.setEspecialidade(edtEspecialidadeAcomp.getText().toString());
 		acompanhanteValidado.setHorario_atendimento(edtHorario_AtendimentoAcomp.getText().toString());
 		acompanhanteValidado.setAtendo(edtAtendoAcomp.getText().toString());
@@ -166,7 +175,7 @@ public class CadastroAcompanhanteActivity extends Activity
 				validar.validarCampo(edtCinturaAcomp) &&
 				validar.validarCampo(edtQuadrilAcomp) &&
 				validar.validarCampo(edtOlhosAcomp) &&
-				validar.validarCampo(edtPernoiteAcomp) &&
+				//validar.validarCampo(edtPernoiteAcomp) &&
 				validar.validarCampo(edtEspecialidadeAcomp) &&
 				validar.validarCampo(edtAtendoAcomp) &&
 				validar.validarCampo(edtHorario_AtendimentoAcomp) &&
@@ -216,7 +225,13 @@ public class CadastroAcompanhanteActivity extends Activity
 				String cintura       		= edtCinturaAcomp.getText().toString();
 				String quadril       		= edtQuadrilAcomp.getText().toString();
 				String olhos         		= edtOlhosAcomp.getText().toString();
-				String pernoite      		= edtPernoiteAcomp.getText().toString();
+				
+				int pernoite = 0;
+				if (rdNao.isChecked()){
+					pernoite = 0;
+				}else if (rdSim.isChecked()){
+					pernoite = 1;
+				}
 				String especialidade 		= edtEspecialidadeAcomp.getText().toString();
 				String horario_atendimento  = edtHorario_AtendimentoAcomp.getText().toString();
 				String atendo 		 		= edtAtendoAcomp.getText().toString();

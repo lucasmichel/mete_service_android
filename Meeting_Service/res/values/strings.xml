@@ -14,7 +14,7 @@
     <string name="olhos">Cor dos Olhos</string>
     <string name="atendo">Atendo (Gênero)</string>
     <string name="especialidade">Especialidade</string>
-    <string name="pernoite">Preço da Pernoite</string>
+    <string name="pernoite">Pernoite</string>
     <string name="horario_atent">(Horario) Atende a partir de</string>
     <string name="cpf">CPF</string>
     <string name="telefone">Telefone</string>
@@ -39,6 +39,8 @@
     <string name="encontro_hora">Hora:</string>
     <string name="encontro_marcar">Marcar</string>
     <string name="encontro_cancelar">Cancelar</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
     
     
     

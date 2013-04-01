@@ -104,10 +104,11 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		jsonObjectEntrada.put("especialidade", objacompanhante.getEspecialidade());
 		jsonObjectEntrada.put("horario_atendimento", objacompanhante.getHorario_atendimento());
 		jsonObjectEntrada.put("status_atendimento", objacompanhante.getStatusAt());
+		jsonObjectEntrada.put("pernoite", objacompanhante.getPernoite());
+		jsonObjectEntrada.put("atendo", objacompanhante.getAtendo());
 		jsonObjectEntrada.put("fotoperfil", objacompanhante.getFoto());
-		jsonObjectEntrada.put("email", objacompanhante.getEmail());
-		jsonObjectEntrada.put("senha", objacompanhante.getSenha());
-		jsonObjectEntrada.put("tipo", objacompanhante.getTipo());
+		
+
 		
 		
 		//

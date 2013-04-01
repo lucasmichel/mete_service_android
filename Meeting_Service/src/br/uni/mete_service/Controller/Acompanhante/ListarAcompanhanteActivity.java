@@ -86,7 +86,7 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					m.setCintura(objeto.getString("cintura"));
 					m.setQuadril(objeto.getString("quadril"));
 					m.setOlhos(objeto.getString("olhos"));
-					m.setPernoite(objeto.getString("pernoite"));
+					m.setPernoite(objeto.getInt("pernoite"));
 					m.setAtendo(objeto.getString("atendo"));
 					m.setHorario_atendimento(objeto.getString("horario_aten"));
 					m.setPeso(objeto.getString("peso"));
