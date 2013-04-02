@@ -9,6 +9,7 @@ import org.json.JSONException;
 import br.uni.mete_service.R;
 import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.Cliente;
+import br.uni.mete_service.model.Usuario;
 
 import br.uni.mete_service.model.repositorio.Cliente.RepositorioCliente;
 import br.uni.mete_service.util.PreferencesController;
@@ -112,7 +113,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		 */
 
 		try {
-			RepositorioCliente.getInstance().logarAndroid(cliente);
+			RepositorioCliente.getInstance().logarAndroid(cliente);		
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

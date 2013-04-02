@@ -5,7 +5,9 @@ import org.json.JSONException;
 import br.uni.mete_service.R;
 
 import br.uni.mete_service.Controller.HomeActivity;
+import br.uni.mete_service.Controller.LoginActivity;
 import br.uni.mete_service.model.Cliente;
+import br.uni.mete_service.model.repositorio.Cliente.RepositorioCliente;
 import br.uni.mete_service.util.Mask;
 
 import android.app.Activity;
@@ -30,6 +32,8 @@ public class CadastroClienteActivity extends Activity implements
 	private Button CCavancar, CCvoltar;
 	private boolean atualizar = false;
 
+	Cliente clienteRetorno = new Cliente();
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_cliente);
@@ -65,6 +69,14 @@ public class CadastroClienteActivity extends Activity implements
 		}
 	}
 
+	public void notificar(String s){		
+		AlertDialog dialog = new AlertDialog.Builder(this)
+		.setTitle("Notificação")
+		.setMessage(s)
+		.create();
+		dialog.show();		
+	}
+	
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:
@@ -84,15 +96,10 @@ public class CadastroClienteActivity extends Activity implements
 					&& validar.validarCampo(CCemail)
 					&& validar.validarCampo(CCsenha) == true) {
 
-				if (!contr.validarCampos(clienteValidado).toString().equals("CamposValidos")) {
-					AlertDialog dialog = new AlertDialog.Builder(this)
-							.setTitle("Notificação")
-							.setMessage(contr.validarCampos(clienteValidado))
-							.create();
-					dialog.show();
-
+				if (!contr.validarCampos(clienteValidado).toString().equals("CamposValidos")) {					
+						notificar(contr.validarCampos(clienteValidado));				
 				} else {
-					new cadastrarClienteAsyncTask().execute();
+					new cadastrarClienteAsyncTask().execute();					
 				}
 			}
 			break;
@@ -106,6 +113,7 @@ public class CadastroClienteActivity extends Activity implements
 
 	class cadastrarClienteAsyncTask extends AsyncTask<String, String, Cliente> {
 		ProgressDialog dialog;
+		//Cliente clienteRetorno = new Cliente();
 
 		@Override
 		protected void onPreExecute() {
@@ -129,12 +137,15 @@ public class CadastroClienteActivity extends Activity implements
 			try {
 
 				Log.i("CPFF", "cpf: " + cliente.getCpf() + "telefone: "	+ cliente.getTelefone());
-				Cliente clienteRetorno = new Cliente();
+				
 				clienteRetorno = cliente.cadastrarCliente(cliente);
+				
+				
 
 			} catch (JSONException e) {
 				Log.i("pedro: ", "ERROOO!!" + e);
 				e.printStackTrace();
+							
 			}
 			return cliente;
 		}
@@ -142,10 +153,13 @@ public class CadastroClienteActivity extends Activity implements
 		@Override
 		protected void onPostExecute(Cliente result) {
 			super.onPostExecute(result);
-			dialog.dismiss();
-			Intent it = new Intent(CadastroClienteActivity.this, HomeActivity.class);
+			dialog.dismiss();						
+			Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+			toast.show();			
+			
+			Intent it = new Intent(CadastroClienteActivity.this, LoginActivity.class);
 			startActivity(it);
-//			finish();
+			finish();
 		}
 	}
 
