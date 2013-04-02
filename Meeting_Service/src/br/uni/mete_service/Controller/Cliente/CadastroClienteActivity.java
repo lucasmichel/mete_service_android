@@ -144,8 +144,8 @@ public class CadastroClienteActivity extends Activity implements
 			super.onPostExecute(result);
 			dialog.dismiss();
 			Intent it = new Intent(CadastroClienteActivity.this, HomeActivity.class);
-			setResult(RESULT_OK, it);
-			finish();
+			startActivity(it);
+//			finish();
 		}
 	}
 

@@ -33,14 +33,10 @@ public class ValidarCliente extends CadastroClienteActivity {
 			verificacao = "ATENÇÃO: Email incorreto!";
 		}
 
-		if (clienteValidado.getCpf().length() < 11
-				|| validaCPF(clienteValidado) == false) {
-			verificacao = "ATENÇÃO: cpf incorreto, leia seu cartao de cpf!";
-		}
-		if (clienteValidado.getNome().toString()
-				.equals(" " + clienteValidado.getNome().toString())) {
-			verificacao = "ATENÇÃO: nome nao pode haver espaço";
-		}
+//		if (clienteValidado.getCpf().length() < 11
+//				|| validaCPF(clienteValidado) == false) {
+//			verificacao = "ATENÇÃO: cpf incorreto, leia seu cartao de cpf!";
+//		}
 
 		return verificacao;
 	}
