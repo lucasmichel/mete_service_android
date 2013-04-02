@@ -5,7 +5,6 @@ package br.uni.mete_service.Controller.Acompanhante;
 import org.json.JSONException;
 
 import br.uni.mete_service.R;
-import br.uni.mete_service.Controller.HomeActivity;
 
 
 import br.uni.mete_service.model.Acompanhante;
@@ -263,17 +262,21 @@ public class CadastroAcompanhanteActivity extends Activity
 					e.printStackTrace();
 				}
 				return objacompanhante;
+				
+	
 			}
 			@Override
 			protected void onPostExecute(Acompanhante result) 
 			{
 				super.onPostExecute(result);
 				dialog.dismiss();
-				Intent it = new Intent(CadastroAcompanhanteActivity.this ,HomeActivity.class);
-				setResult(RESULT_OK, it);
-				finish();
+				Intent it = new Intent(CadastroAcompanhanteActivity.this ,TelaAcompanhanteActivity.class);
+				startActivity(it);
+				//setResult(RESULT_OK, it);
+				//finish();
 			}	
 		
 	}
+	
 	}		
 
