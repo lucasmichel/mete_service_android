@@ -17,25 +17,41 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class HomeActivity extends Activity implements OnClickListener {
 
 	private Cliente cliente;
 	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha;
 	private Button btnTeste, CCavancar, CCvoltar;
+	private Button btnop2, btnop3, btnop4, btnsobre;
+	
 	private boolean atualizar = false;
-
+	private TextView txtUsuarioLogado;
+	String usuarioLogado;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_teste);
-
+		setContentView(R.layout.activity_menu);
+		
+		usuarioLogado = getIntent().getStringExtra("usuarioLogado").toString() + "!";
+		
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
-
+		
+		this.btnop2 = (Button) findViewById(R.id.btnop2);
+		this.btnop3 = (Button) findViewById(R.id.btnop3);
+		this.btnop4 = (Button) findViewById(R.id.btnop4);
+		this.btnsobre = (Button) findViewById(R.id.btnsobre);
+		
+		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogado);
+		txtUsuarioLogado.setText((txtUsuarioLogado.getText().toString()) + " " + usuarioLogado);
+		
 		instantiateComponents();
 	}
 

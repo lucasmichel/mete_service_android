@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Map;
 
 import org.json.JSONException;
-
 import br.uni.mete_service.R;
 import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.Cliente;
@@ -116,9 +115,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		
 		
 		try {			
-			clienteRetorno = cliente.logarAndroid(cliente);	
-			
-			 
+			clienteRetorno = cliente.logarAndroid(cliente);							 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,14 +128,20 @@ public class LoginActivity extends Activity implements OnClickListener {
 			Toast toast = Toast.makeText(this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
 			toast.show();
 			
+			edtEmail.setText("");
+			edtSenha.setText("");
+			
 		}
 
 		if (clienteRetorno.getStatus() == 0){ //SOSTENES/Logar...
 					
 			PreferencesController.setUserPreferences(this, edtEmail.getText()
 					.toString(), edtSenha.getText().toString());
-			it = new Intent(this, HomeActivity.class);
+			it = new Intent(this, HomeActivity.class);			
+			it.putExtra("usuarioLogado", edtEmail.getText().toString());
 			startActivity(it);
+			
+			
 			finish();
 		}
 	
