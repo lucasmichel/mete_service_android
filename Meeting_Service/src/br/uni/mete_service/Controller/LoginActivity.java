@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,11 +39,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	private EditText edtEmail, edtSenha;
 	private TextView txtLinkCadastro;
-	private Button btnLogin;
-	private Cliente cliente;
+	private Button btnLogin;	
 	private Map<String, String> userValuesMap;
 	final Context context = this;
-
+	
+	Cliente clienteRetorno = new Cliente();
+	Cliente cliente = new Cliente();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,7 +93,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 						create();
 						dialog.show();																		
 			}else{
-				logar();								
+				logar();		
+				
+				Log.i("SOSTENES", "Retorno Json (cliente.getStatus()): " + clienteRetorno.getStatus());
+				Log.i("SOSTENES", "Retorno Json (cliente.getMensagem()): " + clienteRetorno.getMensagem());			
 			}
 			break;
 		case R.id.textoCadastre:
@@ -101,34 +107,42 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	public void logar() {
-		Intent it;
-
-		/*
-		 * if ((!edtEmail.getText().toString().equals("")) &&
-		 * (!edtSenha.getText().toString().equals(""))) { if
-		 * ((!cliente.getEmail().equals(edtEmail.getText().toString())) ||
-		 * (!cliente.getSenha().equals( edtSenha.getText().toString()))) {
-		 * Toast.makeText(this, "Nome de usuário incorreto ou senha incorreta",
-		 * Toast.LENGTH_LONG).show(); } else {
-		 */
-
-		try {
-			RepositorioCliente.getInstance().logarAndroid(cliente);		
+		Intent it;		
+		
+		cliente.setEmail(edtEmail.getText().toString());
+		cliente.setSenha(edtSenha.getText().toString());	
+		cliente.setStatus(0);
+		cliente.setMensagem("");
+		
+		
+		try {			
+			clienteRetorno = cliente.logarAndroid(cliente);	
 			
+			 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		PreferencesController.setUserPreferences(this, edtEmail.getText()
-				.toString(), edtSenha.getText().toString());
-		it = new Intent(this, HomeActivity.class);
-		startActivity(it);
-		finish();
-		/*
-		 * } } else { Toast.makeText(this, "Digite todos os campos",
-		 * Toast.LENGTH_LONG) .show(); }
-		 */
+		}	
+		
+		
+		
+		if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
 
+			Toast toast = Toast.makeText(this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+			toast.show();
+			
+		}
+
+		if (clienteRetorno.getStatus() == 0){ //SOSTENES/Logar...
+					
+			PreferencesController.setUserPreferences(this, edtEmail.getText()
+					.toString(), edtSenha.getText().toString());
+			it = new Intent(this, HomeActivity.class);
+			startActivity(it);
+			finish();
+		}
+	
+		
 	}
 
 }

@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.repositorio.RepositorioClass;
 
@@ -23,7 +24,8 @@ public class RepositorioCliente extends RepositorioClass {
 
 	private static RepositorioCliente instancia = null;
 	private static String nomeConexao = "http://leonardogalvao.com.br/mete_service/src/";
-
+	
+	
 	public static RepositorioCliente getInstance() {
 
 		if (instancia == null) {
@@ -36,6 +38,9 @@ public class RepositorioCliente extends RepositorioClass {
 
 	public Cliente logarAndroid(Cliente cliente) throws JSONException {
 
+		Log.i("SOSTENES", "Retorno Json (cliente in repo: " + cliente.getEmail());
+		Log.i("SOSTENES", "Retorno Json (cliente in repo: " + cliente.getSenha());	
+		
 		//
 		// cria o json com os paramterso que se quer..
 		//
@@ -47,7 +52,8 @@ public class RepositorioCliente extends RepositorioClass {
 		// criptogrfa o json gerando uma string na base64..
 		//
 		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada.toString());
-
+		Log.i("SOSTENES", "textoCriptografado in repo: " + textoCriptografado);
+		
 		//
 		// cria a lista de parâmetros para o post seguindo este padrão
 		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
@@ -66,12 +72,17 @@ public class RepositorioCliente extends RepositorioClass {
 		// post
 		//
 		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,listaCamposPesquisa);
+		Log.i("SOSTENES", "jsonObjectSaida messagem: " + jsonObjectSaida.getString("messagem") + " " + jsonObjectSaida.getInt("status"));
+		
 		//
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
+		
 		Cliente clienteRetorno = new Cliente();
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		clienteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
+		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
+		
+		Log.i("SOSTENES", "jsonObjectSaida status: " + jsonObjectSaida.getInt("status"));
 
 		return clienteRetorno;
 	}
@@ -123,7 +134,7 @@ public class RepositorioCliente extends RepositorioClass {
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
 		Cliente clienteRetorno = new Cliente();
-		//clienteRetorno.setId(jsonObjectSaida.getString("id"));
+		clienteRetorno.setId(jsonObjectSaida.getString("id"));
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
 		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
 

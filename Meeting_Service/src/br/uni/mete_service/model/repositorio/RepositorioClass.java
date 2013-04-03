@@ -76,6 +76,8 @@ public class RepositorioClass {
 				String retornoDesciptografado = toBase64StringDecode(s);
 				objetoJSONAQUI = new JSONObject(retornoDesciptografado);
 
+				Log.i("SOSTENES", "retornoDesciptografado: " + retornoDesciptografado);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

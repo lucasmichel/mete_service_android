@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import android.widget.Toast;
 import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.repositorio.Cliente.RepositorioCliente;
@@ -54,6 +55,8 @@ public class Cliente extends Usuario {
 
 	public Cliente logarAndroid(Cliente cliente) throws JSONException {
 		RepositorioCliente bd = RepositorioCliente.getInstance();
+		
+		//n ta retornando (n ta executando o retorno)
 		return bd.logarAndroid(this);
 	}
 
