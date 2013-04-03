@@ -49,7 +49,7 @@ public class CadastroClienteActivity extends Activity implements
 		// se usar vai passar os .(ponto) para a validação
 		// CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
-		CCtelefone.addTextChangedListener(Mask.insert("(###) ####-####",CCtelefone));
+		CCtelefone.addTextChangedListener(Mask.insert("(###)####-####",CCtelefone));
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
 
