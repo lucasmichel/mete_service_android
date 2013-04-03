@@ -9,6 +9,7 @@ import br.uni.mete_service.Controller.LoginActivity;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.repositorio.Cliente.RepositorioCliente;
 import br.uni.mete_service.util.Mask;
+import br.uni.mete_service.util.PreferencesController;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,7 +49,7 @@ public class CadastroClienteActivity extends Activity implements
 		// se usar vai passar os .(ponto) para a validação
 		// CCcpf.addTextChangedListener(Mask.insert("###.###.###-##", CCcpf));
 		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
-		CCtelefone.addTextChangedListener(Mask.insert("(###)####-####",CCtelefone));
+		CCtelefone.addTextChangedListener(Mask.insert("(###) ####-####",CCtelefone));
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
 
@@ -154,12 +155,24 @@ public class CadastroClienteActivity extends Activity implements
 		protected void onPostExecute(Cliente result) {
 			super.onPostExecute(result);
 			dialog.dismiss();						
-			Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
-			toast.show();			
+						
+			if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
+
+				Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+			}
+
+			if (clienteRetorno.getStatus() == 0){ //SOSTENES/Cadastrado...
 			
-			Intent it = new Intent(CadastroClienteActivity.this, LoginActivity.class);
-			startActivity(it);
-			finish();
+				Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();			
+				
+				Intent it = new Intent(CadastroClienteActivity.this, LoginActivity.class);
+				startActivity(it);
+				finish();
+			}
+			
+			
 		}
 	}
 
