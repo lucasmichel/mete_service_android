@@ -133,8 +133,7 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
-		Cliente clienteRetorno = new Cliente();
-		clienteRetorno.setId(jsonObjectSaida.getString("id"));
+		Cliente clienteRetorno = new Cliente();		
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
 		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
 

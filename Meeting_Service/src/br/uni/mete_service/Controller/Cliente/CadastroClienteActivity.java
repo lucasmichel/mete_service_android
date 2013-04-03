@@ -101,6 +101,9 @@ public class CadastroClienteActivity extends Activity implements
 						notificar(contr.validarCampos(clienteValidado));				
 				} else {
 					new cadastrarClienteAsyncTask().execute();					
+					
+					Log.i("SOSTENES", "dps de chamar task): " + clienteRetorno.getStatus());
+					Log.i("SOSTENES", "dps de chamar task): " + clienteRetorno.getMensagem());
 				}
 			}
 			break;
