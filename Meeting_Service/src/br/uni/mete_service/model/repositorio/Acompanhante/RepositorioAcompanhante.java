@@ -153,33 +153,4 @@ public class RepositorioAcompanhante extends RepositorioClass {
 
 		return acompanhanteRetorno;
 	}
-	
-//	public Acompanhante listarAcompanhante(Acompanhante objacompanhante) throws JSONException {
-//		return objacompanhante;
-//	
-//		String nomeDaAcao = "listarAcompanhante";
-//
-//		//
-//		// RECEBE UM JSON DESCRIPTOGRAFADO COM AS INFORMAÇÕES DE RETORNO do
-//		// post
-//		//
-//		// JSONObject jsonObjectSaida = this.postInformacao(nomeDaAcao,
-//		// listaCamposPesquisa);
-//		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
-//				listaCamposPesquisa);
-//
-//		//
-//		// CRIA UM USUARIO PARA RECEBER OS DADOS DO POST EM STATUS E MENSAGEM...
-//		//
-//		Acompanhante acompanhanteRetorno = new Acompanhante();
-//		acompanhanteRetorno.setId(jsonObjectSaida.getString("id"));
-//		acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-//		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
-//
-//		return acompanhanteRetorno;
-//	
-//	
-//	}
-	
-
 }
