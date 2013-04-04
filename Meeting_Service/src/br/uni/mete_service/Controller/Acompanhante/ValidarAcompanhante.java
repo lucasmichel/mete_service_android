@@ -38,13 +38,17 @@ public class ValidarAcompanhante extends CadastroAcompanhanteActivity{
 			verificacao = "ATENÇÃO: Email incorreto!";
 		}
 		if (validIdade(acompanhanteValidado) == false){
-			verificacao = "ATENÇÃO: Proibido o cadastro de menores de 20 anos";
+			verificacao = "ATENÇÃO: Proibido o cadastro de menores de 20 anos!";
 		}
 		if (validOlhos(acompanhanteValidado) == false){
-			verificacao = "ATENÇÃO: Cor dos olhos inexistente";
+			verificacao = "ATENÇÃO: Cor dos olhos inexistente!";
 		}
 		if (validAtendo(acompanhanteValidado) == false){
 			verificacao = "ATENÇÃO: Gênero Inexistente!";
+		}
+		
+		if (validHorario_Atendimento(acompanhanteValidado) == false){
+			verificacao = "ATENÇÃO: Formato de horas inválido (HH:MM)";
 		}
 		
 		
@@ -57,7 +61,10 @@ public class ValidarAcompanhante extends CadastroAcompanhanteActivity{
 	}
 	
 	
-//		METODO PARA VALIDAR SE O FORMATO DO EMAIL ESTA CORRETO " ###@###.### "
+
+
+
+		//		METODO PARA VALIDAR SE O FORMATO DO EMAIL ESTA CORRETO " ###@###.### "
 		 public boolean validEmail(Acompanhante acompanhante) {
 			    System.out.println("Metodo de validacao de email");
 			    Pattern p = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$"); 
@@ -96,7 +103,7 @@ public class ValidarAcompanhante extends CadastroAcompanhanteActivity{
 		 }
 		 
 		 public boolean validAtendo(Acompanhante acompanhante){
-			 String atendo = acompanhante.getOlhos();
+			 String atendo = acompanhante.getAtendo();
 			 
 			 for (int i = 0; i < atendo.length(); i++) {  
 				  
@@ -109,6 +116,14 @@ public class ValidarAcompanhante extends CadastroAcompanhanteActivity{
 		 }
 
 
+		 private boolean validHorario_Atendimento(Acompanhante acompanhante) {
+				String horario = acompanhante.getHorario_atendimento();
+				
+				if (horario.length() != 5){
+					return false;
+				}
+				return true;
+			}
 
 	
 	

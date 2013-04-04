@@ -167,6 +167,16 @@ public class Acompanhante extends Usuario implements Serializable{
 		return bd.cadastrarAcompanhante(this);
 	}
 
+	public Acompanhante excluirAcompanhante(Acompanhante objacompanhante) {
+		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
+		return bd.excluirAcompanhante(this);
+	}
+
+	public Acompanhante editarAcompanhante(Acompanhante objacompanhante) {
+		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
+		return bd.editarAcompanhante(this);
+	}
+
 //	private JSONObject converteParaJson() throws JSONException {
 //		JSONObject json = new JSONObject();
 //		JSONObject manJson = new JSONObject();

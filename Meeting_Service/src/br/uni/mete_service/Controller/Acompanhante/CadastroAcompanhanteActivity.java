@@ -2,9 +2,13 @@ package br.uni.mete_service.Controller.Acompanhante;
 
 
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 
+
 import br.uni.mete_service.R;
+
 
 
 import br.uni.mete_service.model.Acompanhante;
@@ -23,7 +27,7 @@ import android.widget.RadioButton;
 
 
 
-public class CadastroAcompanhanteActivity extends Activity 
+public class CadastroAcompanhanteActivity extends Activity implements Serializable
 {
 	
 	private EditText edtNomeAcomp;
@@ -34,21 +38,20 @@ public class CadastroAcompanhanteActivity extends Activity
 	private EditText edtCinturaAcomp;
 	private EditText edtQuadrilAcomp;
 	private EditText edtOlhosAcomp;
-	private EditText edtPernoiteAcomp;
 	private EditText edtEspecialidadeAcomp;
 	private EditText edtHorario_AtendimentoAcomp;
 	private EditText edtAtendoAcomp;
 	private EditText edtFotoAcomp;
 	private EditText edtSenhaAcomp;
 	private EditText edtEmailAcomp;
-	private RadioButton rdSim;
-	private RadioButton rdNao;
+	private RadioButton rdSim, rdNao, rdhomem, rdmulher, rdambos;
 	
 	
-
 	
 
-	private Acompanhante objacompanhante;
+	
+
+	public Acompanhante objacompanhante;
 	RepositorioAcompanhante repositorioAcompanhante;
 	
 	@Override
@@ -59,8 +62,7 @@ public class CadastroAcompanhanteActivity extends Activity
 		
 		inicializar();
 		
-		//objacompanhante = (Acompanhante)getIntent().getSerializableExtra("acompanhanteLogado");
-		
+		objacompanhante = (Acompanhante)getIntent().getSerializableExtra("acompanhanteLogado");
 		boolean emEdicao = objacompanhante != null;
 		
 		if(emEdicao){
@@ -80,9 +82,16 @@ public class CadastroAcompanhanteActivity extends Activity
 			rdSim.setChecked(true);
 		}
 		
+		if (objacompanhante.getAtendo() == "Homens"){
+			rdhomem.setChecked(true);
+		}else if (objacompanhante.getAtendo() == "Mulheres"){
+			rdmulher.setChecked(true);
+		}else if (objacompanhante.getAtendo() == "Ambos"){
+			rdambos.setChecked(true);
+				
+		}
 		edtEspecialidadeAcomp.setText(objacompanhante.getEspecialidade());
 		edtHorario_AtendimentoAcomp.setText(objacompanhante.getHorario_atendimento());
-		edtAtendoAcomp.setText(objacompanhante.getAtendo());
 		edtFotoAcomp.setText(objacompanhante.getFoto());
 		edtEmailAcomp.setText(objacompanhante.getEmail());
 		edtSenhaAcomp.setText(objacompanhante.getSenha());	
@@ -113,12 +122,16 @@ public class CadastroAcompanhanteActivity extends Activity
 		edtHorario_AtendimentoAcomp = (EditText)findViewById(R.id.editHorarioAtentAcomp);
 		edtHorario_AtendimentoAcomp.addTextChangedListener(Mask.insert(
 				"##:##", edtHorario_AtendimentoAcomp ));
-		edtAtendoAcomp = (EditText)findViewById(R.id.editAtendoAcomp);
 		edtFotoAcomp = (EditText)findViewById(R.id.editFotoAcomp);
 		edtEmailAcomp = (EditText)findViewById(R.id.editEmailAcomp);
 		edtSenhaAcomp = (EditText)findViewById(R.id.editSenhaAcomp);
 		rdSim = (RadioButton)findViewById(R.id.rdSim);
 		rdNao = (RadioButton)findViewById(R.id.rdNao);
+		rdhomem = (RadioButton)findViewById(R.id.rdhomem);
+		rdmulher = (RadioButton)findViewById(R.id.rdmulher);
+		rdambos = (RadioButton)findViewById(R.id.rdambos);
+		rdSim.setChecked(true);
+		rdhomem.setChecked(true);
 		
 	}
 
@@ -141,7 +154,6 @@ public class CadastroAcompanhanteActivity extends Activity
 		//acompanhanteValidado.setPernoite(edtPernoiteAcomp.geti().toString());
 		acompanhanteValidado.setEspecialidade(edtEspecialidadeAcomp.getText().toString());
 		acompanhanteValidado.setHorario_atendimento(edtHorario_AtendimentoAcomp.getText().toString());
-		acompanhanteValidado.setAtendo(edtAtendoAcomp.getText().toString());
 		//acompanhanteValidado.setNome(edtFotoAcomp.getText().toString());
 		acompanhanteValidado.setEmail(edtEmailAcomp.getText().toString());
 		acompanhanteValidado.setSenha(edtSenhaAcomp.getText().toString());
@@ -176,7 +188,6 @@ public class CadastroAcompanhanteActivity extends Activity
 				validar.validarCampo(edtOlhosAcomp) &&
 				//validar.validarCampo(edtPernoiteAcomp) &&
 				validar.validarCampo(edtEspecialidadeAcomp) &&
-				validar.validarCampo(edtAtendoAcomp) &&
 				validar.validarCampo(edtHorario_AtendimentoAcomp) &&
 				//STATUS STARTA COMO DISPONIVEL
 				//FOTO NÃO É OBRIGATÓRIA
@@ -209,7 +220,7 @@ public class CadastroAcompanhanteActivity extends Activity
 			@Override
 			protected void onPreExecute() {
 				super.onPreExecute();
-				dialog = ProgressDialog.show(CadastroAcompanhanteActivity.this, "Calma calma safadinha.",
+				dialog = ProgressDialog.show(CadastroAcompanhanteActivity.this, "Cadastrando: pode levar alguns segundos..",
 						"Salvando", true, false);
 			}
 			
@@ -231,9 +242,18 @@ public class CadastroAcompanhanteActivity extends Activity
 				}else if (rdSim.isChecked()){
 					pernoite = 1;
 				}
+				
+				String atendo = "Homens";
+				if (rdhomem.isChecked()){
+					atendo = "Homens";
+				}else if (rdmulher.isChecked()){
+					atendo = "Mulheres";
+				}else if (rdambos.isChecked()){
+					atendo = "Ambos";
+				}
+				
 				String especialidade 		= edtEspecialidadeAcomp.getText().toString();
 				String horario_atendimento  = edtHorario_AtendimentoAcomp.getText().toString();
-				String atendo 		 		= edtAtendoAcomp.getText().toString();
 				String statusAt = "Disponível";
 				String foto 				= edtFotoAcomp.getText().toString();
 				String email				= edtEmailAcomp.getText().toString();
@@ -263,6 +283,7 @@ public class CadastroAcompanhanteActivity extends Activity
 				}
 				return objacompanhante;
 				
+				
 	
 			}
 			@Override
@@ -271,6 +292,7 @@ public class CadastroAcompanhanteActivity extends Activity
 				super.onPostExecute(result);
 				dialog.dismiss();
 				Intent it = new Intent(CadastroAcompanhanteActivity.this ,TelaAcompanhanteActivity.class);
+				it.putExtra("objacompanhante", objacompanhante);
 				startActivity(it);
 				//setResult(RESULT_OK, it);
 				//finish();

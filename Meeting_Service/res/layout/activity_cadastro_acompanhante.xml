@@ -193,24 +193,43 @@
             android:checked="true"
             android:text="@string/nao" />
     </RadioGroup>
-
-    <TextView
+    
+     <TextView
         android:layout_marginLeft="20dp"
         android:id="@+id/textAtendoAcomp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/atendo"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <EditText
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/editAtendoAcomp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:inputType="text"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdhomem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rdhomem" />
+
+        <RadioButton
+            android:id="@+id/rdmulher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/rdmulher" />
+        
+        <RadioButton
+            android:id="@+id/rdambos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/rdambos" />
+    </RadioGroup>
+   
 
     <TextView
         android:layout_marginLeft="20dp"

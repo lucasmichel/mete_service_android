@@ -46,6 +46,10 @@
     
     <string name="menu_ola">Olá,</string>
     <string name="menu_marcarEncontro">Marcar Encontro</string>
+    <string name="excluirperfil">Excluir Perfil no Sistema</string>
+    <string name="rdhomem">Homens</string>
+    <string name="rdmulher">Mulheres</string>
+    <string name="rdambos">Ambos</string>
     
     
 

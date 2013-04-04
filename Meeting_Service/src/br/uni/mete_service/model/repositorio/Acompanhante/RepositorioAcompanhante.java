@@ -153,4 +153,14 @@ public class RepositorioAcompanhante extends RepositorioClass {
 
 		return acompanhanteRetorno;
 	}
+
+	public Acompanhante excluirAcompanhante(Acompanhante objacompanhante) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Acompanhante editarAcompanhante(Acompanhante objacompanhante) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
