@@ -126,11 +126,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
 
 			Toast toast = Toast.makeText(this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
-			toast.show();
-			
-			edtEmail.setText("");
-			edtSenha.setText("");
-			
+			toast.show();					
 		}
 
 		if (clienteRetorno.getStatus() == 0){ //SOSTENES/Logar...

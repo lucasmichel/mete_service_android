@@ -27,6 +27,8 @@
         </activity>
         <activity android:name="br.uni.mete_service.Controller.HomeActivity" >
         </activity>
+        <activity android:name="br.uni.mete_service.Controller.Encontro.EncontroActivity" >
+        </activity>
         <activity android:name="br.uni.mete_service.Controller.Acompanhante.CadastroAcompanhanteActivity" >
         </activity>
         <activity android:name="br.uni.mete_service.Controller.Acompanhante.TelaAcompanhanteActivity" >

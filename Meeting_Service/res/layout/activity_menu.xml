@@ -20,7 +20,7 @@
         android:id="@+id/btnop2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Opção 2" />
+        android:text="@string/menu_marcarEncontro" />
     
     <Button
         android:id="@+id/btnop3"
