@@ -97,25 +97,25 @@ public class ListarAcompanhanteActivity extends ListActivity{
 					 System.out.println(objeto.getString("nome"));
 					 
 					 
-//					Acompanhante m = new Acompanhante();
-//					m.setId(objeto.getString("id"));
-//					m.setNome(objeto.getString("nome"));
-//					m.setEspecialidade(objeto.getString("especialidade"));
-//					m.setIdade(objeto.getString("idade"));
+					Acompanhante m = new Acompanhante();
+					m.setId(objeto.getString("id"));
+					m.setNome(objeto.getString("nome"));
+					m.setEspecialidade(objeto.getString("especialidade"));
+					m.setIdade(objeto.getString("idade"));
 //					m.setStatusAt(objeto.getString("status"));
-//					m.setBusto(objeto.getString("busto"));
-//					m.setAltura(objeto.getString("altura"));
-//					m.setCintura(objeto.getString("cintura"));
-//					m.setQuadril(objeto.getString("quadril"));
-//					m.setOlhos(objeto.getString("olhos"));
-//					m.setPernoite(objeto.getInt("pernoite"));
-//					m.setAtendo(objeto.getString("atendo"));
-//					m.setHorario_atendimento(objeto.getString("horario_aten"));
-//					m.setPeso(objeto.getString("peso"));
+					m.setBusto(objeto.getString("busto"));
+					m.setAltura(objeto.getString("altura"));
+					m.setCintura(objeto.getString("cintura"));
+					m.setQuadril(objeto.getString("quadril"));
+					m.setOlhos(objeto.getString("olhos"));
+					m.setPernoite(objeto.getInt("pernoite"));
+					m.setAtendo(objeto.getString("atendo"));
+					m.setHorario_atendimento(objeto.getString("horario_atendimento"));
+					m.setPeso(objeto.getString("peso"));
 //					m.setStatusAt(objeto.getString("status"));
-//					
-//
-//					acompanhanteList.getResults().add(m);
+					
+
+					acompanhanteList.getResults().add(m);
 //
 //					Log.i("pedro", "nomes:" + objeto.getInt("id"));
 ////					Log.i("pedro", "------------------------");

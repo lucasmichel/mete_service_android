@@ -79,6 +79,7 @@ public class EncontroActivity extends Activity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.textView2:
 			it = new Intent(this, ListarAcompanhanteActivity.class);
+			
 			break;					
 		}
 		startActivity(it);

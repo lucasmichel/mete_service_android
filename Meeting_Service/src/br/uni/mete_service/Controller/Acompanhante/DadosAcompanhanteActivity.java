@@ -65,15 +65,15 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	cintura.setText(acomp.getCintura());
 	quadril.setText(acomp.getQuadril());
 	olhos.setText(acomp.getOlhos());
-	pernoite.setText(acomp.getPernoite());
+//	pernoite.setText(acomp.getPernoite());
 	horario_atent.setText(acomp.getHorario_atendimento());
 	peso.setText(acomp.getPeso());
 	
-	if (acomp.getStatusAt().equals("ocupada")) {
-		status.setImageResource(R.drawable.ocupada);
-	} else if (acomp.getStatusAt().equals("livre")) {
-		status.setImageResource(R.drawable.livre);
-	}
+//	if (acomp.getStatusAt().equals("ocupada")) {
+//		status.setImageResource(R.drawable.ocupada);
+//	} else if (acomp.getStatusAt().equals("livre")) {
+//		status.setImageResource(R.drawable.livre);
+//	}
 	
 	
 	

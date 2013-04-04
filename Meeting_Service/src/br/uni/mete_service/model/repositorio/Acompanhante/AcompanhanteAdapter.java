@@ -63,11 +63,11 @@ public class AcompanhanteAdapter extends ArrayAdapter<Acompanhante> {
 		txtidade.setText("Idade: " + acomp.getIdade());
 		txtEspecialidade.setText("Especialidade: " + acomp.getEspecialidade());
 
-		if (acomp.getStatusAt().equals("ocupada")) {
-			imgStatus.setImageResource(R.drawable.ocupada);
-		} else if (acomp.getStatusAt().equals("livre")) {
-			imgStatus.setImageResource(R.drawable.livre);
-		}
+//		if (acomp.getStatusAt().equals("ocupada")) {
+//			imgStatus.setImageResource(R.drawable.ocupada);
+//		} else if (acomp.getStatusAt().equals("livre")) {
+//			imgStatus.setImageResource(R.drawable.livre);
+//		}
 
 		// BitmapManager.getInstance().loadBitmap(acomp.getFoto(), imgFoto);
 
