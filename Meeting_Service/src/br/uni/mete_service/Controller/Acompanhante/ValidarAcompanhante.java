@@ -43,9 +43,6 @@ public class ValidarAcompanhante extends CadastroAcompanhanteActivity{
 		if (validOlhos(acompanhanteValidado) == false){
 			verificacao = "ATENÇÃO: Cor dos olhos inexistente!";
 		}
-		if (validAtendo(acompanhanteValidado) == false){
-			verificacao = "ATENÇÃO: Gênero Inexistente!";
-		}
 		
 		if (validHorario_Atendimento(acompanhanteValidado) == false){
 			verificacao = "ATENÇÃO: Formato de horas inválido (HH:MM)";
@@ -101,20 +98,7 @@ public class ValidarAcompanhante extends CadastroAcompanhanteActivity{
 			 
 			 return false;
 		 }
-		 
-		 public boolean validAtendo(Acompanhante acompanhante){
-			 String atendo = acompanhante.getAtendo();
-			 
-			 for (int i = 0; i < atendo.length(); i++) {  
-				  
-                 //Se o digito for diferente de um digito, retorna falso.  
-                 if (!Character.isDigit(atendo.charAt(i)))  
-                     return true;  
-             }  
-			 
-			 return false;
-		 }
-
+		
 
 		 private boolean validHorario_Atendimento(Acompanhante acompanhante) {
 				String horario = acompanhante.getHorario_atendimento();
