@@ -6,31 +6,24 @@ import java.util.Map;
 
 import org.json.JSONException;
 import br.uni.mete_service.R;
-import br.uni.mete_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mete_service.model.Cliente;
 import br.uni.mete_service.model.Usuario;
 
-import br.uni.mete_service.model.repositorio.Cliente.RepositorioCliente;
 import br.uni.mete_service.util.PreferencesController;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,10 +85,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 						create();
 						dialog.show();																		
 			}else{
-				logar();		
 				
-				Log.i("SOSTENES", "Retorno Json (cliente.getStatus()): " + clienteRetorno.getStatus());
-				Log.i("SOSTENES", "Retorno Json (cliente.getMensagem()): " + clienteRetorno.getMensagem());			
+				new logarAsysncTask().execute();
+							
 			}
 			break;
 		case R.id.textoCadastre:
@@ -104,7 +96,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-
 	public void logar() {
 		Intent it;		
 		
@@ -142,6 +133,36 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 	
 		
+	}
+	
+	class logarAsysncTask extends AsyncTask<Void, Void, Usuario>{
+
+		ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = ProgressDialog.show(LoginActivity.this, "Carregando",
+					"Seu login logo sera concluido.", true, false);
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected Usuario doInBackground(Void... params) {
+			logar();		
+			
+			Log.i("SOSTENES", "Retorno Json (cliente.getStatus()): " + clienteRetorno.getStatus());
+			Log.i("SOSTENES", "Retorno Json (cliente.getMensagem()): " + clienteRetorno.getMensagem());
+			
+			return clienteRetorno;
+			
+			
+		}
+		
+		@Override
+		protected void onPostExecute(Usuario result) {
+			super.onPostExecute(result);
+			dialog.dismiss();
+		}
 	}
 
 }
