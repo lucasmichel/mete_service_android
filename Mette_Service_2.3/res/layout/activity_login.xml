@@ -59,8 +59,7 @@
         android:layout_weight="0.73"
         android:gravity="center"
         android:orientation="horizontal" >
-
-
+
         <Button
             android:layout_marginLeft="20dp"
         	android:layout_marginRight="20dp"
