@@ -65,63 +65,68 @@ public class ListarAcompanhanteActivity extends ListActivity{
 		//execução propriamnete dita da thread
 		@Override
 		protected AcompanhanteList doInBackground(Void... params) {
-			HttpClient cliente = new DefaultHttpClient();
-
-			HttpGet get = new HttpGet(
-					"http://www.leonardogalvao.com.br/mete_service/src/listarAcompanhante");
-//					"https://www.dropbox.com/s/md17s4cazpj63fj/js%20-%20Copia.json");
+//			HttpClient cliente = new DefaultHttpClient();
+//
+//			HttpGet get = new HttpGet(
+//					"http://www.leonardogalvao.com.br/mete_service/src/listarAcompanhante");
+////					"https://www.dropbox.com/s/md17s4cazpj63fj/js%20-%20Copia.json");
 			AcompanhanteList acompanhanteList = new AcompanhanteList();
 			try {
-				HttpResponse resposta = cliente.execute(get);
-				
-//				String s = toString(resposta.getEntity().getContent());
-				// objetoJSONAQUI = new JSONObject(s);
-
 				
 				
-				Log.i("PEDROO", " http/;" + get );
-
-				String s = toString(resposta.getEntity().getContent());
-				
-				 String retornoDesciptografado = toBase64StringDecode(s);
-//				 JSONObject objeto1 = new JSONObject(retornoDesciptografado);
-				 
-				 JSONArray jsonAray = new JSONArray(retornoDesciptografado);
-				 
-				 Log.i("TESTEEE" , "AQUIIIIII/;     "  + jsonAray);
-				
-				for (int i = 0; i < jsonAray.length(); i++) {
-					JSONObject objeto = jsonAray.getJSONObject(i);
-					
-
-					 System.out.println(objeto.getString("nome"));
-					 
-					 
-					Acompanhante m = new Acompanhante();
-					m.setId(objeto.getString("id"));
-					m.setNome(objeto.getString("nome"));
-					m.setEspecialidade(objeto.getString("especialidade"));
-					m.setIdade(objeto.getString("idade"));
-//					m.setStatusAt(objeto.getString("status"));
-					m.setBusto(objeto.getString("busto"));
-					m.setAltura(objeto.getString("altura"));
-					m.setCintura(objeto.getString("cintura"));
-					m.setQuadril(objeto.getString("quadril"));
-					m.setOlhos(objeto.getString("olhos"));
-					m.setPernoite(objeto.getInt("pernoite"));
-					m.setAtendo(objeto.getString("atendo"));
-					m.setHorario_atendimento(objeto.getString("horario_atendimento"));
-					m.setPeso(objeto.getString("peso"));
-//					m.setStatusAt(objeto.getString("status"));
-					
-
-					acompanhanteList.getResults().add(m);
+//				AcompanhanteList acompanhanteListRetorno = new AcompanhanteList();
 //
-//					Log.i("pedro", "nomes:" + objeto.getInt("id"));
-////					Log.i("pedro", "------------------------");
-////					Log.i("pedro", "nomes:" + objeto.getInt("idade"));
-//					Log.i("thayse"," ATENDOO" + objeto.getString("atendo"));
-				}
+//				acompanhanteListRetorno = acompanhanteList.listarAcompanhante(acompanhanteList);
+//				HttpResponse resposta = cliente.execute(get);
+//				
+////				String s = toString(resposta.getEntity().getContent());
+//				// objetoJSONAQUI = new JSONObject(s);
+//
+//				
+//				
+//				Log.i("PEDROO", " http/;" + get );
+//
+//				String s = toString(resposta.getEntity().getContent());
+//				
+//				 String retornoDesciptografado = toBase64StringDecode(s);
+////				 JSONObject objeto1 = new JSONObject(retornoDesciptografado);
+//				 
+//				 JSONArray jsonAray = new JSONArray(retornoDesciptografado);
+//				 
+//				 Log.i("TESTEEE" , "AQUIIIIII/;     "  + jsonAray);
+//				
+//				for (int i = 0; i < jsonAray.length(); i++) {
+//					JSONObject objeto = jsonAray.getJSONObject(i);
+//					
+//
+//					 System.out.println(objeto.getString("nome"));
+//					 
+//					 
+//					Acompanhante m = new Acompanhante();
+//					m.setId(objeto.getString("id"));
+//					m.setNome(objeto.getString("nome"));
+//					m.setEspecialidade(objeto.getString("especialidade"));
+//					m.setIdade(objeto.getString("idade"));
+////					m.setStatusAt(objeto.getString("status"));
+//					m.setBusto(objeto.getString("busto"));
+//					m.setAltura(objeto.getString("altura"));
+//					m.setCintura(objeto.getString("cintura"));
+//					m.setQuadril(objeto.getString("quadril"));
+//					m.setOlhos(objeto.getString("olhos"));
+//					m.setPernoite(objeto.getInt("pernoite"));
+//					m.setAtendo(objeto.getString("atendo"));
+//					m.setHorario_atendimento(objeto.getString("horario_atendimento"));
+//					m.setPeso(objeto.getString("peso"));
+////					m.setStatusAt(objeto.getString("status"));
+//					
+//
+//					acompanhanteList.getResults().add(m);
+////
+////					Log.i("pedro", "nomes:" + objeto.getInt("id"));
+//////					Log.i("pedro", "------------------------");
+//////					Log.i("pedro", "nomes:" + objeto.getInt("idade"));
+////					Log.i("thayse"," ATENDOO" + objeto.getString("atendo"));
+//				}
 
 			} catch (Exception e) {
 				e.printStackTrace();

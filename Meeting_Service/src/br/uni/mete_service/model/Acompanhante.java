@@ -176,6 +176,7 @@ public class Acompanhante extends Usuario implements Serializable{
 		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
 		return bd.editarAcompanhante(this);
 	}
+	
 
 //	private JSONObject converteParaJson() throws JSONException {
 //		JSONObject json = new JSONObject();

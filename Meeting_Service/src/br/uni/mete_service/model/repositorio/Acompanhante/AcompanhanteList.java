@@ -3,6 +3,8 @@ package br.uni.mete_service.model.repositorio.Acompanhante;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+
 import br.uni.mete_service.model.Acompanhante;
 
 
@@ -21,4 +23,10 @@ public class AcompanhanteList {
 	public List<Acompanhante> getResults() {
 		return results;
 	}
+	
+//	public AcompanhanteList listarAcompanhante(AcompanhanteList acompanhanteList) throws JSONException {
+//		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
+//		return bd.listarAcompanhante(this);
+//	}	
+	
 }

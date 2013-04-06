@@ -114,23 +114,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		
 		
 		
-		if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
-
-			Toast toast = Toast.makeText(this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
-			toast.show();					
-		}
-
-		if (clienteRetorno.getStatus() == 0){ //SOSTENES/Logar...
-					
-			PreferencesController.setUserPreferences(this, edtEmail.getText()
-					.toString(), edtSenha.getText().toString());
-			it = new Intent(this, HomeActivity.class);			
-			it.putExtra("usuarioLogado", edtEmail.getText().toString());
-			startActivity(it);
-			
-			
-			finish();
-		}
 	
 		
 	}
@@ -162,6 +145,24 @@ public class LoginActivity extends Activity implements OnClickListener {
 		protected void onPostExecute(Usuario result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
+
+			if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
+	//
+				Toast toast = Toast.makeText(LoginActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();					
+			}
+
+			if (clienteRetorno.getStatus() == 0){ //SOSTENES/Logar...
+						
+				PreferencesController.setUserPreferences(LoginActivity.this, edtEmail.getText()
+						.toString(), edtSenha.getText().toString());
+				Intent it = new Intent(LoginActivity.this, HomeActivity.class);			
+				it.putExtra("usuarioLogado", edtEmail.getText().toString());
+				startActivity(it);
+				
+				
+				finish();
+			}
 		}
 	}
 
