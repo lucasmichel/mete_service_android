@@ -22,6 +22,7 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 	private Cliente cli;
 	private Acompanhante aco;
 
+	//teste
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_escolherusuario);
