@@ -113,11 +113,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-		
-		
-		
-	
-		
 	}
 	
 	class logarAsysncTask extends AsyncTask<Void, Void, Usuario>{

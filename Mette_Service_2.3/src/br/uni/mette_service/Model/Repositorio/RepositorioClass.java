@@ -16,6 +16,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,6 +89,47 @@ public class RepositorioClass {
 		}
 		return objetoJSONAQUI;
 	}
+	
+	//--------------- GET INFORMAÇÃO PEGA UM JSON OBJECT.. LISTAR É UM JSONARAY
+	
+	public JSONArray getInformacaoListar(String nomeDaAcao) {
+
+		JSONArray objetoJSONAQUI = null;
+		try {
+
+			HttpClient cliente = new DefaultHttpClient();
+			String url = nomeConexao + nomeDaAcao;
+			HttpPost get = new HttpPost(url);
+
+			try {
+
+//				get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
+
+				HttpResponse resposta = cliente.execute(get);
+				String s = toString(resposta.getEntity().getContent());
+				// objetoJSONAQUI = new JSONObject(s);
+
+				String retornoDesciptografado = toBase64StringDecode(s);
+				objetoJSONAQUI = new JSONArray(retornoDesciptografado);
+
+				Log.i("SOSTENES", "retornoDesciptografado: " + retornoDesciptografado);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return objetoJSONAQUI;
+	}
+	
+	
+	//---------------
+	
+	
+	
 
 	public JSONObject postInformacao(String nomeDaAcao,
 			List<NameValuePair> listaCamposPesquisa) {

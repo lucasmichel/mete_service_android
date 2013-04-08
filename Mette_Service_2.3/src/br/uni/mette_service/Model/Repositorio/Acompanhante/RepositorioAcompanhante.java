@@ -173,104 +173,110 @@ public class RepositorioAcompanhante extends RepositorioClass {
 	}
 	
 	public AcompanhanteList listarAcompanhante(AcompanhanteList objacompanhante) throws JSONException {
-		HttpClient cliente = new DefaultHttpClient();
+		
+				// NOME DA AÇÃO NO WEBSERVICE
+				String nomeDaAcao = "listarAcompanhante";
 
-		HttpGet get = new HttpGet(
-				"http://www.leonardogalvao.com.br/mete_service/src/listarAcompanhante");
-//		AcompanhanteList acompanhanteList = new AcompanhanteList();
-		try {
-			HttpResponse resposta = cliente.execute(get);
-	
-			
-			Log.i("PEDROO", " http/;" + get );
-
-			String s = toString(resposta.getEntity().getContent());
-			
-			 String retornoDesciptografado = toBase64StringDecode(s);
-//			 JSONObject objeto1 = new JSONObject(retornoDesciptografado);
-			 
-			 JSONArray jsonAray = new JSONArray(retornoDesciptografado);
-			 
-			 Log.i("TESTEEE" , "AQUIIIIII/;     "  + jsonAray);
-			
-			for (int i = 0; i < jsonAray.length(); i++) {
-				JSONObject objeto = jsonAray.getJSONObject(i);
+				//
+				// RECEBE UM JSON DESCRIPTOGRAFADO COM AS INFORMAÇÕES DE RETORNO do
+				// post
+				//
+				JSONArray jsonObjectSaida = this.getInformacaoListar(nomeDaAcao);
 				
-
-				 System.out.println(objeto.getString("nome"));
-				 
-				 
-				Acompanhante m = new Acompanhante();
-				m.setId(objeto.getString("id"));
-				m.setNome(objeto.getString("nome"));
-				m.setEspecialidade(objeto.getString("especialidade"));
-				m.setIdade(objeto.getString("idade"));
-				m.setBusto(objeto.getString("busto"));
-				m.setAltura(objeto.getString("altura"));
-				m.setCintura(objeto.getString("cintura"));
-				m.setQuadril(objeto.getString("quadril"));
-				m.setOlhos(objeto.getString("olhos"));
-				m.setAtendo(objeto.getString("atendo"));
-				m.setHorario_atendimento(objeto.getString("horario_atendimento"));
-				m.setPeso(objeto.getString("peso"));
+				System.out.println("PEDRO: "+ jsonObjectSaida);
 				
+				try{
+//					
+					for (int i = 0; i < jsonObjectSaida.length(); i++) {
+						
+						JSONObject objeto = jsonObjectSaida.getJSONObject(i);
+						Acompanhante acompanhanteRetorno = new Acompanhante();
+						
+						acompanhanteRetorno.setId(objeto.getString("id"));
+						acompanhanteRetorno.setNome(objeto.getString("nome"));
+						acompanhanteRetorno.setEspecialidade(objeto.getString("especialidade"));
+						acompanhanteRetorno.setIdade(objeto.getString("idade"));
+						acompanhanteRetorno.setBusto(objeto.getString("busto"));
+						acompanhanteRetorno.setAltura(objeto.getString("altura"));
+						acompanhanteRetorno.setCintura(objeto.getString("cintura"));
+						acompanhanteRetorno.setQuadril(objeto.getString("quadril"));
+						acompanhanteRetorno.setOlhos(objeto.getString("olhos"));
+						acompanhanteRetorno.setAtendo(objeto.getString("atendo"));
+						acompanhanteRetorno.setHorario_atendimento(objeto.getString("horario_atendimento"));
+						acompanhanteRetorno.setPeso(objeto.getString("peso"));
+					
+						Log.i("pedro: " , objeto.getString("nome"));
+						
+						objacompanhante.getResults().add(acompanhanteRetorno);
+						
+					}
 
-//				acompanhanteList.getResults().add(m);
-				objacompanhante.getResults().add(m);
+				} catch (Exception e) {
+					e.printStackTrace();
+					Log.i("pedro", "ERRO:::" + e);
+				}
+				
+				return objacompanhante;
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			Log.i("pedro", "ERRO:::" + e);
-		}
-		return objacompanhante;
-	}
-////		JSONObject jsonObjectEntrada = new JSONObject();
-////		jsonObjectEntrada = null;
-////		
-////		@SuppressWarnings("null")
-////		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
-////				.toString());
-//		
-//		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
-//				1);
-//////		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-//////				String.valueOf(textoCriptografado)));
-////		
-////		listaCamposPesquisa = null;
-//		
-//		String nomeDaAcao = "listarAcompanhante";
-//
-//		//
-//		// RECEBE UM JSON DESCRIPTOGRAFADO COM AS INFORMAÇÕES DE RETORNO do
-//		// post
-//		//
-//		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao, listaCamposPesquisa );
-//		
-//		System.out.println("PEDRO: "+ jsonObjectSaida);
-//		
-//		try{
-////			
-//			for (int i = 0; i < jsonObjectSaida.length(); i++) {
-//				
-//				Acompanhante acompanhanteRetorno = new Acompanhante();
-//				acompanhanteRetorno.setId(jsonObjectSaida.getString("id"));
-//				acompanhanteRetorno.setNome(jsonObjectSaida.getString("nome"));
-//				acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-//				acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
+	
+	
+	// 
+	//PEGANDO O JSON DIRETO.
+	//
+	//	HttpClient cliente = new DefaultHttpClient();
+//		HttpGet get = new HttpGet(
+//				"http://www.leonardogalvao.com.br/mete_service/src/listarAcompanhante");
+////		AcompanhanteList acompanhanteList = new AcompanhanteList();
+//		try {
+//			HttpResponse resposta = cliente.execute(get);
+//	
 //			
-//				Log.i("pedro: " , jsonObjectSaida.getString("nome"));
+//			Log.i("PEDROO", " http/;" + get );
+//
+//			String s = toString(resposta.getEntity().getContent());
+//			
+//			 String retornoDesciptografado = toBase64StringDecode(s);
+////			 JSONObject objeto1 = new JSONObject(retornoDesciptografado);
+//			 
+//			 JSONArray jsonAray = new JSONArray(retornoDesciptografado);
+//			 
+//			 Log.i("TESTEEE" , "AQUIIIIII/;     "  + jsonAray);
+//			
+//			for (int i = 0; i < jsonAray.length(); i++) {
+//				JSONObject objeto = jsonAray.getJSONObject(i);
 //				
-//				objacompanhante.getResults().add(acompanhanteRetorno);
+//
+//				 System.out.println(objeto.getString("nome"));
+//				 
+//				 
+//				Acompanhante m = new Acompanhante();
+//				m.setId(objeto.getString("id"));
+//				m.setNome(objeto.getString("nome"));
+//				m.setEspecialidade(objeto.getString("especialidade"));
+//				m.setIdade(objeto.getString("idade"));
+//				m.setBusto(objeto.getString("busto"));
+//				m.setAltura(objeto.getString("altura"));
+//				m.setCintura(objeto.getString("cintura"));
+//				m.setQuadril(objeto.getString("quadril"));
+//				m.setOlhos(objeto.getString("olhos"));
+//				m.setAtendo(objeto.getString("atendo"));
+//				m.setHorario_atendimento(objeto.getString("horario_atendimento"));
+//				m.setPeso(objeto.getString("peso"));
 //				
+//
+////				acompanhanteList.getResults().add(m);
+//				objacompanhante.getResults().add(m);
 //			}
 //
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //			Log.i("pedro", "ERRO:::" + e);
 //		}
-//		
 //		return objacompanhante;
+//	}
+		
+		
+		
 
 	}
 	

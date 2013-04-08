@@ -42,13 +42,13 @@ public class AcompanhanteAdapter extends ArrayAdapter<Acompanhante> {
 		Acompanhante acomp = getItem(position);
 
 		convertView = LayoutInflater.from(getContext()).inflate(
-				R.layout.linha_acomp, null);
+				R.layout.linha_acompanhante, null);
 
 		// ImageView imgFoto = (ImageView)
 		// convertView.findViewById(R.id.imgFoto);
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(
-					R.layout.linha_acomp, null);
+					R.layout.linha_acompanhante, null);
 		}
 
 		ImageView imgFoto = (ImageView) convertView.findViewById(R.id.imgFoto);
