@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.json.JSONException;
 //import org.json.JSONObject;
 
+import br.uni.mette_service.Model.Repositorio.Acompanhante.AcompanhanteList;
 import br.uni.mette_service.Model.Repositorio.Acompanhante.RepositorioAcompanhante;
 
 

@@ -37,7 +37,7 @@ public class RepositorioClass {
 	 * retornado pelo servidor, retornando-o em forma de String.
 	 */
 
-	private String toString(InputStream is) throws IOException {
+	protected String toString(InputStream is) throws IOException {
 
 		byte[] bytes = new byte[1024];
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -158,7 +158,7 @@ public class RepositorioClass {
 		return Base64.encodeToString(bytes, Base64.DEFAULT);
 	}
 
-	private String toBase64StringDecode(String text)
+	protected String toBase64StringDecode(String text)
 			throws UnsupportedEncodingException {
 		byte bytes[] = text.getBytes();
 		Base64.decode(bytes, Base64.DEFAULT);

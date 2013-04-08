@@ -25,9 +25,9 @@ public class AcompanhanteList {
 		return results;
 	}
 	
-//	public AcompanhanteList listarAcompanhante(AcompanhanteList acompanhanteList) throws JSONException {
-//		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
-//		return bd.listarAcompanhante(this);
-//	}	
+	public AcompanhanteList listarAcompanhante(AcompanhanteList acompanhanteList) throws JSONException {
+		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
+		return bd.listarAcompanhante(this);
+	}	
 	
 }
