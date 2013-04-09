@@ -24,9 +24,6 @@ public class ValidarCliente extends CadastroClienteActivity {
 
 		String verificacao;
 		verificacao = "CamposValidos";
-		if (clienteValidado.getNome().toString().equals("pedro")) {
-			verificacao = "ATENÇÃO: Nome invalido!";
-		}
 		if (clienteValidado.getEmail().toString().equals("pedronks")) {
 			verificacao = "ATENÇÃO: Email invalido!";
 		}

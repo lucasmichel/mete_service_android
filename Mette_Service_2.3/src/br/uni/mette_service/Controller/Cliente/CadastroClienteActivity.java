@@ -27,7 +27,7 @@ public class CadastroClienteActivity extends Activity implements
 		OnClickListener {
 
 	private Cliente cliente;
-	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha;
+	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha, ConfSenhaCli ;
 	private Button CCavancar, CCvoltar;
 	private boolean atualizar = false;
 
@@ -50,6 +50,7 @@ public class CadastroClienteActivity extends Activity implements
 		CCtelefone.addTextChangedListener(Mask.insert("(###)####-####",CCtelefone));
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
+		this.ConfSenhaCli = (EditText) findViewById(R.id.edtConfSenhaCliente);
 
 		inicializacaoVerificacao();
 
@@ -96,8 +97,10 @@ public class CadastroClienteActivity extends Activity implements
 					&& validar.validarCampo(CCsenha) == true) {
 
 				if (!contr.validarCampos(clienteValidado).toString().equals("CamposValidos")) {					
-						notificar(contr.validarCampos(clienteValidado));				
-				} else {
+						notificar(contr.validarCampos(clienteValidado));
+	
+						
+				}else {
 					new cadastrarClienteAsyncTask().execute();					
 					
 					Log.i("SOSTENES", "dps de chamar task): " + clienteRetorno.getStatus());
