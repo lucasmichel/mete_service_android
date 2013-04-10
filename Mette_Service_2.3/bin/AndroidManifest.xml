@@ -44,6 +44,9 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".Controller.Acompanhante.AlterarStatusActivity"></activity>
+        <activity android:name="br.uni.mette_service.Controller.TermoUsoActivity" >
+        </activity>
     </application>
+    
 
 </manifest>

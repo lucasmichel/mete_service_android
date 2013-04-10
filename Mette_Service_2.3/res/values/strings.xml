@@ -32,7 +32,9 @@
     <string name="statusocupado">Ocupada</string>
     <string name="alterandostatus">STATUS DE ATENDIMENTO</string>
     <string name="Conf_senha">Confirme sua senha</string>
-    
+    <string name="textoTermoUso">Termo de uso.</string>
+    <string name="aceito"> Aceito os termos de uso.</string>
+   
     <string name="encontro_paraselecionar"> - Para Incluir </string>
     <string name="encontro_cliqueaqui">Clique Aqui</string>
     <string name="encontro_voceselecionou">Você selecionou: (Realize a Seleção)</string>

@@ -3,7 +3,9 @@ package br.uni.mette_service.Controller.Cliente;
 import org.json.JSONException;
 
 import br.uni.mette_service.R;
+import br.uni.mette_service.Controller.EscolhaDoUsuarioActivity;
 import br.uni.mette_service.Controller.LoginActivity;
+import br.uni.mette_service.Controller.TermoUsoActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Util.Mask;
 
@@ -29,6 +31,7 @@ public class CadastroClienteActivity extends Activity implements
 	private Cliente cliente;
 	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha, ConfSenhaCli ;
 	private Button CCavancar, CCvoltar;
+	private TextView textLinkTermo;
 	private boolean atualizar = false;
 
 	Cliente clienteRetorno = new Cliente();
@@ -51,6 +54,10 @@ public class CadastroClienteActivity extends Activity implements
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
 		this.ConfSenhaCli = (EditText) findViewById(R.id.edtConfSenhaCliente);
+		
+		this.textLinkTermo = (TextView) findViewById(R.id.textoTermoUso);
+
+		textLinkTermo.setOnClickListener(this);
 
 		inicializacaoVerificacao();
 
@@ -111,7 +118,9 @@ public class CadastroClienteActivity extends Activity implements
 		case R.id.btnVoltar:
 			finish();
 			break;
-		default:
+		case R.id.textoTermoUso:
+			Intent it = new Intent(this, TermoUsoActivity.class);
+			startActivity(it);
 			break;
 		}
 	}
