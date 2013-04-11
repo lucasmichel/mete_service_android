@@ -35,7 +35,6 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 	
 	}
 
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {

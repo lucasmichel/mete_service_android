@@ -69,7 +69,6 @@ public class EncontroActivity extends Activity implements OnClickListener{
         //Cor quando a lista é selecionada para ralagem.   
     }
     
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		

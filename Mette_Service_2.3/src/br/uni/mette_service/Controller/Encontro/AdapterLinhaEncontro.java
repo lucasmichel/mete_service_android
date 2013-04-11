@@ -38,7 +38,6 @@ public class AdapterLinhaEncontro extends BaseAdapter {
     
     
     
-	@Override
 	public int getCount() {
         return linhas.size();
     }
@@ -51,7 +50,6 @@ public class AdapterLinhaEncontro extends BaseAdapter {
         return position;
     }
 
-	@Override
 	public View getView(int position, View view, ViewGroup parent) {
 	
 		 //Pega o item de acordo com a posção.

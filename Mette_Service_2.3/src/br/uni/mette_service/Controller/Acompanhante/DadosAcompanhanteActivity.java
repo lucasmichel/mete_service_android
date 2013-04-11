@@ -166,7 +166,6 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 //
 //}
 
-	@Override
 	public void onClick(View v) {
 		
 	}

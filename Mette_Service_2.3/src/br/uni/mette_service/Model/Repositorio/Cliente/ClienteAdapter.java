@@ -38,7 +38,6 @@ public class ClienteAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	@Override
 	public long getItemId(int arg0) {
 		// TODO Auto-generated method stub
 		return 0;

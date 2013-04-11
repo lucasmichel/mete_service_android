@@ -7,6 +7,7 @@ import br.uni.mette_service.R.layout;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mette_service.Controller.Encontro.EncontroActivity;
+import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Util.PreferencesController;
 import android.app.Activity;
@@ -61,6 +62,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		this.btnTeste = (Button) findViewById(R.id.btnTeste);
 		this.btnTeste.setOnClickListener(this);
 		this.btnop2.setOnClickListener(this);
+		this.btnop3.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
@@ -72,7 +74,11 @@ public class HomeActivity extends Activity implements OnClickListener {
 		case R.id.btnop2:
 			it = new Intent(this, EncontroActivity.class);
 			break;
+		case R.id.btnop3:
+			it = new Intent(this, ListaServicosActivity.class);
+			break;
 		}
+		
 		startActivity(it);
 	}
 
