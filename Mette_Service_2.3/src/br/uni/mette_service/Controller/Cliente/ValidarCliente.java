@@ -3,7 +3,9 @@ package br.uni.mette_service.Controller.Cliente;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.uni.mette_service.R;
 import br.uni.mette_service.Model.Cliente;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class ValidarCliente extends CadastroClienteActivity {
@@ -22,6 +24,7 @@ public class ValidarCliente extends CadastroClienteActivity {
 
 	public String validarCampos(Cliente clienteValidado) {
 
+		
 		String verificacao;
 		verificacao = "CamposValidos";
 		if (clienteValidado.getEmail().toString().equals("pedronks")) {

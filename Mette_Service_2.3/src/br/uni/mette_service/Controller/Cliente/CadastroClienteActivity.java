@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class CadastroClienteActivity extends Activity implements
 	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha, ConfSenhaCli ;
 	private Button CCavancar, CCvoltar;
 	private TextView textLinkTermo;
+	private CheckBox checkTermoUso;
 	private boolean atualizar = false;
 
 	Cliente clienteRetorno = new Cliente();
@@ -56,6 +58,7 @@ public class CadastroClienteActivity extends Activity implements
 		this.ConfSenhaCli = (EditText) findViewById(R.id.edtConfSenhaCliente);
 		
 		this.textLinkTermo = (TextView) findViewById(R.id.textoTermoUso);
+		this.checkTermoUso = (CheckBox) findViewById(R.id.CBTermoUso);
 
 		textLinkTermo.setOnClickListener(this);
 
@@ -107,7 +110,12 @@ public class CadastroClienteActivity extends Activity implements
 						notificar(contr.validarCampos(clienteValidado));
 	
 						
-				}else {
+				}
+				if (!checkTermoUso.isChecked()){
+					Toast.makeText(CadastroClienteActivity.this, "selecione o termo",
+							Toast.LENGTH_LONG).show();
+				}
+				else {
 					new cadastrarClienteAsyncTask().execute();					
 					
 					Log.i("SOSTENES", "dps de chamar task): " + clienteRetorno.getStatus());
