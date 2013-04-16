@@ -13,7 +13,7 @@ import br.uni.mette_service.Model.Repositorio.Acompanhante.RepositorioAcompanhan
 public class Acompanhante extends Usuario implements Serializable{
 
 	private String nome,idade, altura,busto ,cintura, quadril, olhos, atendo; 
-	int pernoite;
+	String pernoite;
 	private String especialidade, horarioAtendimento, peso;
 	private String statusAtendimento;
 	//FOTO PARA TESTE NO LAYOUT
@@ -87,10 +87,10 @@ public class Acompanhante extends Usuario implements Serializable{
 	public void setOlhos(String olhos) {
 		this.olhos = olhos;
 	}
-	public int getPernoite() {
+	public String getPernoite() {
 		return pernoite;
 	}
-	public void setPernoite(int pernoite) {
+	public void setPernoite(String pernoite) {
 		this.pernoite = pernoite;
 	}
 	public String getAtendo() {
@@ -133,7 +133,7 @@ public class Acompanhante extends Usuario implements Serializable{
 	
 	public Acompanhante(String idade, String nome, String altura,
 			String busto, String cintura, String quadril, String olhos,
-			int pernoite, String especialidade,
+			String pernoite, String especialidade,
 			String horarioAtendimento, String peso, String atendo, String statusAtendimento, String fotoPerfil, String email, String senha, String tipo) {
 		super();
 		this.idade = idade;

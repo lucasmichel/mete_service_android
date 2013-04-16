@@ -120,6 +120,7 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		jsonObjectEntradaTeste.put("fotoPerfil", objacompanhante.getFotoPerfil());
 		jsonObjectEntradaTeste.put("email", objacompanhante.getEmail());
 		jsonObjectEntradaTeste.put("senha", objacompanhante.getSenha());
+		jsonObjectEntradaTeste.put("tipo", objacompanhante.getTipo());
 		
 		
 		acompanhantesArray.put(jsonObjectEntradaTeste);
@@ -179,7 +180,7 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		Acompanhante acompanhanteRetorno = new Acompanhante();
 		acompanhanteRetorno.setId(jsonObjectSaida.getString("id"));
 		acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
+		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
 
 		return acompanhanteRetorno;
 	}

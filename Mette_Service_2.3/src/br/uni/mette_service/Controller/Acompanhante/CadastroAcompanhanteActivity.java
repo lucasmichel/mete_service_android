@@ -77,9 +77,9 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 		edtQuadrilAcomp.setText(objacompanhante.getQuadril());
 		edtOlhosAcomp.setText(objacompanhante.getOlhos());
 		
-		if (objacompanhante.getPernoite() == 0){
+		if (objacompanhante.getPernoite() == "Não"){
 			rdNao.setChecked(true);
-		}else if (objacompanhante.getPernoite() == 1){
+		}else if (objacompanhante.getPernoite() == "Sim"){
 			rdSim.setChecked(true);
 		}
 		
@@ -237,11 +237,11 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 				String quadril       		= edtQuadrilAcomp.getText().toString();
 				String olhos         		= edtOlhosAcomp.getText().toString();
 				
-				int pernoite = 0;
+				String pernoite = "Sim";
 				if (rdNao.isChecked()){
-					pernoite = 0;
+					pernoite = "Nao";
 				}else if (rdSim.isChecked()){
-					pernoite = 1;
+					pernoite = "Sim";
 				}
 				
 				String atendo = "Homens";
