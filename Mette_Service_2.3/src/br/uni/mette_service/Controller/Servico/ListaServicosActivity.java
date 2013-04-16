@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import br.uni.mette_service.Model.Servico;
@@ -44,6 +45,9 @@ class ServicosAsyncTask extends AsyncTask<Void, Void, Servico> {
     				"http://leonardogalvao.com.br/mete_service/src/" + "listarServicosDesc");
     		Servico servico = null;
     		try {
+    			
+    			//HttpPost envio
+    			
 				HttpResponse resposta = cliente.execute(get);
 				InputStreamReader isr = new InputStreamReader(
 						resposta.getEntity().getContent());

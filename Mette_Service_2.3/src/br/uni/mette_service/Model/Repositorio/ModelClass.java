@@ -1,8 +1,6 @@
 package br.uni.mette_service.Model.Repositorio;
 
-import java.util.List;
 
-import br.uni.mette_service.Model.Servico;
 public class ModelClass {
 
 	protected ModelClass() {
@@ -10,7 +8,7 @@ public class ModelClass {
 	}
 
 	private int status;
-	private String mensagem;
+	private String mensagem = "";
 	
 	public int getStatus() {
 		return status;

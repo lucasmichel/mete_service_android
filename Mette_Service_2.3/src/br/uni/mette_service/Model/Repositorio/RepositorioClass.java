@@ -56,40 +56,7 @@ public class RepositorioClass {
 	 * String (feito pelo m√©todo toString(InputStream)).
 	 */
 
-	public JSONObject getInformacao(String nomeDaAcao,
-			List<NameValuePair> listaCamposPesquisa) {
-
-		JSONObject objetoJSONAQUI = null;
-		try {
-
-			HttpClient cliente = new DefaultHttpClient();
-			String url = nomeConexao + nomeDaAcao;
-			HttpPost get = new HttpPost(url);
-
-			try {
-
-				get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
-
-				HttpResponse resposta = cliente.execute(get);
-				String s = toString(resposta.getEntity().getContent());
-				// objetoJSONAQUI = new JSONObject(s);
-
-				String retornoDesciptografado = toBase64StringDecode(s);
-				objetoJSONAQUI = new JSONObject(retornoDesciptografado);
-
-				Log.i("SOSTENES", "retornoDesciptografado: " + retornoDesciptografado);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-		return objetoJSONAQUI;
-	}
-	
+		
 	//--------------- GET INFORMA«√O PEGA UM JSON OBJECT.. LISTAR … UM JSONARAY
 	
 	public JSONArray getInformacaoListar(String nomeDaAcao) {
@@ -124,15 +91,9 @@ public class RepositorioClass {
 		}
 		return objetoJSONAQUI;
 	}
-	
-	
-	//---------------
-	
-	
-	
 
-	public JSONObject postInformacao(String nomeDaAcao,
-			List<NameValuePair> listaCamposPesquisa) {
+		public JSONObject getInformacao(String nomeDaAcao,
+				List<NameValuePair> listaCamposPesquisa) {
 
 		JSONObject objetoJSONAQUI = null;
 
@@ -149,7 +110,11 @@ public class RepositorioClass {
 		HttpPost get = new HttpPost(url);
 
 		try {
+			
+			get.headerIterator();
 			get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
+			
+			
 		} catch (UnsupportedEncodingException e) {
 			Log.e("LUCASMICHEL", "UnsupportedEncodingException", e);
 			e.printStackTrace();

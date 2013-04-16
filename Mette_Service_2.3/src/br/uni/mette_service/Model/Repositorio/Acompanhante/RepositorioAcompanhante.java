@@ -85,8 +85,8 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		//
 		Acompanhante acompanhanteRetorno = new Acompanhante();
 		acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
-
+		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
+		
 		return acompanhanteRetorno;
 	}
 
@@ -94,27 +94,44 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		//
 		// CRIA O JSON COM OS PARÂMETROS QUE SE QUER
 		//
+		
+		JSONObject jsonObjectEntradaTeste = new JSONObject();
 		JSONObject jsonObjectEntrada = new JSONObject();
-		///// 	DADOS EXISTENTES DA CLASSE USUARIO
-		jsonObjectEntrada.put("email", objacompanhante.getEmail());
-		jsonObjectEntrada.put("senha", objacompanhante.getSenha());
-		jsonObjectEntrada.put("tipo", objacompanhante.getTipo());
+		
+		
+		JSONArray acompanhantesArray = new JSONArray();
 		
 		/////   DADOS ESPECÍFICOS DA CLASSE ACOMPANHANTE
-		jsonObjectEntrada.put("nome", objacompanhante.getNome());
-		jsonObjectEntrada.put("idade", objacompanhante.getIdade());
-		jsonObjectEntrada.put("altura", objacompanhante.getAltura());
-		jsonObjectEntrada.put("peso", objacompanhante.getPeso());
-		jsonObjectEntrada.put("busto", objacompanhante.getBusto());
-		jsonObjectEntrada.put("cintura", objacompanhante.getCintura());
-		jsonObjectEntrada.put("quadril", objacompanhante.getQuadril());
-		jsonObjectEntrada.put("olhos", objacompanhante.getOlhos());
-		jsonObjectEntrada.put("especialidade", objacompanhante.getEspecialidade());
-		jsonObjectEntrada.put("horario_atendimento", objacompanhante.getHorario_atendimento());
-		jsonObjectEntrada.put("status_atendimento", objacompanhante.getStatusAt());
-		jsonObjectEntrada.put("pernoite", objacompanhante.getPernoite());
-		jsonObjectEntrada.put("atendo", objacompanhante.getAtendo());
-		jsonObjectEntrada.put("fotoperfil", objacompanhante.getFoto());
+		jsonObjectEntradaTeste.put("nome", objacompanhante.getNome());
+		jsonObjectEntradaTeste.put("idade", objacompanhante.getIdade());
+		jsonObjectEntradaTeste.put("altura", objacompanhante.getAltura());
+		jsonObjectEntradaTeste.put("peso", objacompanhante.getPeso());
+		jsonObjectEntradaTeste.put("busto", objacompanhante.getBusto());
+		jsonObjectEntradaTeste.put("cintura", objacompanhante.getCintura());
+		jsonObjectEntradaTeste.put("quadril", objacompanhante.getQuadril());
+		jsonObjectEntradaTeste.put("olhos", objacompanhante.getOlhos());
+		jsonObjectEntradaTeste.put("especialidade", objacompanhante.getEspecialidade());
+		jsonObjectEntradaTeste.put("horario_atendimento", objacompanhante.getHorario_atendimento());
+		jsonObjectEntradaTeste.put("status_atendimento", objacompanhante.getStatusAt());
+		jsonObjectEntradaTeste.put("pernoite", objacompanhante.getPernoite());
+		jsonObjectEntradaTeste.put("atendo", objacompanhante.getAtendo());
+		jsonObjectEntradaTeste.put("fotoperfil", objacompanhante.getFoto());
+		
+		
+		acompanhantesArray.put(jsonObjectEntradaTeste);
+		
+		Log.i("SOSTENES", "objacompanhante: (Nome) " + objacompanhante.getNome());
+		Log.i("SOSTENES", "objacompanhante: (Idade) " + objacompanhante.getIdade());
+		
+
+		
+		jsonObjectEntrada.put("dados", acompanhantesArray);
+		jsonObjectEntrada.put("status", objacompanhante.getStatus());
+		jsonObjectEntrada.put("mensagem", objacompanhante.getMensagem());
+						
+		System.out.println("Array" + acompanhantesArray);
+//		
+
 		
 
 		
@@ -135,6 +152,13 @@ public class RepositorioAcompanhante extends RepositorioClass {
 				1);
 		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
 				String.valueOf(textoCriptografado)));
+					
+		//estamos aquiiiii
+		
+		
+		
+		Log.i("SOSTENES", "json pós put: " + jsonObjectEntrada.toString());
+
 
 		//
 		// PARA O NOME DA AÇÃO DO WEBSERVICE
