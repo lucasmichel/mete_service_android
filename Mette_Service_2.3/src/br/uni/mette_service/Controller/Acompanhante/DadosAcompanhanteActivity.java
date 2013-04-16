@@ -67,7 +67,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	quadril.setText(acomp.getQuadril());
 	olhos.setText(acomp.getOlhos());
 //	pernoite.setText(acomp.getPernoite());
-	horario_atent.setText(acomp.getHorario_atendimento());
+	horario_atent.setText(acomp.getHorarioAtendimento());
 	peso.setText(acomp.getPeso());
 	
 //	if (acomp.getStatusAt().equals("ocupada")) {

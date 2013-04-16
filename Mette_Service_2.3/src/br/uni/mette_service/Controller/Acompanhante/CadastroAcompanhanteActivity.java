@@ -41,8 +41,7 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 	private EditText edtQuadrilAcomp;
 	private EditText edtOlhosAcomp;
 	private EditText edtEspecialidadeAcomp;
-	private EditText edtHorario_AtendimentoAcomp;
-	private EditText edtAtendoAcomp;
+	private EditText edtHorarioAtendimentoAcomp;
 	private EditText edtFotoAcomp;
 	private EditText edtSenhaAcomp;
 	private EditText edtEmailAcomp;
@@ -93,8 +92,8 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 				
 		}
 		edtEspecialidadeAcomp.setText(objacompanhante.getEspecialidade());
-		edtHorario_AtendimentoAcomp.setText(objacompanhante.getHorario_atendimento());
-		edtFotoAcomp.setText(objacompanhante.getFoto());
+		edtHorarioAtendimentoAcomp.setText(objacompanhante.getHorarioAtendimento());
+		edtFotoAcomp.setText(objacompanhante.getFotoPerfil());
 		edtEmailAcomp.setText(objacompanhante.getEmail());
 		edtSenhaAcomp.setText(objacompanhante.getSenha());	
 		}
@@ -121,9 +120,9 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 				"##", edtQuadrilAcomp ));
 		edtOlhosAcomp = (EditText)findViewById(R.id.editOlhosAcomp);
 		edtEspecialidadeAcomp = (EditText)findViewById(R.id.editEspecialidadeAcomp);
-		edtHorario_AtendimentoAcomp = (EditText)findViewById(R.id.editHorarioAtentAcomp);
-		edtHorario_AtendimentoAcomp.addTextChangedListener(Mask.insert(
-				"##:##", edtHorario_AtendimentoAcomp ));
+		edtHorarioAtendimentoAcomp = (EditText)findViewById(R.id.editHorarioAtentAcomp);
+		edtHorarioAtendimentoAcomp.addTextChangedListener(Mask.insert(
+				"##:##", edtHorarioAtendimentoAcomp ));
 		edtFotoAcomp = (EditText)findViewById(R.id.editFotoAcomp);
 		edtEmailAcomp = (EditText)findViewById(R.id.editEmailAcomp);
 		edtSenhaAcomp = (EditText)findViewById(R.id.editSenhaAcomp);
@@ -155,7 +154,7 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 		acompanhanteValidado.setOlhos(edtOlhosAcomp.getText().toString());
 		//acompanhanteValidado.setPernoite(edtPernoiteAcomp.geti().toString());
 		acompanhanteValidado.setEspecialidade(edtEspecialidadeAcomp.getText().toString());
-		acompanhanteValidado.setHorario_atendimento(edtHorario_AtendimentoAcomp.getText().toString());
+		acompanhanteValidado.setHorarioAtendimento(edtHorarioAtendimentoAcomp.getText().toString());
 		//acompanhanteValidado.setNome(edtFotoAcomp.getText().toString());
 		acompanhanteValidado.setEmail(edtEmailAcomp.getText().toString());
 		acompanhanteValidado.setSenha(edtSenhaAcomp.getText().toString());
@@ -190,7 +189,7 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 				validar.validarCampo(edtOlhosAcomp) &&
 				//validar.validarCampo(edtPernoiteAcomp) &&
 				validar.validarCampo(edtEspecialidadeAcomp) &&
-				validar.validarCampo(edtHorario_AtendimentoAcomp) &&
+				validar.validarCampo(edtHorarioAtendimentoAcomp) &&
 				//STATUS STARTA COMO DISPONIVEL
 				//FOTO NÃO É OBRIGATÓRIA
 				validar.validarCampo(edtEmailAcomp) &&
@@ -255,9 +254,9 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 				}
 				
 				String especialidade 		= edtEspecialidadeAcomp.getText().toString();
-				String horario_atendimento  = edtHorario_AtendimentoAcomp.getText().toString();
-				String statusAt = "Disponível";
-				String foto 				= edtFotoAcomp.getText().toString();
+				String horarioAtendimento  = edtHorarioAtendimentoAcomp.getText().toString();
+				String statusAtendimento = "Disponível";
+				String fotoPerfil 				= edtFotoAcomp.getText().toString();
 				String email				= edtEmailAcomp.getText().toString();
 				String senha				= edtSenhaAcomp.getText().toString();
 				String tipo 				= "2";
@@ -266,8 +265,8 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 					objacompanhante = new Acompanhante
 							(idade, nome, altura, busto, 
 							cintura, quadril, olhos, pernoite
-							,especialidade, horario_atendimento, peso, atendo, 
-							statusAt, foto, email, senha, tipo);}
+							,especialidade, horarioAtendimento, peso, atendo, 
+							statusAtendimento, fotoPerfil, email, senha, tipo);}
 				
 				try 
 				

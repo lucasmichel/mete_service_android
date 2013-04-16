@@ -26,10 +26,10 @@ import br.uni.mette_service.Model.Repositorio.RepositorioClass;
 
 public class RepositorioAcompanhante extends RepositorioClass {
 
-	protected RepositorioAcompanhante(String nomeConexao) {
-		super(nomeConexao);
-		// TODO Auto-generated constructor stub
-	}
+		protected RepositorioAcompanhante(String nomeConexao) {
+			super(nomeConexao);
+			// TODO Auto-generated constructor stub
+		}
 
 	private static RepositorioAcompanhante instancia = null;
 	private static String nomeConexao = "http://leonardogalvao.com.br/mete_service/src/";
@@ -111,17 +111,19 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		jsonObjectEntradaTeste.put("quadril", objacompanhante.getQuadril());
 		jsonObjectEntradaTeste.put("olhos", objacompanhante.getOlhos());
 		jsonObjectEntradaTeste.put("especialidade", objacompanhante.getEspecialidade());
-		jsonObjectEntradaTeste.put("horario_atendimento", objacompanhante.getHorario_atendimento());
-		jsonObjectEntradaTeste.put("status_atendimento", objacompanhante.getStatusAt());
+		jsonObjectEntradaTeste.put("horarioAtendimento", objacompanhante.getHorarioAtendimento());
+		jsonObjectEntradaTeste.put("statusAtendimento", objacompanhante.getStatusAtendimento());
 		jsonObjectEntradaTeste.put("pernoite", objacompanhante.getPernoite());
 		jsonObjectEntradaTeste.put("atendo", objacompanhante.getAtendo());
-		jsonObjectEntradaTeste.put("fotoperfil", objacompanhante.getFoto());
+		jsonObjectEntradaTeste.put("fotoPerfil", objacompanhante.getFotoPerfil());
+		jsonObjectEntradaTeste.put("email", objacompanhante.getEmail());
+		jsonObjectEntradaTeste.put("senha", objacompanhante.getSenha());
 		
 		
 		acompanhantesArray.put(jsonObjectEntradaTeste);
 		
-		Log.i("SOSTENES", "objacompanhante: (Nome) " + objacompanhante.getNome());
-		Log.i("SOSTENES", "objacompanhante: (Idade) " + objacompanhante.getIdade());
+//		Log.i("SOSTENES", "objacompanhante: (Nome) " + objacompanhante.getNome());
+//		Log.i("SOSTENES", "objacompanhante: (Idade) " + objacompanhante.getIdade());
 		
 
 		
@@ -129,13 +131,8 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		jsonObjectEntrada.put("status", objacompanhante.getStatus());
 		jsonObjectEntrada.put("mensagem", objacompanhante.getMensagem());
 						
-		System.out.println("Array" + acompanhantesArray);
 //		
 
-		
-
-		
-		
 		//
 		// CRIPTOGRAFANDO O JSON PARA GERAR UM BASE64
 		//
@@ -153,7 +150,6 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
 				String.valueOf(textoCriptografado)));
 					
-		//estamos aquiiiii
 		
 		
 		
@@ -226,7 +222,7 @@ public class RepositorioAcompanhante extends RepositorioClass {
 						acompanhanteRetorno.setQuadril(objeto.getString("quadril"));
 						acompanhanteRetorno.setOlhos(objeto.getString("olhos"));
 						acompanhanteRetorno.setAtendo(objeto.getString("atendo"));
-						acompanhanteRetorno.setHorario_atendimento(objeto.getString("horario_atendimento"));
+						acompanhanteRetorno.setHorarioAtendimento(objeto.getString("horarioAtendimento"));
 						acompanhanteRetorno.setPeso(objeto.getString("peso"));
 					
 						Log.i("pedro: " , objeto.getString("nome"));

@@ -14,10 +14,10 @@ public class Acompanhante extends Usuario implements Serializable{
 
 	private String nome,idade, altura,busto ,cintura, quadril, olhos, atendo; 
 	int pernoite;
-	private String especialidade, horario_atendimento,peso;
-	private String statusAt;
+	private String especialidade, horarioAtendimento, peso;
+	private String statusAtendimento;
 	//FOTO PARA TESTE NO LAYOUT
-	private String foto;
+	private String fotoPerfil;
 	
 	////////////////// GETTERS AND SETTERS REFERENTES A SUPERCLASSE
 	public String getEmail(){
@@ -105,11 +105,11 @@ public class Acompanhante extends Usuario implements Serializable{
 	public void setEspecialidade(String especialidade) {
 		this.especialidade = especialidade;
 	}
-	public String getHorario_atendimento() {
-		return horario_atendimento;
+	public String getHorarioAtendimento() {
+		return horarioAtendimento;
 	}
-	public void setHorario_atendimento(String horario_atendimento) {
-		this.horario_atendimento = horario_atendimento;
+	public void setHorarioAtendimento(String horarioAtendimento) {
+		this.horarioAtendimento = horarioAtendimento;
 	}
 	public String getPeso() {
 		return peso;
@@ -117,24 +117,24 @@ public class Acompanhante extends Usuario implements Serializable{
 	public void setPeso(String peso) {
 		this.peso = peso;
 	}
-	public String getStatusAt() {
-		return statusAt;
+	public String getStatusAtendimento() {
+		return statusAtendimento;
 	}
-	public void setStatusAt(String statusAt) {
-		this.statusAt = statusAt;
+	public void setStatusAtendimento(String statusAtendimento) {
+		this.statusAtendimento = statusAtendimento;
 	}
-	public String getFoto() {
-		return foto;
+	public String getFotoPerfil() {
+		return fotoPerfil;
 	}
 	
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setFotoPerfil(String fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
 	}
 	
 	public Acompanhante(String idade, String nome, String altura,
 			String busto, String cintura, String quadril, String olhos,
 			int pernoite, String especialidade,
-			String horario_atendimento, String peso, String atendo, String statusAt, String foto, String email, String senha, String tipo) {
+			String horarioAtendimento, String peso, String atendo, String statusAtendimento, String fotoPerfil, String email, String senha, String tipo) {
 		super();
 		this.idade = idade;
 		this.nome = nome;
@@ -146,10 +146,10 @@ public class Acompanhante extends Usuario implements Serializable{
 		this.pernoite = pernoite;
 		this.atendo = atendo;
 		this.especialidade = especialidade;
-		this.horario_atendimento = horario_atendimento;
+		this.horarioAtendimento = horarioAtendimento;
 		this.peso = peso;
-		this.statusAt = statusAt;
-		this.foto = foto;
+		this.statusAtendimento = statusAtendimento;
+		this.fotoPerfil = fotoPerfil;
 		this.email = email;
 		this.senha = senha;
 		this.tipo = tipo;

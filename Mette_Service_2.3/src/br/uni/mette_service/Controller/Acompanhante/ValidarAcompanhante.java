@@ -101,7 +101,7 @@ public class ValidarAcompanhante extends CadastroAcompanhanteActivity{
 		
 
 		 private boolean validHorario_Atendimento(Acompanhante acompanhante) {
-				String horario = acompanhante.getHorario_atendimento();
+				String horario = acompanhante.getHorarioAtendimento();
 				
 				if (horario.length() != 5){
 					return false;
