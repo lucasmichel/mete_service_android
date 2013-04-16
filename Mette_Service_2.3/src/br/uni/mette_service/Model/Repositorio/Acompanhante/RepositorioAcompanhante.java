@@ -26,6 +26,8 @@ import br.uni.mette_service.Model.Repositorio.RepositorioClass;
 
 public class RepositorioAcompanhante extends RepositorioClass {
 
+	JSONArray acompanhantesArray = new JSONArray();
+	
 		protected RepositorioAcompanhante(String nomeConexao) {
 			super(nomeConexao);
 			// TODO Auto-generated constructor stub
@@ -99,7 +101,7 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		JSONObject jsonObjectEntrada = new JSONObject();
 		
 		
-		JSONArray acompanhantesArray = new JSONArray();
+		
 		
 		/////   DADOS ESPECÍFICOS DA CLASSE ACOMPANHANTE
 		jsonObjectEntradaTeste.put("nome", objacompanhante.getNome());
