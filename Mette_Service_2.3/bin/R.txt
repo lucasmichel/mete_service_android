@@ -25,7 +25,8 @@ int drawable ic_launcher 0x7f020002
 int drawable livre 0x7f020003
 int drawable mulher 0x7f020004
 int drawable ocupada 0x7f020005
-int drawable planodefundo 0x7f020006
+int drawable pin 0x7f020006
+int drawable planodefundo 0x7f020007
 int id AcompAltura 0x7f040076
 int id AcompBusto 0x7f04007a
 int id AcompCintura 0x7f04007c
