@@ -34,12 +34,16 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
-public class ListarAcompanhanteActivity extends ListActivity{
+public class ListarAcompanhanteActivity extends ListActivity implements OnClickListener{
 
 	AcompanhanteAdapter acompAdapter;
 
+	private Button btnVoltar;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,8 +52,20 @@ public class ListarAcompanhanteActivity extends ListActivity{
 		new MeninasAsyncTask().execute();
 		
 		setContentView(R.layout.lista_acomp);
+		
+		this.btnVoltar = (Button) findViewById(R.id.btnVoltar);
+		this.btnVoltar.setOnClickListener(this);
 
 	}
+	
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btnVoltar:
+			finish();
+			break;
+		}
+	}
+	
 	
 	
 	class MeninasAsyncTask extends AsyncTask<String, String, AcompanhanteList>{

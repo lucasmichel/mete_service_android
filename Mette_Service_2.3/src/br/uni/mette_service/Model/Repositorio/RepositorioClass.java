@@ -131,6 +131,8 @@ public class RepositorioClass {
 		}
 		try {
 			s = toString(resposta.getEntity().getContent());
+			Log.i("SOSTENES", "rETORNO "+ s);
+			
 		} catch (IllegalStateException e) {
 			Log.e("LUCASMICHEL", "IllegalStateException", e);
 			e.printStackTrace();
@@ -156,8 +158,7 @@ public class RepositorioClass {
 			Log.e("LUCASMICHEL", "JSONException", e);
 			e.printStackTrace();
 		}
- 
-		return objetoJSONAQUI;
+ 		return objetoJSONAQUI;
 	}
 
 	protected String toBase64StringEncode(String text) {

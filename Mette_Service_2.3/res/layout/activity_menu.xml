@@ -9,13 +9,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/menu_ola" />
-
+
+
     <Button
         android:id="@+id/btnTeste"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Em desenvolvimento" />
-
+
+
     <Button
         android:id="@+id/btnop2"
         android:layout_width="match_parent"
@@ -35,9 +37,9 @@
         android:text="Opção 4" />
     
     <Button
-        android:id="@+id/btnsobre"
+        android:id="@+id/btnMapa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sobre" />
+        android:text="MAPA" />
 
 </LinearLayout>

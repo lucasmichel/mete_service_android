@@ -225,7 +225,7 @@ public class RepositorioAcompanhante extends RepositorioClass {
 						acompanhanteRetorno.setQuadril(objeto.getString("quadril"));
 						acompanhanteRetorno.setOlhos(objeto.getString("olhos"));
 						acompanhanteRetorno.setAtendo(objeto.getString("atendo"));
-						acompanhanteRetorno.setHorarioAtendimento(objeto.getString("horarioAtendimento"));
+						acompanhanteRetorno.setHorarioAtendimento(objeto.getString("horario_atendimento"));
 						acompanhanteRetorno.setPeso(objeto.getString("peso"));
 					
 						Log.i("pedro: " , objeto.getString("nome"));

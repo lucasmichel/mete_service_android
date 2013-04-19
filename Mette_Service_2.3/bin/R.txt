@@ -58,12 +58,12 @@ int id TextView01 0x7f040066
 int id action_settings 0x7f040092
 int id btnAvancar 0x7f04004b
 int id btnEntrar 0x7f040069
+int id btnMapa 0x7f040070
 int id btnTeste 0x7f04006c
 int id btnVoltar 0x7f04004a
 int id btnop2 0x7f04006d
 int id btnop3 0x7f04006e
 int id btnop4 0x7f04006f
-int id btnsobre 0x7f040070
 int id button1 0x7f040006
 int id button2 0x7f040007
 int id button3 0x7f040008
