@@ -3,19 +3,12 @@ package br.uni.mette_service.Controller.Acompanhante;
 
 
 import java.io.Serializable;
-
 import org.json.JSONException;
-
 import br.uni.mette_service.R;
 import br.uni.mette_service.Model.Acompanhante;
+import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Model.Repositorio.Acompanhante.RepositorioAcompanhante;
 import br.uni.mette_service.Util.Mask;
-
-
-
-
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -26,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 
 
@@ -54,6 +48,7 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 
 	public Acompanhante objacompanhante;
 	RepositorioAcompanhante repositorioAcompanhante;
+	ModelClass userRetorno;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -259,22 +254,30 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 				String fotoPerfil 				= edtFotoAcomp.getText().toString();
 				String email				= edtEmailAcomp.getText().toString();
 				String senha				= edtSenhaAcomp.getText().toString();
-				String tipo 				= "2";
+//				String tipo 				= "2";
 				
 				if (objacompanhante == null){
 					objacompanhante = new Acompanhante
 							(idade, nome, altura, busto, 
 							cintura, quadril, olhos, pernoite
 							,especialidade, horarioAtendimento, peso, atendo, 
-							statusAtendimento, fotoPerfil, email, senha, tipo);}
+							statusAtendimento, fotoPerfil, email, senha);}
 				
 				try 
 				
 				{
 					
-					Acompanhante acompanhanteRetorno = new Acompanhante();
-
-					acompanhanteRetorno = objacompanhante.cadastrarAcompanhante(objacompanhante);
+//					Toast.makeText(getApplicationContext(), "TESTE DA GOMA", Toast.LENGTH_SHORT).show();
+					
+					Log.i("envio", objacompanhante.toString());
+					
+					
+					
+					userRetorno = objacompanhante.cadastrarAcompanhante(objacompanhante);
+					
+//					Toast.makeText(getApplicationContext(), userRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
+					
+					Log.i("envio", userRetorno.getMensagem().toString());
 
 					
 				} catch (JSONException e) 
@@ -292,6 +295,10 @@ public class CadastroAcompanhanteActivity extends Activity implements Serializab
 			{
 				super.onPostExecute(result);
 				dialog.dismiss();
+				
+				Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, userRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+				
 				Intent it = new Intent(CadastroAcompanhanteActivity.this ,TelaAcompanhanteActivity.class);
 				it.putExtra("objacompanhante", objacompanhante);
 				startActivity(it);

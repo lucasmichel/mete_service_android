@@ -52,8 +52,6 @@ public class Cliente extends Usuario {
 
 	public Cliente logarAndroid(Cliente cliente) throws JSONException {
 		RepositorioCliente bd = RepositorioCliente.getInstance();
-		
-		//n ta retornando (n ta executando o retorno)
 		return bd.logarAndroid(this);
 	}
 

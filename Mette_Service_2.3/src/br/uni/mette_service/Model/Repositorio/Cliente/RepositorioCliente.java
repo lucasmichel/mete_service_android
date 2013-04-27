@@ -11,7 +11,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+
 import br.uni.mette_service.Model.Cliente;
+import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Model.Repositorio.RepositorioClass;
 
 import android.util.Log;
@@ -80,8 +83,8 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		
 		Cliente clienteRetorno = new Cliente();
-		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
+//		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
+//		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
 		
 		Log.i("SOSTENES", "jsonObjectSaida status: " + jsonObjectSaida.getInt("status"));
 
@@ -89,38 +92,30 @@ public class RepositorioCliente extends RepositorioClass {
 	}
  
 	public Cliente cadastrarCliente(Cliente cliente) throws JSONException {
-		//
-		// cria o json com os paramterso que se quer..
-		//
-		JSONObject jsonObjectEntrada = new JSONObject();
-		jsonObjectEntrada.put("nome", cliente.getNome());
-		jsonObjectEntrada.put("cpf", cliente.getCpf());
-		jsonObjectEntrada.put("tipo", cliente.getTipo());
-		jsonObjectEntrada.put("telefone", cliente.getTelefone());
-		jsonObjectEntrada.put("senha", cliente.getSenha());
-		jsonObjectEntrada.put("email", cliente.getEmail());
-		//
-		// criptografando o json gerando uma string na base64..
-		//
-		System.out.println(jsonObjectEntrada);
-		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
-				.toString());
-
-		//
-		// cria a lista de par√¢metros para o post seguindo este padr√£o
-		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-		// String.valueOf(textoCriptografado)));
-		//
-		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
-				1);
+		List<Object> lista = new ArrayList();
+		lista.add(cliente);
+		
+		
+		Gson gson = new Gson();
+		
+		ModelClass modelo = new ModelClass();
+		modelo.setDados(lista);
+		modelo.setMensagem("OI");
+		modelo.setStatus(0);
+		
+		Log.i("envio",gson.toJson(modelo));
+		
+		
+		
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);  
 		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-				String.valueOf(textoCriptografado)));
+				toBase64StringEncode(gson.toJson(modelo))));
 
 		//
 		// passa o nome da a√ßao do webservice
 		//
 		// String nomeDaAcao = "cadastrarUsuario";
-		String nomeDaAcao = "cadastrarUsuario"; //SÛstenes: Alterado para RealizaÁ„o de testes
+		String nomeDaAcao = "cadastrarCliente"; //SÛstenes: Alterado para RealizaÁ„o de testes
 
 		//
 		// recebe um json descriptografado com as informa√ß√µes de retorno do
@@ -134,10 +129,8 @@ public class RepositorioCliente extends RepositorioClass {
 		//
 		// cria um usuario pra receber os dados do post em status e msgm...
 		//
-		Cliente clienteRetorno = new Cliente();		
-		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		clienteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
-
+		Cliente clienteRetorno = new Cliente();	
+		
 		return clienteRetorno;
 	}
 

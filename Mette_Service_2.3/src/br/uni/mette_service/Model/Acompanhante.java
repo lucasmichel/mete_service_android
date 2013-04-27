@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.json.JSONException;
 //import org.json.JSONObject;
 
+import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Model.Repositorio.Acompanhante.AcompanhanteList;
 import br.uni.mette_service.Model.Repositorio.Acompanhante.RepositorioAcompanhante;
 
@@ -18,31 +19,7 @@ public class Acompanhante extends Usuario implements Serializable{
 	private String statusAtendimento;
 	//FOTO PARA TESTE NO LAYOUT
 	private String fotoPerfil;
-	
-	////////////////// GETTERS AND SETTERS REFERENTES A SUPERCLASSE
-	public String getEmail(){
-		return email;
-	}
-	
-	public void setEmail(String email){
-		this.email = email;
-	}
-	
-	public String getSenha(){
-		return senha;
-	}
-	
-	public void setSenha(String senha){
-		this.senha = senha;
-	}
-	
-	public String getTipo() {
-		return tipo;
-	}
-	
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+
 	
 	/////////////////////////////////////////////////////////////////
 	public String getIdade() {
@@ -134,7 +111,7 @@ public class Acompanhante extends Usuario implements Serializable{
 	public Acompanhante(String idade, String nome, String altura,
 			String busto, String cintura, String quadril, String olhos,
 			String pernoite, String especialidade,
-			String horarioAtendimento, String peso, String atendo, String statusAtendimento, String fotoPerfil, String email, String senha, String tipo) {
+			String horarioAtendimento, String peso, String atendo, String statusAtendimento, String fotoPerfil, String email, String senha) {
 		super();
 		this.idade = idade;
 		this.nome = nome;
@@ -152,7 +129,6 @@ public class Acompanhante extends Usuario implements Serializable{
 		this.fotoPerfil = fotoPerfil;
 		this.email = email;
 		this.senha = senha;
-		this.tipo = tipo;
 	}
 	
 	public Acompanhante(){
@@ -164,7 +140,7 @@ public class Acompanhante extends Usuario implements Serializable{
 		return bd.logarAndroid(this);
 	}
 
-	public Acompanhante cadastrarAcompanhante(Acompanhante Acompanhante) throws JSONException {
+	public ModelClass cadastrarAcompanhante(Acompanhante Acompanhante) throws JSONException {
 		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
 		return bd.cadastrarAcompanhante(this);
 	}

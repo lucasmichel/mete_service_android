@@ -14,10 +14,11 @@ import android.widget.TextView;
 
 public class ServicoAdapter extends ArrayAdapter<Servico> {
 	
-	public ServicoAdapter(Context context, List<Servico> objects) {
-		super(context, 0, objects);
+	public ServicoAdapter(Context context, List<Object> list) {
+		super(context, 0);
 	}
 	
+
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Servico servico = getItem(position);
 		

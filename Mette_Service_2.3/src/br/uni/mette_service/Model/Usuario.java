@@ -6,7 +6,7 @@ import br.uni.mette_service.Model.Repositorio.ModelClass;
 
 public class Usuario extends ModelClass {
 
-	private String id;
+	private int id;
 	protected String senha;
 	protected String email;
 	protected String tipo;// definir se é cliente ou acompanhante
@@ -15,7 +15,7 @@ public class Usuario extends ModelClass {
 		super();
 	}
 
-	public Usuario(String id, String senha, String email, String tipo,
+	public Usuario(int id, String senha, String email, String tipo,
 			int status, String mensagem) {
 		super();
 		this.id = id;
@@ -26,11 +26,11 @@ public class Usuario extends ModelClass {
 		this.setStatus(status);
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

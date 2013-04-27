@@ -2,14 +2,12 @@ package br.uni.mette_service.Controller.Cliente;
 
 import org.json.JSONException;
 
+
 import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.EscolhaDoUsuarioActivity;
-import br.uni.mette_service.Controller.LoginActivity;
 import br.uni.mette_service.Controller.TermoUsoActivity;
 import br.uni.mette_service.Model.Cliente;
+import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Util.Mask;
-
-
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -153,14 +151,23 @@ public class CadastroClienteActivity extends Activity implements
 			cliente.setTelefone(CCtelefone.getText().toString());
 			cliente.setEmail(CCemail.getText().toString());
 			cliente.setSenha(CCsenha.getText().toString());
-			cliente.setStatus(0);
-			cliente.setMensagem("");
+//			cliente.setStatus(0);
+//			cliente.setMensagem("");
 
 			try {
 
 				Log.i("CPFF", "cpf: " + cliente.getCpf() + "telefone: "	+ cliente.getTelefone());
 				
-				clienteRetorno = cliente.cadastrarCliente(cliente);
+				
+				
+				ModelClass userRetorno = new ModelClass();
+				
+				userRetorno = cliente.cadastrarCliente(cliente);
+				
+				Toast.makeText(getApplicationContext(), userRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
+				
+				
+//				clienteRetorno = cliente.cadastrarCliente(cliente);
 				
 				
 
@@ -177,19 +184,19 @@ public class CadastroClienteActivity extends Activity implements
 			super.onPostExecute(result);
 			dialog.dismiss();						
 						
-			if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
-
-				Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
-				toast.show();
-			}
-
-			if (clienteRetorno.getStatus() == 0){ //SOSTENES/Cadastrado...
-			
-				Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
-				toast.show();			
-				
-				Intent it = new Intent(CadastroClienteActivity.this, LoginActivity.class);
-				startActivity(it);
+//			if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
+//
+//				Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+//				toast.show();
+//			}
+//
+//			if (clienteRetorno.getStatus() == 0){ //SOSTENES/Cadastrado...
+//			
+//				Toast toast = Toast.makeText(CadastroClienteActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+//				toast.show();			
+//				
+//				Intent it = new Intent(CadastroClienteActivity.this, LoginActivity.class);
+//				startActivity(it);
 				finish();
 			}
 			
@@ -197,4 +204,4 @@ public class CadastroClienteActivity extends Activity implements
 		}
 	}
 
-}
+

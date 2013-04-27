@@ -131,7 +131,7 @@ public class RepositorioClass {
 		}
 		try {
 			s = toString(resposta.getEntity().getContent());
-			Log.i("SOSTENES", "rETORNO "+ s);
+			Log.i("envio", "RETORNO "+ s);
 			
 		} catch (IllegalStateException e) {
 			Log.e("LUCASMICHEL", "IllegalStateException", e);

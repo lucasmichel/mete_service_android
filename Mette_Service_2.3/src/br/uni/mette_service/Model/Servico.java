@@ -8,13 +8,13 @@ public class Servico extends ModelClass {
 
 	private String id;
 	private String nome;
-	private List<Servico> dados; //testando com Servico //sóstenes
+	private List<Object> dados; //testando com Servico //sóstenes
 	
 	public Servico() {
 		super();
 	}
 	
-	public Servico(String id, String nome, int status, String mensagem, List<Servico> dados) {
+	public Servico(String id, String nome, int status, String mensagem, List<Object> dados) {
 		super();
 		this.id = id;
 		this.nome = nome;	
@@ -23,11 +23,11 @@ public class Servico extends ModelClass {
 		this.setStatus(status);		
 	}
 	
-	public List<Servico> getDados() { //testando com Servico //sóstenes
+	public List<Object> getDados() { //testando com Servico //sóstenes
 		return dados;
 	}
 
-	public void setDados(List<Servico> dados) { //testando com Servico //sóstenes
+	public void setDados(List<Object> dados) { //testando com Servico //sóstenes
 		this.dados = dados;
 	}
 	

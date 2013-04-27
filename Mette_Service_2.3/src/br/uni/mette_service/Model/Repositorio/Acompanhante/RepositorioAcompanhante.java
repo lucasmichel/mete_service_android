@@ -14,10 +14,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import com.google.gson.Gson;
 import android.graphics.Paint.Join;
 import android.util.Log;
 import br.uni.mette_service.Model.Acompanhante;
+import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Model.Repositorio.RepositorioClass;
 
 
@@ -92,97 +93,54 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		return acompanhanteRetorno;
 	}
 
-	public Acompanhante cadastrarAcompanhante(Acompanhante objacompanhante) throws JSONException {
-		//
-		// CRIA O JSON COM OS PARÂMETROS QUE SE QUER
-		//
-		
-		JSONObject jsonObjectEntradaTeste = new JSONObject();
-		JSONObject jsonObjectEntrada = new JSONObject();
+	public ModelClass cadastrarAcompanhante(Acompanhante objacompanhante) throws JSONException {
 		
 		
+		List<Object> lista = new ArrayList();
+		lista.add(objacompanhante);
+		
+		Gson gson = new Gson();
+		
+		ModelClass modelo = new ModelClass();
+		modelo.setDados(lista);
+		modelo.setMensagem("OI");
+		modelo.setStatus(0);
+		
+		Log.i("envio",gson.toJson(modelo));
 		
 		
-		/////   DADOS ESPECÍFICOS DA CLASSE ACOMPANHANTE
-		jsonObjectEntradaTeste.put("nome", objacompanhante.getNome());
-		jsonObjectEntradaTeste.put("idade", objacompanhante.getIdade());
-		jsonObjectEntradaTeste.put("altura", objacompanhante.getAltura());
-		jsonObjectEntradaTeste.put("peso", objacompanhante.getPeso());
-		jsonObjectEntradaTeste.put("busto", objacompanhante.getBusto());
-		jsonObjectEntradaTeste.put("cintura", objacompanhante.getCintura());
-		jsonObjectEntradaTeste.put("quadril", objacompanhante.getQuadril());
-		jsonObjectEntradaTeste.put("olhos", objacompanhante.getOlhos());
-		jsonObjectEntradaTeste.put("especialidade", objacompanhante.getEspecialidade());
-		jsonObjectEntradaTeste.put("horarioAtendimento", objacompanhante.getHorarioAtendimento());
-		jsonObjectEntradaTeste.put("statusAtendimento", objacompanhante.getStatusAtendimento());
-		jsonObjectEntradaTeste.put("pernoite", objacompanhante.getPernoite());
-		jsonObjectEntradaTeste.put("atendo", objacompanhante.getAtendo());
-		jsonObjectEntradaTeste.put("fotoPerfil", objacompanhante.getFotoPerfil());
-		jsonObjectEntradaTeste.put("email", objacompanhante.getEmail());
-		jsonObjectEntradaTeste.put("senha", objacompanhante.getSenha());
-		jsonObjectEntradaTeste.put("tipo", objacompanhante.getTipo());
-		
-		
-		acompanhantesArray.put(jsonObjectEntradaTeste);
-		
-//		Log.i("SOSTENES", "objacompanhante: (Nome) " + objacompanhante.getNome());
-//		Log.i("SOSTENES", "objacompanhante: (Idade) " + objacompanhante.getIdade());
-		
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);  
+		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado", toBase64StringEncode(gson.toJson(modelo))));
 
-		
-		jsonObjectEntrada.put("dados", acompanhantesArray);
-		jsonObjectEntrada.put("status", objacompanhante.getStatus());
-		jsonObjectEntrada.put("mensagem", objacompanhante.getMensagem());
-						
-//		
+		String nomeDaAcao = "cadastrarAcompanhante";
 
-		//
-		// CRIPTOGRAFANDO O JSON PARA GERAR UM BASE64
-		//
-
-		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
-				.toString());
-
-		//
-		// CRIA UMA LISTA DE PARÂMETROS PARA O POST SEGUINDO ESSE PADRÃO
-		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-		// String.valueOf(textoCriptografado)));
-		//
-		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
-				1);
-		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-				String.valueOf(textoCriptografado)));
-					
-		
-		
-		
-		Log.i("SOSTENES", "json pós put: " + jsonObjectEntrada.toString());
-
-
-		//
-		// PARA O NOME DA AÇÃO DO WEBSERVICE
-		//
-		// String nomeDaAcao = "cadastrarUsuario";
-		String nomeDaAcao = "cadastrarUsuario";
-
-		//
-		// RECEBE UM JSON DESCRIPTOGRAFADO COM AS INFORMAÇÕES DE RETORNO do
-		// post
-		//
-		// JSONObject jsonObjectSaida = this.postInformacao(nomeDaAcao,
-		// listaCamposPesquisa);
 		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
 				listaCamposPesquisa);
 
-		//
-		// CRIA UM USUARIO PARA RECEBER OS DADOS DO POST EM STATUS E MENSAGEM...
-		//
-		Acompanhante acompanhanteRetorno = new Acompanhante();
-		acompanhanteRetorno.setId(jsonObjectSaida.getString("id"));
-		acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
-
-		return acompanhanteRetorno;
+		List<Object> listaRetorno = new ArrayList();
+		JSONArray array = jsonObjectSaida.getJSONArray("dados");
+		for (int i = 0; i < array.length(); ++i) {
+		    JSONObject rec = array.getJSONObject(i);
+		    
+		    Acompanhante useAdd = new Acompanhante();
+		    
+//		    useAdd.setId((rec.getInt("id");
+//		    useAdd.setIdPerfil(rec.getInt("id_perfil"));
+//		    useAdd.setEmail(rec.getString("email"));
+		    
+		    listaRetorno.add(useAdd);
+		}
+		/*AQUI PREENCHE O OBJETO e adiciona a lista*/
+		
+		
+		//jsonObjectSaida.g
+		
+		ModelClass usuarioRetorno = new ModelClass();
+		usuarioRetorno.setDados(listaRetorno);
+		usuarioRetorno.setStatus(jsonObjectSaida.getInt("status"));
+		usuarioRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
+		
+		return usuarioRetorno;
 	}
 
 	public Acompanhante excluirAcompanhante(Acompanhante objacompanhante) {
@@ -215,7 +173,7 @@ public class RepositorioAcompanhante extends RepositorioClass {
 						JSONObject objeto = jsonObjectSaida.getJSONObject(i);
 						Acompanhante acompanhanteRetorno = new Acompanhante();
 						
-						acompanhanteRetorno.setId(objeto.getString("id"));
+						acompanhanteRetorno.setId(objeto.getInt("id"));
 						acompanhanteRetorno.setNome(objeto.getString("nome"));
 						acompanhanteRetorno.setEspecialidade(objeto.getString("especialidade"));
 						acompanhanteRetorno.setIdade(objeto.getString("idade"));
