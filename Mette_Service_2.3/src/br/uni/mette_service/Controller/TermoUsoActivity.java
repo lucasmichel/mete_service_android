@@ -10,7 +10,7 @@ public class TermoUsoActivity extends Activity{
  @Override
  	protected void onCreate(Bundle savedInstanceState) {
 	 super.onCreate(savedInstanceState);
-	setContentView(R.layout.termo_uso_activity);
+	setContentView(R.layout.activity_termo_uso);
 	EditText termoUso = (EditText) findViewById(R.id.TermoUso);
 	
 	termoUso.setText("Mette Service não se resposabiliza pelos atos aqui presentes," +

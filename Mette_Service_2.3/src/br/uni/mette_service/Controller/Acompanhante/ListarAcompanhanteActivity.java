@@ -51,7 +51,7 @@ public class ListarAcompanhanteActivity extends ListActivity implements OnClickL
 		//executa a chamada assincronica da thread
 		new MeninasAsyncTask().execute();
 		
-		setContentView(R.layout.lista_acomp);
+		setContentView(R.layout.activity_lista_acomp);
 		
 		this.btnVoltar = (Button) findViewById(R.id.btnVoltar);
 		this.btnVoltar.setOnClickListener(this);

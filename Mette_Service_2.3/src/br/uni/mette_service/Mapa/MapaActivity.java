@@ -46,7 +46,7 @@ implements LocationListener {
 	super.onCreate(savedInstanceState);  
 	
 		if (isGooglePlay()){
-			setContentView(R.layout.mapa); 
+			setContentView(R.layout.activity_mapa); 
 			setUpMap();
 		}
 	

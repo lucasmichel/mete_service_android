@@ -7,4 +7,5 @@ public class AvaliacaoAcompanhante {
 private int nota;
 private Acompanhante acompanhante;
 private Cliente cliente;
+
 }

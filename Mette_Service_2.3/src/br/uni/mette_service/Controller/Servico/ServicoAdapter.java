@@ -24,7 +24,7 @@ public class ServicoAdapter extends ArrayAdapter<Servico> {
 		
 		if (convertView == null){
 			convertView = LayoutInflater.from(getContext()).inflate(
-				R.layout.linha_servico, null);
+				R.layout.activity_linha_servico, null);
 		}
 				
 		TextView txtNome = (TextView)convertView.findViewById(R.id.txtNome);

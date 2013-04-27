@@ -33,7 +33,7 @@ public class TelaAcompanhanteActivity extends Activity implements Serializable{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//url = objacompanhante.getFoto().toString();
-		setContentView(R.layout.acitivity_tela_acompanhante);
+		setContentView(R.layout.activity_tela_acompanhante);
 		ImageView imgView =(ImageView)findViewById(R.id.imageView1);
 		Drawable drawable = LoadImageFromWebOperations("http://www.imagensdahora.com.br/clipart/cliparts_imagens/01Animais//tubarao_06.gif");
 		imgView.setImageDrawable(drawable);

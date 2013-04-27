@@ -8,6 +8,7 @@ import br.uni.mette_service.Controller.TermoUsoActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Util.Mask;
+import br.uni.mette_service.Util.Validar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -88,7 +89,7 @@ public class CadastroClienteActivity extends Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:
-			ValidarCliente validar = new ValidarCliente();
+			Validar validar = new Validar();
 			Cliente clienteValidado = new Cliente();
 
 			clienteValidado.setNome(CCnome.getText().toString());
@@ -97,7 +98,7 @@ public class CadastroClienteActivity extends Activity implements
 			clienteValidado.setEmail(CCemail.getText().toString());
 			clienteValidado.setSenha(CCsenha.getText().toString());
 
-			ValidarCliente contr = new ValidarCliente();
+			Validar contr = new Validar();
 
 			if (validar.validarCampo(CCnome) && validar.validarCampo(CCcpf)
 					&& validar.validarCampo(CCtelefone)
@@ -147,7 +148,6 @@ public class CadastroClienteActivity extends Activity implements
 			Cliente cliente = new Cliente();
 			cliente.setNome(CCnome.getText().toString());
 			cliente.setCpf(CCcpf.getText().toString());
-			cliente.setTipo("1");
 			cliente.setTelefone(CCtelefone.getText().toString());
 			cliente.setEmail(CCemail.getText().toString());
 			cliente.setSenha(CCsenha.getText().toString());

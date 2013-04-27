@@ -25,7 +25,7 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 	//teste
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_escolherusuario);
+		setContentView(R.layout.activity_escolher_usuario);
 
 		this.btnHomem = (ImageButton) findViewById(R.id.homem);
 		this.btnMulher = (ImageButton) findViewById(R.id.mulher);

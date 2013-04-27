@@ -9,19 +9,19 @@ public class Usuario extends ModelClass {
 	private int id;
 	protected String senha;
 	protected String email;
-	protected String tipo;// definir se é cliente ou acompanhante
+	protected String idPerfil;// definir se é cliente ou acompanhante
 
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(int id, String senha, String email, String tipo,
+	public Usuario(int id, String senha, String email, String idPerfil,
 			int status, String mensagem) {
 		super();
 		this.id = id;
 		this.senha = senha;
 		this.email = email;
-		this.tipo = tipo;
+		this.idPerfil = idPerfil;
 		this.setMensagem(mensagem);
 		this.setStatus(status);
 	}
@@ -34,12 +34,13 @@ public class Usuario extends ModelClass {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	
+	public String getIdPerfil() {
+		return idPerfil;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setIdPerfil(String idPerfil) {
+		this.idPerfil = idPerfil;
 	}
 
 	public String getSenha() {

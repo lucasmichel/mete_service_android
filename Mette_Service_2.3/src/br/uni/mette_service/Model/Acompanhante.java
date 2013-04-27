@@ -14,9 +14,7 @@ import br.uni.mette_service.Model.Repositorio.Acompanhante.RepositorioAcompanhan
 public class Acompanhante extends Usuario implements Serializable{
 
 	private String nome,idade, altura,busto ,cintura, quadril, olhos, atendo; 
-	String pernoite;
-	private String especialidade, horarioAtendimento, peso;
-	private String statusAtendimento;
+	String pernoite,especialidade, horarioAtendimento, peso,statusAtendimento;
 	//FOTO PARA TESTE NO LAYOUT
 	private String fotoPerfil;
 

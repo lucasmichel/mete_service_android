@@ -170,8 +170,7 @@ public class RepositorioClass {
 			throws UnsupportedEncodingException {
 		byte bytes[] = text.getBytes();
 		Base64.decode(bytes, Base64.DEFAULT);
-		String valor = new String(Base64.decode(bytes, Base64.DEFAULT),
-				"ISO-8859-1");
+		String valor = new String(Base64.decode(bytes, Base64.DEFAULT),"ISO-8859-1");
 		return valor;
 	}
 

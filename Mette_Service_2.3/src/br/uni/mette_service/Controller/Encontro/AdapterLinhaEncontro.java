@@ -55,7 +55,7 @@ public class AdapterLinhaEncontro extends BaseAdapter {
 		 //Pega o item de acordo com a posção.
 		LinhaEncontro item = linhas.get(position);
         //infla o layout para podermos preencher os dados
-        view = mInflater.inflate(R.layout.linha_encontro, null);
+        view = mInflater.inflate(R.layout.activity_linha_encontro, null);
  
         //atravez do layout pego pelo LayoutInflater, pegamos cada id relacionado
         //ao item e definimos as informações.

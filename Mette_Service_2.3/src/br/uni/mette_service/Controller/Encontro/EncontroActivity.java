@@ -32,7 +32,7 @@ public class EncontroActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.acitivity_tela_cadastro_encontro);
+		setContentView(R.layout.activity_tela_cadastro_encontro);
 		
 		lAcompanhantes = (ListView) findViewById(R.id.listView1);
 		lServicos = (ListView) findViewById(R.id.listView2);

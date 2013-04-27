@@ -9,9 +9,7 @@ import br.uni.mette_service.Model.Repositorio.Cliente.RepositorioCliente;
 
 public class Cliente extends Usuario {
 
-	private String nome;
-	private String cpf;
-	private String telefone;
+	private String nome,cpf,telefone;
 	
 
 	public Cliente() {
