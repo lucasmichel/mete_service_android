@@ -47,51 +47,51 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		}
 	}
 
-	public Acompanhante logarAndroid(Acompanhante objacompanhante) throws JSONException {
-
-		//
-		// CRIA O JSON COM OS PARÂMETROS QUE SE QUER 
-		//
-		JSONObject jsonObjectEntrada = new JSONObject();
-		jsonObjectEntrada.put("email", objacompanhante.getEmail());
-		jsonObjectEntrada.put("senha", objacompanhante.getSenha());
-
-		//
-		// criptogrfa o json gerando uma string na base64..
-		//
-		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
-				.toString());
-
-		//
-		// CRIA A LISTA DE PARÂMETROS DO POST SEGUINDO ESTE PADRÃO
-		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-		// String.valueOf(textoCriptografado)));
-		//
-		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
-				1);
-		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-				String.valueOf(textoCriptografado)));
-
-		//
-		// PASSA O NOME DA AÇAO DO WEBSERVICE
-		//
-		String nomeDaAcao = "logarAndroid";
-
-		//
-		// RECEBE UM JSON DESCRIPTOGRAFADO COM AS INFOS DE RETORNO DO
-		// post
-		//
-		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
-				listaCamposPesquisa);
-		//
-		// CRIA UM USUARIO PARA RECEBER OS DADOS DO POST EM STATUS E MENSAGEM..
-		//
-		Acompanhante acompanhanteRetorno = new Acompanhante();
-		acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
-		
-		return acompanhanteRetorno;
-	}
+//	public Acompanhante logarAndroid(Acompanhante objacompanhante) throws JSONException {
+//
+//		//
+//		// CRIA O JSON COM OS PARÂMETROS QUE SE QUER 
+//		//
+//		JSONObject jsonObjectEntrada = new JSONObject();
+//		jsonObjectEntrada.put("email", objacompanhante.getEmail());
+//		jsonObjectEntrada.put("senha", objacompanhante.getSenha());
+//
+//		//
+//		// criptogrfa o json gerando uma string na base64..
+//		//
+//		String textoCriptografado = this.toBase64StringEncode(jsonObjectEntrada
+//				.toString());
+//
+//		//
+//		// CRIA A LISTA DE PARÂMETROS DO POST SEGUINDO ESTE PADRÃO
+//		// listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
+//		// String.valueOf(textoCriptografado)));
+//		//
+//		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(
+//				1);
+//		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
+//				String.valueOf(textoCriptografado)));
+//
+//		//
+//		// PASSA O NOME DA AÇAO DO WEBSERVICE
+//		//
+//		String nomeDaAcao = "logarAndroid";
+//
+//		//
+//		// RECEBE UM JSON DESCRIPTOGRAFADO COM AS INFOS DE RETORNO DO
+//		// post
+//		//
+//		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
+//				listaCamposPesquisa);
+//		//
+//		// CRIA UM USUARIO PARA RECEBER OS DADOS DO POST EM STATUS E MENSAGEM..
+//		//
+//		Acompanhante acompanhanteRetorno = new Acompanhante();
+//		acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
+//		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("messagem"));
+//		
+//		return acompanhanteRetorno;
+//	}
 
 	public ModelClass cadastrarAcompanhante(Acompanhante objacompanhante) throws JSONException {
 		
@@ -122,25 +122,25 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		for (int i = 0; i < array.length(); ++i) {
 		    JSONObject rec = array.getJSONObject(i);
 		    
-		    Acompanhante useAdd = new Acompanhante();
+		    Acompanhante acompanhanteAdd = new Acompanhante();
 		    
 //		    useAdd.setId((rec.getInt("id");
 //		    useAdd.setIdPerfil(rec.getInt("id_perfil"));
 //		    useAdd.setEmail(rec.getString("email"));
 		    
-		    listaRetorno.add(useAdd);
+		    listaRetorno.add(acompanhanteAdd);
 		}
 		/*AQUI PREENCHE O OBJETO e adiciona a lista*/
 		
 		
 		//jsonObjectSaida.g
 		
-		ModelClass usuarioRetorno = new ModelClass();
-		usuarioRetorno.setDados(listaRetorno);
-		usuarioRetorno.setStatus(jsonObjectSaida.getInt("status"));
-		usuarioRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
+		ModelClass acompanhanteRetorno = new ModelClass();
+		acompanhanteRetorno.setDados(listaRetorno);
+		acompanhanteRetorno.setStatus(jsonObjectSaida.getInt("status"));
+		acompanhanteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
 		
-		return usuarioRetorno;
+		return acompanhanteRetorno;
 	}
 
 	public Acompanhante excluirAcompanhante(Acompanhante objacompanhante) {

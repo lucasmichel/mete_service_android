@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.widget.Toast;
+import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Model.Repositorio.Cliente.RepositorioCliente;
 
 
@@ -53,7 +54,7 @@ public class Cliente extends Usuario {
 		return bd.logarAndroid(this);
 	}
 
-	public Cliente cadastrarCliente(Cliente cliente) throws JSONException {
+	public ModelClass cadastrarCliente(Cliente cliente) throws JSONException {
 		RepositorioCliente bd = RepositorioCliente.getInstance();
 		return bd.cadastrarCliente(this);
 	}

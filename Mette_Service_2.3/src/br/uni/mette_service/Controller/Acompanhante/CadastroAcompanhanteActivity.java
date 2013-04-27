@@ -31,7 +31,7 @@ public class CadastroAcompanhanteActivity extends Activity implements
 
 	public Acompanhante objacompanhante;
 	RepositorioAcompanhante repositorioAcompanhante;
-	ModelClass userRetorno;
+	ModelClass acompanhanteRetorno;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -239,7 +239,7 @@ public class CadastroAcompanhanteActivity extends Activity implements
 				objacompanhante = new Acompanhante(idade, nome, altura, busto,
 						cintura, quadril, olhos, pernoite, especialidade,
 						horarioAtendimento, peso, atendo, statusAtendimento,
-						fotoPerfil, email, senha);
+						fotoPerfil);
 			}
 
 			try
@@ -251,14 +251,14 @@ public class CadastroAcompanhanteActivity extends Activity implements
 
 				Log.i("envio", objacompanhante.toString());
 
-				userRetorno = objacompanhante
+				acompanhanteRetorno = objacompanhante
 						.cadastrarAcompanhante(objacompanhante);
 
 				// Toast.makeText(getApplicationContext(),
 				// userRetorno.getMensagem().toString(),
 				// Toast.LENGTH_LONG).show();
 
-				Log.i("envio", userRetorno.getMensagem().toString());
+				Log.i("envio", acompanhanteRetorno.getMensagem().toString());
 
 			} catch (JSONException e) {
 				Log.i("pedro: ", "ERROOO!!" + e);
@@ -274,7 +274,7 @@ public class CadastroAcompanhanteActivity extends Activity implements
 			dialog.dismiss();
 
 			Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this,
-					userRetorno.getMensagem(), Toast.LENGTH_LONG);
+					acompanhanteRetorno.getMensagem(), Toast.LENGTH_LONG);
 			toast.show();
 
 			Intent it = new Intent(CadastroAcompanhanteActivity.this,

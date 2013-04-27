@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Model.Repositorio.RepositorioClass;
@@ -91,10 +92,10 @@ public class RepositorioCliente extends RepositorioClass {
 		return clienteRetorno;
 	}
  
-	public Cliente cadastrarCliente(Cliente cliente) throws JSONException {
+	public ModelClass cadastrarCliente(Cliente objCliente) throws JSONException {
+
 		List<Object> lista = new ArrayList();
-		lista.add(cliente);
-		
+		lista.add(objCliente);
 		
 		Gson gson = new Gson();
 		
@@ -106,30 +107,36 @@ public class RepositorioCliente extends RepositorioClass {
 		Log.i("envio",gson.toJson(modelo));
 		
 		
-		
 		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);  
-		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado",
-				toBase64StringEncode(gson.toJson(modelo))));
+		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado", toBase64StringEncode(gson.toJson(modelo))));
 
-		//
-		// passa o nome da a√ßao do webservice
-		//
-		// String nomeDaAcao = "cadastrarUsuario";
-		String nomeDaAcao = "cadastrarCliente"; //SÛstenes: Alterado para RealizaÁ„o de testes
+		String nomeDaAcao = "cadastrarCliente";
 
-		//
-		// recebe um json descriptografado com as informa√ß√µes de retorno do
-		// post
-		//
-		// JSONObject jsonObjectSaida = this.postInformacao(nomeDaAcao,
-		// listaCamposPesquisa);
 		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
 				listaCamposPesquisa);
 
-		//
-		// cria um usuario pra receber os dados do post em status e msgm...
-		//
-		Cliente clienteRetorno = new Cliente();	
+		List<Object> listaRetorno = new ArrayList();
+		JSONArray array = jsonObjectSaida.getJSONArray("dados");
+		for (int i = 0; i < array.length(); ++i) {
+		    JSONObject rec = array.getJSONObject(i);
+		    
+		    Cliente clienteAdd = new Cliente();
+		    
+//		    useAdd.setId((rec.getInt("id");
+//		    useAdd.setIdPerfil(rec.getInt("id_perfil"));
+//		    useAdd.setEmail(rec.getString("email"));
+		    
+		    listaRetorno.add(clienteAdd);
+		}
+		/*AQUI PREENCHE O OBJETO e adiciona a lista*/
+		
+		
+		//jsonObjectSaida.g
+		
+		ModelClass clienteRetorno = new ModelClass();
+		clienteRetorno.setDados(listaRetorno);
+		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
+		clienteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
 		
 		return clienteRetorno;
 	}

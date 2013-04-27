@@ -35,7 +35,7 @@ public class CadastroClienteActivity extends Activity implements
 	private CheckBox checkTermoUso;
 	private boolean atualizar = false;
 
-	Cliente clienteRetorno = new Cliente();
+	ModelClass clienteRetorno;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -145,29 +145,29 @@ public class CadastroClienteActivity extends Activity implements
 		@Override
 		protected Cliente doInBackground(String... params) {
 
-			Cliente cliente = new Cliente();
-			cliente.setNome(CCnome.getText().toString());
-			cliente.setCpf(CCcpf.getText().toString());
-			cliente.setTelefone(CCtelefone.getText().toString());
-			cliente.setEmail(CCemail.getText().toString());
-			cliente.setSenha(CCsenha.getText().toString());
+			Cliente objCliente = new Cliente();
+			objCliente.setNome(CCnome.getText().toString());
+			objCliente.setCpf(CCcpf.getText().toString());
+			objCliente.setTelefone(CCtelefone.getText().toString());
+			objCliente.setEmail(CCemail.getText().toString());
+			objCliente.setSenha(CCsenha.getText().toString());
 //			cliente.setStatus(0);
 //			cliente.setMensagem("");
 
 			try {
 
-				Log.i("CPFF", "cpf: " + cliente.getCpf() + "telefone: "	+ cliente.getTelefone());
-				
-				
-				
-				ModelClass userRetorno = new ModelClass();
-				
-				userRetorno = cliente.cadastrarCliente(cliente);
-				
-				Toast.makeText(getApplicationContext(), userRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
-				
-				
-//				clienteRetorno = cliente.cadastrarCliente(cliente);
+				// Toast.makeText(getApplicationContext(), "TESTE DA GOMA",
+				// Toast.LENGTH_SHORT).show();
+
+				Log.i("envio", objCliente.toString());
+
+				clienteRetorno = objCliente.cadastrarCliente(objCliente);
+
+				// Toast.makeText(getApplicationContext(),
+				// userRetorno.getMensagem().toString(),
+				// Toast.LENGTH_LONG).show();
+
+				Log.i("envio", clienteRetorno.getMensagem().toString());
 				
 				
 

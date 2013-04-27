@@ -1,29 +1,37 @@
 package br.uni.mette_service.Model;
 
+import java.io.Serializable;
+
+import org.json.JSONException;
+
+
 import br.uni.mette_service.Model.Repositorio.ModelClass;
+import br.uni.mette_service.Model.Repositorio.Usuario.RepositorioUsuario;
 
 
 
-public class Usuario extends ModelClass {
+public class Usuario implements Serializable  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
-	protected String senha;
-	protected String email;
-	protected String idPerfil;// definir se é cliente ou acompanhante
+	private String senha;
+	private String email;
+	private int idPerfil;
 
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(int id, String senha, String email, String idPerfil,
-			int status, String mensagem) {
+	public Usuario(int id, String senha, String email, int idPerfil) {
 		super();
 		this.id = id;
 		this.senha = senha;
 		this.email = email;
 		this.idPerfil = idPerfil;
-		this.setMensagem(mensagem);
-		this.setStatus(status);
+		
 	}
 
 	public int getId() {
@@ -32,15 +40,6 @@ public class Usuario extends ModelClass {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	
-	public String getIdPerfil() {
-		return idPerfil;
-	}
-
-	public void setIdPerfil(String idPerfil) {
-		this.idPerfil = idPerfil;
 	}
 
 	public String getSenha() {
@@ -58,5 +57,20 @@ public class Usuario extends ModelClass {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
+	public int getIdPerfil() {
+		return idPerfil;
+	}
+
+	public void setIdPerfil(int idPerfil) {
+		this.idPerfil = idPerfil;
+	}
+	
+public ModelClass logarAndroid(Usuario usuario) throws JSONException{
+	RepositorioUsuario bd = RepositorioUsuario.getInstance();
+	return bd.logarAndroid(this);
+	
+}
 
 }

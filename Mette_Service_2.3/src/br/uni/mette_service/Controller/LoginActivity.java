@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.json.JSONException;
 
+
 import br.uni.mette_service.R;
 import br.uni.mette_service.R.id;
 import br.uni.mette_service.R.layout;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
+import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Util.PreferencesController;
 
 import android.annotation.SuppressLint;
@@ -37,8 +39,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private Map<String, String> userValuesMap;
 	final Context context = this;
 	
-	Cliente clienteRetorno = new Cliente();
-	Cliente cliente = new Cliente();
+	ModelClass usuarioRetorno;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,22 +100,30 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	public void logar() {
-		Intent it;		
-		
-		cliente.setEmail(edtEmail.getText().toString());
-		cliente.setSenha(edtSenha.getText().toString());	
-		cliente.setStatus(0);
-		cliente.setMensagem("");
-		
-		
-		try {			
-			clienteRetorno = cliente.logarAndroid(cliente);							 
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
+//	public void logar() {
+//		Intent it;		
+//		
+//		usuario.setEmail(edtEmail.getText().toString());
+//		usuario.setSenha(edtSenha.getText().toString());	
+//
+//		
+//		
+//		try {			
+////			Toast.makeText(getApplicationContext(), "TESTE DA GOMA", Toast.LENGTH_SHORT).show();
+//			
+//			
+//			usuarioRetorno = usuario.logarAndroid(usuario);
+//			
+////			Toast.makeText(getApplicationContext(), userRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
+//			
+//			
+//			
+//			//Toast.makeText(getApplicationContext(), "TESTE DA GOMA2", Toast.LENGTH_SHORT).show();					 
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
+//	}
 	
 	class logarAsysncTask extends AsyncTask<Void, Void, Usuario>{
 
@@ -128,12 +138,26 @@ public class LoginActivity extends Activity implements OnClickListener {
 		
 		@Override
 		protected Usuario doInBackground(Void... params) {
-			logar();		
+//			logar();
 			
-			Log.i("SOSTENES", "Retorno Json (cliente.getStatus()): " + clienteRetorno.getStatus());
-			Log.i("SOSTENES", "Retorno Json (cliente.getMensagem()): " + clienteRetorno.getMensagem());
+			Usuario usuario = new Usuario();
 			
-			return clienteRetorno;
+			usuario.setEmail(edtEmail.getText().toString());
+			usuario.setSenha(edtSenha.getText().toString());
+			
+			Log.i("envio", usuario.toString());
+			
+			
+			try {
+				usuarioRetorno = usuario.logarAndroid(usuario);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Log.i("envio", usuarioRetorno.getMensagem().toString());
+
+			return usuario;
 			
 			
 		}
@@ -143,13 +167,16 @@ public class LoginActivity extends Activity implements OnClickListener {
 			super.onPostExecute(result);
 			dialog.dismiss();
 
-			if (clienteRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
+			Toast toast1 = Toast.makeText(LoginActivity.this, usuarioRetorno.getMensagem(), Toast.LENGTH_LONG);
+			toast1.show();
+			
+			if (usuarioRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
 	//
-				Toast toast = Toast.makeText(LoginActivity.this, clienteRetorno.getMensagem(), Toast.LENGTH_LONG);
+				Toast toast = Toast.makeText(LoginActivity.this, usuarioRetorno.getMensagem(), Toast.LENGTH_LONG);
 				toast.show();					
 			}
 
-			if (clienteRetorno.getStatus() == 0){ //SOSTENES/Logar...
+			if (usuarioRetorno.getStatus() == 0){ //SOSTENES/Logar...
 						
 				PreferencesController.setUserPreferences(LoginActivity.this, edtEmail.getText()
 						.toString(), edtSenha.getText().toString());
