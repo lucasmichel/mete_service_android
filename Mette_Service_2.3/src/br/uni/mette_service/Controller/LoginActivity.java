@@ -1,16 +1,13 @@
 package br.uni.mette_service.Controller;
 
-import java.util.Date;
 
-import java.util.Map;
+
 
 import org.json.JSONException;
 
 
 import br.uni.mette_service.R;
-import br.uni.mette_service.R.id;
-import br.uni.mette_service.R.layout;
-import br.uni.mette_service.Model.Cliente;
+import br.uni.mette_service.Controller.Acompanhante.TelaAcompanhanteActivity;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Util.PreferencesController;
@@ -36,10 +33,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private EditText edtEmail, edtSenha;
 	private TextView txtLinkCadastro;
 	private Button btnLogin;	
-	private Map<String, String> userValuesMap;
 	final Context context = this;
 	
-	ModelClass usuarioRetorno;
+	ModelClass usuarioRetorno, modelo;
+	
 
 	
 	@Override
@@ -125,31 +122,33 @@ public class LoginActivity extends Activity implements OnClickListener {
 //		}	
 //	}
 	
-	class logarAsysncTask extends AsyncTask<Void, Void, Usuario>{
+	class logarAsysncTask extends AsyncTask<Void, Void, ModelClass>{
 
 		ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = ProgressDialog.show(LoginActivity.this, "Carregando",
-					"Seu login logo sera concluido.", true, false);
+			dialog = ProgressDialog.show(LoginActivity.this, "LOADING:",
+					"Efetuando o Login do Usuario!", true, false);
 			super.onPreExecute();
 		}
 		
 		@Override
-		protected Usuario doInBackground(Void... params) {
+		protected ModelClass doInBackground(Void... params) {
 //			logar();
 			
-			Usuario usuario = new Usuario();
+			String email = edtEmail.getText().toString();
+			String senha = edtSenha.getText().toString();
 			
-			usuario.setEmail(edtEmail.getText().toString());
-			usuario.setSenha(edtSenha.getText().toString());
-			
-			Log.i("envio", usuario.toString());
-			
+			Usuario usuario = new Usuario(0, email, senha, 0);
 			
 			try {
+				
+				usuarioRetorno = new ModelClass();
 				usuarioRetorno = usuario.logarAndroid(usuario);
+				
+				Toast.makeText(getApplicationContext(), usuarioRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
+				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -157,26 +156,19 @@ public class LoginActivity extends Activity implements OnClickListener {
 			
 			Log.i("envio", usuarioRetorno.getMensagem().toString());
 
-			return usuario;
+			return usuarioRetorno;
 			
 			
 		}
 		
 		@Override
-		protected void onPostExecute(Usuario result) {
+		protected void onPostExecute(ModelClass result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
-
-			Toast toast1 = Toast.makeText(LoginActivity.this, usuarioRetorno.getMensagem(), Toast.LENGTH_LONG);
-			toast1.show();
+			// AINDA NÃO SEI QUAL idPerfil PERTENCE A CADA UM, PORTANTO ESTÃO COMO EXEMPLOS ESSES VALORES
 			
-			if (usuarioRetorno.getStatus() == 1){ //SOSTENES/Exibir Alerta...
-	//
-				Toast toast = Toast.makeText(LoginActivity.this, usuarioRetorno.getMensagem(), Toast.LENGTH_LONG);
-				toast.show();					
-			}
-
-			if (usuarioRetorno.getStatus() == 0){ //SOSTENES/Logar...
+			Usuario user = (Usuario) usuarioRetorno.getDados().get(0);
+			if ((usuarioRetorno.getStatus() == 0) && (user.getIdPerfil() == 1)){ 
 						
 				PreferencesController.setUserPreferences(LoginActivity.this, edtEmail.getText()
 						.toString(), edtSenha.getText().toString());
@@ -186,6 +178,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 				
 				
 				finish();
+			} else if((usuarioRetorno.getStatus() == 0) &&  (user.getIdPerfil() == 2)){
+				
+				PreferencesController.setUserPreferences(LoginActivity.this, edtEmail.getText()
+						.toString(), edtSenha.getText().toString());
+				Intent it = new Intent(LoginActivity.this, TelaAcompanhanteActivity.class);			
+				it.putExtra("usuarioLogado", edtEmail.getText().toString());
+				startActivity(it);
 			}
 		}
 	}

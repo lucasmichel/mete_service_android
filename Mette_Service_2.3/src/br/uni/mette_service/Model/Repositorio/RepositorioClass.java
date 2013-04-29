@@ -92,73 +92,36 @@ public class RepositorioClass {
 		return objetoJSONAQUI;
 	}
 
-		public JSONObject getInformacao(String nomeDaAcao,
-				List<NameValuePair> listaCamposPesquisa) {
-
+public JSONObject getInformacao(String nomeDaAcao, List<NameValuePair> listaCamposPesquisa) {
+		
 		JSONObject objetoJSONAQUI = null;
-
-		String retornoDesciptografado = null;
-
-		HttpResponse resposta = null;
-
-		String s = null;
-
-		HttpClient cliente = new DefaultHttpClient();
-
-		String url = nomeConexao + nomeDaAcao;
-
-		HttpPost get = new HttpPost(url);
-
 		try {
 			
-			get.headerIterator();
-			get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
-			
-			
-		} catch (UnsupportedEncodingException e) {
-			Log.e("LUCASMICHEL", "UnsupportedEncodingException", e);
-			e.printStackTrace();
-		}
-		try {
-			resposta = cliente.execute(get);
-		} catch (ClientProtocolException e) {
-			Log.e("LUCASMICHEL", "ClientProtocolException", e);
-			e.printStackTrace();
+		    HttpClient cliente = new DefaultHttpClient();		    
+		    String url = nomeConexao+nomeDaAcao;		    
+			HttpPost get = new HttpPost(url);
 
-		} catch (IOException e) {
-			Log.e("LUCASMICHEL", "IOException", e);
+			try {
+				
+				get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
+
+				HttpResponse resposta = cliente.execute(get);
+				String s = toString(resposta.getEntity().getContent());
+				//objetoJSONAQUI = new JSONObject(s);
+				
+				String retornoDesciptografado = toBase64StringDecode(s);
+				objetoJSONAQUI = new JSONObject(retornoDesciptografado); 
+		
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		try {
-			s = toString(resposta.getEntity().getContent());
-			Log.i("envio", "RETORNO "+ s);
 			
-		} catch (IllegalStateException e) {
-			Log.e("LUCASMICHEL", "IllegalStateException", e);
-			e.printStackTrace();
-		} catch (IOException e) {
-			Log.e("LUCASMICHEL", "IOException", e);
-			e.printStackTrace();
 		}
-		try {
-			objetoJSONAQUI = new JSONObject(s);
-		} catch (JSONException e) {
-			Log.e("LUCASMICHEL", "JSONException", e);
-			e.printStackTrace();
-		}
-		try {
-			retornoDesciptografado = toBase64StringDecode(s);
-		} catch (UnsupportedEncodingException e) {
-			Log.e("LUCASMICHEL", "UnsupportedEncodingException", e);
-			e.printStackTrace();
-		}
-		try {
-			objetoJSONAQUI = new JSONObject(retornoDesciptografado);
-		} catch (JSONException e) {
-			Log.e("LUCASMICHEL", "JSONException", e);
-			e.printStackTrace();
-		}
- 		return objetoJSONAQUI;
+		return objetoJSONAQUI;
 	}
 
 	protected String toBase64StringEncode(String text) {

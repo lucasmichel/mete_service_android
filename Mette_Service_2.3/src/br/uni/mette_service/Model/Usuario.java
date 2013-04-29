@@ -6,7 +6,7 @@ import org.json.JSONException;
 
 
 import br.uni.mette_service.Model.Repositorio.ModelClass;
-import br.uni.mette_service.Model.Repositorio.Usuario.RepositorioUsuario;
+import br.uni.mette_service.Model.Repositorio.RepositorioUsuario;
 
 
 
@@ -67,10 +67,9 @@ public class Usuario implements Serializable  {
 		this.idPerfil = idPerfil;
 	}
 	
-public ModelClass logarAndroid(Usuario usuario) throws JSONException{
-	RepositorioUsuario bd = RepositorioUsuario.getInstance();
-	return bd.logarAndroid(this);
+	public ModelClass logarAndroid(Usuario usuario) throws JSONException{
+		RepositorioUsuario bd = RepositorioUsuario.getInstance();
+		return bd.logarAndroid(this);
 	
-}
-
+	}
 }

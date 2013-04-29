@@ -1,7 +1,6 @@
 package br.uni.mette_service.Model;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.widget.Toast;
 import br.uni.mette_service.Model.Repositorio.ModelClass;
@@ -10,6 +9,10 @@ import br.uni.mette_service.Model.Repositorio.Cliente.RepositorioCliente;
 
 public class Cliente extends Usuario {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome,cpf,telefone;
 	
 
@@ -59,14 +62,6 @@ public class Cliente extends Usuario {
 		return bd.cadastrarCliente(this);
 	}
 
-	private JSONObject converteParaJson() throws JSONException {
-		JSONObject json = new JSONObject();
-		JSONObject manJson = new JSONObject();
-		manJson.put("email", this.getEmail());
-		manJson.put("senha", this.getSenha());
-		json.put("nomeJson", manJson);
-		return json;
-	}
 	
 	public boolean validar ( Cliente Cliente) throws Exception{
 		 boolean retorno = true;

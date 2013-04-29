@@ -6,13 +6,16 @@ import org.json.JSONException;
 //import org.json.JSONObject;
 
 import br.uni.mette_service.Model.Repositorio.ModelClass;
-import br.uni.mette_service.Model.Repositorio.Acompanhante.AcompanhanteList;
 import br.uni.mette_service.Model.Repositorio.Acompanhante.RepositorioAcompanhante;
 
 
 
 public class Acompanhante extends Usuario implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nome,idade, altura,busto ,cintura, quadril, olhos, atendo; 
 	String pernoite,especialidade, horarioAtendimento, peso,statusAtendimento;
 	//FOTO PARA TESTE NO LAYOUT
