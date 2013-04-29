@@ -1,6 +1,9 @@
 package br.uni.mette_service.Controller.Acompanhante;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Model.Acompanhante;
@@ -31,7 +34,7 @@ public class CadastroAcompanhanteActivity extends Activity implements
 
 	public Acompanhante objacompanhante;
 	RepositorioAcompanhante repositorioAcompanhante;
-	ModelClass acompanhanteRetorno;
+	ModelClass acompanhanteRetorno, modelo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -187,7 +190,7 @@ public class CadastroAcompanhanteActivity extends Activity implements
 	}
 
 	class cadastrarAcompanhanteAsyncTask extends
-			AsyncTask<String, String, Acompanhante> {
+			AsyncTask<String, String, ModelClass> {
 		ProgressDialog dialog;
 
 		@Override
@@ -199,7 +202,7 @@ public class CadastroAcompanhanteActivity extends Activity implements
 		}
 
 		@Override
-		protected Acompanhante doInBackground(String... params) {
+		protected ModelClass doInBackground(String... params) {
 
 			String nome = edtNomeAcomp.getText().toString();
 			String idade = edtIdadeAcomp.getText().toString();
@@ -236,10 +239,14 @@ public class CadastroAcompanhanteActivity extends Activity implements
 			// String tipo = "2";
 
 			if (objacompanhante == null) {
-				objacompanhante = new Acompanhante(idade, nome, altura, busto,
-						cintura, quadril, olhos, pernoite, especialidade,
-						horarioAtendimento, peso, atendo, statusAtendimento,
+				objacompanhante = new Acompanhante(nome, idade, altura, peso,
+						busto, cintura, quadril, olhos, pernoite,
+						atendo, especialidade, horarioAtendimento, statusAtendimento,
 						fotoPerfil);
+				
+				List<Object> dados = new ArrayList<Object>();
+				dados.add(objacompanhante);
+				modelo = new ModelClass("Oi", 0, dados);
 			}
 
 			try
@@ -252,7 +259,7 @@ public class CadastroAcompanhanteActivity extends Activity implements
 				Log.i("envio", objacompanhante.toString());
 
 				acompanhanteRetorno = objacompanhante
-						.cadastrarAcompanhante(objacompanhante);
+						.cadastrarAcompanhante(modelo);
 
 				// Toast.makeText(getApplicationContext(),
 				// userRetorno.getMensagem().toString(),
@@ -264,12 +271,12 @@ public class CadastroAcompanhanteActivity extends Activity implements
 				Log.i("pedro: ", "ERROOO!!" + e);
 				e.printStackTrace();
 			}
-			return objacompanhante;
+			return acompanhanteRetorno;
 
 		}
 
 		@Override
-		protected void onPostExecute(Acompanhante result) {
+		protected void onPostExecute(ModelClass result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
 

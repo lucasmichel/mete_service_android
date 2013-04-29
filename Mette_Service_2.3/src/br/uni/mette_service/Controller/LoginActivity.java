@@ -3,6 +3,9 @@ package br.uni.mette_service.Controller;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 
 
@@ -137,19 +140,24 @@ public class LoginActivity extends Activity implements OnClickListener {
 		protected ModelClass doInBackground(Void... params) {
 //			logar();
 			
+			
 			String email = edtEmail.getText().toString();
 			String senha = edtSenha.getText().toString();
 			
-			Usuario usuario = new Usuario();
-			usuario.setEmail(email);
-			usuario.setSenha(senha);
+			Usuario usuario = new Usuario( 0, senha, 
+										   email, 0);
+			
+			List<Object> dados = new ArrayList<Object>();
+			dados.add(usuario);
+			
+			modelo = new ModelClass("Oi", 0, dados);
 			
 			try {
 				
 				usuarioRetorno = new ModelClass();
-				usuarioRetorno = usuario.logarAndroid(usuario);
+				usuarioRetorno = usuario.logarAndroid(modelo);
 				
-				Toast.makeText(getApplicationContext(), usuarioRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
+				//Toast.makeText(getApplicationContext(), usuarioRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -170,7 +178,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			// AINDA NÃO SEI QUAL idPerfil PERTENCE A CADA UM, PORTANTO ESTÃO COMO EXEMPLOS ESSES VALORES
 			
 			Usuario user = (Usuario) usuarioRetorno.getDados().get(0);
-			if ((usuarioRetorno.getStatus() == 0) && (user.getIdPerfil() == 1)){ 
+			if ((usuarioRetorno.getStatus() == 0) && (user.getIdPerfil() == 2)){ 
 						
 				PreferencesController.setUserPreferences(LoginActivity.this, edtEmail.getText()
 						.toString(), edtSenha.getText().toString());
@@ -180,7 +188,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				
 				
 				finish();
-			} else if((usuarioRetorno.getStatus() == 0) &&  (user.getIdPerfil() == 2)){
+			} else if((usuarioRetorno.getStatus() == 0) &&  (user.getIdPerfil() == 3)){
 				
 				PreferencesController.setUserPreferences(LoginActivity.this, edtEmail.getText()
 						.toString(), edtSenha.getText().toString());

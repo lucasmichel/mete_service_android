@@ -93,21 +93,12 @@ public class RepositorioAcompanhante extends RepositorioClass {
 //		return acompanhanteRetorno;
 //	}
 
-	public ModelClass cadastrarAcompanhante(Acompanhante objacompanhante) throws JSONException {
+	public ModelClass cadastrarAcompanhante(ModelClass modelo) throws JSONException {
 		
-		
-		List<Object> lista = new ArrayList();
-		lista.add(objacompanhante);
 		
 		Gson gson = new Gson();
 		
-		ModelClass modelo = new ModelClass();
-		modelo.setDados(lista);
-		modelo.setMensagem("OI");
-		modelo.setStatus(0);
-		
-		Log.i("envio",gson.toJson(modelo));
-		
+		String JSON = gson.toJson(modelo);
 		
 		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);  
 		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado", toBase64StringEncode(gson.toJson(modelo))));
@@ -117,18 +108,18 @@ public class RepositorioAcompanhante extends RepositorioClass {
 		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao,
 				listaCamposPesquisa);
 
-		List<Object> listaRetorno = new ArrayList();
+		List<Object> listaRetorno = new ArrayList<Object>();
 		JSONArray array = jsonObjectSaida.getJSONArray("dados");
 		for (int i = 0; i < array.length(); ++i) {
 		    JSONObject rec = array.getJSONObject(i);
 		    
-		    Acompanhante acompanhanteAdd = new Acompanhante();
+		    Acompanhante acompAdd = new Acompanhante();
 		    
-//		    useAdd.setId((rec.getInt("id");
-//		    useAdd.setIdPerfil(rec.getInt("id_perfil"));
-//		    useAdd.setEmail(rec.getString("email"));
+		    acompAdd.setId(rec.getInt("id"));
+		    acompAdd.setIdPerfil(rec.getInt("id_perfil"));
+		    acompAdd.setEmail(rec.getString("email"));
 		    
-		    listaRetorno.add(acompanhanteAdd);
+		    listaRetorno.add(acompAdd);
 		}
 		/*AQUI PREENCHE O OBJETO e adiciona a lista*/
 		

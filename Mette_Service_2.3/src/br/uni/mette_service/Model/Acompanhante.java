@@ -109,10 +109,10 @@ public class Acompanhante extends Usuario implements Serializable{
 		this.fotoPerfil = fotoPerfil;
 	}
 	
-	public Acompanhante(String idade, String nome, String altura,
-			String busto, String cintura, String quadril, String olhos,
-			String pernoite, String especialidade,
-			String horarioAtendimento, String peso, String atendo, String statusAtendimento, String fotoPerfil) {
+	public Acompanhante(String nome, String idade, String altura,
+			String peso, String busto, String cintura, String quadril,
+			String olhos, String pernoite,
+			String atendo, String especialidade, String horarioAtendimento, String statusAtendimento, String fotoPerfil) {
 		super();
 		this.idade = idade;
 		this.nome = nome;
@@ -139,9 +139,9 @@ public class Acompanhante extends Usuario implements Serializable{
 //		return bd.logarAndroid(this);
 //	}
 
-	public ModelClass cadastrarAcompanhante(Acompanhante Acompanhante) throws JSONException {
+	public ModelClass cadastrarAcompanhante(ModelClass modelo) throws JSONException {
 		RepositorioAcompanhante bd = RepositorioAcompanhante.getInstance();
-		return bd.cadastrarAcompanhante(this);
+		return bd.cadastrarAcompanhante(modelo);
 	}
 
 	public Acompanhante excluirAcompanhante(Acompanhante objacompanhante) {

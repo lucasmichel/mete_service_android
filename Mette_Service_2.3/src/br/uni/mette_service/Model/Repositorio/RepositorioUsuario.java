@@ -43,25 +43,27 @@ public class RepositorioUsuario extends RepositorioClass {
 	/*responssavel por obter uma unica instancia do objeto*/
 	
 	
-	public ModelClass logarAndroid(Usuario usuario) throws JSONException{
+	public ModelClass logarAndroid(ModelClass modelo) throws JSONException{
 	
 				
-		List<Object> lista = new ArrayList<Object>();
-		lista.add(usuario);
-		
-		
-		ModelClass modelo = new ModelClass();
-		modelo.setDados(lista);
-		modelo.setMensagem("OI");
-		modelo.setStatus(0);
-		
+//		List<Object> lista = new ArrayList<Object>();
+//		lista.add(usuario);
+//		
+//		
+//		ModelClass modelo = new ModelClass();
+//		modelo.setDados(lista);
+//		modelo.setMensagem("OI");
+//		modelo.setStatus(0);
+//		
 		gson = new Gson();
+		String JSON = gson.toJson(modelo);
+		
 		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);  
 		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado", toBase64StringEncode(gson.toJson(modelo))));		
 		
 		String nomeDaAcao = "logarAndroid";
 		//
-		//recebe um json descriptografado com as informaÃ§Ãµes de retorno do post
+		//recebe um json descriptografado com as informações de retorno do post
 		//
 		JSONObject jsonObjectSaida = this.getInformacao(nomeDaAcao, listaCamposPesquisa);
 		//

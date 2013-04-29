@@ -67,9 +67,9 @@ public class Usuario implements Serializable  {
 		this.idPerfil = idPerfil;
 	}
 	
-	public ModelClass logarAndroid(Usuario usuario) throws JSONException{
+	public ModelClass logarAndroid(ModelClass modelo) throws JSONException{
 		RepositorioUsuario bd = RepositorioUsuario.getInstance();
-		return bd.logarAndroid(this);
+		return bd.logarAndroid(modelo);
 	
 	}
 }
