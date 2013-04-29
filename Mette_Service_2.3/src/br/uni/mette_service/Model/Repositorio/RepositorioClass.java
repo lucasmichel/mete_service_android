@@ -110,6 +110,8 @@ public JSONObject getInformacao(String nomeDaAcao, List<NameValuePair> listaCamp
 				//objetoJSONAQUI = new JSONObject(s);
 				
 				String retornoDesciptografado = toBase64StringDecode(s);
+				Log.i("SOSTENES", retornoDesciptografado);
+				
 				objetoJSONAQUI = new JSONObject(retornoDesciptografado); 
 		
 				

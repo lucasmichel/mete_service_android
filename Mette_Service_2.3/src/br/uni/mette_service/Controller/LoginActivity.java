@@ -140,7 +140,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 			String email = edtEmail.getText().toString();
 			String senha = edtSenha.getText().toString();
 			
-			Usuario usuario = new Usuario(0, email, senha, 0);
+			Usuario usuario = new Usuario();
+			usuario.setEmail(email);
+			usuario.setSenha(senha);
 			
 			try {
 				
