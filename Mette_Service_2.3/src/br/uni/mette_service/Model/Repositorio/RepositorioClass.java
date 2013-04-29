@@ -108,6 +108,7 @@ public JSONObject getInformacao(String nomeDaAcao, List<NameValuePair> listaCamp
 				HttpResponse resposta = cliente.execute(get);
 				String s = toString(resposta.getEntity().getContent());
 				//objetoJSONAQUI = new JSONObject(s);
+				Log.i("MARCIO", "Retorno descrip" + s);
 				
 				String retornoDesciptografado = toBase64StringDecode(s);
 				

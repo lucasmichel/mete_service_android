@@ -29,16 +29,19 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.internal.l;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapaActivity extends FragmentActivity 
-implements LocationListener {  
-
+implements LocationListener{  
+	private Marker meuMarker ;
 	private GoogleMap googleMap;
 //	private Location location;
 	
@@ -86,21 +89,23 @@ implements LocationListener {
 						JSONObject objeto = jsonAray.getJSONObject(i);
 //						m.setNome(objeto.getString("nome"));
 //						
+					
 						double lat = objeto.getDouble("Latitude");
 						double log = objeto.getDouble("Longitude");
-		
+						Log.i("envio", "latitude" + lat + "...long" + log  );
 		
 		LatLng latLog	= new LatLng(lat, log);
 		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
 		googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
 		
-		googleMap.addMarker(new MarkerOptions()  
+	
+	meuMarker	= googleMap.addMarker(new MarkerOptions()  
 		.position(latLog)  
 		.icon(BitmapDescriptorFactory.fromResource(  
 		  R.drawable.pin)).
 		  title(objeto.getString("Servico"))  
 		  .snippet(objeto.getString("Valor")));
-						
+				
 					}
 
 				} catch (Exception e) {
@@ -108,6 +113,18 @@ implements LocationListener {
 				}
 	}
 			
+//		public boolean onMarkerClick(Marker marker) {
+//
+//			if (marker.equals(meuMarker)) 
+//			{
+//				Toast.makeText(MapaActivity.this, meuMarker.getTitle(), Toast.LENGTH_SHORT).show();
+//        }
+//			return false;
+//		}
+
+
+	
+	
 			private String toString(InputStream is) throws IOException {
 
 				byte[] bytes = new byte[1024];
@@ -157,6 +174,7 @@ implements LocationListener {
 			}
 			
 			googleMap.setOnMapLongClickListener(onLongClick());
+			
 		}
 	}
 	}
