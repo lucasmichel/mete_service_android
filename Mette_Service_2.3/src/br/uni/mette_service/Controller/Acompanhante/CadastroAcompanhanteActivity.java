@@ -238,14 +238,15 @@ public class CadastroAcompanhanteActivity extends Activity implements
 			String senha = edtSenhaAcomp.getText().toString();
 			// String tipo = "2";
 			int idPerfil = 0;
-			int usuarioId = 0;
+			int idAcomp = 0;
 			int excluido = 0;
+			int id = 0;
 
 			if (objacompanhante == null) {
-				objacompanhante = new Acompanhante(nome, idade, altura, peso,
+				objacompanhante = new Acompanhante(idAcomp, nome, idade, altura, peso,
 						busto, cintura, quadril, olhos, pernoite,
 						atendo, especialidade, horarioAtendimento, statusAtendimento,
-						fotoPerfil, email, senha, excluido, idPerfil, usuarioId);
+						fotoPerfil, email, senha, excluido, idPerfil, id);
 				
 				List<Object> dados = new ArrayList<Object>();
 				dados.add(objacompanhante);

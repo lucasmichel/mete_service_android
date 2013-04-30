@@ -16,6 +16,7 @@ public class Acompanhante extends Usuario implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int idAcomp;
 	private String nome,idade, altura,busto ,cintura, quadril, olhos, atendo, especialidade, horarioAtendimento, peso,statusAtendimento;
 	//FOTO PARA TESTE NO LAYOUT
 	private String fotoPerfil;
@@ -28,6 +29,12 @@ public class Acompanhante extends Usuario implements Serializable{
 	
 	public String getIdade() {
 		return idade;
+	}
+	public int getIdAcomp() {
+		return idAcomp;
+	}
+	public void setIdAcomp(int idAcomp) {
+		this.idAcomp = idAcomp;
 	}
 	public int getExcluido() {
 		return excluido;
@@ -124,11 +131,14 @@ public class Acompanhante extends Usuario implements Serializable{
 		this.fotoPerfil = fotoPerfil;
 	}
 	
-	public Acompanhante(String nome, String idade, String altura,
+	public Acompanhante(int idAcomp,String nome, String idade, String altura,
 			String peso, String busto, String cintura, String quadril,
 			String olhos, int pernoite,
-			String atendo, String especialidade, String horarioAtendimento, String statusAtendimento, String fotoPerfil, String email, String senha, int excluido, int idPerfil, int usuarioId) {
+			String atendo, String especialidade, String horarioAtendimento,
+			String statusAtendimento, String fotoPerfil, String email, String senha,
+			int excluido, int idPerfil, int id) {
 		super();
+		this.idAcomp = idAcomp;
 		this.idade = idade;
 		this.nome = nome;
 		this.altura = altura;
@@ -147,8 +157,7 @@ public class Acompanhante extends Usuario implements Serializable{
 		this.senha = senha;
 		this.excluido = excluido;
 		this.idPerfil = idPerfil;
-		this.usuarioId = usuarioId;
-		
+		this.id = id;
 	}
 	
 	public Acompanhante(){
