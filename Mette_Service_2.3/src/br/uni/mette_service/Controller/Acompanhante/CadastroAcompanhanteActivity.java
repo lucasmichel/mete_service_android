@@ -55,9 +55,9 @@ public class CadastroAcompanhanteActivity extends Activity implements
 			edtQuadrilAcomp.setText(objacompanhante.getQuadril());
 			edtOlhosAcomp.setText(objacompanhante.getOlhos());
 
-			if (objacompanhante.getPernoite() == "Não") {
+			if (objacompanhante.getPernoite() == 0) {
 				rdNao.setChecked(true);
-			} else if (objacompanhante.getPernoite() == "Sim") {
+			} else if (objacompanhante.getPernoite() == 1) {
 				rdSim.setChecked(true);
 			}
 			if (objacompanhante.getAtendo() == "Homens") {
@@ -213,11 +213,11 @@ public class CadastroAcompanhanteActivity extends Activity implements
 			String quadril = edtQuadrilAcomp.getText().toString();
 			String olhos = edtOlhosAcomp.getText().toString();
 
-			String pernoite = "Sim";
+			int pernoite = 1;
 			if (rdNao.isChecked()) {
-				pernoite = "Nao";
+				pernoite = 0;
 			} else if (rdSim.isChecked()) {
-				pernoite = "Sim";
+				pernoite = 1;
 			}
 
 			String atendo = "Homens";
@@ -237,12 +237,15 @@ public class CadastroAcompanhanteActivity extends Activity implements
 			String email = edtEmailAcomp.getText().toString();
 			String senha = edtSenhaAcomp.getText().toString();
 			// String tipo = "2";
+			int idPerfil = 0;
+			int usuarioId = 0;
+			int excluido = 0;
 
 			if (objacompanhante == null) {
 				objacompanhante = new Acompanhante(nome, idade, altura, peso,
 						busto, cintura, quadril, olhos, pernoite,
 						atendo, especialidade, horarioAtendimento, statusAtendimento,
-						fotoPerfil);
+						fotoPerfil, email, senha, excluido, idPerfil, usuarioId);
 				
 				List<Object> dados = new ArrayList<Object>();
 				dados.add(objacompanhante);

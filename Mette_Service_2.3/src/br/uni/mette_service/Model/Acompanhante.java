@@ -16,15 +16,30 @@ public class Acompanhante extends Usuario implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String nome,idade, altura,busto ,cintura, quadril, olhos, atendo; 
-	String pernoite,especialidade, horarioAtendimento, peso,statusAtendimento;
+	private String nome,idade, altura,busto ,cintura, quadril, olhos, atendo, especialidade, horarioAtendimento, peso,statusAtendimento;
 	//FOTO PARA TESTE NO LAYOUT
 	private String fotoPerfil;
+	private int pernoite;
+	private int usuarioId, excluido;
 
 	
 	/////////////////////////////////////////////////////////////////
+	
+	
 	public String getIdade() {
 		return idade;
+	}
+	public int getExcluido() {
+		return excluido;
+	}
+	public void setExcluido(int excluido) {
+		this.excluido = excluido;
+	}
+	public int getUsuarioId() {
+		return usuarioId;
+	}
+	public void setUsuarioId(int usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 	public void setIdade(String idade) {
 		this.idade = idade;
@@ -65,10 +80,10 @@ public class Acompanhante extends Usuario implements Serializable{
 	public void setOlhos(String olhos) {
 		this.olhos = olhos;
 	}
-	public String getPernoite() {
+	public int getPernoite() {
 		return pernoite;
 	}
-	public void setPernoite(String pernoite) {
+	public void setPernoite(int pernoite) {
 		this.pernoite = pernoite;
 	}
 	public String getAtendo() {
@@ -111,8 +126,8 @@ public class Acompanhante extends Usuario implements Serializable{
 	
 	public Acompanhante(String nome, String idade, String altura,
 			String peso, String busto, String cintura, String quadril,
-			String olhos, String pernoite,
-			String atendo, String especialidade, String horarioAtendimento, String statusAtendimento, String fotoPerfil) {
+			String olhos, int pernoite,
+			String atendo, String especialidade, String horarioAtendimento, String statusAtendimento, String fotoPerfil, String email, String senha, int excluido, int idPerfil, int usuarioId) {
 		super();
 		this.idade = idade;
 		this.nome = nome;
@@ -128,6 +143,12 @@ public class Acompanhante extends Usuario implements Serializable{
 		this.peso = peso;
 		this.statusAtendimento = statusAtendimento;
 		this.fotoPerfil = fotoPerfil;
+		this.email = email;
+		this.senha = senha;
+		this.excluido = excluido;
+		this.idPerfil = idPerfil;
+		this.usuarioId = usuarioId;
+		
 	}
 	
 	public Acompanhante(){

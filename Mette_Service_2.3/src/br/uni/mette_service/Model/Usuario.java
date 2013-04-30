@@ -17,9 +17,9 @@ public class Usuario implements Serializable  {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String senha;
-	private String email;
-	private int idPerfil;
+	protected String senha;
+	protected String email;
+	protected int idPerfil;
 
 	public Usuario() {
 		super();
