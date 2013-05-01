@@ -2,52 +2,36 @@ package br.uni.mette_service.Model;
 
 import java.io.Serializable;
 
-import org.json.JSONException;
+public class Usuario implements Serializable{	
+	
+	private int usuarioId;
+	private int usuarioIdPerfil;
+	private String email;
+	private String senha;
+	
+	public Usuario() {}
 
-
-import br.uni.mette_service.Model.Repositorio.ModelClass;
-import br.uni.mette_service.Model.Repositorio.RepositorioUsuario;
-
-
-
-public class Usuario implements Serializable  {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	protected int id;
-	protected String senha;
-	protected String email;
-	protected int idPerfil;
-
-	public Usuario() {
-		super();
-	}
-
-	public Usuario(int id, String senha, String email, int idPerfil) {
-		super();
-		this.id = id;
-		this.senha = senha;
+	public Usuario(int usuarioId, int usuarioIdPerfil, String email, String senha) {
+		this.usuarioId = usuarioId;
+		this.usuarioIdPerfil = usuarioIdPerfil;
 		this.email = email;
-		this.idPerfil = idPerfil;
-		
+		this.senha = senha;		
+	}
+	
+	public int getUsuarioId() {
+		return usuarioId;
 	}
 
-	public int getId() {
-		return id;
+	public void setUsuarioId(int usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getUsuarioIdPerfil() {
+		return usuarioIdPerfil;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setUsuarioIdPerfil(int usuarioIdPerfil) {
+		this.usuarioIdPerfil = usuarioIdPerfil;
 	}
 
 	public String getEmail() {
@@ -58,18 +42,12 @@ public class Usuario implements Serializable  {
 		this.email = email;
 	}
 
-
-	public int getIdPerfil() {
-		return idPerfil;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setIdPerfil(int idPerfil) {
-		this.idPerfil = idPerfil;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
-	public ModelClass logarAndroid(ModelClass modelo) throws JSONException{
-		RepositorioUsuario bd = RepositorioUsuario.getInstance();
-		return bd.logarAndroid(modelo);
-	
-	}
 }

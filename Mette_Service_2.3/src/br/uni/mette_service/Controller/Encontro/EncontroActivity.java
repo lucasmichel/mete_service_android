@@ -3,7 +3,6 @@ package br.uni.mette_service.Controller.Encontro;
 import java.util.ArrayList;
 
 import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -75,7 +74,7 @@ public class EncontroActivity extends Activity implements OnClickListener{
 		Intent it = null;
 		switch (v.getId()) {
 		case R.id.textView2:
-			it = new Intent(this, ListarAcompanhanteActivity.class);
+			//it = new Intent(this, ListarAcompanhanteActivity.class);
 			
 			break;					
 		}

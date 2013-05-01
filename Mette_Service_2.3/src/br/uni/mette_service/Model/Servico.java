@@ -1,10 +1,7 @@
 package br.uni.mette_service.Model;
 
 import java.util.List;
-
-import br.uni.mette_service.Model.Repositorio.ModelClass;
-
-public class Servico extends ModelClass {
+public class Servico  {
 
 	private String id;
 	private String nome;
@@ -18,9 +15,7 @@ public class Servico extends ModelClass {
 		super();
 		this.id = id;
 		this.nome = nome;	
-		this.dados = dados;		
-		this.setMensagem(mensagem);
-		this.setStatus(status);		
+		this.dados = dados;			
 	}
 	
 	public List<Object> getDados() { //testando com Servico //sóstenes

@@ -342,8 +342,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadastrar" 
-            android:layout_weight="1"
-            android:onClick="salvarClick"/>
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/buttonCancelar"
@@ -351,8 +350,7 @@
             android:layout_height="wrap_content"            
             android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:text="Cancelar"
-            android:onClick="cancelarClick" />
+            android:text="Cancelar"/>
 
     </LinearLayout>
 </LinearLayout>

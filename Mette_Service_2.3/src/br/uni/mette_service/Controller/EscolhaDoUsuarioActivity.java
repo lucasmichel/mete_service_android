@@ -36,11 +36,10 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 	}
 
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.homem:
-			Intent ith = new Intent(this, CadastroClienteActivity.class);
-			startActivity(ith);
+			//Intent ith = new Intent(this, CadastroClienteActivity.class);
+			//startActivity(ith);
 			break;
 		case R.id.mulher:
 			Intent it = new Intent(this, CadastroAcompanhanteActivity.class);

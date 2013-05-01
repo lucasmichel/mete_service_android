@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Cliente;
-import br.uni.mette_service.Model.Repositorio.ModelClass;
+import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.RepositorioClass;
 
 import android.util.Log;
@@ -92,23 +92,21 @@ public class RepositorioCliente extends RepositorioClass {
 		return clienteRetorno;
 	}
  
-	public ModelClass cadastrarCliente(Cliente objCliente) throws JSONException {
+	public Modelo cadastrarCliente(Cliente objCliente) throws JSONException {
 
 		List<Object> lista = new ArrayList();
 		lista.add(objCliente);
 		
 		Gson gson = new Gson();
-		
+		/*
 		ModelClass modelo = new ModelClass();
 		modelo.setDados(lista);
 		modelo.setMensagem("OI");
-		modelo.setStatus(0);
+		modelo.setStatus(0);*/
 		
-		Log.i("envio",gson.toJson(modelo));
-		
-		
+
 		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);  
-		listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado", toBase64StringEncode(gson.toJson(modelo))));
+		//listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado", toBase64StringEncode(gson.toJson(modelo))));
 
 		String nomeDaAcao = "cadastrarCliente";
 
@@ -133,11 +131,11 @@ public class RepositorioCliente extends RepositorioClass {
 		
 		//jsonObjectSaida.g
 		
-		ModelClass clienteRetorno = new ModelClass();
-		clienteRetorno.setDados(listaRetorno);
+		Modelo clienteRetorno = new Modelo();
+		/*clienteRetorno.setDados(listaRetorno);
 		clienteRetorno.setStatus(jsonObjectSaida.getInt("status"));
 		clienteRetorno.setMensagem(jsonObjectSaida.getString("mensagem"));
-		
+		*/
 		return clienteRetorno;
 	}
 

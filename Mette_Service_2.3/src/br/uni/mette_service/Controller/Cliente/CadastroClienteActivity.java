@@ -2,14 +2,11 @@ package br.uni.mette_service.Controller.Cliente;
 
 import org.json.JSONException;
 
-
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.TermoUsoActivity;
 import br.uni.mette_service.Model.Cliente;
-import br.uni.mette_service.Model.Repositorio.ModelClass;
 import br.uni.mette_service.Util.Mask;
 import br.uni.mette_service.Util.Validar;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -35,7 +32,7 @@ public class CadastroClienteActivity extends Activity implements
 	private CheckBox checkTermoUso;
 	private boolean atualizar = false;
 
-	ModelClass clienteRetorno;
+	//ModelClass clienteRetorno;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -116,9 +113,6 @@ public class CadastroClienteActivity extends Activity implements
 				}
 				else {
 					new cadastrarClienteAsyncTask().execute();					
-					
-					Log.i("SOSTENES", "dps de chamar task): " + clienteRetorno.getStatus());
-					Log.i("SOSTENES", "dps de chamar task): " + clienteRetorno.getMensagem());
 				}
 			}
 			break;
@@ -161,17 +155,14 @@ public class CadastroClienteActivity extends Activity implements
 
 				Log.i("envio", objCliente.toString());
 
-				clienteRetorno = objCliente.cadastrarCliente(objCliente);
+				//clienteRetorno = objCliente.cadastrarCliente(objCliente);
 
 				// Toast.makeText(getApplicationContext(),
 				// userRetorno.getMensagem().toString(),
 				// Toast.LENGTH_LONG).show();
 
-				Log.i("envio", clienteRetorno.getMensagem().toString());
-				
-				
 
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				Log.i("pedro: ", "ERROOO!!" + e);
 				e.printStackTrace();
 							

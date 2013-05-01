@@ -4,7 +4,6 @@ package br.uni.mette_service.Controller;
 import br.uni.mette_service.R;
 import br.uni.mette_service.R.id;
 import br.uni.mette_service.R.layout;
-import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mette_service.Controller.Encontro.EncontroActivity;
 import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
@@ -23,7 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class HomeActivity extends Activity implements OnClickListener {
+public class UsuarioMenuActivity extends Activity implements OnClickListener {
 
 	private Cliente cliente;
 	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha;
@@ -40,7 +39,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
 		
-		usuarioLogado = getIntent().getStringExtra("usuarioLogado").toString() + "!";
+		//usuarioLogado = getIntent().getStringExtra("usuarioLogado").toString() + "!";
 		
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);
@@ -71,7 +70,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		Intent it = null;
 		switch (v.getId()) {
 		case R.id.btnTeste:
-			it = new Intent(this, ListarAcompanhanteActivity.class);
+		//	it = new Intent(this, ListarAcompanhanteActivity.class);
 			break;			
 		case R.id.btnop2:
 			it = new Intent(this, EncontroActivity.class);
@@ -114,8 +113,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 		// ClienteController.getInstance().setUsuarioLogged(null);
 		Intent it;
 		PreferencesController.clearUserPreferences(this);
-		it = new Intent(this, LoginActivity.class);
-		startActivity(it);
+	//	it = new Intent(this, LoginActivity.class);
+		//startActivity(it);
 		finish();
 	}
 

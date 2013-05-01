@@ -1,82 +1,66 @@
 package br.uni.mette_service.Controller.Acompanhante;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONException;
 import br.uni.mette_service.R;
+import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Model.Acompanhante;
-import br.uni.mette_service.Model.Repositorio.ModelClass;
-import br.uni.mette_service.Model.Repositorio.Acompanhante.RepositorioAcompanhante;
+import br.uni.mette_service.Model.Repositorio.Modelo;
+import br.uni.mette_service.Model.Repositorio.Repositorio;
 import br.uni.mette_service.Util.Mask;
 import br.uni.mette_service.Util.Validar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class CadastroAcompanhanteActivity extends Activity implements
-		Serializable {
+public class CadastroAcompanhanteActivity extends Activity implements OnClickListener{
 
-	private EditText edtNomeAcomp, edtIdadeAcomp, edtPesoAcomp, edtBustoAcomp,
-			edtAlturaAcomp, edtCinturaAcomp, edtQuadrilAcomp, edtOlhosAcomp,
-			edtEspecialidadeAcomp, edtHorarioAtendimentoAcomp, edtFotoAcomp,
-			edtSenhaAcomp, edtEmailAcomp;
-	private RadioButton rdSim, rdNao, rdhomem, rdmulher, rdambos;
-
-	public Acompanhante objacompanhante;
-	RepositorioAcompanhante repositorioAcompanhante;
-	ModelClass acompanhanteRetorno, modelo;
-
+	Modelo modelo = new Modelo();
+	Modelo modeloRetorno = new Modelo();	
+	Repositorio repositorio = new Repositorio();
+	List<Object> listaAcompanhante = new ArrayList();
+	
+	private EditText edtNomeAcomp;
+	private EditText edtIdadeAcomp;
+	private EditText edtPesoAcomp;
+	private EditText edtBustoAcomp;
+	private EditText edtAlturaAcomp;
+	private EditText edtCinturaAcomp;
+	private EditText edtQuadrilAcomp;
+	private EditText edtOlhosAcomp;
+	private EditText edtEspecialidadeAcomp;
+	private EditText edtHorarioAtendimentoAcomp;
+	private EditText edtFotoAcomp;
+	private EditText edtSenhaAcomp; 
+	private EditText edtEmailAcomp;
+	private RadioButton rdSim;
+	private RadioButton rdNao;
+	private RadioButton rdhomem;
+	private RadioButton rdmulher;
+	private RadioButton rdambos;
+	private Button btnCadastrar;
+	private Button btnCancelar;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_acompanhante);
-		inicializar();
-		objacompanhante = (Acompanhante) getIntent().getSerializableExtra("acompanhanteLogado");
-		boolean emEdicao = objacompanhante != null;
+		
+		adicionarFindView();
+		adicionarListers();
+	}	
 
-		if (emEdicao) {
-
-			edtNomeAcomp.setText(objacompanhante.getNome());
-			edtIdadeAcomp.setText(objacompanhante.getIdade());
-			edtAlturaAcomp.setText(objacompanhante.getAltura());
-			edtPesoAcomp.setText(objacompanhante.getPeso());
-			edtBustoAcomp.setText(objacompanhante.getBusto());
-			edtCinturaAcomp.setText(objacompanhante.getCintura());
-			edtQuadrilAcomp.setText(objacompanhante.getQuadril());
-			edtOlhosAcomp.setText(objacompanhante.getOlhos());
-
-			if (objacompanhante.getPernoite() == 0) {
-				rdNao.setChecked(true);
-			} else if (objacompanhante.getPernoite() == 1) {
-				rdSim.setChecked(true);
-			}
-			if (objacompanhante.getAtendo() == "Homens") {
-				rdhomem.setChecked(true);
-			} else if (objacompanhante.getAtendo() == "Mulheres") {
-				rdmulher.setChecked(true);
-			} else if (objacompanhante.getAtendo() == "Ambos") {
-				rdambos.setChecked(true);
-
-			}
-			edtEspecialidadeAcomp.setText(objacompanhante.getEspecialidade());
-			edtHorarioAtendimentoAcomp.setText(objacompanhante.getHorarioAtendimento());
-			edtFotoAcomp.setText(objacompanhante.getFotoPerfil());
-			edtEmailAcomp.setText(objacompanhante.getEmail());
-			edtSenhaAcomp.setText(objacompanhante.getSenha());
-		}
-	}
-
-	private void inicializar() {
+	private void adicionarFindView() {
 		edtNomeAcomp = (EditText) findViewById(R.id.editNomeAcomp);
 		edtIdadeAcomp = (EditText) findViewById(R.id.editIdadeAcomp);
 		edtPesoAcomp = (EditText) findViewById(R.id.editPesoAcomp);
@@ -84,19 +68,15 @@ public class CadastroAcompanhanteActivity extends Activity implements
 		edtBustoAcomp = (EditText) findViewById(R.id.editBustoAcomp);
 		edtBustoAcomp.addTextChangedListener(Mask.insert("##", edtBustoAcomp));
 		edtAlturaAcomp = (EditText) findViewById(R.id.editAlturaAcomp);
-		edtAlturaAcomp.addTextChangedListener(Mask.insert("#.##",
-				edtAlturaAcomp));
+		edtAlturaAcomp.addTextChangedListener(Mask.insert("#.##",edtAlturaAcomp));
 		edtCinturaAcomp = (EditText) findViewById(R.id.editCinturaAcomp);
-		edtCinturaAcomp.addTextChangedListener(Mask.insert("##",
-				edtCinturaAcomp));
+		edtCinturaAcomp.addTextChangedListener(Mask.insert("##",edtCinturaAcomp));
 		edtQuadrilAcomp = (EditText) findViewById(R.id.editQuadrilAcomp);
-		edtQuadrilAcomp.addTextChangedListener(Mask.insert("##",
-				edtQuadrilAcomp));
+		edtQuadrilAcomp.addTextChangedListener(Mask.insert("##", edtQuadrilAcomp));
 		edtOlhosAcomp = (EditText) findViewById(R.id.editOlhosAcomp);
 		edtEspecialidadeAcomp = (EditText) findViewById(R.id.editEspecialidadeAcomp);
 		edtHorarioAtendimentoAcomp = (EditText) findViewById(R.id.editHorarioAtentAcomp);
-		edtHorarioAtendimentoAcomp.addTextChangedListener(Mask.insert("##:##",
-				edtHorarioAtendimentoAcomp));
+		edtHorarioAtendimentoAcomp.addTextChangedListener(Mask.insert("##:##", edtHorarioAtendimentoAcomp));
 		edtFotoAcomp = (EditText) findViewById(R.id.editFotoAcomp);
 		edtEmailAcomp = (EditText) findViewById(R.id.editEmailAcomp);
 		edtSenhaAcomp = (EditText) findViewById(R.id.editSenhaAcomp);
@@ -105,197 +85,136 @@ public class CadastroAcompanhanteActivity extends Activity implements
 		rdhomem = (RadioButton) findViewById(R.id.rdhomem);
 		rdmulher = (RadioButton) findViewById(R.id.rdmulher);
 		rdambos = (RadioButton) findViewById(R.id.rdambos);
+		
+		btnCadastrar = (Button) findViewById(R.id.buttonCadastrar);
+		btnCancelar = (Button) findViewById(R.id.buttonCancelar);
 		rdSim.setChecked(true);
 		rdhomem.setChecked(true);
-
 	}
-
-	public void salvarClick(View v) {
-
-		Validar validar = new Validar();
-		Validar acompvalid = new Validar();
-		Acompanhante acompanhanteValidado = new Acompanhante();
-
-		acompanhanteValidado.setNome(edtNomeAcomp.getText().toString());
-		acompanhanteValidado.setIdade(edtIdadeAcomp.getText().toString());
-		acompanhanteValidado.setPeso(edtPesoAcomp.getText().toString());
-		acompanhanteValidado.setBusto(edtBustoAcomp.getText().toString());
-		acompanhanteValidado.setAltura(edtAlturaAcomp.getText().toString());
-		acompanhanteValidado.setCintura(edtCinturaAcomp.getText().toString());
-		acompanhanteValidado.setQuadril(edtQuadrilAcomp.getText().toString());
-		acompanhanteValidado.setOlhos(edtOlhosAcomp.getText().toString());
-		// acompanhanteValidado.setPernoite(edtPernoiteAcomp.geti().toString());
-		acompanhanteValidado.setEspecialidade(edtEspecialidadeAcomp.getText()
-				.toString());
-		acompanhanteValidado.setHorarioAtendimento(edtHorarioAtendimentoAcomp
-				.getText().toString());
-		// acompanhanteValidado.setNome(edtFotoAcomp.getText().toString());
-		acompanhanteValidado.setEmail(edtEmailAcomp.getText().toString());
-		acompanhanteValidado.setSenha(edtSenhaAcomp.getText().toString());
-
-		// String nome = edtNomeAcomp.getText().toString();
-		// String idade = edtIdadeAcomp.getText().toString();
-		// String peso = edtPesoAcomp.getText().toString();
-		// String busto = edtBustoAcomp.getText().toString();
-		// String altura = edtAlturaAcomp.getText().toString();
-		// String cintura = edtCinturaAcomp.getText().toString();
-		// String quadril = edtQuadrilAcomp.getText().toString();
-		// String olhos = edtOlhosAcomp.getText().toString();
-		// String pernoite = edtPernoiteAcomp.getText().toString();
-		// String especialidade = edtEspecialidadeAcomp.getText().toString();
-		// String horario_atendimento =
-		// edtHorario_AtendimentoAcomp.getText().toString();
-		// String atendo = edtAtendoAcomp.getText().toString();
-		// String statusAt = "Disponível";
-		// String foto = edtFotoAcomp.getText().toString();
-		// String email = edtEmailAcomp.getText().toString();
-		// String senha = edtSenhaAcomp.getText().toString();
-		// String tipo = "2";
-
-		if (validar.validarCampo(edtNomeAcomp)
-				&& validar.validarCampo(edtIdadeAcomp)
-				&& validar.validarCampo(edtAlturaAcomp)
-				&& validar.validarCampo(edtPesoAcomp)
-				&& validar.validarCampo(edtBustoAcomp)
-				&& validar.validarCampo(edtCinturaAcomp)
-				&& validar.validarCampo(edtQuadrilAcomp)
-				&& validar.validarCampo(edtOlhosAcomp)
-				&&
-				// validar.validarCampo(edtPernoiteAcomp) &&
-				validar.validarCampo(edtEspecialidadeAcomp)
-				&& validar.validarCampo(edtHorarioAtendimentoAcomp)
-				&&
-				// STATUS STARTA COMO DISPONIVEL
-				// FOTO NÃO É OBRIGATÓRIA
-				validar.validarCampo(edtEmailAcomp)
-				&& validar.validarCampo(edtSenhaAcomp) == true) {
-
-			if (!acompvalid.validarCampos(acompanhanteValidado).toString()
+	
+	public void adicionarListers() {		
+		this.btnCadastrar.setOnClickListener(this);
+		this.btnCancelar.setOnClickListener(this);
+	}
+	
+	public void onClick(DialogInterface arg0, int arg1) {}
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.buttonCadastrar:			
+			Validar validar = new Validar();
+			Validar acompvalid = new Validar();
+			Acompanhante acompanhanteValidado = new Acompanhante();
+			acompanhanteValidado.setNome(edtNomeAcomp.getText().toString());
+			acompanhanteValidado.setIdade(edtIdadeAcomp.getText().toString());
+			acompanhanteValidado.setPeso(edtPesoAcomp.getText().toString());
+			acompanhanteValidado.setBusto(edtBustoAcomp.getText().toString());
+			acompanhanteValidado.setAltura(edtAlturaAcomp.getText().toString());
+			acompanhanteValidado.setCintura(edtCinturaAcomp.getText().toString());
+			acompanhanteValidado.setQuadril(edtQuadrilAcomp.getText().toString());
+			acompanhanteValidado.setOlhos(edtOlhosAcomp.getText().toString());		
+			acompanhanteValidado.setEspecialidade(edtEspecialidadeAcomp.getText().toString());
+			acompanhanteValidado.setHorarioAtendimento(edtHorarioAtendimentoAcomp.getText().toString());		
+			acompanhanteValidado.setEmail(edtEmailAcomp.getText().toString());
+			acompanhanteValidado.setSenha(edtSenhaAcomp.getText().toString());
+				if (validar.validarCampo(edtNomeAcomp)
+					&& validar.validarCampo(edtIdadeAcomp)
+					&& validar.validarCampo(edtAlturaAcomp)
+					&& validar.validarCampo(edtPesoAcomp)
+					&& validar.validarCampo(edtBustoAcomp)
+					&& validar.validarCampo(edtCinturaAcomp)
+					&& validar.validarCampo(edtQuadrilAcomp)
+					&& validar.validarCampo(edtOlhosAcomp)
+					&&validar.validarCampo(edtEspecialidadeAcomp)
+					&& validar.validarCampo(edtHorarioAtendimentoAcomp)
+					&&validar.validarCampo(edtEmailAcomp)
+					&& validar.validarCampo(edtSenhaAcomp) == true) {
+				if (!acompvalid.validarCampos(acompanhanteValidado).toString()
 					.equals("CamposValidos")) {
-				AlertDialog dialog = new AlertDialog.Builder(this)
-						.setTitle("Notificação")
-						.setMessage(
-								acompvalid.validarCampos(acompanhanteValidado))
-						.create();
-				dialog.show();
-
-			} else {
-				new cadastrarAcompanhanteAsyncTask().execute();
-			}
+					AlertDialog dialog = new AlertDialog.Builder(this)
+					.setTitle("Notificação")
+					.setMessage(
+					acompvalid.validarCampos(acompanhanteValidado))
+					.create();
+					dialog.show();
+				} else {
+				    new cadastroAcompanhanteAsyncTask().execute();}
+				}
+			break;
+		case R.id.buttonCancelar:
+			finish();
+		break;
 		}
 	}
-
-	public void cancelarClick(View v) {
-		finish();
-	}
-
-	class cadastrarAcompanhanteAsyncTask extends
-			AsyncTask<String, String, ModelClass> {
+	
+	class cadastroAcompanhanteAsyncTask extends
+			AsyncTask<String, String, Modelo> {
 		ProgressDialog dialog;
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			dialog = ProgressDialog.show(CadastroAcompanhanteActivity.this,
-					"Cadastrando: pode levar alguns segundos..", "Salvando",
+					"Cadastrando...", "Aguarde...",
 					true, false);
 		}
 
 		@Override
-		protected ModelClass doInBackground(String... params) {
+		protected Modelo doInBackground(String... params) {
 
-			String nome = edtNomeAcomp.getText().toString();
-			String idade = edtIdadeAcomp.getText().toString();
-			String peso = edtPesoAcomp.getText().toString();
-			String busto = edtBustoAcomp.getText().toString();
-			String altura = edtAlturaAcomp.getText().toString();
-			String cintura = edtCinturaAcomp.getText().toString();
-			String quadril = edtQuadrilAcomp.getText().toString();
-			String olhos = edtOlhosAcomp.getText().toString();
-
-			int pernoite = 1;
+			Acompanhante acompanhante = new Acompanhante();
+			
+			acompanhante.setNome(edtNomeAcomp.getText().toString());
+			acompanhante.setIdade(edtIdadeAcomp.getText().toString());
+			acompanhante.setPeso(edtPesoAcomp.getText().toString());
+			acompanhante.setBusto(edtBustoAcomp.getText().toString());
+			acompanhante.setAltura(edtAlturaAcomp.getText().toString());
+			acompanhante.setCintura(edtCinturaAcomp.getText().toString());
+			acompanhante.setQuadril(edtQuadrilAcomp.getText().toString());
+			acompanhante.setOlhos(edtOlhosAcomp.getText().toString());
 			if (rdNao.isChecked()) {
-				pernoite = 0;
+				acompanhante.setPernoite("0");
 			} else if (rdSim.isChecked()) {
-				pernoite = 1;
+			   	acompanhante.setPernoite("1");
 			}
-
-			String atendo = "Homens";
 			if (rdhomem.isChecked()) {
-				atendo = "Homens";
+				acompanhante.setAtendo("Homens");
 			} else if (rdmulher.isChecked()) {
-				atendo = "Mulheres";
+				acompanhante.setAtendo("Mulheres");					
 			} else if (rdambos.isChecked()) {
-				atendo = "Ambos";
+				acompanhante.setAtendo("Ambos");				
 			}
-
-			String especialidade = edtEspecialidadeAcomp.getText().toString();
-			String horarioAtendimento = edtHorarioAtendimentoAcomp.getText()
-					.toString();
-			String statusAtendimento = "Disponível";
-			String fotoPerfil = edtFotoAcomp.getText().toString();
-			String email = edtEmailAcomp.getText().toString();
-			String senha = edtSenhaAcomp.getText().toString();
-			// String tipo = "2";
-			int idPerfil = 0;
-			int idAcomp = 0;
-			int excluido = 0;
-			int id = 0;
-
-			if (objacompanhante == null) {
-				objacompanhante = new Acompanhante(idAcomp, nome, idade, altura, peso,
-						busto, cintura, quadril, olhos, pernoite,
-						atendo, especialidade, horarioAtendimento, statusAtendimento,
-						fotoPerfil, email, senha, excluido, idPerfil, id);
-				
-				List<Object> dados = new ArrayList<Object>();
-				dados.add(objacompanhante);
-				modelo = new ModelClass("Oi", 0, dados);
-			}
-
+			acompanhante.setEspecialidade(edtEspecialidadeAcomp.getText().toString());
+			acompanhante.setHorarioAtendimento(edtHorarioAtendimentoAcomp.getText().toString());
+			acompanhante.setEmail(edtEmailAcomp.getText().toString());
+			acompanhante.setSenha(edtSenhaAcomp.getText().toString());						
+			listaAcompanhante.add(acompanhante);
+			modelo.setDados(listaAcompanhante);
+			modelo.setMensagem("");
+			modelo.setStatus("");
 			try
-
 			{
-
-				// Toast.makeText(getApplicationContext(), "TESTE DA GOMA",
-				// Toast.LENGTH_SHORT).show();
-
-				Log.i("envio", objacompanhante.toString());
-
-				acompanhanteRetorno = objacompanhante
-						.cadastrarAcompanhante(modelo);
-
-				// Toast.makeText(getApplicationContext(),
-				// userRetorno.getMensagem().toString(),
-				// Toast.LENGTH_LONG).show();
-
-				Log.i("envio", acompanhanteRetorno.getMensagem().toString());
-
-			} catch (JSONException e) {
-				Log.i("pedro: ", "ERROOO!!" + e);
+				modeloRetorno = repositorio.acessarServidor("cadastrarAcompanhante", modelo);
+			} catch (Exception e) {				
 				e.printStackTrace();
 			}
-			return acompanhanteRetorno;
-
+			return modeloRetorno;
 		}
 
 		@Override
-		protected void onPostExecute(ModelClass result) {
+		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
-
-			Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this,
-					acompanhanteRetorno.getMensagem(), Toast.LENGTH_LONG);
-			toast.show();
-
-			Intent it = new Intent(CadastroAcompanhanteActivity.this,
-					TelaAcompanhanteActivity.class);
-			it.putExtra("objacompanhante", objacompanhante);
-			startActivity(it);
-			// setResult(RESULT_OK, it);
-			// finish();
+			if (modeloRetorno.getStatus().equals("1"))
+			{
+				Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+			}else{				
+				Intent it = new Intent(CadastroAcompanhanteActivity.this, LogarAndroidActivity.class);
+				startActivity(it);
+				Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+				finish();
+			}	
 		}
-
 	}
-
 }

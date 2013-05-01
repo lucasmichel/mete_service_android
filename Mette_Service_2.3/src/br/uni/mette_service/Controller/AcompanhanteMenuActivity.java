@@ -1,11 +1,9 @@
-package br.uni.mette_service.Controller.Acompanhante;
-
-
+package br.uni.mette_service.Controller;
 
 import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.LoginActivity;
+import br.uni.mette_service.Controller.Acompanhante.AlterarStatusActivity;
+import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
 import br.uni.mette_service.Model.Acompanhante;
-import br.uni.mette_service.Model.Repositorio.Acompanhante.AcompanhanteAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,7 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class TelaAcompanhanteActivity extends Activity implements Serializable{
+public class AcompanhanteMenuActivity extends Activity implements Serializable{
 	
 	Acompanhante acompanhanteRetorno, objacompanhante;
 	
@@ -42,8 +40,8 @@ public class TelaAcompanhanteActivity extends Activity implements Serializable{
 		
 		btnCadastrar = (Button)findViewById(R.id.buttonCadastrar);
 		
-		objacompanhante =   
-				  (Acompanhante) getIntent().getSerializableExtra("objacompanhante");
+		//objacompanhante =   
+		//		  (Acompanhante) getIntent().getSerializableExtra("objacompanhante");
 	}
 	
 	
@@ -64,8 +62,8 @@ public class TelaAcompanhanteActivity extends Activity implements Serializable{
 	public void sairClick(View v)
 	{
 		finish();
-		Intent it = new Intent(this, LoginActivity.class);
-		startActivity(it);
+		//Intent it = new Intent(this, LoginActivity.class);
+		//startActivity(it);
 	}
 	
 	public void editarPerfilClick(View v)
@@ -82,8 +80,8 @@ public class TelaAcompanhanteActivity extends Activity implements Serializable{
 			
 			public void onClick(DialogInterface dialog, int which) 
 			{
-				acompanhanteRetorno = 
-						objacompanhante.excluirAcompanhante(objacompanhante);
+			//	acompanhanteRetorno = 
+			//			objacompanhante.excluirAcompanhante(objacompanhante);
 			}
 		};
 		
