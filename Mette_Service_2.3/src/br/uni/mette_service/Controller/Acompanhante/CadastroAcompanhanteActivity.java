@@ -54,8 +54,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cadastro_acompanhante);
-		
+		setContentView(R.layout.activity_cadastro_acompanhante);		
 		adicionarFindView();
 		adicionarListers();
 	}	
