@@ -21,7 +21,7 @@ public class Acompanhante extends Usuario implements Serializable{
 	//FOTO PARA TESTE NO LAYOUT
 	private String fotoPerfil;
 	private int pernoite;
-	private int usuarioId, excluido;
+	private int excluido;
 
 	
 	/////////////////////////////////////////////////////////////////
@@ -42,12 +42,7 @@ public class Acompanhante extends Usuario implements Serializable{
 	public void setExcluido(int excluido) {
 		this.excluido = excluido;
 	}
-	public int getUsuarioId() {
-		return usuarioId;
-	}
-	public void setUsuarioId(int usuarioId) {
-		this.usuarioId = usuarioId;
-	}
+	
 	public void setIdade(String idade) {
 		this.idade = idade;
 	}
