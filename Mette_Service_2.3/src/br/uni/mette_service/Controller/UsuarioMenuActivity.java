@@ -42,8 +42,7 @@ public class UsuarioMenuActivity extends Activity implements OnClickListener {
 		//usuarioLogado = getIntent().getStringExtra("usuarioLogado").toString() + "!";
 		
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
-		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);
-		this.CCtelefone = (EditText) findViewById(R.id.edtTelefoneCliente);
+		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);		
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
 		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
 		

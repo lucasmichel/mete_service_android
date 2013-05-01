@@ -1,8 +1,8 @@
 package br.uni.mette_service.Model;
 
-public class Acompanhante extends Usuario{	
+public class Acompanhante extends Usuario {	
 
-	private String id;
+	private int id;
 	private String nome;
 	private String idade;
 	private String altura;
@@ -18,8 +18,7 @@ public class Acompanhante extends Usuario{
 	private String excluido;
 	
 	public Acompanhante(){}
-	
-	public Acompanhante(String id, String nome, String idade, String altura,
+	public Acompanhante(int id, String nome, String idade, String altura,
 			String peso, String busto, String cintura, String quadril,
 			String olhos, String pernoite, String atendo, String especialidade,
 			String horarioAtendimento, String excluido) {
@@ -40,11 +39,11 @@ public class Acompanhante extends Usuario{
 		this.excluido = excluido;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

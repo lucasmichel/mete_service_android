@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-
 import br.uni.mette_service.R;
-import br.uni.mette_service.R.id;
-import br.uni.mette_service.R.layout;
 import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mette_service.Model.Acompanhante;
@@ -38,8 +35,8 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.homem:
-			//Intent ith = new Intent(this, CadastroClienteActivity.class);
-			//startActivity(ith);
+			Intent ith = new Intent(this, CadastroClienteActivity.class);
+			startActivity(ith);
 			break;
 		case R.id.mulher:
 			Intent it = new Intent(this, CadastroAcompanhanteActivity.class);
@@ -47,5 +44,4 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 			break;
 		}
 	}
-
 }

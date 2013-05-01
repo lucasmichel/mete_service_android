@@ -145,8 +145,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 		}
 	}
 	
-	class cadastroAcompanhanteAsyncTask extends
-			AsyncTask<String, String, Modelo> {
+	class cadastroAcompanhanteAsyncTask extends AsyncTask<String, String, Modelo> {
 		ProgressDialog dialog;
 
 		@Override
