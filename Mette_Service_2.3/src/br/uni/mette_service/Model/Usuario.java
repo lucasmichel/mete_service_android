@@ -2,36 +2,35 @@ package br.uni.mette_service.Model;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable{	
-	
-	private int usuarioId;
-	private int usuarioIdPerfil;
+public class Usuario implements Serializable{		
+
+	private int id;
+	private int idPerfil;
 	private String email;
 	private String senha;
 	
-	public Usuario() {}
-
-	public Usuario(int usuarioId, int usuarioIdPerfil, String email, String senha) {
-		this.usuarioId = usuarioId;
-		this.usuarioIdPerfil = usuarioIdPerfil;
+	public Usuario(){}
+	public Usuario(int id, int idPerfil, String email, String senha) {
+		super();
+		this.id = id;
+		this.idPerfil = idPerfil;
 		this.email = email;
-		this.senha = senha;		
+		this.senha = senha;
 	}
-	
-	public int getUsuarioId() {
-		return usuarioId;
-	}
-
-	public void setUsuarioId(int usuarioId) {
-		this.usuarioId = usuarioId;
+	public int getId() {
+		return id;
 	}
 
-	public int getUsuarioIdPerfil() {
-		return usuarioIdPerfil;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setUsuarioIdPerfil(int usuarioIdPerfil) {
-		this.usuarioIdPerfil = usuarioIdPerfil;
+	public int getIdPerfil() {
+		return idPerfil;
+	}
+
+	public void setIdPerfil(int idPerfil) {
+		this.idPerfil = idPerfil;
 	}
 
 	public String getEmail() {
@@ -48,6 +47,5 @@ public class Usuario implements Serializable{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	
+	}	
 }

@@ -99,7 +99,8 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 	public void onClick(DialogInterface arg0, int arg1) {}
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.buttonCadastrar:			
+		case R.id.buttonCadastrar:	
+			listaAcompanhante.clear();
 			Validar validar = new Validar();
 			Validar acompvalid = new Validar();
 			Acompanhante acompanhanteValidado = new Acompanhante();

@@ -2,16 +2,12 @@ package br.uni.mette_service.Controller.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.TermoUsoActivity;
-import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
-import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
-import br.uni.mette_service.Util.Mask;
 import br.uni.mette_service.Util.Validar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,7 +16,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -74,7 +69,8 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	public void onClick(DialogInterface arg0, int arg1) {}
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnAvancar:			
+		case R.id.btnAvancar:	
+			listaCliente.clear();
 			Validar validar = new Validar();
 			Cliente clienteValidado = new Cliente();
 			clienteValidado.setNome(CCnome.getText().toString());

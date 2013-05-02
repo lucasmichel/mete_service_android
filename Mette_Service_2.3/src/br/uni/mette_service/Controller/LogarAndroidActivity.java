@@ -1,10 +1,17 @@
 package br.uni.mette_service.Controller;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.content.Intent;
@@ -16,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
+import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
@@ -56,6 +64,7 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnEntrar:
+			listaUsuario.clear();
 			if (!validarCampos().toString().equals("CamposValidos")){				
 						AlertDialog dialog = new AlertDialog.Builder(this).
 						setTitle("Notificação").
@@ -129,28 +138,50 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
-						
-			Usuario usuarioRetorno = (Usuario) modeloRetorno.getDados().get(0);									
+							
+			
 			if (modeloRetorno.getStatus().equals("1"))
 			{
 				Toast toast = Toast.makeText(LogarAndroidActivity.this,
 											 modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 				toast.show();
-			}else{
+			} else {
+				Usuario usuarioLogado= new Usuario();
+				Object dadosObject = modeloRetorno.getDados().get(0);
+				Gson gson = new Gson();
+			
+				JSONObject jsonObject = null;
+				try {
+					jsonObject = new JSONObject(gson.toJson(dadosObject));				
+					usuarioLogado.setId(jsonObject.getInt("id"));
+					usuarioLogado.setIdPerfil(jsonObject.getInt("idPerfil"));
+					usuarioLogado.setEmail(jsonObject.getString("email"));
+					usuarioLogado.setSenha(jsonObject.getString("senha"));
+					
+					Log.i("SOSTENES", "ID Usuario Logado: " + usuarioLogado.getIdPerfil());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}			
+					//Se usuarioRetorno.getUsuarioIdPerfil() é igual à 1, trata-se de Administrador.
+					if ((modeloRetorno.getStatus().equals("0")) && (usuarioLogado.getIdPerfil() == 1)){										
+						Intent it1 = new Intent(LogarAndroidActivity.this, UsuarioMenuActivity.class);			
+						it1.putExtra("usuarioLogado", usuarioLogado);
+						startActivity(it1);								
+						finish();					
 					//Se usuarioRetorno.getUsuarioIdPerfil() é igual à 2, trata-se de Cliente.
-					if ((modeloRetorno.getStatus().equals("0")) && (usuarioRetorno.getUsuarioIdPerfil() == 2)){										
-							Intent it = new Intent(LogarAndroidActivity.this, UsuarioMenuActivity.class);			
-							it.putExtra("modeloLogado", modeloRetorno);
-							startActivity(it);								
-							finish();
+					} else if ((modeloRetorno.getStatus().equals("0")) && (usuarioLogado.getIdPerfil() == 2)){										
+						Intent it2 = new Intent(LogarAndroidActivity.this, UsuarioMenuActivity.class);			
+						it2.putExtra("usuarioLogado", usuarioLogado);
+						startActivity(it2);								
+						finish();
 					//Se usuarioRetorno.getUsuarioIdPerfil() é igual à 3, trata-se de Acompanhante.
-					} else if((modeloRetorno.getStatus().equals("0")) &&  (usuarioRetorno.getUsuarioIdPerfil() == 3)){						
-							Intent it = new Intent(LogarAndroidActivity.this, AcompanhanteMenuActivity.class);			
-							it.putExtra("modeloLogado", modeloRetorno);
-							startActivity(it);
-							Toast toast = Toast.makeText(LogarAndroidActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-							toast.show();							
-							finish();
+					} else if((modeloRetorno.getStatus().equals("0")) &&  (usuarioLogado.getIdPerfil() == 3)){						
+						Intent it3 = new Intent(LogarAndroidActivity.this, AcompanhanteMenuActivity.class);			
+						it3.putExtra("usuarioLogado", usuarioLogado);
+						startActivity(it3);
+						Toast toast = Toast.makeText(LogarAndroidActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+						toast.show();							
+						finish();
 					}
 			}
 			
