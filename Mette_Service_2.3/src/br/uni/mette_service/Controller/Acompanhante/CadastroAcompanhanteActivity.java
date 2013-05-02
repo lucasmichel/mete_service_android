@@ -186,6 +186,9 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 			acompanhante.setHorarioAtendimento(edtHorarioAtendimentoAcomp.getText().toString());
 			acompanhante.setEmail(edtEmailAcomp.getText().toString());
 			acompanhante.setSenha(edtSenhaAcomp.getText().toString());						
+			
+			// ADICIONANDO DADOS DA TELA NO OBJETO MODELO
+			
 			listaAcompanhante.add(acompanhante);
 			modelo.setDados(listaAcompanhante);
 			modelo.setMensagem("");

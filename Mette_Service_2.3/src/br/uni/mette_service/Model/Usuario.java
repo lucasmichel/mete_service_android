@@ -4,25 +4,26 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable{		
 
-	private int id;
+	private int idUsuario;
 	private int idPerfil;
 	private String email;
 	private String senha;
 	
 	public Usuario(){}
-	public Usuario(int id, int idPerfil, String email, String senha) {
+	public Usuario(int idUsuario, int idPerfil, String email, String senha) {
 		super();
-		this.id = id;
+		this.idUsuario = idUsuario;
 		this.idPerfil = idPerfil;
 		this.email = email;
 		this.senha = senha;
 	}
-	public int getId() {
-		return id;
+
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public int getIdPerfil() {
@@ -47,5 +48,5 @@ public class Usuario implements Serializable{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}	
+	}
 }

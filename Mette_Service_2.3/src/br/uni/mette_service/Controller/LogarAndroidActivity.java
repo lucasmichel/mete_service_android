@@ -153,7 +153,7 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 				JSONObject jsonObject = null;
 				try {
 					jsonObject = new JSONObject(gson.toJson(dadosObject));				
-					usuarioLogado.setId(jsonObject.getInt("id"));
+					usuarioLogado.setIdUsuario(jsonObject.getInt("id"));
 					usuarioLogado.setIdPerfil(jsonObject.getInt("idPerfil"));
 					usuarioLogado.setEmail(jsonObject.getString("email"));
 					usuarioLogado.setSenha(jsonObject.getString("senha"));
