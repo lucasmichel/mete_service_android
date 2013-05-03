@@ -1,13 +1,7 @@
 package br.uni.mette_service.Controller;
 
-
 import br.uni.mette_service.R;
-import br.uni.mette_service.R.id;
-import br.uni.mette_service.R.layout;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
-import br.uni.mette_service.Controller.Encontro.EncontroActivity;
-import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
-import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Util.PreferencesController;
@@ -23,9 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class UsuarioMenuActivity extends Activity implements OnClickListener {
+public class ClienteMenuActivity extends Activity implements OnClickListener {
 
-	Usuario usuarioLogado = new Usuario();
+	Cliente clienteLogado = new Cliente();
 	private Button btnEditar;
 	
 	private Cliente cliente;
@@ -40,9 +34,10 @@ public class UsuarioMenuActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);		
-		usuarioLogado =  (Usuario) getIntent().getSerializableExtra("usuarioLogado");										
+		clienteLogado =  (Cliente) getIntent().getSerializableExtra("clienteLogado");										
 		adicionarFindView();			
-		this.txtUsuarioLogado.setText("Olá, " + usuarioLogado.getEmail() + "!");
+		adicionarListers();
+		this.txtUsuarioLogado.setText("Olá, " + clienteLogado.getEmail() + "!");
 	}
 	
 	private void adicionarFindView() {
@@ -69,8 +64,7 @@ public class UsuarioMenuActivity extends Activity implements OnClickListener {
 		Intent it = null;
 		switch (v.getId()) {
 		case R.id.btneditar:
-			it = new Intent(this, CadastroClienteActivity.class);
-			
+			it = new Intent(this, CadastroClienteActivity.class);		
 			it.putExtra("verificarSeHaAlteracao", "1");			
 			break;		
 		}		

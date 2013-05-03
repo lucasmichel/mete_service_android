@@ -2,6 +2,12 @@ package br.uni.mette_service.Controller.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.TermoUsoActivity;
@@ -31,7 +37,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaCliente = new ArrayList();
-	Usuario usuarioLogado = null;	
+	Cliente clienteLogado = null;	
 	
 	private EditText CCnome;
 	private EditText CCcpf;
@@ -46,12 +52,12 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_cliente);
-		
+		clienteLogado = null;
 		
 		adicionarFindView();
 		adicionarListers();
-		
-		verificarSeHaAlteracao(usuarioLogado);
+		clienteLogado =  (Cliente) getIntent().getSerializableExtra("clienteLogado");
+		verificarSeHaAlteracao(clienteLogado);
 	}
 	
 	private void adicionarFindView() {
@@ -72,18 +78,14 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 		this.CCvoltar.setOnClickListener(this);		
 	}
 	
-	public void verificarSeHaAlteracao(Usuario u){		
-		if (u != null){
+	public void verificarSeHaAlteracao(Cliente cliente){		
+		if (cliente != null){
 			listaCliente.clear();
-			listaCliente.add(u);
-			
+			listaCliente.add(cliente);			
 			modelo.setDados(listaCliente);
 			modelo.setMensagem("");
-			modelo.setStatus("");
-			
-			modeloRetorno = repositorio.acessarServidor("buscarClientePorId", modelo);
-			
-			
+			modelo.setStatus("");									
+			new alterarClienteAsyncTask().execute();
 		}		
 	}
 	
@@ -128,7 +130,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 		}
 	}
 
-	class cadastroClienteAsyncTask extends AsyncTask<String, String, Modelo> {
+	class cadastroClienteAsyncTask extends AsyncTask<String, String, Modelo>  {
 		ProgressDialog dialog;
 		@Override
 		protected void onPreExecute() {
@@ -176,4 +178,54 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 			}	
 		}
 	}
+	// Alterar Cliente
+	class alterarClienteAsyncTask extends AsyncTask<String, String, Modelo>  {
+		ProgressDialog dialog;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = ProgressDialog.show(CadastroClienteActivity.this,
+					"Cadastrando...", "Aguarde...",
+					true, false);
+		}
+
+		@Override
+		protected Modelo doInBackground(String... params) {	
+			try
+			{
+				modeloRetorno = repositorio.acessarServidor("buscarClientePorId", modelo);
+			} catch (Exception e) {				
+				e.printStackTrace();
+			}
+			return modeloRetorno;
+		}
+
+		@Override
+		protected void onPostExecute(Modelo result) {
+			super.onPostExecute(result);
+			dialog.dismiss();
+			if (modeloRetorno.getStatus().equals("1"))
+			{
+				Toast toast = Toast.makeText(CadastroClienteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+			}else{				
+				Object dadosObject = modeloRetorno.getDados().get(0);
+				JSONObject jsonObject = null;
+				Gson gson = new Gson();
+				
+				try {
+					jsonObject = new JSONObject(gson.toJson(dadosObject));
+					CCnome.setText(jsonObject.getInt("nome"));
+					CCcpf.setText(jsonObject.getInt("cpf"));
+					CCemail.setText(jsonObject.getInt("email"));
+					CCsenha.setText(jsonObject.getInt("senha"));
+				} catch (JSONException e) {
+				}				
+				
+				Toast toast = Toast.makeText(CadastroClienteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+				finish();
+			}	
+		}
+	}	
 }

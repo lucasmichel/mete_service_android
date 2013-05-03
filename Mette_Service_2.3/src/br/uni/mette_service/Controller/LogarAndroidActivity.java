@@ -146,7 +146,7 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 											 modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 				toast.show();
 			} else {
-				Usuario usuarioLogado= new Usuario();
+				Usuario usuarioLogado = new Usuario();
 				Object dadosObject = modeloRetorno.getDados().get(0);
 				Gson gson = new Gson();
 			
@@ -164,13 +164,13 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 				}			
 					//Se usuarioRetorno.getUsuarioIdPerfil() é igual à 1, trata-se de Administrador.
 					if ((modeloRetorno.getStatus().equals("0")) && (usuarioLogado.getIdPerfil() == 1)){										
-						Intent it1 = new Intent(LogarAndroidActivity.this, UsuarioMenuActivity.class);			
+						Intent it1 = new Intent(LogarAndroidActivity.this, ClienteMenuActivity.class);			
 						it1.putExtra("usuarioLogado", usuarioLogado);
 						startActivity(it1);								
 						finish();					
 					//Se usuarioRetorno.getUsuarioIdPerfil() é igual à 2, trata-se de Cliente.
 					} else if ((modeloRetorno.getStatus().equals("0")) && (usuarioLogado.getIdPerfil() == 2)){										
-						Intent it2 = new Intent(LogarAndroidActivity.this, UsuarioMenuActivity.class);			
+						Intent it2 = new Intent(LogarAndroidActivity.this, ClienteMenuActivity.class);			
 						it2.putExtra("usuarioLogado", usuarioLogado);
 						startActivity(it2);								
 						finish();

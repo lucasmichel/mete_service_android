@@ -42,7 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.uni.mette_service.Controller.UsuarioMenuActivity" >
+        <activity android:name="br.uni.mette_service.Controller.ClienteMenuActivity" >
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Encontro.EncontroActivity" >
         </activity>        
