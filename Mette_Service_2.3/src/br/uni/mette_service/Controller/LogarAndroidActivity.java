@@ -77,7 +77,7 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.textoCadastre:
 			Intent it = new Intent(this, EscolhaDoUsuarioActivity.class);
-			startActivity(it);
+			startActivity(it);			
 			break;
 		}
 	}

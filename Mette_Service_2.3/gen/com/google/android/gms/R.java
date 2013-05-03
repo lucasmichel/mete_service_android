@@ -190,8 +190,8 @@ containing a value of this type.
         public static final int btnMapa=0x7f040084;
         public static final int btnTeste=0x7f040080;
         public static final int btnVoltar=0x7f04003c;
+        public static final int btneditar=0x7f040082;
         public static final int btnop2=0x7f040081;
-        public static final int btnop3=0x7f040082;
         public static final int btnop4=0x7f040083;
         public static final int button1=0x7f04006d;
         public static final int button2=0x7f04006c;

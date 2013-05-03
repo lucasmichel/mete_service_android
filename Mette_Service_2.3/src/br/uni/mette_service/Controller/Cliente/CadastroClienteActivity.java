@@ -6,6 +6,7 @@ import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.TermoUsoActivity;
 import br.uni.mette_service.Model.Cliente;
+import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
 import br.uni.mette_service.Util.Validar;
@@ -30,6 +31,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaCliente = new ArrayList();
+	Usuario usuarioLogado = null;	
 	
 	private EditText CCnome;
 	private EditText CCcpf;
@@ -44,8 +46,12 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_cliente);
+		
+		
 		adicionarFindView();
 		adicionarListers();
+		
+		verificarSeHaAlteracao(usuarioLogado);
 	}
 	
 	private void adicionarFindView() {
@@ -64,13 +70,29 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 		this.textLinkTermo.setOnClickListener(this);
 		this.CCavancar.setOnClickListener(this);
 		this.CCvoltar.setOnClickListener(this);		
-	}	
+	}
+	
+	public void verificarSeHaAlteracao(Usuario u){		
+		if (u != null){
+			listaCliente.clear();
+			listaCliente.add(u);
+			
+			modelo.setDados(listaCliente);
+			modelo.setMensagem("");
+			modelo.setStatus("");
+			
+			modeloRetorno = repositorio.acessarServidor("buscarClientePorId", modelo);
+			
+			
+		}		
+	}
 	
 	public void onClick(DialogInterface arg0, int arg1) {}
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAvancar:	
 			listaCliente.clear();
+			
 			Validar validar = new Validar();
 			Cliente clienteValidado = new Cliente();
 			clienteValidado.setNome(CCnome.getText().toString());

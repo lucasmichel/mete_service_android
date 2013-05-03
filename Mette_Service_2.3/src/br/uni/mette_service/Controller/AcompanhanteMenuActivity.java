@@ -4,6 +4,7 @@ import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Acompanhante.AlterarStatusActivity;
 import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
 import br.uni.mette_service.Model.Acompanhante;
+import br.uni.mette_service.Model.Usuario;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,15 +23,18 @@ import android.widget.ImageView;
 
 public class AcompanhanteMenuActivity extends Activity implements Serializable{
 	
+	Usuario usuarioLogado = new Usuario();
 	Acompanhante acompanhanteRetorno, objacompanhante;
-	
-	//private String url;
 	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//url = objacompanhante.getFoto().toString();
+		
+		usuarioLogado =  (Usuario) getIntent().getSerializableExtra("usuarioLogado");
+		
+		
+		
 		setContentView(R.layout.activity_tela_acompanhante);
 		ImageView imgView =(ImageView)findViewById(R.id.imageView1);
 		Drawable drawable = LoadImageFromWebOperations("http://www.imagensdahora.com.br/clipart/cliparts_imagens/01Animais//tubarao_06.gif");
@@ -39,9 +43,7 @@ public class AcompanhanteMenuActivity extends Activity implements Serializable{
 		Button btnCadastrar;
 		
 		btnCadastrar = (Button)findViewById(R.id.buttonCadastrar);
-		
-		//objacompanhante =   
-		//		  (Acompanhante) getIntent().getSerializableExtra("objacompanhante");
+
 	}
 	
 	

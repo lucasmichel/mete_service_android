@@ -9,6 +9,7 @@ import br.uni.mette_service.Controller.Encontro.EncontroActivity;
 import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;
+import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Util.PreferencesController;
 import android.app.Activity;
 import android.content.Intent;
@@ -24,97 +25,56 @@ import android.widget.TextView;
 
 public class UsuarioMenuActivity extends Activity implements OnClickListener {
 
+	Usuario usuarioLogado = new Usuario();
+	private Button btnEditar;
+	
 	private Cliente cliente;
 	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha;
 	private Button btnTeste, CCavancar, CCvoltar;
 	private Button btnop2, btnop3, btnop4, btnMapa;
 	
 	private boolean atualizar = false;
-	private TextView txtUsuarioLogado;
-	String usuarioLogado;
-	
-	
+	private TextView txtUsuarioLogado;	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu);
-		
-		//usuarioLogado = getIntent().getStringExtra("usuarioLogado").toString() + "!";
-		
+		setContentView(R.layout.activity_menu);		
+		usuarioLogado =  (Usuario) getIntent().getSerializableExtra("usuarioLogado");										
+		adicionarFindView();			
+		this.txtUsuarioLogado.setText("Olá, " + usuarioLogado.getEmail() + "!");
+	}
+	
+	private void adicionarFindView() {
 		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);		
 		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
-		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);
-		
+		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);		
 		this.btnop2 = (Button) findViewById(R.id.btnop2);
-		this.btnop3 = (Button) findViewById(R.id.btnop3);
+		this.btnEditar = (Button) findViewById(R.id.btneditar);
 		this.btnop4 = (Button) findViewById(R.id.btnop4);
 		this.btnMapa = (Button) findViewById(R.id.btnMapa);
-		
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogado);
-		txtUsuarioLogado.setText((txtUsuarioLogado.getText().toString()) + " " + usuarioLogado);
-		
-		instantiateComponents();
 	}
-
-	public void instantiateComponents() {
+	
+	public void adicionarListers() {
 		this.btnTeste = (Button) findViewById(R.id.btnTeste);
 		this.btnTeste.setOnClickListener(this);
 		this.btnop2.setOnClickListener(this);
-		this.btnop3.setOnClickListener(this);
+		this.btnEditar.setOnClickListener(this);
 		this.btnMapa.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
 		Intent it = null;
 		switch (v.getId()) {
-		case R.id.btnTeste:
-		//	it = new Intent(this, ListarAcompanhanteActivity.class);
-			break;			
-		case R.id.btnop2:
-			it = new Intent(this, EncontroActivity.class);
-			break;
-		case R.id.btnop3:
-			it = new Intent(this, ListaServicosActivity.class);
-			break;
-		case R.id.btnMapa:
-			it = new Intent(this, MapaActivity.class);
-			break;
-		}
-		
+		case R.id.btneditar:
+			it = new Intent(this, CadastroClienteActivity.class);
+			
+			it.putExtra("verificarSeHaAlteracao", "1");			
+			break;		
+		}		
 		startActivity(it);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.homemenu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.menuComponentes.editar:
-			editarPerfil();
-			return true;
-		case R.menuComponentes.sair:
-			sair();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	public void sair() {
-
-		// ClienteController.getInstance().setUsuarioLogged(null);
-		Intent it;
-		PreferencesController.clearUserPreferences(this);
-	//	it = new Intent(this, LoginActivity.class);
-		//startActivity(it);
-		finish();
 	}
 
 	public void editarPerfil() {

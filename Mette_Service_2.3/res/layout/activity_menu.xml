@@ -25,10 +25,10 @@
         android:text="@string/menu_marcarEncontro" />
     
     <Button
-        android:id="@+id/btnop3"
+        android:id="@+id/btneditar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Opção 3 (Teste ListarServiços)" />
+        android:text="Editar Perfil" />
     
     <Button
         android:id="@+id/btnop4"

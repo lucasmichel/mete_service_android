@@ -19,14 +19,13 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 	private Cliente cli;
 	private Acompanhante aco;
 
-	//teste
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_escolher_usuario);
 
 		this.btnHomem = (ImageButton) findViewById(R.id.homem);
 		this.btnMulher = (ImageButton) findViewById(R.id.mulher);
-
+		
 		btnHomem.setOnClickListener(this);
 		btnMulher.setOnClickListener(this);
 	
@@ -37,10 +36,12 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 		case R.id.homem:
 			Intent ith = new Intent(this, CadastroClienteActivity.class);
 			startActivity(ith);
+			finish();
 			break;
 		case R.id.mulher:
 			Intent it = new Intent(this, CadastroAcompanhanteActivity.class);
 			startActivity(it);
+			finish();
 			break;
 		}
 	}
