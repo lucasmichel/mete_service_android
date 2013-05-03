@@ -80,13 +80,22 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	
 	public void verificarSeHaAlteracao(Cliente cliente){		
 		if (cliente != null){
+			
+			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity FOI chamada para Edição", Toast.LENGTH_LONG);
+			toast.show();
+			finish();
+			
 			listaCliente.clear();
 			listaCliente.add(cliente);			
 			modelo.setDados(listaCliente);
 			modelo.setMensagem("");
 			modelo.setStatus("");									
-			new alterarClienteAsyncTask().execute();
-		}		
+			new buscarClientePorIdAsyncTask().execute();
+		} else {			
+			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity NÃO foi chamada para Edição", Toast.LENGTH_LONG);
+			toast.show();
+			finish();
+		};
 	}
 	
 	public void onClick(DialogInterface arg0, int arg1) {}
@@ -178,8 +187,8 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 			}	
 		}
 	}
-	// Alterar Cliente
-	class alterarClienteAsyncTask extends AsyncTask<String, String, Modelo>  {
+	// buscarClientePorId
+	class buscarClientePorIdAsyncTask extends AsyncTask<String, String, Modelo>  {
 		ProgressDialog dialog;
 		@Override
 		protected void onPreExecute() {

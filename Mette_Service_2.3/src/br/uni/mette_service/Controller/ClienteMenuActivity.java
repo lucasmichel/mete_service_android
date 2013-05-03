@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class ClienteMenuActivity extends Activity implements OnClickListener {
 
-	Cliente clienteLogado = new Cliente();
+	Usuario usuarioLogado = new Usuario();
 	private Button btnEditar;
 	
 	private Cliente cliente;
@@ -34,10 +34,10 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);		
-		clienteLogado =  (Cliente) getIntent().getSerializableExtra("clienteLogado");										
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");										
 		adicionarFindView();			
 		adicionarListers();
-		this.txtUsuarioLogado.setText("Olá, " + clienteLogado.getEmail() + "!");
+		this.txtUsuarioLogado.setText("Olá, " + usuarioLogado.getEmail() + "!");
 	}
 	
 	private void adicionarFindView() {

@@ -46,7 +46,10 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);				
 		adicionarFindView();
-		adicionarListers();				
+		adicionarListers();		
+		
+		edtEmail.setText("clienteteste@cliente.com");
+		edtSenha.setText("clienteteste");
 	}
 	
 	private void adicionarFindView() {
@@ -166,13 +169,17 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 					if ((modeloRetorno.getStatus().equals("0")) && (usuarioLogado.getIdPerfil() == 1)){										
 						Intent it1 = new Intent(LogarAndroidActivity.this, ClienteMenuActivity.class);			
 						it1.putExtra("usuarioLogado", usuarioLogado);
-						startActivity(it1);								
+						startActivity(it1);			
+						Toast toast = Toast.makeText(LogarAndroidActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+						toast.show();	
 						finish();					
 					//Se usuarioRetorno.getUsuarioIdPerfil() é igual à 2, trata-se de Cliente.
 					} else if ((modeloRetorno.getStatus().equals("0")) && (usuarioLogado.getIdPerfil() == 2)){										
 						Intent it2 = new Intent(LogarAndroidActivity.this, ClienteMenuActivity.class);			
 						it2.putExtra("usuarioLogado", usuarioLogado);
-						startActivity(it2);								
+						startActivity(it2);	
+						Toast toast = Toast.makeText(LogarAndroidActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+						toast.show();	
 						finish();
 					//Se usuarioRetorno.getUsuarioIdPerfil() é igual à 3, trata-se de Acompanhante.
 					} else if((modeloRetorno.getStatus().equals("0")) &&  (usuarioLogado.getIdPerfil() == 3)){						
