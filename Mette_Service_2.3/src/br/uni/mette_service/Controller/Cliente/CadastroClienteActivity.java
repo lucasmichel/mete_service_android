@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.TermoUsoActivity;
+import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -34,6 +35,8 @@ import android.widget.Toast;
 
 public class CadastroClienteActivity extends Activity implements OnClickListener {
 	//chama um cliente para alterar para ter o atribudo chamado id!
+	
+	Cliente cliente = new Cliente();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
@@ -53,11 +56,11 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_cliente);
-		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");		
-			
+		//Setando como zero, indica que não há usuário Logado.
+		usuarioLogado.setIdUsuario(0);		
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");					
 		adicionarFindView();
-		adicionarListers();
-		
+		adicionarListers();		
 		if (usuarioLogado.getIdUsuario() > 0){
 			executarAlteracao(usuarioLogado);
 		}else{
@@ -88,7 +91,9 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
 			toast.show();						
 			listaCliente.clear();
-			listaCliente.add(usuarioLogado);			
+			cliente.setId(usuarioLogado.getIdUsuario());						
+			listaCliente.add(cliente);		
+			
 			modelo.setDados(listaCliente);
 			modelo.setMensagem("");
 			modelo.setStatus("");									
