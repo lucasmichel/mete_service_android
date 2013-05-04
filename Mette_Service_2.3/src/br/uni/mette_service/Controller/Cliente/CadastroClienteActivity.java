@@ -36,6 +36,7 @@ import android.widget.Toast;
 public class CadastroClienteActivity extends Activity implements OnClickListener {
 	//chama um cliente para alterar para ter o atribudo chamado id!
 	
+	boolean eEdicao;
 	Cliente cliente = new Cliente();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
@@ -56,12 +57,13 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_cliente);
-		//Setando como zero, indica que não há usuário Logado.
-		usuarioLogado.setIdUsuario(0);		
+		//Verifica se a Activity foi chamada para alteração
+		eEdicao = getIntent().getBooleanExtra("eEdicao",false);		
+		
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");					
 		adicionarFindView();
 		adicionarListers();		
-		if (usuarioLogado.getIdUsuario() > 0){
+		if (eEdicao){
 			executarAlteracao(usuarioLogado);
 		}else{
 			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity NÃO foi chamada para Edição.", Toast.LENGTH_LONG);

@@ -15,6 +15,7 @@ import br.uni.mette_service.Model.Cliente;
 public class EscolhaDoUsuarioActivity extends Activity implements
 		OnClickListener {
 
+	boolean eEdicao = false;
 	private ImageButton btnHomem, btnMulher;
 	private Cliente cli;
 	private Acompanhante aco;
@@ -35,6 +36,7 @@ public class EscolhaDoUsuarioActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.homem:
 			Intent ith = new Intent(this, CadastroClienteActivity.class);
+			ith.putExtra("eEdicao", eEdicao);
 			startActivity(ith);
 			finish();
 			break;

@@ -30,6 +30,8 @@ import br.uni.mette_service.Model.Repositorio.Repositorio;
 
 public class LogarAndroidActivity extends Activity implements OnClickListener {
 
+	
+	boolean eEdicao = false;
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
@@ -80,6 +82,7 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.textoCadastre:
 			Intent it = new Intent(this, EscolhaDoUsuarioActivity.class);
+			it.putExtra("eEdicao", eEdicao);
 			startActivity(it);			
 			break;
 		}

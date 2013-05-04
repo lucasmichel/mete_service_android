@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 public class ClienteMenuActivity extends Activity implements OnClickListener {
 
+	boolean eEdicao = true;
 	Usuario usuarioLogado = new Usuario();
 	private Button btnEditar;
 	
@@ -26,8 +27,6 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha;
 	private Button btnTeste, CCavancar, CCvoltar;
 	private Button btnop2, btnop3, btnop4, btnMapa;
-	
-	private boolean atualizar = false;
 	private TextView txtUsuarioLogado;	
 		
 	@Override
@@ -66,6 +65,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		case R.id.btneditar:
 			it = new Intent(this, CadastroClienteActivity.class);		
 			it.putExtra("usuarioLogado", usuarioLogado);	
+			it.putExtra("eEdicao", eEdicao);			
 			startActivity(it);
 			break;		
 		}		
