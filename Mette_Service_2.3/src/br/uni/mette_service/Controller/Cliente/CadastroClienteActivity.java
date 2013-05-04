@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,12 +33,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CadastroClienteActivity extends Activity implements OnClickListener {
-
+	//chama um cliente para alterar para ter o atribudo chamado id!
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaCliente = new ArrayList();
-	Cliente clienteLogado = null;	
+	Usuario usuarioLogado = new Usuario();	
 	
 	private EditText CCnome;
 	private EditText CCcpf;
@@ -52,12 +53,17 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cadastro_cliente);
-		clienteLogado = null;
-		
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");		
+			
 		adicionarFindView();
 		adicionarListers();
-		clienteLogado =  (Cliente) getIntent().getSerializableExtra("clienteLogado");
-		verificarSeHaAlteracao(clienteLogado);
+		
+		if (usuarioLogado.getIdUsuario() > 0){
+			executarAlteracao(usuarioLogado);
+		}else{
+			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity NÃO foi chamada para Edição.", Toast.LENGTH_LONG);
+			toast.show();
+		}
 	}
 	
 	private void adicionarFindView() {
@@ -78,24 +84,15 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 		this.CCvoltar.setOnClickListener(this);		
 	}
 	
-	public void verificarSeHaAlteracao(Cliente cliente){		
-		if (cliente != null){
-			
-			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity FOI chamada para Edição", Toast.LENGTH_LONG);
-			toast.show();
-			finish();
-			
+	public void executarAlteracao(Usuario usuarioLogado){				
+			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
+			toast.show();						
 			listaCliente.clear();
-			listaCliente.add(cliente);			
+			listaCliente.add(usuarioLogado);			
 			modelo.setDados(listaCliente);
 			modelo.setMensagem("");
 			modelo.setStatus("");									
-			new buscarClientePorIdAsyncTask().execute();
-		} else {			
-			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity NÃO foi chamada para Edição", Toast.LENGTH_LONG);
-			toast.show();
-			finish();
-		};
+			new buscarClientePorIdAsyncTask().execute();		
 	}
 	
 	public void onClick(DialogInterface arg0, int arg1) {}

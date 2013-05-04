@@ -37,7 +37,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");										
 		adicionarFindView();			
 		adicionarListers();
-		this.txtUsuarioLogado.setText("Olá, " + usuarioLogado.getEmail() + "!");
+		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, " + usuarioLogado.getEmail() + "!");
 	}
 	
 	private void adicionarFindView() {
@@ -65,15 +65,10 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btneditar:
 			it = new Intent(this, CadastroClienteActivity.class);		
-			it.putExtra("verificarSeHaAlteracao", "1");			
+			it.putExtra("usuarioLogado", usuarioLogado);	
+			startActivity(it);
 			break;		
 		}		
-		startActivity(it);
-	}
-
-	public void editarPerfil() {
-		Intent it;
-		it = new Intent(this, CadastroClienteActivity.class);
-		startActivity(it);
+		
 	}
 }

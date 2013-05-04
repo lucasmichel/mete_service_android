@@ -46,7 +46,7 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);				
 		adicionarFindView();
-		adicionarListers();		
+		adicionarListers();						
 		
 		edtEmail.setText("clienteteste@cliente.com");
 		edtSenha.setText("clienteteste");
@@ -161,7 +161,7 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 					usuarioLogado.setEmail(jsonObject.getString("email"));
 					usuarioLogado.setSenha(jsonObject.getString("senha"));
 					
-					Log.i("SOSTENES", "ID Usuario Logado: " + usuarioLogado.getIdPerfil());
+					Log.i("SOSTENES", "ID Usuario Logado: " + usuarioLogado.getIdUsuario());
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}			
