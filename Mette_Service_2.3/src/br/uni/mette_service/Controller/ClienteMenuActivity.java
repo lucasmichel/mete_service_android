@@ -2,6 +2,7 @@ package br.uni.mette_service.Controller;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
+import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Util.PreferencesController;
@@ -67,7 +68,11 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it.putExtra("usuarioLogado", usuarioLogado);	
 			it.putExtra("eEdicao", eEdicao);			
 			startActivity(it);
-			break;		
+			break;	
+		case R.id.btnMapa:
+			it = new Intent(this, MapaActivity.class);					
+			startActivity(it);
+			break;	
 		}		
 		
 	}

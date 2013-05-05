@@ -3,14 +3,7 @@ package br.uni.mette_service.Mapa;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.app.ProgressDialog;
 import android.location.Criteria;
 import android.location.Location;
@@ -23,26 +16,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 import br.uni.mette_service.R;
-
+import br.uni.mette_service.Model.Servico;
+import br.uni.mette_service.Model.Repositorio.Modelo;
+import br.uni.mette_service.Model.Repositorio.Repositorio;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.internal.l;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 public class MapaActivity extends FragmentActivity 
 implements LocationListener{  
 	private Marker meuMarker ;
 	private GoogleMap googleMap;
+	Repositorio repositorio = new Repositorio();
 //	private Location location;
 	
 	protected void onCreate(Bundle savedInstanceState) {  
@@ -76,65 +69,18 @@ implements LocationListener{
 	
 	
 	public void onLocationChanged(final Location location) {
-		HttpClient cliente = new DefaultHttpClient();
-		
-				HttpGet get = new HttpGet(
-						"https://dl.dropbox.com/s/az80zijmacavbk5/jslonglat.json");
-				try {
-					HttpResponse resposta = cliente.execute(get);
-
-					JSONArray jsonAray = new JSONArray(toString(resposta
-							.getEntity().getContent()));
-					for (int i = 0; i < jsonAray.length(); i++) {
-						JSONObject objeto = jsonAray.getJSONObject(i);
-//						m.setNome(objeto.getString("nome"));
-//						
-					
-						double lat = objeto.getDouble("Latitude");
-						double log = objeto.getDouble("Longitude");
-						Log.i("envio", "latitude" + lat + "...long" + log  );
-		
-		LatLng latLog	= new LatLng(lat, log);
-		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
-		googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-		
-	
-	meuMarker	= googleMap.addMarker(new MarkerOptions()  
-		.position(latLog)  
-		.icon(BitmapDescriptorFactory.fromResource(  
-		  R.drawable.pin)).
-		  title(objeto.getString("Servico"))  
-		  .snippet(objeto.getString("Valor")));
-				
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	new mapaAsyncTask().execute();
 	}
-			
-//		public boolean onMarkerClick(Marker marker) {
-//
-//			if (marker.equals(meuMarker)) 
-//			{
-//				Toast.makeText(MapaActivity.this, meuMarker.getTitle(), Toast.LENGTH_SHORT).show();
-//        }
-//			return false;
-//		}
+	private String toString(InputStream is) throws IOException {
 
-
-	
-	
-			private String toString(InputStream is) throws IOException {
-
-				byte[] bytes = new byte[1024];
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				int lidos;
-				while ((lidos = is.read(bytes)) > 0) {
-					baos.write(bytes, 0, lidos);
-				}
-				return new String(baos.toByteArray());
-			}		
+			byte[] bytes = new byte[1024];
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			int lidos;
+			while ((lidos = is.read(bytes)) > 0) {
+			baos.write(bytes, 0, lidos);
+			}
+			return new String(baos.toByteArray());
+		}		
 
 	
 	public void onProviderDisabled(String arg0) {
@@ -156,7 +102,7 @@ implements LocationListener{
 	if (googleMap == null){
 	googleMap = ((SupportMapFragment)getSupportFragmentManager()
 			.findFragmentById(R.id.map)).getMap();
-	
+	googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 		if (googleMap != null){
 			googleMap.setMyLocationEnabled(true);
 			
@@ -190,6 +136,76 @@ implements LocationListener{
 		}
 	};
 	}
+	
+class mapaAsyncTask extends AsyncTask<Void, Void, Modelo>{
+
+		
+		ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = ProgressDialog.show(MapaActivity.this, "LOADING:",
+					"Carregando pontos do mapa!", true, false);
+			super.onPreExecute();
+		}
+		@Override
+		protected Modelo doInBackground(Void... params) {
+			
+			Modelo locRetorno = new Modelo();
+			Modelo modelo = new Modelo();
+
+			locRetorno = repositorio.acessarServidorMAPA("s/3fxqqgjx9q18kl0/log1.txt", modelo);
+
+			return locRetorno;
+		}
+		
+		protected void onPostExecute(Modelo result) {
+			super.onPostExecute(result);
+			dialog.dismiss();
+			
+			for ( int i = 0; i < result.getDados().size(); ++i){
+				
+			Localizacao local = new Localizacao();
+			Servico serv = new Servico();
+			Object dadosObject = result.getDados().get(i);
+			Gson gson = new Gson();
+		
+			JSONObject jsonObject = null;
+			try {
+				jsonObject = new JSONObject(gson.toJson(dadosObject));				
+				serv.setNome(jsonObject.getString("Servico"));
+				local.setLatitude(jsonObject.getString("Latitude"));
+				local.setLongitude(jsonObject.getString("Longitude"));
+				
+			System.out.println("    "+ jsonObject.getString("Latitude")+ "   "+
+			jsonObject.getString("Longitude")+ "   " + serv.getNome());
+			
+			double lat = Double.parseDouble(local.getLatitude());
+			double log = Double.parseDouble(local.getLongitude());
+			
+			Log.i("envio", " num"+ i +"....latitude" + lat + "...long" + log  );
+
+//			if ( jsonObject.getString("Servico").equals("Anal")){
+			
+			LatLng latLog	= new LatLng(lat, log);
+			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
+			googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+			
+			meuMarker	= googleMap.addMarker(new MarkerOptions()  
+			.position(latLog)  
+			.icon(BitmapDescriptorFactory.fromResource(  
+			  R.drawable.pin)).
+			  title(serv.getNome())  
+			  .snippet("R$: "+ jsonObject.getString("Valor")));
+//			}
+			
+			}catch (Exception e) {
+				e.printStackTrace();			
+			}
+		
+			}
+		}
+}
 
 
 

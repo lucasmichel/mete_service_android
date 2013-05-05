@@ -72,4 +72,39 @@ public class Repositorio {
 		}
 		return modeloRetorno;		
 	}	
+	
+	//-------------------------------------------------------------
+	/*COPIA TEMPORARIA DO METODO acessarServidor PARA TESTE DO MAPA
+	DEVIDO A TROCA DA urlAcesso PARA NÃO MEXER NO QUE JA ESTA FUNCIONANDO
+	 							PEDRO SANTA ROSA						*/
+	
+	String urlAcessoMAPA = "https://dl.dropbox.com/";
+	
+	public Modelo acessarServidorMAPA (String acao, Modelo modelo) {
+		Modelo modeloRetorno = new Modelo();
+		List<NameValuePair> listaCamposPesquisa = new ArrayList<NameValuePair>(1);  
+	    listaCamposPesquisa.add(new BasicNameValuePair("textoCriptografado", toBase64StringEncode(gson.toJson(modelo))));							
+	    Log.i("SOSTENES", "Json Enviado. Em Repositório: " + gson.toJson(modelo));
+	    try {			
+		    HttpClient cliente = new DefaultHttpClient();		    
+		    String url = urlAcessoMAPA+acao;		    
+			HttpPost get = new HttpPost(url);
+			try {				
+				get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
+				HttpResponse resposta = cliente.execute(get);
+				String s = toString(resposta.getEntity().getContent());				
+				String retornoDesciptografado = toBase64StringDecode(s);
+				Log.i("PEDRO", retornoDesciptografado);
+				Log.i("SOSTENES", "Retorno Desciptografado em Repositório: " + retornoDesciptografado);								
+				modeloRetorno = gson.fromJson(retornoDesciptografado, Modelo.class);						
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();			
+		}
+		return modeloRetorno;		
+	}
+	//-----------------FIM DO METODO-------------------------------
+	
 }
