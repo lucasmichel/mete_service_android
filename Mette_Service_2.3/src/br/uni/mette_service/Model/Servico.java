@@ -1,7 +1,8 @@
 package br.uni.mette_service.Model;
 
+import java.io.Serializable;
 import java.util.List;
-public class Servico  {
+public class Servico  implements Serializable{
 
 	private String id;
 	private String nome;

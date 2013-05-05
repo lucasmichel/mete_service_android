@@ -137,7 +137,7 @@ implements LocationListener{
 	};
 	}
 	
-class mapaAsyncTask extends AsyncTask<Void, Void, Modelo>{
+		class mapaAsyncTask extends AsyncTask<Void, Void, Modelo>{
 
 		
 		ProgressDialog dialog;
@@ -161,7 +161,6 @@ class mapaAsyncTask extends AsyncTask<Void, Void, Modelo>{
 		
 		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
-			dialog.dismiss();
 			
 			for ( int i = 0; i < result.getDados().size(); ++i){
 				
@@ -202,9 +201,9 @@ class mapaAsyncTask extends AsyncTask<Void, Void, Modelo>{
 			}catch (Exception e) {
 				e.printStackTrace();			
 			}
-		
-			}
+			dialog.dismiss();
 		}
+	}
 }
 
 

@@ -10,20 +10,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class ServicoAdapter extends ArrayAdapter<Servico> {
+public class ServicoAdapter extends BaseAdapter {
 	
-	public ServicoAdapter(Context context, List<Object> list) {
-		super(context, 0);
+	private Context ctx;
+	private List<Servico> servicoAdapter;
+	
+	public ServicoAdapter(Context ctx, List<Servico> servicoAdapter) {
+		this.ctx = ctx;
+		this.servicoAdapter = servicoAdapter;
 	}
 	
+	public int getCount() {
+		return servicoAdapter.size();
+	}
+
+	public Object getItem(int position) {
+		return servicoAdapter.get(position);
+	}
+
+	public long getItemId(int position) {
+		return 0;
+	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Servico servico = getItem(position);
+		Servico servico = servicoAdapter.get(position);
 		
 		if (convertView == null){
-			convertView = LayoutInflater.from(getContext()).inflate(
+			convertView = LayoutInflater.from(ctx).inflate(
 				R.layout.activity_linha_servico, null);
 		}
 				
