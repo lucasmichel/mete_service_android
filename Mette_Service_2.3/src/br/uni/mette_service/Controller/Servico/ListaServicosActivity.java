@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.ClienteMenuActivity;
+import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Servico;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -26,10 +27,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class ListaServicosActivity extends ListActivity {
+public class ListaServicosActivity extends ListActivity implements OnClickListener {
 
+	private Button btnVoltar;
+	
 	Repositorio repositorio = new Repositorio();
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +45,25 @@ public class ListaServicosActivity extends ListActivity {
         
         new ServicosAsyncTask().execute();                                               
     }
+    private void adicionarFindView() {
+		this.btnVoltar = (Button) findViewById(R.id.btnVoltar);
+	}
+    public void adicionarListers() {
+		this.btnVoltar.setOnClickListener(this);
+
+	}
+  
+	public void onClick(View v) {
+		Intent it = null;
+		switch (v.getId()) {
+		case R.id.btnVoltar:
+				finish();
+			break;	
+		}
+	}
     
-class ServicosAsyncTask extends AsyncTask<Void, Void, Modelo> {
+    
+    class ServicosAsyncTask extends AsyncTask<Void, Void, Modelo> {
     	
     	ProgressDialog dialog;
     	
@@ -126,4 +151,5 @@ class ServicosAsyncTask extends AsyncTask<Void, Void, Modelo> {
 	}
 	return new String(baos.toByteArray());
 }
+
 }
