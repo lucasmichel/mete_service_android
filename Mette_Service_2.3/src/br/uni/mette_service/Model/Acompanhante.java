@@ -11,7 +11,7 @@ public class Acompanhante extends Usuario {
 	private String cintura;
 	private String quadril;
 	private String olhos;
-	private String pernoite;
+	private int pernoite;
 	private String atendo;
 	private String especialidade;
 	private String horarioAtendimento;
@@ -20,7 +20,7 @@ public class Acompanhante extends Usuario {
 	public Acompanhante(){}
 	public Acompanhante(int id, String nome, String idade, String altura,
 			String peso, String busto, String cintura, String quadril,
-			String olhos, String pernoite, String atendo, String especialidade,
+			String olhos, int pernoite, String atendo, String especialidade,
 			String horarioAtendimento, String excluido) {
 		super();
 		this.id = id;
@@ -111,11 +111,11 @@ public class Acompanhante extends Usuario {
 		this.olhos = olhos;
 	}
 
-	public String getPernoite() {
+	public int getPernoite() {
 		return pernoite;
 	}
 
-	public void setPernoite(String pernoite) {
+	public void setPernoite(int pernoite) {
 		this.pernoite = pernoite;
 	}
 

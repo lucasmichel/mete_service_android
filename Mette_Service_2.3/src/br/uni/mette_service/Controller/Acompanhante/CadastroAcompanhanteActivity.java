@@ -2,9 +2,17 @@ package br.uni.mette_service.Controller.Acompanhante;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Model.Acompanhante;
+import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
 import br.uni.mette_service.Util.Mask;
@@ -25,11 +33,14 @@ import android.widget.Toast;
 
 public class CadastroAcompanhanteActivity extends Activity implements OnClickListener{
 
+	Acompanhante acompanhante = new Acompanhante();
+	Usuario usuarioLogado = new Usuario();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaAcompanhante = new ArrayList();
 	
+	boolean eEdicao;
 	private EditText edtNomeAcomp;
 	private EditText edtIdadeAcomp;
 	private EditText edtPesoAcomp;
@@ -57,8 +68,32 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 		setContentView(R.layout.activity_cadastro_acompanhante);		
 		adicionarFindView();
 		adicionarListers();
-	}	
-
+		
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
+		eEdicao = getIntent().getBooleanExtra("eEdicao",false);		
+		
+		if (eEdicao){
+			executarAlteracao(usuarioLogado);
+		}else{
+			Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, "Activity NÃO foi chamada para Edição.", Toast.LENGTH_LONG);
+			toast.show();
+		}
+	}
+	
+	private void executarAlteracao(Usuario usuarioLogado) {
+		Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
+		toast.show();						
+		listaAcompanhante.clear();
+		acompanhante.setId(usuarioLogado.getIdUsuario());						
+		listaAcompanhante.add(acompanhante);		
+		
+		modelo.setDados(listaAcompanhante);
+		modelo.setMensagem("");
+		modelo.setStatus("");									
+		new buscarAcompanhantePorIdAsyncTask().execute();
+		
+	}
+	
 	private void adicionarFindView() {
 		edtNomeAcomp = (EditText) findViewById(R.id.editNomeAcomp);
 		edtIdadeAcomp = (EditText) findViewById(R.id.editIdadeAcomp);
@@ -170,10 +205,11 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 			acompanhante.setCintura(edtCinturaAcomp.getText().toString());
 			acompanhante.setQuadril(edtQuadrilAcomp.getText().toString());
 			acompanhante.setOlhos(edtOlhosAcomp.getText().toString());
+			
 			if (rdNao.isChecked()) {
-				acompanhante.setPernoite("0");
+				acompanhante.setPernoite(0);
 			} else if (rdSim.isChecked()) {
-			   	acompanhante.setPernoite("1");
+			   	acompanhante.setPernoite(1);
 			}
 			if (rdhomem.isChecked()) {
 				acompanhante.setAtendo("Homens");
@@ -219,4 +255,95 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 			}	
 		}
 	}
-}
+	
+	class buscarAcompanhantePorIdAsyncTask extends AsyncTask<String, String, Modelo>  
+	{
+			ProgressDialog dialog;
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				dialog = ProgressDialog.show(CadastroAcompanhanteActivity.this,
+						"Carregando Dados...", "Aguarde...",
+						true, false);
+			}
+
+
+			@Override
+			protected Modelo doInBackground(String... params) 
+			{
+				try
+				{
+					modeloRetorno = repositorio.acessarServidor("buscarAcompanhantePorId", modelo);
+				} catch (Exception e) {				
+					e.printStackTrace();
+				}
+				return modeloRetorno;
+			}
+		
+			
+			@Override
+			protected void onPostExecute(Modelo result) {
+				super.onPostExecute(result);
+				dialog.dismiss();
+				if (modeloRetorno.getStatus().equals("1"))
+				{
+					Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+					toast.show();
+				}else{				
+					Object dadosObject = modeloRetorno.getDados().get(0);
+					JSONObject jsonObject = null;
+					Gson gson = new Gson();
+					
+					try {
+						jsonObject = new JSONObject(gson.toJson(dadosObject));
+						edtNomeAcomp.setText(jsonObject.getString("nome"));
+						edtIdadeAcomp.setText(jsonObject.getString("idade"));
+						edtAlturaAcomp.setText(jsonObject.getString("altura"));
+						edtPesoAcomp.setText(jsonObject.getString("peso"));
+						edtCinturaAcomp.setText(jsonObject.getString("cintura"));
+						edtQuadrilAcomp.setText(jsonObject.getString("quadril"));
+						edtOlhosAcomp.setText(jsonObject.getString("olhos"));
+				
+						String sexo = jsonObject.getString("atendo");
+						if (sexo == "homem"){
+						rdhomem.setChecked(true);
+						
+						}else if(sexo == "mulher"){
+						rdmulher.setChecked(true);	
+						
+						}else{
+						rdambos.setChecked(true);
+							
+						}
+						
+						int pernoite = jsonObject.getInt("pernoite");
+						if (pernoite == 1){
+							rdSim.setChecked(true);
+						}else if (pernoite == 0){
+							rdNao.setChecked(true);
+						}
+					
+//						edtAtendoAcomp.setText(jsonObject.getString("altura"));
+						edtEspecialidadeAcomp.setText(jsonObject.getString("especialidade"));
+						edtHorarioAtendimentoAcomp.setText(jsonObject.getString("horario_atendimento"));
+						edtEmailAcomp.setText(jsonObject.getString("email"));
+						edtSenhaAcomp.setText(jsonObject.getString("senha"));
+						
+					} catch (JSONException e) {
+					}				
+					
+					Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+					toast.show();
+					finish();
+				}	
+			}
+	}
+	
+		
+		
+
+	}
+
+
+
+
