@@ -66,7 +66,7 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 	
 	
 		private void adicionarListers() {
-		
+			http://www.downloadfilmeseseries.tv/series-online/
 			this.btnAlterarStatus.setOnClickListener(this);
 			this.btnExcluirPerfil.setOnClickListener(this); 
 			this.btnEditarPerfil.setOnClickListener(this); 
