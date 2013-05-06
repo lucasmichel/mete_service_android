@@ -182,17 +182,17 @@ containing a value of this type.
         public static final int Peso=0x7f040050;
         public static final int Quadril=0x7f040048;
         public static final int Status=0x7f040054;
-        public static final int TermoUso=0x7f040092;
+        public static final int TermoUso=0x7f040093;
         public static final int TextView01=0x7f040079;
-        public static final int action_settings=0x7f040093;
-        public static final int btnAlterarStatus=0x7f040086;
+        public static final int action_settings=0x7f040094;
+        public static final int btnAlterarStatus=0x7f040087;
         public static final int btnAvancar=0x7f04003d;
-        public static final int btnCadastrarLocalizacao=0x7f04008a;
-        public static final int btnEditarPerfil=0x7f040087;
+        public static final int btnCadastrarLocalizacao=0x7f04008b;
+        public static final int btnEditarPerfil=0x7f040088;
         public static final int btnEntrar=0x7f04007c;
-        public static final int btnExcluirPerfil=0x7f040088;
+        public static final int btnExcluirPerfil=0x7f040089;
         public static final int btnMapa=0x7f040084;
-        public static final int btnSair=0x7f040089;
+        public static final int btnSair=0x7f04008a;
         public static final int btnTeste=0x7f040080;
         public static final int btnVoltar=0x7f04003c;
         public static final int btneditar=0x7f040082;
@@ -215,8 +215,8 @@ containing a value of this type.
         public static final int editPesoAcomp=0x7f040011;
         public static final int editQuadrilAcomp=0x7f040017;
         public static final int editSenhaAcomp=0x7f04002b;
-        public static final int editText1=0x7f040090;
-        public static final int editText2=0x7f040091;
+        public static final int editText1=0x7f040091;
+        public static final int editText2=0x7f040092;
         public static final int edtCPFCliente=0x7f040032;
         public static final int edtConfSenhaCliente=0x7f040038;
         public static final int edtEmailCliente=0x7f040034;
@@ -229,11 +229,11 @@ containing a value of this type.
         public static final int homem=0x7f04006f;
         public static final int hybrid=0x7f040004;
         public static final int imageStatus=0x7f040055;
-        public static final int imageView1=0x7f040085;
+        public static final int imageView1=0x7f040086;
         public static final int imgFoto=0x7f040070;
         public static final int imgFotoServico=0x7f040075;
-        public static final int listView1=0x7f04008c;
-        public static final int listView2=0x7f04008e;
+        public static final int listView1=0x7f04008d;
+        public static final int listView2=0x7f04008f;
         public static final int loginEmail=0x7f04007a;
         public static final int loginSenha=0x7f04007b;
         public static final int map=0x7f04007e;
@@ -280,9 +280,9 @@ containing a value of this type.
         public static final int textQuadrilAcomp=0x7f040016;
         public static final int textSenhaAcomp=0x7f04002a;
         public static final int textView1=0x7f040005;
-        public static final int textView2=0x7f04008b;
-        public static final int textView4=0x7f04008f;
-        public static final int textView5=0x7f04008d;
+        public static final int textView2=0x7f04008c;
+        public static final int textView4=0x7f040090;
+        public static final int textView5=0x7f04008e;
         public static final int textoCadastre=0x7f04007d;
         public static final int textoTermoUso=0x7f04003b;
         public static final int txtAlturaAcomp=0x7f040043;
@@ -304,6 +304,7 @@ containing a value of this type.
         public static final int txtQuadrilAcomp=0x7f040049;
         public static final int txtSenhaCliente=0x7f040035;
         public static final int txtUsuarioLogado=0x7f04007f;
+        public static final int txtUsuarioLogadoAcomp=0x7f040085;
     }
     public static final class layout {
         public static final int activity_alterar_status=0x7f030000;
