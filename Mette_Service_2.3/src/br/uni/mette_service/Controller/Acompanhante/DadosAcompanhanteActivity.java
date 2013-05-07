@@ -89,7 +89,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 			
 			break;	
 		case R.id.btnMapa:
-			it = new Intent (this, MapaActivity.class);
+			it = new Intent (this, ListarAcompanhanteActivity.class);
 			it.putExtra("acompanhanteSelecionada", dadosAcompanhante);
 			it.putExtra("mapaAcompSelecionada", mapaAcompSelecionada);
 			startActivity(it);

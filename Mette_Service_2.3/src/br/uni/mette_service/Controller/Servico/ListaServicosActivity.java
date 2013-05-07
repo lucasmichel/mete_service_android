@@ -33,6 +33,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListaServicosActivity extends ListActivity implements OnClickListener {
 
@@ -43,7 +44,12 @@ public class ListaServicosActivity extends ListActivity implements OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
         
-        new ServicosAsyncTask().execute();                                               
+        new ServicosAsyncTask().execute(); 
+        
+        //AVISO PARA OS INTEGRANTES QUE FOREM TESTAR
+        
+        Toast.makeText(this, "SO O SERVICO ANAL SE ENCONTRA CADASTRADO EM MAPA",
+        		Toast.LENGTH_LONG).show();
     }
     private void adicionarFindView() {
 		this.btnVoltar = (Button) findViewById(R.id.btnVoltar);

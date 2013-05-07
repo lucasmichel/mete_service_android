@@ -34,6 +34,11 @@
         android:id="@+id/btnop4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="CHAMAR EXCLUIR" />
+    <Button
+        android:id="@+id/btnListarServicos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="LISTAR SERVIÇOS" />
     
     <Button

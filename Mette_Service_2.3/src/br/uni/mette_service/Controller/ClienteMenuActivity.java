@@ -3,6 +3,8 @@ package br.uni.mette_service.Controller;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
+import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
+import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Util.PreferencesController;
@@ -40,7 +42,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private Button btnop2;
 	private Button btnop3;	
 	private Button btnMapa;
-			
+	private Button btnListarServicos;		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,6 +64,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		this.btnMapa = (Button) findViewById(R.id.btnMapa);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogado);
 		this.btnTeste = (Button) findViewById(R.id.btnTeste);
+		this.btnListarServicos = (Button) findViewById(R.id.btnListarServicos);
 	}
 	
 	public void adicionarListers() {		
@@ -70,6 +73,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		this.btnExcluir.setOnClickListener(this);
 		this.btnEditar.setOnClickListener(this);
 		this.btnMapa.setOnClickListener(this);
+		this.btnListarServicos.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
@@ -87,6 +91,14 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			break;	
 		case R.id.btnTeste:
 			it = new Intent(this, ListarAcompanhanteActivity.class);					
+			startActivity(it);
+			break;
+		case R.id.btnListarServicos:
+			it = new Intent(this, ListaServicosActivity.class);					
+			startActivity(it);
+			break;
+		case R.id.btnMapa:
+			it = new Intent(this, MapaActivity.class);					
 			startActivity(it);
 			break;
 		}		

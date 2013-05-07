@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.widget.Toast;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Model.Servico;
+import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
 import com.google.android.gms.common.ConnectionResult;
@@ -153,6 +154,9 @@ implements LocationListener{
 			
 			Modelo locRetorno = new Modelo();
 			Modelo modelo = new Modelo();
+			
+			
+			
 
 			locRetorno = repositorio.acessarServidorMAPA("s/3fxqqgjx9q18kl0/log1.txt", modelo);
 
@@ -161,6 +165,15 @@ implements LocationListener{
 		
 		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
+			
+			//--- PARA LISTAR POR SERVICO --- 
+			
+			Servico servicoIntent = new Servico();
+			servicoIntent = (Servico) getIntent().getSerializableExtra("servico");
+			Log.i("PEDRO1", servicoIntent.getNome());
+			Log.i("SOSTENES", servicoIntent.getNome());
+			System.out.println(" AQUIIIII .......   " + servicoIntent.getNome());
+			
 			
 			for ( int i = 0; i < result.getDados().size(); ++i){
 				
@@ -184,7 +197,7 @@ implements LocationListener{
 			
 			Log.i("envio", " num"+ i +"....latitude" + lat + "...long" + log  );
 
-//			if ( jsonObject.getString("Servico").equals("Anal")){
+			if ( jsonObject.getString("Servico").equals(servicoIntent.getNome())){
 			
 			LatLng latLog	= new LatLng(lat, log);
 			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
@@ -196,7 +209,7 @@ implements LocationListener{
 			  R.drawable.pin)).
 			  title(serv.getNome())  
 			  .snippet("R$: "+ jsonObject.getString("Valor")));
-//			}
+			}
 			
 			}catch (Exception e) {
 				e.printStackTrace();			
