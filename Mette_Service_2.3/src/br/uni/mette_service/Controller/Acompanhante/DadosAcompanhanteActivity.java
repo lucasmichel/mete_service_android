@@ -1,153 +1,104 @@
 package br.uni.mette_service.Controller.Acompanhante;
 
 import br.uni.mette_service.R;
+import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Acompanhante;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DadosAcompanhanteActivity extends Activity implements OnClickListener {
 
+	boolean mapaAcompSelecionada = true;
 	private TextView nome, idade, peso, altura, busto, cintura,
 	atendo, quadril, olhos, pernoite, horario_atent;
 	ImageView status;
-	private Acompanhante acomp;
+	private Acompanhante dadosAcompanhante;
+	private Button btnAvaliar, btnMapa , btnVoltar;
+	
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dados_acomp);
-	
-	this.nome = (TextView) this.findViewById(R.id.txtNomeAcomp);
-	this.idade = (TextView) this.findViewById(R.id.txtIdadeAcomp);
-	this.altura = (TextView) this.findViewById(R.id.txtAlturaAcomp);
-	this.busto = (TextView) this.findViewById(R.id.txtBustoAcomp);
-	this.atendo = (TextView) this.findViewById(R.id.txtAtentoAcomp);
-	this.cintura = (TextView) this.findViewById(R.id.txtCinturaAcomp);
-	this.quadril = (TextView) this.findViewById(R.id.txtQuadrilAcomp);
-	this.olhos = (TextView) this.findViewById(R.id.txtOlhosAcomp);
-	this.pernoite = (TextView) this.findViewById(R.id.txtPernoiteAcomp);
-	this.horario_atent = (TextView) this.findViewById(R.id.txtHorarioAcomp);
-	this.peso = (TextView) this.findViewById(R.id.txtPesoAcomp);
-	this.status = (ImageView) this.findViewById(R.id.imageStatus);
-	
-	
-	
-	acomp = (Acompanhante) getIntent().getSerializableExtra("acompan");
+
+		adicionarFindView();			
+		adicionarListers();
+		
+	dadosAcompanhante = (Acompanhante) getIntent().getSerializableExtra("acompanhante");
 //	new informacaoMeninasAsyncTask().execute();
 	
-	nome.setText(acomp.getNome());
-	idade.setText(acomp.getIdade());
-	altura.setText(acomp.getAltura());
-	busto.setText(acomp.getBusto());
-	atendo.setText(acomp.getAtendo());
-	cintura.setText(acomp.getCintura());
-	quadril.setText(acomp.getQuadril());
-	olhos.setText(acomp.getOlhos());
-//	pernoite.setText(acomp.getPernoite());
-	horario_atent.setText(acomp.getHorarioAtendimento());
-	peso.setText(acomp.getPeso());
+	nome.setText(dadosAcompanhante.getNome());
+	idade.setText(dadosAcompanhante.getIdade());
+	altura.setText(dadosAcompanhante.getAltura());
+	busto.setText(dadosAcompanhante.getBusto());
+	atendo.setText(dadosAcompanhante.getAtendo());
+	cintura.setText(dadosAcompanhante.getCintura());
+	quadril.setText(dadosAcompanhante.getQuadril());
+	olhos.setText(dadosAcompanhante.getOlhos());
+//	pernoite.setText(dadosAcompanhante.getPernoite());
+	horario_atent.setText(dadosAcompanhante.getHorarioAtendimento());
+	peso.setText(dadosAcompanhante.getPeso());
 	
-//	if (acomp.getStatusAt().equals("ocupada")) {
-//		status.setImageResource(R.drawable.ocupada);
-//	} else if (acomp.getStatusAt().equals("livre")) {
-//		status.setImageResource(R.drawable.livre);
-//	}
-	
-	
-	
-	//para a foto da acom
-//	BitmapManager.getInstance().loadBitmap(acomp.getFoto(), imagem);
+	if ( dadosAcompanhante.getPernoite() == 0){
+		pernoite.setText("Faço pernoite");
+	}else {
+		pernoite.setText("Não faço pernoite");
+	}
+	//ADICIONAR OS FINDVIEW E OS BOTOES PARA CLICK
 
 }
-//class informacaoMeninasAsyncTask extends AsyncTask<Void, Void, Acompanhante> {
-//
-//	ProgressDialog dialog;
-//
-//	@Override
-//	protected void onPreExecute() {
-//		super.onPreExecute();
-//		dialog = ProgressDialog.show(DadosAcompanhanteActivity.this, "Aguarde",
-//				acomp.getAtendo() + " toda sua companheiro!", true, false);
-//	}
-//
-//	@Override
-//	protected Acompanhante doInBackground(Void... params) {
-//		HttpClient cliente = new DefaultHttpClient();
-//
-//		HttpPost get = new HttpPost(
-//				"https://dl.dropbox.com/s/itwq2o3knlomodo/js.json"  );
-//		Acompanhante acompanh = new Acompanhante();
-//
-//		try {
-//			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-//			nameValuePairs.add(new BasicNameValuePair("id", String
-//					.valueOf(acomp.getId())));
-//			get.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-//
-//			HttpResponse resposta = cliente.execute(get);
-//			String s = toString(resposta.getEntity().getContent());
-//			JSONObject objeto = new JSONObject(s);
-//
-//			
-////			acomp.setBusto(objeto.getString("busto"));
-////			acomp.setAltura(objeto.getString("altura"));
-//			
-//			acomp.setNome(objeto.getString("nome"));
-//			acomp.setEspecialidade(objeto.getString("especialidade"));
-//			acomp.setIdade(objeto.getString("idade"));
-//			acomp.setStatus(objeto.getString("status"));
-//			acomp.setBusto(objeto.getString("busto"));
-////			acomp.setAltura(objeto.getString("altura"));
-////			acomp.setCintura(objeto.getString("cintura"));
-////			acomp.setQuadril(objeto.getString("quadril"));
-////			acomp.setOlhos(objeto.getString("olhos"));
-////			acomp.setPernoite(objeto.getString("pernoite"));
-////			acomp.setAtendo(objeto.getString("atendo"));
-////			acomp.setHorario_atentimento(objeto.getString("horario_aten"));
-////			acomp.setPeso(objeto.getString("peso"));
-////			acomp.setStatus(objeto.getString("status"));
-//			
-//			
-//			
-//			Log.i("pedro", "oiii: " + objeto.getString("busto"));
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return acompanh;
-//	}
-//
-//	@Override
-//	protected void onPostExecute(Acompanhante acompanhante) {
-//		super.onPostExecute(acompanhante);
-//		if (acompanhante != null) {
-////			peso.setText(acompanhante.getPeso());
-//			altura.setText(acompanhante.getAltura());
-////			atendo.setText(acompanhante.getAtendo());
-//			busto.setText(acompanhante.getBusto());
-//			
-//		}
-//		dialog.dismiss();
-//	}
-//
-//	private String toString(InputStream is) throws IOException {
-//
-//		byte[] bytes = new byte[1024];
-//		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//		int lidos;
-//		while ((lidos = is.read(bytes)) > 0) {
-//			baos.write(bytes, 0, lidos);
-//		}
-//		return new String(baos.toByteArray());
-//	}
-//
-//}
+
+	private void adicionarFindView() {
+		
+		this.nome = (TextView) this.findViewById(R.id.txtNomeAcomp);
+		this.idade = (TextView) this.findViewById(R.id.txtIdadeAcomp);
+		this.altura = (TextView) this.findViewById(R.id.txtAlturaAcomp);
+		this.busto = (TextView) this.findViewById(R.id.txtBustoAcomp);
+		this.atendo = (TextView) this.findViewById(R.id.txtAtentoAcomp);
+		this.cintura = (TextView) this.findViewById(R.id.txtCinturaAcomp);
+		this.quadril = (TextView) this.findViewById(R.id.txtQuadrilAcomp);
+		this.olhos = (TextView) this.findViewById(R.id.txtOlhosAcomp);
+		this.pernoite = (TextView) this.findViewById(R.id.txtPernoiteAcomp);
+		this.horario_atent = (TextView) this.findViewById(R.id.txtHorarioAcomp);
+		this.peso = (TextView) this.findViewById(R.id.txtPesoAcomp);
+		this.status = (ImageView) this.findViewById(R.id.imageStatus);
+		//--BOTOES--
+		this.btnAvaliar = (Button) this.findViewById(R.id.btnAvaliar);
+		this.btnMapa = (Button) this.findViewById(R.id.btnMapa);
+		this.btnVoltar = (Button) this.findViewById(R.id.btnVoltarDados);
+		
+}
+	
+	public void adicionarListers() {
+
+		this.btnAvaliar.setOnClickListener(this);
+		this.btnMapa.setOnClickListener(this);
+		this.btnVoltar.setOnClickListener(this);
+		
+	}
 
 	public void onClick(View v) {
+		Intent it = null;
+		switch (v.getId()) {
+		case R.id.btnAvaliar:
+			
+			break;	
+		case R.id.btnMapa:
+			it = new Intent (this, MapaActivity.class);
+			it.putExtra("acompanhanteSelecionada", dadosAcompanhante);
+			it.putExtra("mapaAcompSelecionada", mapaAcompSelecionada);
+			startActivity(it);
+			break;	
+		case R.id.btnVoltar:
+			finish();
+			break;
 		
+		}
 	}
 
 }

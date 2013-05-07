@@ -1,6 +1,7 @@
 package br.uni.mette_service.Controller;
 
 import br.uni.mette_service.R;
+import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
@@ -84,6 +85,10 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			Toast toast = Toast.makeText(ClienteMenuActivity.this, "Chamar Excluir", Toast.LENGTH_LONG);
 			toast.show();			
 			break;	
+		case R.id.btnTeste:
+			it = new Intent(this, ListarAcompanhanteActivity.class);					
+			startActivity(it);
+			break;
 		}		
 		
 	}

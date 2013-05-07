@@ -35,6 +35,8 @@
     <string name="textoTermoUso">Termo de uso.</string>
     <string name="aceito"> Aceito os termos de uso.</string>
     <string name="cadastarLocalizacao">Cadastrar Localizacao</string>
+    <string name="localizacao">Localização</string>
+    <string name="avaliarAcompanhante">Avaliar</string>
    
     <string name="encontro_paraselecionar"> - Para Incluir </string>
     <string name="encontro_cliqueaqui">Clique Aqui</string>
