@@ -340,6 +340,7 @@ containing a value of this type.
         public static final int aceito=0x7f050031;
         public static final int action_settings=0x7f050012;
         public static final int alterandostatus=0x7f05002e;
+        public static final int alterar=0x7f050044;
         public static final int alterarstatus=0x7f050027;
         public static final int altura=0x7f050016;
         public static final int app_name=0x7f050011;

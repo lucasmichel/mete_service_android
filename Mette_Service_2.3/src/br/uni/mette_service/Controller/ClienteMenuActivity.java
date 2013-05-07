@@ -2,8 +2,6 @@ package br.uni.mette_service.Controller;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
-import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
-import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Util.PreferencesController;
@@ -27,11 +25,21 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private Button btnEditar;
 	
 	private Cliente cliente;
-	private EditText CCnome, CCcpf, CCtelefone, CCemail, CCsenha;
-	private Button btnTeste, CCavancar, CCvoltar;
-	private Button btnop2, btnop3, btnop4, btnMapa;
-	private TextView txtUsuarioLogado;	
+	private EditText txtNome; 
+	private EditText txtCpf; 
+	private EditText txtTelefone; 
+	private EditText txtEmail; 
+	private EditText txtSenha;
 		
+	private TextView txtUsuarioLogado;	
+	private Button btnTeste;
+	private Button btnAvancar;
+	private Button btnVoltar;
+	private Button btnExcluir;
+	private Button btnop2;
+	private Button btnop3;	
+	private Button btnMapa;
+			
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,24 +51,24 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	}
 	
 	private void adicionarFindView() {
-		this.CCnome = (EditText) findViewById(R.id.edtNomeCliente);
-		this.CCcpf = (EditText) findViewById(R.id.edtCPFCliente);		
-		this.CCemail = (EditText) findViewById(R.id.edtEmailCliente);
-		this.CCsenha = (EditText) findViewById(R.id.edtSenhaCliente);		
+		this.txtNome = (EditText) findViewById(R.id.edtNomeCliente);
+		this.txtCpf = (EditText) findViewById(R.id.edtCPFCliente);		
+		this.txtEmail = (EditText) findViewById(R.id.edtEmailCliente);
+		this.txtSenha = (EditText) findViewById(R.id.edtSenhaCliente);		
 		this.btnop2 = (Button) findViewById(R.id.btnop2);
 		this.btnEditar = (Button) findViewById(R.id.btneditar);
-		this.btnop4 = (Button) findViewById(R.id.btnop4);
+		this.btnExcluir = (Button) findViewById(R.id.btnop4);
 		this.btnMapa = (Button) findViewById(R.id.btnMapa);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogado);
+		this.btnTeste = (Button) findViewById(R.id.btnTeste);
 	}
 	
-	public void adicionarListers() {
-		this.btnTeste = (Button) findViewById(R.id.btnTeste);
+	public void adicionarListers() {		
 		this.btnTeste.setOnClickListener(this);
 		this.btnop2.setOnClickListener(this);
+		this.btnExcluir.setOnClickListener(this);
 		this.btnEditar.setOnClickListener(this);
 		this.btnMapa.setOnClickListener(this);
-		this.btnop4.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
@@ -71,18 +79,12 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it.putExtra("usuarioLogado", usuarioLogado);	
 			it.putExtra("eEdicao", eEdicao);			
 			startActivity(it);
+			break;		
+		case R.id.btnop4:			
+			Toast toast = Toast.makeText(ClienteMenuActivity.this, "Chamar Excluir", Toast.LENGTH_LONG);
+			toast.show();			
 			break;	
-		case R.id.btnMapa:
-			it = new Intent(this, MapaActivity.class);					
-			startActivity(it);
-			break;	
-		case R.id.btnop4:
-			it = new Intent(this, ListaServicosActivity.class);					
-			startActivity(it);
-			break;
-		}
-		
-		
+		}		
 		
 	}
 }

@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.TermoUsoActivity;
+import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -33,9 +34,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CadastroClienteActivity extends Activity implements OnClickListener {
-	//chama um cliente para alterar para ter o atribudo chamado id!
 	
 	boolean eEdicao;
+	int idClienteEditar = 0;
 	Cliente cliente = new Cliente();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
@@ -91,6 +92,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	public void executarAlteracao(Usuario usuarioLogado){				
 			Toast toast = Toast.makeText(CadastroClienteActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
 			toast.show();						
+			CCavancar.setText(R.string.alterar);
 			listaCliente.clear();
 			cliente.setId(usuarioLogado.getIdUsuario());						
 			listaCliente.add(cliente);		
@@ -129,7 +131,35 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 							Toast.LENGTH_LONG).show();
 				}
 				else {
-					new cadastroClienteAsyncTask().execute();}
+					if (eEdicao)
+					{
+						
+						//
+						
+						listaCliente.clear();
+						Cliente clienteEditar = new Cliente();
+						
+						clienteEditar.setId(idClienteEditar);
+						clienteEditar.setIdUsuario(usuarioLogado.getIdUsuario());
+						clienteEditar.setNome(CCnome.getText().toString());
+						clienteEditar.setCpf(CCcpf.getText().toString());
+						clienteEditar.setEmail(CCemail.getText().toString());
+						clienteEditar.setSenha(CCsenha.getText().toString());
+						
+						Toast toast = Toast.makeText(CadastroClienteActivity.this,"Id: " + clienteEditar.getId() + "IdUsuario: " + clienteEditar.getIdUsuario(), Toast.LENGTH_LONG);
+						toast.show();						
+						
+						listaCliente.add(clienteEditar);
+						
+						modelo.setDados(listaCliente);
+						modelo.setMensagem("");
+						modelo.setStatus("");
+						
+						new editarClienteAsyncTask().execute();
+					}else{							
+						new cadastroClienteAsyncTask().execute();
+					}
+				}
 				}
 			break;
 		case R.id.btnVoltar:
@@ -190,7 +220,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 			}	
 		}
 	}
-	// buscarClientePorId
+	// buscarClientePorIdUsuario
 	class buscarClientePorIdAsyncTask extends AsyncTask<String, String, Modelo>  {
 		ProgressDialog dialog;
 		@Override
@@ -205,7 +235,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 		protected Modelo doInBackground(String... params) {	
 			try
 			{
-				modeloRetorno = repositorio.acessarServidor("buscarClientePorId", modelo);
+				modeloRetorno = repositorio.acessarServidor("buscarClientePorIdUsuario", modelo);
 			} catch (Exception e) {				
 				e.printStackTrace();
 			}
@@ -227,17 +257,60 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 				
 				try {
 					jsonObject = new JSONObject(gson.toJson(dadosObject));
-					CCnome.setText(jsonObject.getInt("nome"));
-					CCcpf.setText(jsonObject.getInt("cpf"));
-					CCemail.setText(jsonObject.getInt("email"));
-					CCsenha.setText(jsonObject.getInt("senha"));
+					
+					Log.i("SOSTENES", "RETORNO PARA MONTAR NA TELA" + gson.toJson(dadosObject));
+					CCnome.setText(jsonObject.getString("\u0000Cliente\u0000nome"));					
+					CCcpf.setText(jsonObject.getString("\u0000Cliente\u0000cpf"));
+					idClienteEditar = jsonObject.getInt("\u0000Cliente\u0000id");
+					CCemail.setText(usuarioLogado.getEmail());
+					checkTermoUso.setChecked(true);					
 				} catch (JSONException e) {
 				}				
 				
 				Toast toast = Toast.makeText(CadastroClienteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 				toast.show();
-				finish();
+				
 			}	
 		}
 	}	
+	
+	/////
+	// editarCliente
+		class editarClienteAsyncTask extends AsyncTask<String, String, Modelo>  {
+			ProgressDialog dialog;
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				dialog = ProgressDialog.show(CadastroClienteActivity.this,
+						"Cadastrando...", "Aguarde...",
+						true, false);
+			}
+
+			@Override
+			protected Modelo doInBackground(String... params) {	
+				try
+				{
+					modeloRetorno = repositorio.acessarServidor("editarCliente", modelo);
+				} catch (Exception e) {				
+					e.printStackTrace();
+				}
+				return modeloRetorno;
+			}
+
+			@Override
+			protected void onPostExecute(Modelo result) {
+				super.onPostExecute(result);
+				dialog.dismiss();
+				if (modeloRetorno.getStatus().equals("1"))
+				{
+					Toast toast = Toast.makeText(CadastroClienteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+					toast.show();
+				}else{									
+					Toast toast = Toast.makeText(CadastroClienteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+					toast.show();					
+				}	
+			}
+		}	
+		
+		//////
 }
