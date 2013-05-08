@@ -58,6 +58,8 @@
     <string name="rdambos">Ambos</string>
     <string name="alterar">Alterar</string>
     
+    <string name="btnCadastrarFoto">Cadastrar Foto</string>
+    
     
 
 </resources>

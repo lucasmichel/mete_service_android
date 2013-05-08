@@ -3,6 +3,7 @@ package br.uni.mette_service.Controller;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Acompanhante.AlterarStatusActivity;
 import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
+import br.uni.mette_service.Controller.Acompanhante.FotoAcompanhanteActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Usuario;
@@ -37,6 +38,8 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 	private Button btnAlterarStatus;
 	private Button btnSair;
 	private Button btnCadastrarLocalizacao;
+	private Button btnCadastrarFoto;
+	
 	private TextView txtUsuarioLogado;	
 	
 	Acompanhante acompanhanteRetorno, objacompanhante;
@@ -66,7 +69,7 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 	
 	
 		private void adicionarListers() {
-			http://www.downloadfilmeseseries.tv/series-online/
+			this.btnCadastrarFoto.setOnClickListener(this);
 			this.btnAlterarStatus.setOnClickListener(this);
 			this.btnExcluirPerfil.setOnClickListener(this); 
 			this.btnEditarPerfil.setOnClickListener(this); 
@@ -76,16 +79,13 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 	}
 
 		private void adicionarFindView() {
-			
+			this.btnCadastrarFoto = (Button) findViewById(R.id.btnCadastrarFoto);
 			this.btnAlterarStatus = (Button) findViewById(R.id.btnAlterarStatus);
 			this.btnEditarPerfil = (Button) findViewById(R.id.btnEditarPerfil);
 			this.btnExcluirPerfil = (Button) findViewById(R.id.btnExcluirPerfil);
 			this.btnSair = (Button) findViewById(R.id.btnSair);
 			this.btnCadastrarLocalizacao = (Button) findViewById(R.id.btnCadastrarLocalizacao);
 			this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogadoAcomp);
-			
-			
-			
 	}
 
 ////// MÉTODO PARA CARREGAR URL - FUTURAMENTE SERÁ RETIRADO
@@ -111,6 +111,13 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 		Intent it = null;
 		switch (v.getId()) {
 		
+		case R.id.btnCadastrarFoto:	
+			it = new Intent(this, FotoAcompanhanteActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
+			Toast.makeText(this, "Chamou Cadastrar Foto", Toast.LENGTH_LONG).show();
+			break;
+			
 		case R.id.btnAlterarStatus:	
 			it = new Intent(this, AlterarStatusActivity.class);
 			startActivity(it);
