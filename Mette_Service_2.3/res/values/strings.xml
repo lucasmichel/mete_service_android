@@ -37,6 +37,9 @@
     <string name="cadastarLocalizacao">Cadastrar Localizacao</string>
     <string name="localizacao">Localização</string>
     <string name="avaliarAcompanhante">Avaliar</string>
+    <string name="valor">Valor do servico</string>
+    <string name="servico">Servico</string>
+    <string name="cadastarServico">Cadastre um Serviço</string>
    
     <string name="encontro_paraselecionar"> - Para Incluir </string>
     <string name="encontro_cliqueaqui">Clique Aqui</string>

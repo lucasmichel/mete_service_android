@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 public class Servico  implements Serializable{
 
-	private String id;
+	private int id;
 	private String nome;
 	private List<Object> dados; //testando com Servico //sóstenes
 	
@@ -12,7 +12,7 @@ public class Servico  implements Serializable{
 		super();
 	}
 	
-	public Servico(String id, String nome, int status, String mensagem, List<Object> dados) {
+	public Servico(int id, String nome, int status, String mensagem, List<Object> dados) {
 		super();
 		this.id = id;
 		this.nome = nome;	
@@ -27,11 +27,11 @@ public class Servico  implements Serializable{
 		this.dados = dados;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

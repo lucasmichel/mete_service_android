@@ -67,13 +67,13 @@
                 android:text="@string/sair"/>
 
             <Button
-                android:id="@+id/btnCadastrarLocalizacao"
+                android:id="@+id/btnCadastrarServico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/cadastarLocalizacao"/>
+                android:text="@string/cadastarServico"/>
             
             <Button
                 android:id="@+id/btnCadastrarFoto"

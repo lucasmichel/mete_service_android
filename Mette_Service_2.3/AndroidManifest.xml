@@ -48,6 +48,8 @@
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Servico.ListaServicosActivity" >
         </activity>
+        <activity android:name="br.uni.mette_service.Controller.Servico.CadastroServicoActivity" >
+        </activity> 
         <activity android:name="br.uni.mette_service.Controller.AcompanhanteMenuActivity" >
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity" >
@@ -67,6 +69,8 @@
         <activity android:name=".Controller.Acompanhante.AlterarStatusActivity" >
         </activity>
         <activity android:name="br.uni.mette_service.Controller.TermoUsoActivity" >
+        </activity>
+        <activity android:name="br.uni.mette_service.Mapa.CadastrarServicoAcompMapa" >
         </activity>
         <activity android:name="br.uni.mette_service.Mapa.MapaActivity" >
         </activity>

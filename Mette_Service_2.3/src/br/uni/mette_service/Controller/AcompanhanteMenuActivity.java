@@ -4,6 +4,7 @@ import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Acompanhante.AlterarStatusActivity;
 import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
 import br.uni.mette_service.Controller.Acompanhante.FotoAcompanhanteActivity;
+import br.uni.mette_service.Controller.Servico.CadastroServicoActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Usuario;
@@ -37,7 +38,7 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 	private Button btnExcluirPerfil;
 	private Button btnAlterarStatus;
 	private Button btnSair;
-	private Button btnCadastrarLocalizacao;
+	private Button btnCadastrarServico;
 	private Button btnCadastrarFoto;
 	
 	private TextView txtUsuarioLogado;	
@@ -74,7 +75,7 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 			this.btnExcluirPerfil.setOnClickListener(this); 
 			this.btnEditarPerfil.setOnClickListener(this); 
 			this.btnSair.setOnClickListener(this); 
-			this.btnCadastrarLocalizacao.setOnClickListener(this); 
+			this.btnCadastrarServico.setOnClickListener(this); 
 			
 	}
 
@@ -84,7 +85,7 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 			this.btnEditarPerfil = (Button) findViewById(R.id.btnEditarPerfil);
 			this.btnExcluirPerfil = (Button) findViewById(R.id.btnExcluirPerfil);
 			this.btnSair = (Button) findViewById(R.id.btnSair);
-			this.btnCadastrarLocalizacao = (Button) findViewById(R.id.btnCadastrarLocalizacao);
+			this.btnCadastrarServico = (Button) findViewById(R.id.btnCadastrarServico);
 			this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogadoAcomp);
 	}
 
@@ -163,8 +164,9 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 			
 			break;
 			
-		case R.id.btnCadastrarLocalizacao:
-			it = new Intent(this, MapaActivity.class);
+		case R.id.btnCadastrarServico:
+			it = new Intent(this, CadastroServicoActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
 			
 			break;
