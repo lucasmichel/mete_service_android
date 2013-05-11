@@ -3,10 +3,14 @@ package br.uni.mette_service.Mapa;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -43,24 +47,23 @@ implements LocationListener{
 	Repositorio repositorio = new Repositorio();
 	Localizacao localizacaoCadastro = new Localizacao();
 	ServicoAcompanhante intentServicoAcomp = new ServicoAcompanhante();
-	Acompanhante intentAcompLogada = new Acompanhante();
-//	private Location location;
+	Modelo modeloRetorno = new Modelo();
+	List<Object> listaLocalizacoes = new ArrayList();
+	private AlertDialog alerta;
 	
 	protected void onCreate(Bundle savedInstanceState) {  
 	super.onCreate(savedInstanceState);  
 
-	
-	intentServicoAcomp = (ServicoAcompanhante) 
-				getIntent().getSerializableExtra("intentServicoAcompanhante");
-	
-	
-	System.out.println("id do servicoooo....." + "   " + intentServicoAcomp.getId());
-	
 		if (isGooglePlay()){
 			setContentView(R.layout.activity_mapa); 
 			setUpMap();
 		}
+		
+		intentServicoAcomp = (ServicoAcompanhante) 
+				getIntent().getSerializableExtra("intentServicoAcompanhante");
 	
+		Toast.makeText(this, "Clique no mapa para cadastrar um localização. ", 
+				Toast.LENGTH_LONG).show();
 	}
 	
 	private boolean isGooglePlay(){
@@ -143,60 +146,73 @@ implements LocationListener{
 			localizacaoCadastro.setLatitude(String.valueOf(point.latitude));
 			localizacaoCadastro.setLongitude(String.valueOf(point.longitude));
 			
-			localizacaoCadastro.getLatitude();
-			localizacaoCadastro.getLongitude();
+//			localizacaoCadastro.getLatitude();
+//			localizacaoCadastro.getLongitude();
 			
-			System.out.println("MAPAAAA   .." + localizacaoCadastro.getLatitude() + "   " + localizacaoCadastro.getLongitude());
-			Toast.makeText(CadastrarServicoAcompMapa.this, "latitude  " + point.latitude, Toast.LENGTH_LONG).show();
+			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
+		    
+			//define o titulo
+		    builder.setTitle("Localizações");
+		    
+		    //define a mensagem
+		    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
+		    
+		    //define um botão como positivo
+		    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        	
+		        	Localizacao localizacaoLista = new Localizacao();
+		        	boolean sim = true;
+		        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
+		        	
+
+		        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
+		        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());
+		        	
+		        	listaLocalizacoes.add(localizacaoLista);
+		        	sim(true);
+		        	Toast.makeText(CadastrarServicoAcompMapa.this, "Selecione outro ponto.",
+		        			Toast.LENGTH_LONG).show();
+		        	
+		        	Gson gson = new Gson();
+		        String i =	gson.toJson(listaLocalizacoes);
+		        	System.out.println(i);
+		        	
+		        }
+		    });
+		    
+		    //define um botão como negativo.
+		    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        	
+		        	new	cadastrarServicoMapaAsyncTask().execute();
+		       
+		        }
+		    });
+		    //cria o AlertDialog
+		    alerta = builder.create();
+		    //Exibe
+		    alerta.show();
+
 		}
 	};
 	}
 	
-	private void cadastrarServico() {
-		
-		intentServicoAcomp = (ServicoAcompanhante) getIntent().getSerializableExtra("servicoAcomp");
-		intentAcompLogada = (Acompanhante) getIntent().getSerializableExtra("acompanhanteLogada");		
-		
-		//-----
-		//VALORES QUE PRECISA PASSAR PARA O WEB SERVICE..
-		
-		intentServicoAcomp.getServicoId(); // ID DO SERVICO
-		intentServicoAcomp.getValor(); // VALOR DO SERVICO
-		
-		intentAcompLogada.getId(); // ID DA NEGA
-		
-//		localizacaoCadastro.getLatitude(); // LATITUDE
-//		localizacaoCadastro.getLongitude(); // LONGITUDE
-		
-		System.out.println("id do servico:  " + intentServicoAcomp.getServicoId() +
-				"    valor: " +intentServicoAcomp.getValor() + 
-				"   id da nega " + intentAcompLogada.getId());
-
-
-//		android.content.DialogInterface.OnClickListener trataDialog = new android.content.DialogInterface.OnClickListener() 
-//		{
-//			
-//			public void onClick(DialogInterface dialog, int which) 
-//			{
-//				
-//				// Vai execultar a AssyncTask
-//			//	acompanhanteRetorno = 
-//			//			objacompanhante.excluirAcompanhante(objacompanhante);
-//			}
-//		};
-//		
-//		AlertDialog alert = new AlertDialog.Builder(this)
-//		.setTitle("Confirmação")
-//		.setMessage("Deseja realmente excluir?")
-//		.setPositiveButton("Não", trataDialog)
-//		.setNegativeButton("Sim", null).create();
-//	alert.show();
+	private void sim(boolean b){
 	
+		onLongClick();
 		
 	}
 	
+	private void cadastrarServico() {
 	
-	//CLASS ASYNCTASK PARA LISTAR TODOS O SERVIÇOS.
+		onLongClick();
+
+	}
+	
+		//----
+		//CLASS ASYNCTASK PARA LISTAR TODOS O SERVIÇOS.
+		//----
 		class mapaAsyncTask extends AsyncTask<Void, Void, Modelo>{
 
 		
@@ -265,6 +281,7 @@ implements LocationListener{
 		}
 	}
 }
+		
 		//----
 		// CLASS ASYNCTASK PARA LISTAR O SERVICO ESCOLHIDO PELO CLIENTE.
 		//----
@@ -349,6 +366,49 @@ implements LocationListener{
 		}
 	}
 		
+		//----
+		// CLASS ASYNCTASK PARA CADASTRAR A LOCALIZAÇÃO DO SERVICO.
+		//----
+		class cadastrarServicoMapaAsyncTask extends AsyncTask<String, String, Modelo> {
+			ProgressDialog dialog;
+
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				dialog = ProgressDialog.show(CadastrarServicoAcompMapa.this,
+						"Cadastrando a localização", "Aguarde...",
+						true, false);
+			}
+
+			@Override
+			protected Modelo doInBackground(String... params) {
+				Modelo modelo = new Modelo();
+				
+				modelo.setDados(listaLocalizacoes);
+				modelo.setMensagem("");
+				modelo.setStatus("");
+				try
+				{
+					modeloRetorno = repositorio.acessarServidor("cadastrarLocalizacaoServicoAcompanhante", modelo);
+				} catch (Exception e) {				
+					e.printStackTrace();
+				}
+			
+				return modeloRetorno;
+			}
+
+			@Override
+			protected void onPostExecute(Modelo result) {
+				super.onPostExecute(result);
+				dialog.dismiss();
+				if (modeloRetorno.getStatus().equals("1"))
+				{
+					Toast toast = Toast.makeText(CadastrarServicoAcompMapa.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+					toast.show();
+					finish();
+				}	
+			}
+		}
 	
 	
 }

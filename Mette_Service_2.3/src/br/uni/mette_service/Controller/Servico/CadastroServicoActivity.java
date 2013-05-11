@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Mapa.CadastrarServicoAcompMapa;
+import br.uni.mette_service.Mapa.Localizacao;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Servico;
 import br.uni.mette_service.Model.Usuario;
@@ -21,7 +22,9 @@ import br.uni.mette_service.Model.Repositorio.Repositorio;
 import com.google.gson.Gson;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,8 +51,10 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 	Acompanhante acompanhante = new Acompanhante();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
+	Servico servico = new Servico();
 	Acompanhante buscarAcompanhante = new Acompanhante();
 	List<Object> listaServicoAcompanhante = new ArrayList();
+	private AlertDialog alerta;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +75,13 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 
 	        public void onItemSelected(AdapterView<?> arg0,View arg1, int arg2, long arg3) {
 	                                                
-	        	Servico servico = (Servico) arg0.getItemAtPosition(arg2);
+	        	servico = (Servico) arg0.getItemAtPosition(arg2);
 	        	
 	        	Toast.makeText(CadastroServicoActivity.this, "Serviço Selecionado: " +
 	        									servico.getNome(), Toast.LENGTH_LONG).show();
 	        	
 	        	servicoAcompanhante.setServicoId(servico.getId());
+	        	
 	        	Log.i("teste", "oii  " + servicoAcompanhante.getServicoId());
 	        }
 
@@ -131,8 +137,38 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 			
 			servicoAcompanhante.setValor(editValor.getText().toString());	
 
-			//CHAMAR ASYNCTASK PARA CADASTRAR O SERVICO
-			 new cadastrarServicoAsyncTask().execute();
+			AlertDialog.Builder builder = new AlertDialog.Builder(CadastroServicoActivity.this);
+			  
+			//define o titulo
+		    builder.setTitle("Casdatrar Serviço");
+		    
+		    //define a mensagem
+	    builder.setMessage("Deseja cadastrar o serviço " + servico.getNome()
+	    					+ " " + "no valor de: R$ " + servicoAcompanhante.getValor()
+	    					+ " reais" );
+		    
+		    //define um botão como positivo
+		    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        	
+		        	new cadastrarServicoAsyncTask().execute();
+		        	
+		        }
+		    });
+		    
+		    //define um botão como negativo.
+		    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        		 alerta.dismiss();
+		        }
+		    });
+		    //cria o AlertDialog
+		    alerta = builder.create();
+		    //Exibe
+		    alerta.show();
+
+
+			 
 			
 			break;		
 		case R.id.btnVoltar:			
@@ -343,24 +379,21 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 					JSONObject jsonObject = null;
 					Gson gson = new Gson();
 					
-					try {
-						jsonObject = new JSONObject(gson.toJson(dadosObject));
+				try {
+					jsonObject = new JSONObject(gson.toJson(dadosObject));
 						
-			ServicoAcompanhante servicoAcompanhanteRetorno = new ServicoAcompanhante();
+					ServicoAcompanhante servicoAcompanhanteRetorno = new ServicoAcompanhante();
 			
-			servicoAcompanhanteRetorno.setId(
+					servicoAcompanhanteRetorno.setId(
 						jsonObject.getInt("\u0000ServicosAcompanhante\u0000id"));
 				
-			//INTENT PARA PASSAR AO MAPA PARA CADASTRO DA LOCALIZAÇÃO
+						//INTENT PARA PASSAR AO MAPA PARA CADASTRO DA LOCALIZAÇÃO
 						Intent it = new Intent(CadastroServicoActivity.this, CadastrarServicoAcompMapa.class);
 						it.putExtra("intentServicoAcompanhante", servicoAcompanhanteRetorno);
 							startActivity(it);
 					
 					} catch (JSONException e) {
 					}				
-					
-					Toast toast = Toast.makeText(CadastroServicoActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-					toast.show();
 					finish();
 				}	
 				}	
