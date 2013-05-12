@@ -5,18 +5,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -50,6 +54,9 @@ implements LocationListener{
 	Modelo modeloRetorno = new Modelo();
 	List<Object> listaLocalizacoes = new ArrayList();
 	private AlertDialog alerta;
+	Handler handler = new Handler();
+	
+	String st = new String();
 	
 	protected void onCreate(Bundle savedInstanceState) {  
 	super.onCreate(savedInstanceState);  
@@ -146,56 +153,187 @@ implements LocationListener{
 			localizacaoCadastro.setLatitude(String.valueOf(point.latitude));
 			localizacaoCadastro.setLongitude(String.valueOf(point.longitude));
 			
-//			localizacaoCadastro.getLatitude();
-//			localizacaoCadastro.getLongitude();
 			
-			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
-		    
-			//define o titulo
-		    builder.setTitle("Localizações");
-		    
-		    //define a mensagem
-		    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
-		    
-		    //define um botão como positivo
-		    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface arg0, int arg1) {
-		        	
-		        	Localizacao localizacaoLista = new Localizacao();
-		        	boolean sim = true;
-		        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
-		        	
+			Geocoder geocoder = new Geocoder(
+					CadastrarServicoAcompMapa.this, Locale.getDefault());
+			List<Address> addresses = null;
+			
+			   try {
 
-		        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
-		        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());
-		        	
-		        	listaLocalizacoes.add(localizacaoLista);
-		        	sim(true);
-		        	Toast.makeText(CadastrarServicoAcompMapa.this, "Selecione outro ponto.",
-		        			Toast.LENGTH_LONG).show();
-		        	
-		        	Gson gson = new Gson();
+				   addresses = geocoder.getFromLocation(
+					Double.parseDouble(localizacaoCadastro.getLatitude()),
+					Double.parseDouble(localizacaoCadastro.getLongitude()),1);
+				   
+			   } catch (final IOException e) {}
+			  
+			   
+			   		if (addresses != null) {
+			   			final Address endereco = addresses.get(0);
+
+			   			handler.post(new Runnable() {
+			   				public void run() {
+
+			   					StringBuilder strReturnedAddress = new StringBuilder();
+			   					for (int i = 0; i < endereco.getMaxAddressLineIndex(); i++) {
+			   						
+			   						strReturnedAddress.append(endereco.getAddressLine(i));
+			   					}    	
+			   						localizacaoCadastro.setEnderecoFormatado(
+			   								strReturnedAddress.toString());
+			   				}
+
+			   			});
+			   		}
+
+        	
+//        	Localizacao localizacaoLista = new Localizacao();
+//        	
+//        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
+//        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
+//        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());  	
+//        	localizacaoLista.setEnderecoFormatado(localizacaoCadastro.getEnderecoFormatado());
+//        	
+//        	listaLocalizacoes.add(localizacaoLista);
+//
+//        	
+//        	Gson gson = new Gson();
+//	        String i =	gson.toJson(listaLocalizacoes);
+//	        	System.out.println(i);
+//	        
+//	        	Log.i("gson", i);
+	        novaLocalizacao();
+			
+			
+
+//			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
+//		    
+//			//define o titulo
+//		    builder.setTitle("Localizações");
+//		    
+//		    //define a mensagem
+//		    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
+//		    
+//		    //define um botão como positivo
+//		    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+//		        public void onClick(DialogInterface arg0, int arg1) {
+//		        	
+//		        	Localizacao localizacaoLista = new Localizacao();
+//		        	boolean sim = true;
+//		        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
+//		        	
+//
+//		        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
+//		        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());
+//		        	
+//		        	buscarEndereco(); //METODO PARA PEGAR O GEOCODER COM AS COORDENADAS
+//		        	
+//		        	listaLocalizacoes.add(localizacaoLista);
+//		        	
+//		        	sim(true);
+//		        	
+//		        	Toast.makeText(CadastrarServicoAcompMapa.this, "Selecione outro ponto.",
+//		        			Toast.LENGTH_LONG).show();
+//		        	
+//		        	Gson gson = new Gson();
+//		        String i =	gson.toJson(listaLocalizacoes);
+//		        	System.out.println(i);
+//		        	
+//		        }
+//		    });
+//		    
+//		    //define um botão como negativo.
+//		    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+//		        public void onClick(DialogInterface arg0, int arg1) {
+//		        	
+//		        	new	cadastrarServicoMapaAsyncTask().execute();
+//		       
+//		        }
+//		    });
+//		    //cria o AlertDialog
+//		    alerta = builder.create();
+//		    //Exibe
+//		    alerta.show();
+//
+//		}
+//	};
+			
+			
+	}
+	
+	private void novaLocalizacao (){
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
+	    
+		//define o titulo
+	    builder.setTitle("Localizações");
+	    
+	    //define a mensagem
+	    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
+	    
+	    //define um botão como positivo
+	    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+	        	
+	        	Localizacao localizacaoLista = new Localizacao();
+	        	
+	        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
+	        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
+	        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());  	
+	        	localizacaoLista.setEnderecoFormatado(localizacaoCadastro.getEnderecoFormatado());
+	        	
+	        	listaLocalizacoes.add(localizacaoLista);
+
+	        	
+	        	Gson gson = new Gson();
 		        String i =	gson.toJson(listaLocalizacoes);
 		        	System.out.println(i);
-		        	
-		        }
-		    });
-		    
-		    //define um botão como negativo.
-		    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface arg0, int arg1) {
-		        	
-		        	new	cadastrarServicoMapaAsyncTask().execute();
-		       
-		        }
-		    });
-		    //cria o AlertDialog
-		    alerta = builder.create();
-		    //Exibe
-		    alerta.show();
+		        
+		        	Log.i("gson", i);
+	        	
+	        	
+	        	
+	        	onLongClick();
+	        	
+//	        	Localizacao localizacaoLista = new Localizacao();
+//	        	boolean sim = true;
+//	        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
+//	        	
+//
+//	        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
+//	        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());
+//	        	
+//	        	buscarEndereco(); //METODO PARA PEGAR O GEOCODER COM AS COORDENADAS
+//	        	
+//	        	listaLocalizacoes.add(localizacaoLista);
+//	        	
+//	        	sim(true);
+//	        	
+//	        	Toast.makeText(CadastrarServicoAcompMapa.this, "Selecione outro ponto.",
+//	        			Toast.LENGTH_LONG).show();
+//	        	
+//	        	Gson gson = new Gson();
+//	        String i =	gson.toJson(listaLocalizacoes);
+//	        	System.out.println(i);
+	        	
+	        }
+	    });
+	    
+	    //define um botão como negativo.
+	    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+	        	
+	        	new	cadastrarServicoMapaAsyncTask().execute();
+	       
+	        }
+	    });
+	    //cria o AlertDialog
+	    alerta = builder.create();
+	    //Exibe
+	    alerta.show();
 
-		}
-	};
+	}
+};
+		
 	}
 	
 	private void sim(boolean b){
@@ -204,12 +342,46 @@ implements LocationListener{
 		
 	}
 	
+	
 	private void cadastrarServico() {
 	
 		onLongClick();
 
 	}
 	
+//	private void buscarEndereco(){
+//		
+//		Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+//		List<Address> addresses = null;
+//		
+//		   try {
+//
+//			   addresses = geocoder.getFromLocation(
+//				Double.parseDouble(localizacaoCadastro.getLatitude()),
+//				Double.parseDouble(localizacaoCadastro.getLongitude()),1);
+//			   
+//		   } catch (final IOException e) {}
+//		  
+//		   
+//		   		if (addresses != null) {
+//		   			final Address endereco = addresses.get(0);
+//
+//		   			handler.post(new Runnable() {
+//		   				public void run() {
+//
+//		   					
+//		   					for (int i = 0; i < endereco.getMaxAddressLineIndex(); i++) {
+//
+//		   						strReturnedAddress.append(endereco.getAddressLine(i));
+//		   					}    	
+//		   						localizacaoCadastro.setEnderecoFormatado(
+//		   								strReturnedAddress.toString());
+//		   				}
+//
+//		   			});
+//		   		}
+//		return st = strReturnedAddress.toString();
+//	}
 		//----
 		//CLASS ASYNCTASK PARA LISTAR TODOS O SERVIÇOS.
 		//----

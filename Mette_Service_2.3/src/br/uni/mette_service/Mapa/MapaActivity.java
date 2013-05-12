@@ -133,6 +133,7 @@ implements LocationListener{
 		public void onMapLongClick(LatLng point) {
 			// TODO Auto-generated method stub
 			System.out.println(point.toString());
+			Log.i("teste", point.toString());
 			Toast.makeText(MapaActivity.this, point.toString(), Toast.LENGTH_LONG).show();
 		}
 	};
