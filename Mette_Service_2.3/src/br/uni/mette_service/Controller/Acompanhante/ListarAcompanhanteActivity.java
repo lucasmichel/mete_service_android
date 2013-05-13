@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Model.Acompanhante;
+import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
 
@@ -31,12 +32,14 @@ public class ListarAcompanhanteActivity extends ListActivity
 										implements OnClickListener{
 	//---------
 private Button btnVoltar;
-	
+Usuario usuarioLogado = new Usuario();
+
 	Repositorio repositorio = new Repositorio();
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
         
+        usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
         new ServicosAsyncTask().execute();                                               
     }
     private void adicionarFindView() {
@@ -146,6 +149,7 @@ private Button btnVoltar;
 
 	Intent it = new Intent(this, DadosAcompanhanteActivity.class);
 	it.putExtra("acompanhante", acompanhante);
+	it.putExtra("usuarioLogado", usuarioLogado);
 	startActivity(it);
 }
 

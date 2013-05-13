@@ -1,8 +1,9 @@
 package br.uni.mette_service.Controller.Acompanhante;
 
 import br.uni.mette_service.R;
-import br.uni.mette_service.Mapa.MapaActivity;
+import br.uni.mette_service.Controller.Avaliacao.CadastroAvaliacaoActivity;
 import br.uni.mette_service.Model.Acompanhante;
+import br.uni.mette_service.Model.Usuario;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +21,14 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	ImageView status;
 	private Acompanhante dadosAcompanhante;
 	private Button btnAvaliar, btnMapa , btnVoltar;
+	Usuario usuarioLogado = new Usuario();
 	
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dados_acomp);
 
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
 		adicionarFindView();			
 		adicionarListers();
 		
@@ -45,9 +48,9 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	peso.setText(dadosAcompanhante.getPeso());
 	
 	if ( dadosAcompanhante.getPernoite() == 0){
-		pernoite.setText("Faço pernoite");
-	}else {
 		pernoite.setText("Não faço pernoite");
+	}else {
+		pernoite.setText("Faço pernoite");
 	}
 	//ADICIONAR OS FINDVIEW E OS BOTOES PARA CLICK
 
@@ -86,7 +89,10 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 		Intent it = null;
 		switch (v.getId()) {
 		case R.id.btnAvaliar:
-			
+			it = new Intent(this, CadastroAvaliacaoActivity.class);
+			it.putExtra("acompanhanteSelecionada", dadosAcompanhante);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
 			break;	
 		case R.id.btnMapa:
 			it = new Intent (this, ListarAcompanhanteActivity.class);

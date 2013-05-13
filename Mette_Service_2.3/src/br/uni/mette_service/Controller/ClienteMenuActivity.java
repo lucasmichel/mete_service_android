@@ -90,7 +90,8 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			toast.show();			
 			break;	
 		case R.id.btnTeste:
-			it = new Intent(this, ListarAcompanhanteActivity.class);					
+			it = new Intent(this, ListarAcompanhanteActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
 			break;
 		case R.id.btnListarServicos:
