@@ -7,11 +7,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
+
 import br.uni.mette_service.Model.Acompanhante;
+
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
@@ -24,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -37,8 +40,11 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 	Usuario usuarioLogado = new Usuario();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
+	Acompanhante acompanhanteRetorno= new Acompanhante();
 	Repositorio repositorio = new Repositorio();
-	List<Object> listaAcompanhante = new ArrayList();
+	List<Object> listaAcompanhante = new ArrayList<Object>();
+	int idAcompanhanteEditar = 0;
+	int usuarioIdTeste;
 	
 	boolean eEdicao;
 	private EditText edtNomeAcomp;
@@ -74,15 +80,16 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 		
 		if (eEdicao){
 			executarAlteracao(usuarioLogado);
-		}else{
-			Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, "Activity NÃO foi chamada para Edição.", Toast.LENGTH_LONG);
-			toast.show();
+//		}else{
+//			Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, "Activity NÃO foi chamada para Edição.", Toast.LENGTH_LONG);
+//			toast.show();
 		}
 	}
 	
 	private void executarAlteracao(Usuario usuarioLogado) {
-		Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
-		toast.show();						
+//		Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
+//		toast.show();	
+		btnCadastrar.setText("Editar");
 		listaAcompanhante.clear();
 		acompanhante.setId(usuarioLogado.getIdUsuario());						
 		listaAcompanhante.add(acompanhante);		
@@ -171,8 +178,66 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 					acompvalid.validarCampos(acompanhanteValidado))
 					.create();
 					dialog.show();
-				} else {
-				    new cadastroAcompanhanteAsyncTask().execute();}
+				} 
+				else{ 
+					if(eEdicao){
+						
+						listaAcompanhante.clear();
+						Acompanhante acompanhanteEditar = new Acompanhante();
+						
+						//ID's
+						acompanhanteEditar.setId(idAcompanhanteEditar);
+						acompanhanteEditar.setIdUsuario(usuarioIdTeste);
+						
+						Log.i("SOSTENES", "Id: " + idAcompanhanteEditar + " " + "Id Acomp IdUsuario: " + usuarioIdTeste);
+						
+						acompanhanteEditar.setNome(edtNomeAcomp.getText().toString());
+						acompanhanteEditar.setIdade(edtIdadeAcomp.getText().toString());
+						acompanhanteEditar.setPeso(edtPesoAcomp.getText().toString());
+						acompanhanteEditar.setBusto(edtBustoAcomp.getText().toString());
+						acompanhanteEditar.setAltura(edtAlturaAcomp.getText().toString());
+						acompanhanteEditar.setCintura(edtCinturaAcomp.getText().toString());
+						acompanhanteEditar.setQuadril(edtQuadrilAcomp.getText().toString());
+						acompanhanteEditar.setOlhos(edtOlhosAcomp.getText().toString());
+						/// PERNOITE
+						if (rdNao.isChecked()) {
+							acompanhanteEditar.setPernoite(0);
+						} else if (rdSim.isChecked()) {
+						   	acompanhanteEditar.setPernoite(1);
+						}
+						//
+						
+						// ATENDO
+						if (rdhomem.isChecked()) {
+							acompanhanteEditar.setAtendo("Homens");
+						} else if (rdmulher.isChecked()) {
+							acompanhanteEditar.setAtendo("Mulheres");					
+						} else if (rdambos.isChecked()) {
+							acompanhanteEditar.setAtendo("Ambos");				
+						}
+						//
+						
+						acompanhanteEditar.setEspecialidade(edtEspecialidadeAcomp.getText().toString());
+						acompanhanteEditar.setHorarioAtendimento(edtHorarioAtendimentoAcomp.getText().toString());
+						acompanhanteEditar.setEmail(edtEmailAcomp.getText().toString());
+						acompanhanteEditar.setSenha(edtSenhaAcomp.getText().toString());	
+						
+						Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this,"Id: " + acompanhanteEditar.getId() + "IdUsuario: " + acompanhanteEditar.getIdUsuario(), Toast.LENGTH_LONG);
+						toast.show();						
+						
+						listaAcompanhante.add(acompanhanteEditar);
+						
+						modelo.setDados(listaAcompanhante);
+						modelo.setMensagem("");
+						modelo.setStatus("");
+						
+						new editarAcompanhanteAsyncTask().execute();
+						
+					} else { 
+					
+						new cadastroAcompanhanteAsyncTask().execute();
+					}
+				}
 				}
 			break;
 		case R.id.buttonCancelar:
@@ -232,6 +297,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 			try
 			{
 				modeloRetorno = repositorio.acessarServidor("cadastrarAcompanhante", modelo);
+
 			} catch (Exception e) {				
 				e.printStackTrace();
 			}
@@ -246,6 +312,8 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 			{
 				Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 				toast.show();
+							
+				finish();
 			}else{				
 				Intent it = new Intent(CadastroAcompanhanteActivity.this, LogarAndroidActivity.class);
 				startActivity(it);
@@ -273,7 +341,8 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 			{
 				try
 				{
-					modeloRetorno = repositorio.acessarServidor("buscarAcompanhantePorId", modelo);
+					modeloRetorno = repositorio.acessarServidor("buscarAcompanhantePorIdUsuario", modelo);
+				
 				} catch (Exception e) {				
 					e.printStackTrace();
 				}
@@ -296,50 +365,100 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 					
 					try {
 						jsonObject = new JSONObject(gson.toJson(dadosObject));
-						edtNomeAcomp.setText(jsonObject.getString("nome"));
-						edtIdadeAcomp.setText(jsonObject.getString("idade"));
-						edtAlturaAcomp.setText(jsonObject.getString("altura"));
-						edtPesoAcomp.setText(jsonObject.getString("peso"));
-						edtCinturaAcomp.setText(jsonObject.getString("cintura"));
-						edtQuadrilAcomp.setText(jsonObject.getString("quadril"));
-						edtOlhosAcomp.setText(jsonObject.getString("olhos"));
+						
+						Log.i("SOSTENES", "RETORNO PARA MONTAR NA TELA" + gson.toJson(dadosObject));
+						
+						
+						idAcompanhanteEditar = jsonObject.getInt("\u0000Acompanhante\u0000id");
+						
+						Log.i("SOSTENES", "idAcomp" + idAcompanhanteEditar);
+						
+						edtNomeAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000nome"));
+						edtIdadeAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000idade"));
+						edtAlturaAcomp.setText(jsonObject.getString	("\u0000Acompanhante\u0000altura"));
+						edtBustoAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000busto"));
+						edtPesoAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000peso"));
+						edtCinturaAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000peso"));
+						edtQuadrilAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000quadril"));
+						edtOlhosAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000olhos"));
 				
-						String sexo = jsonObject.getString("atendo");
-						if (sexo == "homem"){
+						String atendo = jsonObject.getString("\u0000Acompanhante\u0000atendo");
+						
+						if (atendo.equalsIgnoreCase("Homens")){
 						rdhomem.setChecked(true);
-						
-						}else if(sexo == "mulher"){
+	
+						}else if(atendo.equalsIgnoreCase("Mulheres")){
 						rdmulher.setChecked(true);	
-						
+				
 						}else{
 						rdambos.setChecked(true);
 							
 						}
 						
-						int pernoite = jsonObject.getInt("pernoite");
+						int pernoite = jsonObject.getInt("\u0000Acompanhante\u0000pernoite");
 						if (pernoite == 1){
 							rdSim.setChecked(true);
 						}else if (pernoite == 0){
 							rdNao.setChecked(true);
 						}
 					
-//						edtAtendoAcomp.setText(jsonObject.getString("altura"));
-						edtEspecialidadeAcomp.setText(jsonObject.getString("especialidade"));
-						edtHorarioAtendimentoAcomp.setText(jsonObject.getString("horario_atendimento"));
-						edtEmailAcomp.setText(jsonObject.getString("email"));
-						edtSenhaAcomp.setText(jsonObject.getString("senha"));
+
+						edtEspecialidadeAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000especialidade"));
+						edtHorarioAtendimentoAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000horarioAtendimento"));
+						edtEmailAcomp.setText(usuarioLogado.getEmail());
+						usuarioIdTeste = jsonObject.getInt("\u0000Acompanhante\u0000usuarioId");
 						
 					} catch (JSONException e) {
 					}				
 					
 					Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 					toast.show();
-					finish();
+				
 				}	
 			}
+			
+		
 	}
 	
-		
+	// editarCliente
+			class editarAcompanhanteAsyncTask extends AsyncTask<String, String, Modelo>  {
+				ProgressDialog dialog;
+				@Override
+				protected void onPreExecute() {
+					super.onPreExecute();
+					dialog = ProgressDialog.show(CadastroAcompanhanteActivity.this,
+							"Atualizando Informações...", "Aguarde !",
+							true, false);
+				}
+
+				@Override
+				protected Modelo doInBackground(String... params) {	
+					try
+					{
+						modeloRetorno = repositorio.acessarServidor("editarAcompanhante", modelo);
+					} catch (Exception e) {				
+						e.printStackTrace();
+					}
+					return modeloRetorno;
+				}
+
+				@Override
+				protected void onPostExecute(Modelo result) {
+					super.onPostExecute(result);
+					dialog.dismiss();
+					if (modeloRetorno.getStatus().equals("1"))
+					{
+						Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+						toast.show();
+					}else{									
+						Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+						toast.show();	
+						finish();
+					}	
+				}
+			}	
+			
+			//////	
 		
 
 	}

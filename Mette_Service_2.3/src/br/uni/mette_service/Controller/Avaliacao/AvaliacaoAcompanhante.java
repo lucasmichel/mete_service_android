@@ -5,46 +5,59 @@ import br.uni.mette_service.Model.Cliente;
 
 public class AvaliacaoAcompanhante {
 
+	private int id;
 	private int nota;
-	private Acompanhante acompanhante;
-	private Cliente cliente;
-
+	private int idCliente;
+	private int idAcompanhante;
 	
+	public AvaliacaoAcompanhante(){}
 
-	public AvaliacaoAcompanhante(int nota, Acompanhante acompanhante,
-			Cliente cliente) {
+	public AvaliacaoAcompanhante(int id, int nota, int idCliente,
+			int idAcompanhante) {
 		super();
+		this.id = id;
 		this.nota = nota;
-		this.acompanhante = acompanhante;
-		this.cliente = cliente;
+		this.idCliente = idCliente;
+		this.idAcompanhante = idAcompanhante;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getNota() {
-	return nota;
-
+		return nota;
 	}
 
 	public void setNota(int nota) {
-	this.nota = nota;
-
+		this.nota = nota;
 	}
 
-	public Acompanhante getAcompanhante() {
-	return acompanhante;
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public int getIdAcompanhante() {
+		return idAcompanhante;
+	}
+
+	public void setIdAcompanhante(int idAcompanhante) {
+		this.idAcompanhante = idAcompanhante;
 	}
 	
-	public void setAcompanhante(Acompanhante acompanhante) {
-	this.acompanhante = acompanhante;
-	}
 	
-	public Cliente getCliente() {
-	return cliente;
-	}
 	
-	public void setCliente(Cliente cliente) {
-	this.cliente = cliente;
-}
+	
+	
+	
 
-
-
+	
 }
