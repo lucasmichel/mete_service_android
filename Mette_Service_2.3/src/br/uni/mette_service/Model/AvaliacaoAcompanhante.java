@@ -1,7 +1,5 @@
-package br.uni.mette_service.Controller.Avaliacao;
+package br.uni.mette_service.Model;
 
-import br.uni.mette_service.Model.Acompanhante;
-import br.uni.mette_service.Model.Cliente;
 
 public class AvaliacaoAcompanhante {
 
