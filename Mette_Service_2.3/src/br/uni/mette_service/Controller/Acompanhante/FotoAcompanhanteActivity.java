@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,10 +32,12 @@ import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
 
+import com.google.android.gms.internal.ar;
 import com.google.gson.Gson;
 
-public class FotoAcompanhanteActivity extends Activity implements OnClickListener {
-	
+public class FotoAcompanhanteActivity extends Activity implements
+		OnClickListener {
+
 	private final Context context = this;
 	private static final int SELECT_PICTURE = 1;
 	private Button btnEnviar;
@@ -42,6 +45,7 @@ public class FotoAcompanhanteActivity extends Activity implements OnClickListene
 	private TextView txtArquivo;
 	private Usuario usuarioLogado = new Usuario();
 	Modelo modelo = new Modelo();
+
 	List<Object> listaFoto = new ArrayList();
 
 	@Override
@@ -49,67 +53,86 @@ public class FotoAcompanhanteActivity extends Activity implements OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_foto);
 
-		usuarioLogado =  (Usuario) getIntent().getSerializableExtra("usuarioLogado");
-		
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra(
+				"usuarioLogado");
+
 		adicionarFindView();
 		adicionarListers();
-		
-		Toast.makeText(this, usuarioLogado.getIdUsuario() + "", Toast.LENGTH_LONG).show();
+
+		Toast.makeText(this, usuarioLogado.getIdUsuario() + "",
+				Toast.LENGTH_LONG).show();
 	}
-	
+
 	private void adicionarFindView() {
 		this.txtArquivo = (TextView) findViewById(R.id.txt);
 		this.imageView = (ImageButton) findViewById(R.id.IMAGEM);
 		this.btnEnviar = (Button) findViewById(R.id.enviarArquivo);
-	}	
+	}
+
 	private void adicionarListers() {
-		this.imageView.setOnClickListener(this);		
+		this.imageView.setOnClickListener(this);
 		this.btnEnviar.setOnClickListener(this);
 	}
 
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.IMAGEM:
-			Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			Intent i = new Intent(
+					Intent.ACTION_PICK,
+					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(i, SELECT_PICTURE);
 			break;
 		case R.id.enviarArquivo:
 			try {
-				
+
 				String nomeDoCaminho = txtArquivo.getText().toString();
-				
+				String[] array = nomeDoCaminho.split("/");
+				String nomeReal = nomeRealfoto(array);
 				Foto foto = new Foto();
-				//foto.setId(usuarioLogado.getIdUsuario());
-				foto.setId(11);
-				foto.setNome(nomeDoCaminho);
-				
+				foto.setId(usuarioLogado.getIdUsuario());
+				// foto.setId(11);
+				foto.setNome(nomeReal);
+
 				listaFoto.add(foto);
-				
+
 				modelo.setStatus("");
 				modelo.setMensagem("");
 				modelo.setDados(listaFoto);
-								
+
 				executeMultipartPost("cadastrarFoto", modelo);
-				
-				Toast.makeText(getBaseContext(), "clicou : 2",Toast.LENGTH_SHORT).show();
-				//DIALOG
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+				Toast.makeText(getBaseContext(), "clicou : 2",
+						Toast.LENGTH_SHORT).show();
+				// DIALOG
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
 				alertDialogBuilder.setTitle("Enviar Fotos");
-				alertDialogBuilder.setMessage("Deseja enviar mais fotos!").setCancelable(false)
-				.setPositiveButton("N�o",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
-										FotoAcompanhanteActivity.this.finish();}})
-				.setNegativeButton("Sim",new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,int id) {
+				alertDialogBuilder
+						.setMessage("Deseja enviar mais fotos!")
+						.setCancelable(false)
+						.setPositiveButton("N�o",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										FotoAcompanhanteActivity.this.finish();
+									}
+								})
+						.setNegativeButton("Sim",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
 										dialog.cancel();
 										imageView.setImageDrawable(null);
 										txtArquivo.setText("");
-										}});
+									}
+								});
 				AlertDialog alertDialog = alertDialogBuilder.create();
 				alertDialog.show();
-				//FIM DO DIALOG
+				// FIM DO DIALOG
 			} catch (Exception e) {
-				Toast.makeText(getBaseContext(),"error enviarArquivo : " + e.getMessage(),Toast.LENGTH_LONG).show();
+				Toast.makeText(getBaseContext(),
+						"error enviarArquivo : " + e.getMessage(),
+						Toast.LENGTH_LONG).show();
 			}
 			break;
 		default:
@@ -123,34 +146,65 @@ public class FotoAcompanhanteActivity extends Activity implements OnClickListene
 		switch (requestCode) {
 
 		case SELECT_PICTURE:
-			if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK && null != data) {
+			if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK
+					&& null != data) {
 				Uri selectedImageUri = data.getData();
 				txtArquivo.setText(getPath(selectedImageUri));
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
-				Cursor cursor = getContentResolver().query(selectedImageUri,filePathColumn, null, null, null);
+				Cursor cursor = getContentResolver().query(selectedImageUri,
+						filePathColumn, null, null, null);
 				cursor.moveToFirst();
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 				String picturePath = cursor.getString(columnIndex);
 				cursor.close();
-				Bitmap yourSelectedImage = BitmapFactory.decodeFile(picturePath);
+				Bitmap yourSelectedImage = BitmapFactory
+						.decodeFile(picturePath);
 				imageView.setImageBitmap(yourSelectedImage);
 
 			}
 		}
 	}
-	
+
 	public String getPath(Uri uri) {
 		String[] projection = { MediaStore.Images.Media.DATA };
-		Cursor cursor = getContentResolver().query(uri, projection, null, null,	null);
-		int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		Cursor cursor = getContentResolver().query(uri, projection, null, null,
+				null);
+		int column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 		cursor.moveToFirst();
 		return cursor.getString(column_index);
 	}
-	
-	public void executeMultipartPost(String acao, Modelo modelo) throws Exception {
+
+	public int getMaior(String[] array) {
+		int maior = array.length;
+		for (int i = 0; i < array.length; i++) {
+			if (array.length > maior) {
+				maior = array.length;
+			}
+		}
+		return maior;
+	}
+
+	private String nomeRealfoto(String[] array) {
+		int maior = array.length;
+		String x = null;
+		for (int i = 0; i < array.length; i++) {
+			if (array.length >= maior) {
+				maior = array.length;
+				x = array[i].toString();
+			}
+		}
+		return x;
+	}
+
+	public void executeMultipartPost(String acao, Modelo modelo)
+			throws Exception {
 		Repositorio repositorio = new Repositorio();
 		String caminhoDoArquivoNoDispositivo = txtArquivo.getText().toString();
-		String urlDoServidor = "http://leonardogalvao.com.br/TesteAndroid/index.php";
+		String[] array = caminhoDoArquivoNoDispositivo
+				.split(Pattern.quote("/"));
+		String nomeReal = nomeRealfoto(array);
+		String urlDoServidor = "http://leonardogalvao.com.br/mete_service/src/subir";
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
 		String boundary = "*****"; // Delimitador
@@ -162,7 +216,8 @@ public class FotoAcompanhanteActivity extends Activity implements OnClickListene
 			repositorio.acessarServidor(acao, modelo);
 			// Criando conexão com o servidor
 			URL url = new URL(urlDoServidor);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
 			// Conexão vai ler e escrever dados
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
@@ -171,14 +226,19 @@ public class FotoAcompanhanteActivity extends Activity implements OnClickListene
 			connection.setRequestMethod("POST");
 			// Adicionando cabeçalhos
 			connection.setRequestProperty("Connection", "Keep-Alive");
-			connection.setRequestProperty("Content-Type","multipart/form-data;boundary=" + boundary);
+			connection.setRequestProperty("Content-Type",
+					"multipart/form-data;boundary=" + boundary);
 			// Escrevendo payload da requisição
-			DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+			DataOutputStream outputStream = new DataOutputStream(
+					connection.getOutputStream());
 			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-			outputStream.writeBytes("Content-Disposition: form-data; "+ "name=\"uploadedfile\";filename=\""+ caminhoDoArquivoNoDispositivo + "\"" + lineEnd);
+			outputStream.writeBytes("Content-Disposition: form-data; "
+					+ "name=\"uploadedfile\";filename=\""
+					+ nomeReal + "\"" + lineEnd);
 			outputStream.writeBytes(lineEnd);
 			// Stream para ler o arquivo
-			FileInputStream fileInputStream = new FileInputStream(new File(caminhoDoArquivoNoDispositivo));
+			FileInputStream fileInputStream = new FileInputStream(new File(
+					nomeReal));
 			// Preparando para escrever arquivo
 			bytesAvailable = fileInputStream.available();
 			bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -192,11 +252,15 @@ public class FotoAcompanhanteActivity extends Activity implements OnClickListene
 				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 			}
 			outputStream.writeBytes(lineEnd);
-			outputStream.writeBytes(twoHyphens + boundary + twoHyphens+ lineEnd);
+			outputStream.writeBytes(twoHyphens + boundary + twoHyphens
+					+ lineEnd);
 			// Obtendo o codigo e a mensagem de resposta do servidor
 			int serverResponseCode = connection.getResponseCode();
 			String serverResponseMessage = connection.getResponseMessage();
-			Toast.makeText(getBaseContext(),"serverResponse : " + serverResponseCode + " = " + serverResponseMessage, Toast.LENGTH_LONG).show();
+			Toast.makeText(
+					getBaseContext(),
+					"serverResponse : " + serverResponseCode + " = "
+							+ serverResponseMessage, Toast.LENGTH_LONG).show();
 			fileInputStream.close();
 			outputStream.flush();
 			outputStream.close();
