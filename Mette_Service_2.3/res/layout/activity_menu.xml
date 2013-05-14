@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txtUsuarioLogado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_ola" />
+
+
+    <Button
+        android:id="@+id/btnTeste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Em desenvolvimento" />
+
+
+    <Button
+        android:id="@+id/btnop2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_marcarEncontro" />
+    
+    <Button
+        android:id="@+id/btneditar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar Perfil" />
+    
+    <Button
+        android:id="@+id/btnop4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CHAMAR EXCLUIR" />
+    <Button
+        android:id="@+id/btnListarServicos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LISTAR SERVIÇOS" />
+    
+    <Button
+        android:id="@+id/btnMapa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MAPA" />
+
+</LinearLayout>
