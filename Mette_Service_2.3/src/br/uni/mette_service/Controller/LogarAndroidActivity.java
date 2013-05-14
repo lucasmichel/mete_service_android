@@ -27,6 +27,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.uni.mette_service.R;
+import br.uni.mette_service.Controller.Acompanhante.AcompanhanteMenuActivity;
+import br.uni.mette_service.Controller.Cliente.ClienteMenuActivity;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;

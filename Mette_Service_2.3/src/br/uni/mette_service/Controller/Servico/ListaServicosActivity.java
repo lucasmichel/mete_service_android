@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.ClienteMenuActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
+import br.uni.mette_service.Controller.Cliente.ClienteMenuActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Servico;
 import br.uni.mette_service.Model.Repositorio.Modelo;

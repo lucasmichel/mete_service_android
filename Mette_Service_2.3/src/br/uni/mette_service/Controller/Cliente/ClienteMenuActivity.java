@@ -1,8 +1,7 @@
-package br.uni.mette_service.Controller;
+package br.uni.mette_service.Controller.Cliente;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
-import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
 import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;

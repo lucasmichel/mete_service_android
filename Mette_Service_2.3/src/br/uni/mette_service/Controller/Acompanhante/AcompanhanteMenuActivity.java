@@ -1,9 +1,6 @@
-package br.uni.mette_service.Controller;
+package br.uni.mette_service.Controller.Acompanhante;
 
 import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.Acompanhante.AlterarStatusActivity;
-import br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity;
-import br.uni.mette_service.Controller.Acompanhante.FotoAcompanhanteActivity;
 import br.uni.mette_service.Controller.Servico.CadastroServicoActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Acompanhante;

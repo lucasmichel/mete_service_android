@@ -42,7 +42,7 @@
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Acompanhante.FotoAcompanhanteActivity" >
         </activity>
-        <activity android:name="br.uni.mette_service.Controller.ClienteMenuActivity" >
+        <activity android:name="br.uni.mette_service.Controller.Cliente.ClienteMenuActivity" >
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Encontro.EncontroActivity" >
         </activity>
@@ -50,7 +50,7 @@
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Servico.CadastroServicoActivity" >
         </activity> 
-        <activity android:name="br.uni.mette_service.Controller.AcompanhanteMenuActivity" >
+        <activity android:name="br.uni.mette_service.Controller.Acompanhante.AcompanhanteMenuActivity" >
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Acompanhante.CadastroAcompanhanteActivity" >
         </activity>

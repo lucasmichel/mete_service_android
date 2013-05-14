@@ -13,21 +13,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
- 		
- 			<TextView
+
+            <TextView
                 android:id="@+id/txtUsuarioLogadoAcomp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
- 			
+
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"
-                android:layout_gravity="center" />
-
-           
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher" />
 
             <Button
                 android:id="@+id/btnAlterarStatus"
@@ -36,7 +34,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/alterarstatus"/>
+                android:text="@string/alterarstatus" />
 
             <Button
                 android:id="@+id/btnEditarPerfil"
@@ -45,8 +43,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/editarperfil"/>
-                
+                android:text="@string/editarperfil" />
 
             <Button
                 android:id="@+id/btnExcluirPerfil"
@@ -55,16 +52,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/excluirperfil"/>
-
-            <Button
-                android:id="@+id/btnSair"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/sair"/>
+                android:text="@string/excluirperfil" />
 
             <Button
                 android:id="@+id/btnCadastrarServico"
@@ -73,8 +61,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/cadastarServico"/>
-            
+                android:text="@string/cadastarServico" />
+
             <Button
                 android:id="@+id/btnCadastrarFoto"
                 android:layout_width="match_parent"
@@ -82,8 +70,25 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/btnCadastrarFoto"/>
+                android:text="@string/btnCadastrarFoto" />
 
+            <Button
+                android:id="@+id/btnGaleria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/Galeria" />
+
+            <Button
+                android:id="@+id/btnSair"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/sair" />
         </LinearLayout>
     </ScrollView>
 

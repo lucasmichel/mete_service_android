@@ -39,7 +39,7 @@ public class ServicoSpinnerAdapter extends BaseAdapter {
 		
 		if (convertView == null){
 			convertView = LayoutInflater.from(ctx).inflate(
-				R.layout.servico_spinner_adpater, null);
+				R.layout.activity_servico_spinner_adpater, null);
 		}
 				
 		TextView txtNome = (TextView)convertView.findViewById(R.id.txtSpinnerNome);
