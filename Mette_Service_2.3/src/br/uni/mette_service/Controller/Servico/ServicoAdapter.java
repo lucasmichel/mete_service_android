@@ -43,11 +43,9 @@ public class ServicoAdapter extends BaseAdapter {
 				R.layout.activity_linha_servico, null);
 		}
 				
-		TextView txtNome = (TextView)convertView.findViewById(R.id.txtNome);
-		TextView txtId = (TextView)convertView.findViewById(R.id.txtId);
+		TextView txtNome = (TextView)convertView.findViewById(R.id.txtNomeListarServicos);
 						
 		txtNome.setText(servico.getNome());
-		txtId.setText(servico.getId());
 					
 		return convertView;
 	}

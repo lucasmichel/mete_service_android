@@ -98,10 +98,11 @@ public class ListaServicosActivity extends ListActivity implements OnClickListen
 
     		
     		
-    		for ( int i = 0; i < result.getDados().size(); ++i){
+//    		for ( int i = 0; i < result.getDados().size(); ++i){
 				
     			
-    			Object dadosObject = result.getDados().get(i);	
+//    			Object dadosObject = result.getDados().get(i);
+    		Object dadosObject = result.getDados();
     			Gson gson = new Gson();
     			JSONObject jsonObject = null;
     			List<Servico> addServico = new ArrayList<Servico>();
@@ -113,10 +114,10 @@ public class ListaServicosActivity extends ListActivity implements OnClickListen
     					
     					Servico serv = new Servico();
     					
-    					serv.setNome(jsonObject.getString("nome"));
-        				serv.setId(jsonObject.getInt("id"));
+    					serv.setNome(jsonObject.getString("\u0000Servico\u0000nome"));
+        				serv.setId(jsonObject.getInt("\u0000Servico\u0000id"));
 
-        				Log.i("PEDRO", i +"..." + serv.getId() + "..."+ serv.getNome());
+        				Log.i("PEDRO", x +"..." + serv.getId() + "..."+ serv.getNome());
         				
         				addServico.add(serv);
     				}
@@ -132,7 +133,7 @@ public class ListaServicosActivity extends ListActivity implements OnClickListen
     				e.printStackTrace();			
     			}
     		
-    			}
+//    			}
     		dialog.dismiss();
     	}
     }
@@ -141,11 +142,12 @@ public class ListaServicosActivity extends ListActivity implements OnClickListen
 	// TODO Auto-generated method stub
 	super.onListItemClick(l, v, position, id);
 	Servico servico = (Servico) l.getItemAtPosition(position);
-
-	Intent it = new Intent(this, MapaActivity.class);
-	it.putExtra("servico", servico);
-	startActivity(it);
-}
+	
+		Toast.makeText(this, "Clicou em "+ servico.getNome() , Toast.LENGTH_LONG).show();
+//	Intent it = new Intent(this, MapaActivity.class);
+//	it.putExtra("servico", servico);
+//	startActivity(it);
+	}
 
 	private String toString1(InputStream is) throws IOException {
 

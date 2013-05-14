@@ -222,10 +222,11 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 
     		
     		
-    		for ( int i = 0; i < result.getDados().size(); ++i){
+//    		for ( int i = 0; i < result.getDados().size(); ++i){
 				
     			
-    			Object dadosObject = result.getDados().get(i);	
+//    			Object dadosObject = result.getDados().get(i);	
+    		Object dadosObject = result.getDados();
     			Gson gson = new Gson();
     			JSONObject jsonObject = null;
     			
@@ -238,10 +239,10 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
     					
     					Servico serv = new Servico();
     					
-    					serv.setNome(jsonObject.getString("nome"));
-        				serv.setId(jsonObject.getInt("id"));
+    					serv.setNome(jsonObject.getString("\u0000Servico\u0000nome"));
+        				serv.setId(jsonObject.getInt("\u0000Servico\u0000id"));
 
-        				Log.i("PEDRO", i +"..." + serv.getId() + "..."+ serv.getNome());
+        				Log.i("PEDRO", x +"..." + serv.getId() + "..."+ serv.getNome());
         				
         				addServico.add(serv);
     				}
@@ -260,7 +261,7 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
     				e.printStackTrace();			
     			}
     		
-    			}
+//    			}
     		dialog.dismiss();
     	}
     }
