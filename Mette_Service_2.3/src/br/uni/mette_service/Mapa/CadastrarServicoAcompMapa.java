@@ -185,79 +185,8 @@ implements LocationListener{
 			   			});
 			   		}
 
-        	
-//        	Localizacao localizacaoLista = new Localizacao();
-//        	
-//        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
-//        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
-//        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());  	
-//        	localizacaoLista.setEnderecoFormatado(localizacaoCadastro.getEnderecoFormatado());
-//        	
-//        	listaLocalizacoes.add(localizacaoLista);
-//
-//        	
-//        	Gson gson = new Gson();
-//	        String i =	gson.toJson(listaLocalizacoes);
-//	        	System.out.println(i);
-//	        
-//	        	Log.i("gson", i);
 	        novaLocalizacao();
-			
-			
-
-//			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
-//		    
-//			//define o titulo
-//		    builder.setTitle("Localizações");
-//		    
-//		    //define a mensagem
-//		    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
-//		    
-//		    //define um botão como positivo
-//		    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-//		        public void onClick(DialogInterface arg0, int arg1) {
-//		        	
-//		        	Localizacao localizacaoLista = new Localizacao();
-//		        	boolean sim = true;
-//		        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
-//		        	
-//
-//		        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
-//		        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());
-//		        	
-//		        	buscarEndereco(); //METODO PARA PEGAR O GEOCODER COM AS COORDENADAS
-//		        	
-//		        	listaLocalizacoes.add(localizacaoLista);
-//		        	
-//		        	sim(true);
-//		        	
-//		        	Toast.makeText(CadastrarServicoAcompMapa.this, "Selecione outro ponto.",
-//		        			Toast.LENGTH_LONG).show();
-//		        	
-//		        	Gson gson = new Gson();
-//		        String i =	gson.toJson(listaLocalizacoes);
-//		        	System.out.println(i);
-//		        	
-//		        }
-//		    });
-//		    
-//		    //define um botão como negativo.
-//		    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
-//		        public void onClick(DialogInterface arg0, int arg1) {
-//		        	
-//		        	new	cadastrarServicoMapaAsyncTask().execute();
-//		       
-//		        }
-//		    });
-//		    //cria o AlertDialog
-//		    alerta = builder.create();
-//		    //Exibe
-//		    alerta.show();
-//
-//		}
-//	};
-			
-			
+	
 	}
 	
 	private void novaLocalizacao (){

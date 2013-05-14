@@ -94,7 +94,7 @@ public class Repositorio {
 				HttpResponse resposta = cliente.execute(get);
 				String s = toString(resposta.getEntity().getContent());				
 				String retornoDesciptografado = toBase64StringDecode(s);
-				Log.i("PEDRO", retornoDesciptografado);
+				Log.i("PEDRORETORNO", s);
 				Log.i("SOSTENES", "Retorno Desciptografado em Repositório: " + retornoDesciptografado);								
 				modeloRetorno = gson.fromJson(retornoDesciptografado, Modelo.class);						
 			} catch (Exception e) {

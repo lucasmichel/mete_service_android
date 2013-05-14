@@ -23,6 +23,7 @@ import android.widget.Toast;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Servico.ServicoAcompanhante;
 import br.uni.mette_service.Mapa.MapaActivity;
+import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Servico;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -145,12 +146,13 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 	// TODO Auto-generated method stub
 	super.onListItemClick(l, v, position, id);
-	ServicoAcompanhante servico = (ServicoAcompanhante) l.getItemAtPosition(position);
-	boolean listarServicoAcomapanhteSelecionado = true;
 	
-	Intent it = new Intent(this, MapaActivity.class);
-	it.putExtra("servico", servico);
-	it.putExtra("listarServicoAcomapanhteSelecionado", listarServicoAcomapanhteSelecionado);
+	ServicoAcompanhante idServicoAcompanante = (ServicoAcompanhante) l.getItemAtPosition(position);
+//	boolean listarServicoAcomapanhteSelecionado = true;
+	
+	Intent it = new Intent(this, MapaListarServicoSelecionado.class);
+	it.putExtra("idServicoAcompanante", idServicoAcompanante);
+//	it.putExtra("listarServicoAcomapanhteSelecionado", listarServicoAcomapanhteSelecionado);
 	startActivity(it);
 }
 
