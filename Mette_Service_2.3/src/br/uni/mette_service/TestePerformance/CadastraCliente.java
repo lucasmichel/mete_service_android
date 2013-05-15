@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -31,11 +32,12 @@ public class CadastraCliente implements Runnable{
 		
 			
 		inicio =  data.getTime();
+		Random rand = new Random(); 
 		
-		usuario.setNome("Nome Teste");
-		usuario.setCpf("11223300");
-		usuario.setEmail("testeperformance@teste.com");
-		usuario.setSenha("senhateste");
+		usuario.setNome(rand.nextInt(999) + "Nome Teste");
+		usuario.setCpf(rand.nextInt(999) + "11223300");
+		usuario.setEmail(rand.nextInt(999) + "testeperformance@teste.com");
+		usuario.setSenha(rand.nextInt(999) + "senhateste");
 		
 		listaUsuario.clear();
 		
@@ -45,35 +47,10 @@ public class CadastraCliente implements Runnable{
 		modelo.setMensagem("");
 		modelo.setStatus("");
 
-		new cadastrarClienteAsyncTask().execute();
+		modeloRetorno = repositorio.acessarServidor("cadastrarCliente", modelo);
+		Log.i("Teste Carga" , "Tentativa de cadastro com email " + usuario.getEmail() + " - Retorno: " + modeloRetorno.getMensagem());		
 		
-		
-	}
-	
-	// cadastrarCliente
-			class cadastrarClienteAsyncTask extends AsyncTask<String, String, Modelo>  {
-				ProgressDialog dialog;
-				@Override
-				protected void onPreExecute() {
-					super.onPreExecute();
-					
-				}
-
-				@Override
-				protected Modelo doInBackground(String... params) {	
-					modeloRetorno = repositorio.acessarServidor("cadastrarCliente", modelo);
-					return modeloRetorno;
-				}
-
-				@Override
-				protected void onPostExecute(Modelo result) {
-					super.onPostExecute(result);
-					dialog.dismiss();
-					Log.i("Teste Carga" , "Tentativa de cadastro com email " + usuario.getEmail() + " - Retorno: " + modeloRetorno.getMensagem());		
-					
-					long durou = data.getTime() - inicio;
-					Log.i("Teste Carga", "Acesso durou: " + durou);					
-				}
-			}	
-			// Fim			
+		long durou = data.getTime() - inicio;
+		Log.i("Teste Carga", "Acesso durou: " + durou);						
+	}			
 }

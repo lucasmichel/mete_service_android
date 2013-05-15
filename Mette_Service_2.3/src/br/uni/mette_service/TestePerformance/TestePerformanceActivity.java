@@ -82,18 +82,17 @@ public class TestePerformanceActivity extends Activity implements OnClickListene
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.button1:
+		case R.id.button1:		
 			
-			Toast toast = Toast.makeText(TestePerformanceActivity.this,
-					"Chamar Lógica para Teste Performance com Ação: " + acao, Toast.LENGTH_LONG);
-			toast.show();			
 			
-			CadastraCliente cadastraCliente = new CadastraCliente();
-									
-			for (int i = 0; i < 20; i++) {		  				
+			if (acao.equals("cadastrarCliente")){
+			CadastraCliente cadastraCliente = new CadastraCliente();							
+			for (int i = 0; i < 100; i++) {		  				
 			    Thread threadDocadastraCliente = new Thread(cadastraCliente);			    
 			    threadDocadastraCliente.start();  	
-			} 						
+			}}else{Toast toast = Toast.makeText(TestePerformanceActivity.this,
+					"Ainda não implementado!", Toast.LENGTH_LONG);
+			toast.show();};
 			
 			break;
 		}		
