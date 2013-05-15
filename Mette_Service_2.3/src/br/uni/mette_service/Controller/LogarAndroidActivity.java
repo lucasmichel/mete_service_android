@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
-import TestePerformance.TestePerformanceActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -33,6 +32,7 @@ import br.uni.mette_service.Controller.Cliente.ClienteMenuActivity;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
+import br.uni.mette_service.TestePerformance.TestePerformanceActivity;
 
 public class LogarAndroidActivity extends Activity implements OnClickListener {
 

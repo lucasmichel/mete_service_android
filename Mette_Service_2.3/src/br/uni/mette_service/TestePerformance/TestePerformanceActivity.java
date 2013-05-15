@@ -1,4 +1,4 @@
-package TestePerformance;
+package br.uni.mette_service.TestePerformance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ public class TestePerformanceActivity extends Activity implements OnClickListene
 	private Button btnTestarPerformance;
 	private List<String> acoes = new ArrayList<String>();
 	private String acao;
+	
  
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +82,9 @@ public class TestePerformanceActivity extends Activity implements OnClickListene
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
+			
 			Toast toast = Toast.makeText(TestePerformanceActivity.this,
-					"Chamar Lógica para Teste Performance", Toast.LENGTH_LONG);
+					"Chamar Lógica para Teste Performance com Ação: " + acao, Toast.LENGTH_LONG);
 			toast.show();			
 			break;
 		}		
