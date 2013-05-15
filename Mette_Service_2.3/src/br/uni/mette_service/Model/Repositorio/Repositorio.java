@@ -60,7 +60,8 @@ public class Repositorio {
 			try {				
 				get.setEntity(new UrlEncodedFormEntity(listaCamposPesquisa));
 				HttpResponse resposta = cliente.execute(get);
-				String s = toString(resposta.getEntity().getContent());				
+				String s = toString(resposta.getEntity().getContent());			
+				Log.i("SOSTENES", "Retorno Criptografado em Repositório: " + s);	
 				String retornoDesciptografado = toBase64StringDecode(s);
 				Log.i("SOSTENES", "Retorno Desciptografado em Repositório: " + retornoDesciptografado);								
 				modeloRetorno = gson.fromJson(retornoDesciptografado, Modelo.class);						
