@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -86,6 +87,22 @@ public class TestePerformanceActivity extends Activity implements OnClickListene
 			Toast toast = Toast.makeText(TestePerformanceActivity.this,
 					"Chamar Lógica para Teste Performance com Ação: " + acao, Toast.LENGTH_LONG);
 			toast.show();			
+			
+			CadastraCliente cadastraCliente = new CadastraCliente();
+			
+			
+			//
+			for (int i = 0; i < 20; i++) {		  
+				//Log.i("Teste Carga" , "Teste de número " + i);
+			    Thread threadDocadastraCliente = new Thread(cadastraCliente);			    
+			    threadDocadastraCliente.start();  
+			    
+			    //Log.i("Teste Carga" , Thread.currentThread().getName());
+			   // Log.i("Teste Carga" , "Teste de número " + i + " Finalizado!");
+			} 
+			//
+			
+			
 			break;
 		}		
 	}
