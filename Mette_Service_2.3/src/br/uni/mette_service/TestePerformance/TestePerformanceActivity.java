@@ -89,23 +89,13 @@ public class TestePerformanceActivity extends Activity implements OnClickListene
 			toast.show();			
 			
 			CadastraCliente cadastraCliente = new CadastraCliente();
-			
-			
-			//
-			for (int i = 0; i < 20; i++) {		  
-				//Log.i("Teste Carga" , "Teste de número " + i);
+									
+			for (int i = 0; i < 20; i++) {		  				
 			    Thread threadDocadastraCliente = new Thread(cadastraCliente);			    
-			    threadDocadastraCliente.start();  
-			    
-			    //Log.i("Teste Carga" , Thread.currentThread().getName());
-			   // Log.i("Teste Carga" , "Teste de número " + i + " Finalizado!");
-			} 
-			//
-			
+			    threadDocadastraCliente.start();  	
+			} 						
 			
 			break;
 		}		
-	}
-	
-	
+	}	
 }
