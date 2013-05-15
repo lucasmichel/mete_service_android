@@ -187,29 +187,29 @@ containing a value of this type.
         public static final int Peso=0x7f040058;
         public static final int Quadril=0x7f040050;
         public static final int Status=0x7f04005c;
-        public static final int TermoUso=0x7f0400a5;
+        public static final int TermoUso=0x7f0400a6;
         public static final int TextView01=0x7f040089;
-        public static final int action_settings=0x7f0400a7;
-        public static final int btnAlterarStatus=0x7f040098;
+        public static final int action_settings=0x7f0400a9;
+        public static final int btnAlterarStatus=0x7f040099;
         public static final int btnAvaliar=0x7f04005e;
         public static final int btnAvaliarAcomp=0x7f04000b;
         public static final int btnAvancar=0x7f040040;
-        public static final int btnCadastrarFoto=0x7f04009b;
+        public static final int btnCadastrarFoto=0x7f04009c;
         public static final int btnCadastrarServico=0x7f040045;
-        public static final int btnEditarPerfil=0x7f040099;
+        public static final int btnEditarPerfil=0x7f04009a;
         public static final int btnEntrar=0x7f04008c;
-        public static final int btnExcluirPerfil=0x7f04009a;
-        public static final int btnGaleria=0x7f04009c;
-        public static final int btnListarServicos=0x7f040094;
+        public static final int btnExcluirPerfil=0x7f04009b;
+        public static final int btnGaleria=0x7f04009d;
+        public static final int btnListarServicos=0x7f040095;
         public static final int btnMapa=0x7f04005f;
-        public static final int btnSair=0x7f04009d;
+        public static final int btnSair=0x7f04009e;
         public static final int btnSairAvaliar=0x7f04000c;
-        public static final int btnTeste=0x7f040090;
+        public static final int btnTeste=0x7f040091;
         public static final int btnVoltar=0x7f04003f;
         public static final int btnVoltarDados=0x7f040060;
-        public static final int btneditar=0x7f040092;
-        public static final int btnop2=0x7f040091;
-        public static final int btnop4=0x7f040093;
+        public static final int btneditar=0x7f040093;
+        public static final int btnop2=0x7f040092;
+        public static final int btnop4=0x7f040094;
         public static final int button1=0x7f040078;
         public static final int button2=0x7f040077;
         public static final int buttonCadastrar=0x7f04002f;
@@ -227,8 +227,8 @@ containing a value of this type.
         public static final int editPesoAcomp=0x7f040014;
         public static final int editQuadrilAcomp=0x7f04001a;
         public static final int editSenhaAcomp=0x7f04002e;
-        public static final int editText1=0x7f0400a3;
-        public static final int editText2=0x7f0400a4;
+        public static final int editText1=0x7f0400a4;
+        public static final int editText2=0x7f0400a5;
         public static final int edtCPFCliente=0x7f040035;
         public static final int edtCServicoValor=0x7f040044;
         public static final int edtConfSenhaCliente=0x7f04003b;
@@ -244,13 +244,13 @@ containing a value of this type.
         public static final int hybrid=0x7f040004;
         public static final int imageStatus=0x7f04005d;
         public static final int imageStatusAcompanhante=0x7f040082;
-        public static final int imageView1=0x7f040097;
+        public static final int imageView1=0x7f040098;
         public static final int imgFoto=0x7f04007e;
-        public static final int listView1=0x7f04009f;
-        public static final int listView2=0x7f0400a1;
+        public static final int listView1=0x7f0400a0;
+        public static final int listView2=0x7f0400a2;
         public static final int loginEmail=0x7f04008a;
         public static final int loginSenha=0x7f04008b;
-        public static final int map=0x7f04008e;
+        public static final int map=0x7f04008f;
         public static final int mulher=0x7f040079;
         public static final int none=0x7f040000;
         public static final int normal=0x7f040001;
@@ -267,6 +267,7 @@ containing a value of this type.
         public static final int rdmulher=0x7f040023;
         public static final int satellite=0x7f040002;
         public static final int scrollView1=0x7f040009;
+        public static final int spinner1=0x7f0400a7;
         public static final int spinnerServico=0x7f040042;
         public static final int terrain=0x7f040003;
         public static final int textAltura=0x7f040065;
@@ -296,9 +297,9 @@ containing a value of this type.
         public static final int textQuadrilAcomp=0x7f040019;
         public static final int textSenhaAcomp=0x7f04002d;
         public static final int textView1=0x7f040005;
-        public static final int textView2=0x7f04009e;
-        public static final int textView4=0x7f0400a2;
-        public static final int textView5=0x7f0400a0;
+        public static final int textView2=0x7f04009f;
+        public static final int textView4=0x7f0400a3;
+        public static final int textView5=0x7f0400a1;
         public static final int textoCadastre=0x7f04008d;
         public static final int textoTermoUso=0x7f04003e;
         public static final int txt=0x7f04007b;
@@ -315,7 +316,7 @@ containing a value of this type.
         public static final int txtHorarioAcomp=0x7f04005b;
         public static final int txtIdadeAcomp=0x7f040049;
         public static final int txtIdadeAcompanhante=0x7f040080;
-        public static final int txtListaServicoAdapater=0x7f0400a6;
+        public static final int txtListaServicoAdapater=0x7f0400a8;
         public static final int txtNomeAcomp=0x7f040047;
         public static final int txtNomeAcompanhante=0x7f04007f;
         public static final int txtNomeCliente=0x7f040032;
@@ -325,9 +326,10 @@ containing a value of this type.
         public static final int txtPesoAcomp=0x7f040059;
         public static final int txtQuadrilAcomp=0x7f040051;
         public static final int txtSenhaCliente=0x7f040038;
-        public static final int txtSpinnerNome=0x7f040095;
-        public static final int txtUsuarioLogado=0x7f04008f;
-        public static final int txtUsuarioLogadoAcomp=0x7f040096;
+        public static final int txtSpinnerNome=0x7f040096;
+        public static final int txtTestePerformance=0x7f04008e;
+        public static final int txtUsuarioLogado=0x7f040090;
+        public static final int txtUsuarioLogadoAcomp=0x7f040097;
     }
     public static final class layout {
         public static final int activity_alterar_status=0x7f030000;
@@ -353,7 +355,8 @@ containing a value of this type.
         public static final int activity_tela_acompanhante=0x7f030014;
         public static final int activity_tela_cadastro_encontro=0x7f030015;
         public static final int activity_termo_uso=0x7f030016;
-        public static final int lista_servico_acomp_adapter=0x7f030017;
+        public static final int activity_testeperformance=0x7f030017;
+        public static final int lista_servico_acomp_adapter=0x7f030018;
     }
     public static final class menu {
         public static final int homemenu=0x7f090000;

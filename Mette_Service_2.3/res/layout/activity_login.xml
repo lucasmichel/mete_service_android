@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Entrar" />
-
+              
     </LinearLayout>
 
     <LinearLayout
@@ -84,6 +84,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
             android:text="@string/textoCadastre"
+            android:textColor="@color/blue"/>
+        
+        <TextView
+            android:id="@+id/txtTestePerformance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="Teste Performance"
             android:textColor="@color/blue"/>
     </LinearLayout>
 

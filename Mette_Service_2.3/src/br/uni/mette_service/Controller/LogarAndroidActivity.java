@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import TestePerformance.TestePerformanceActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -43,8 +44,9 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 
 	private EditText edtEmail;
 	private EditText edtSenha;
-
+	
 	private TextView txtLinkCadastro;
+	private TextView txtTestePerformance;
 	private Button btnLogin;
 
 	@Override
@@ -53,19 +55,11 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_login);
 
 		if (checkInternetConnection() == true) {
-
 			adicionarFindView();
 			adicionarListers();
-			
-//			edtEmail.setText("acompteste@acomp.com");
-//			edtSenha.setText("123456");
-			
 			edtEmail.setText("cliente@cliente.com.br");
-			edtSenha.setText("123456");
-			
-			
+			edtSenha.setText("123456");			
 		}
-
 	}
 
 	private boolean checkInternetConnection() {
@@ -112,11 +106,13 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 		this.edtSenha = (EditText) findViewById(R.id.loginSenha);
 		this.btnLogin = (Button) findViewById(R.id.btnEntrar);
 		this.txtLinkCadastro = (TextView) findViewById(R.id.textoCadastre);
+		this.txtTestePerformance = (TextView) findViewById(R.id.txtTestePerformance);
 	}
 
 	public void adicionarListers() {
 		this.btnLogin.setOnClickListener(this);
 		this.txtLinkCadastro.setOnClickListener(this);
+		this.txtTestePerformance.setOnClickListener(this);		
 	}
 
 	public void onClick(DialogInterface arg0, int arg1) {
@@ -139,7 +135,11 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 			Intent it = new Intent(this, EscolhaDoUsuarioActivity.class);
 			it.putExtra("eEdicao", eEdicao);
 			startActivity(it);
-			break;
+			break;			
+		case R.id.txtTestePerformance:
+			Intent it2 = new Intent(this, TestePerformanceActivity.class);			
+			startActivity(it2);
+			break;				
 		}
 	}
 
