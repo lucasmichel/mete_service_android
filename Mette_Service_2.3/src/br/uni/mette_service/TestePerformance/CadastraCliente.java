@@ -1,5 +1,7 @@
 package br.uni.mette_service.TestePerformance;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,31 +18,29 @@ import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
 
-public class CadastraCliente implements Runnable{	
-	
-	Modelo modelo = new Modelo();	
-	Modelo modeloRetorno = new Modelo();	
+public class CadastraCliente implements Runnable {
+
+	Modelo modelo = new Modelo();
+	Modelo modeloRetorno = new Modelo();
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaUsuario = new ArrayList();
 	Cliente usuario = new Cliente();
-	Date data = new Date();	
-	long inicio = 0;
+	
 
 	public void run() {
 		// TODO Auto-generated method stub
 
+		long startTempo = System.currentTimeMillis(); 
 		
-			
-		inicio =  data.getTime();
-		Random rand = new Random(); 
-		
-		usuario.setNome(rand.nextInt(999) + "Nome Teste");
-		usuario.setCpf(rand.nextInt(999) + "11223300");
-		usuario.setEmail(rand.nextInt(999) + "testeperformance@teste.com");
-		usuario.setSenha(rand.nextInt(999) + "senhateste");
-		
+		Random rand = new Random();
+
+		usuario.setNome(rand.nextInt(99999) + "Nome Teste");
+		usuario.setCpf(rand.nextInt(99999) + "11223300");
+		usuario.setEmail(rand.nextInt(99999) + "testeperformance@teste.com");
+		usuario.setSenha(rand.nextInt(99999) + "senhateste");
+
 		listaUsuario.clear();
-		
+
 		listaUsuario.add(usuario);
 
 		modelo.setDados(listaUsuario);
@@ -48,9 +48,13 @@ public class CadastraCliente implements Runnable{
 		modelo.setStatus("");
 
 		modeloRetorno = repositorio.acessarServidor("cadastrarCliente", modelo);
-		Log.i("Teste Carga" , "Tentativa de cadastro com email " + usuario.getEmail() + " - Retorno: " + modeloRetorno.getMensagem());		
-		
-		long durou = data.getTime() - inicio;
-		Log.i("Teste Carga", "Acesso durou: " + durou);						
-	}			
+		Log.i("Teste Carga",
+				"Tentativa de cadastro com email " + usuario.getEmail()
+						+ " - Retorno: " + modeloRetorno.getMensagem());
+		long endTempo = System.currentTimeMillis(); 
+		long durou = startTempo - endTempo ;
+
+		System.out.println("tempo q o acesso durou" + durou);
+		Log.i("Teste Carga", "Acesso durou: " + durou);
+	}
 }

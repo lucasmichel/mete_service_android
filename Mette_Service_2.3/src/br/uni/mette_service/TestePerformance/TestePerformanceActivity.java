@@ -22,24 +22,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TestePerformanceActivity extends Activity implements OnClickListener {
+public class TestePerformanceActivity extends Activity implements
+		OnClickListener {
 
 	private Spinner spinnerAcoes;
 	private Button btnTestarPerformance;
 	private List<String> acoes = new ArrayList<String>();
 	private String acao;
-	
- 
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_testeperformance);			
-		
+		setContentView(R.layout.activity_testeperformance);
+
 		adicionarFindView();
 		adicionarListers();
 		preencherSpinner();
 	}
-	
+
 	private void adicionarFindView() {
 		this.btnTestarPerformance = (Button) findViewById(R.id.button1);
 		this.spinnerAcoes = (Spinner) findViewById(R.id.spinner1);
@@ -48,53 +47,66 @@ public class TestePerformanceActivity extends Activity implements OnClickListene
 	public void adicionarListers() {
 		this.btnTestarPerformance.setOnClickListener(this);
 	}
-	
+
 	private void preencherSpinner() {
-		
+
 		acoes.add("cadastrarCliente");
 		acoes.add("excluirCliente");
 		acoes.add("logarAndroid");
-		
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, acoes);
+
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_dropdown_item, acoes);
 		ArrayAdapter<String> spinnerArrayAdapter = arrayAdapter;
-		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+		spinnerArrayAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		spinnerAcoes.setAdapter(spinnerArrayAdapter);
-		
-	///		
-		//Método do Spinner para capturar o item selecionado
-		spinnerAcoes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-		 
-					public void onItemSelected(AdapterView<?> parent, View v, int posicao, long id) {
-						//pega nome pela posição
+
+		// /
+		// Método do Spinner para capturar o item selecionado
+		spinnerAcoes
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+					public void onItemSelected(AdapterView<?> parent, View v,
+							int posicao, long id) {
+						// pega nome pela posição
 						acao = parent.getItemAtPosition(posicao).toString();
-						//imprime um Toast na tela com o nome que foi selecionado
-						Toast.makeText(TestePerformanceActivity.this, "Nome Selecionado: " + acao, Toast.LENGTH_LONG).show();
+						// imprime um Toast na tela com o nome que foi
+						// selecionado
+						Toast.makeText(TestePerformanceActivity.this,
+								"Nome Selecionado: " + acao, Toast.LENGTH_LONG)
+								.show();
 					}
-		 
+
 					public void onNothingSelected(AdapterView<?> parent) {
-		 
+
 					}
-				});		 	
-	/////
+				});
+		// ///
 	}
-	
 
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.button1:		
-			
-			
-			if (acao.equals("cadastrarCliente")){
-			CadastraCliente cadastraCliente = new CadastraCliente();							
-			for (int i = 0; i < 100; i++) {		  				
-			    Thread threadDocadastraCliente = new Thread(cadastraCliente);			    
-			    threadDocadastraCliente.start();  	
-			}}else{Toast toast = Toast.makeText(TestePerformanceActivity.this,
-					"Ainda não implementado!", Toast.LENGTH_LONG);
-			toast.show();};
-			
+		case R.id.button1:
+
+			if (acao.equals("cadastrarCliente")) {
+				CadastraCliente cadastraCliente = new CadastraCliente();
+				long startTempo = System.currentTimeMillis();
+				for (int i = 0; i < 100; i++) {
+					Thread threadDocadastraCliente = new Thread(cadastraCliente);
+					threadDocadastraCliente.start();
+				}
+				long finalTime = System.currentTimeMillis();
+				long durou = startTempo - finalTime;
+				Log.i("Teste Carga", "Acesso total: " + durou);
+
+			} else {
+				Toast toast = Toast.makeText(TestePerformanceActivity.this,
+						"Ainda não implementado!", Toast.LENGTH_LONG);
+				toast.show();
+			}
+
 			break;
-		}		
-	}	
+		}
+	}
 }
