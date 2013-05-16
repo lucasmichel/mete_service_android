@@ -1,7 +1,9 @@
 package br.uni.mette_service.TestePerformance;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.EscolhaDoUsuarioActivity;
@@ -29,6 +31,8 @@ public class TestePerformanceActivity extends Activity implements
 	private Button btnTestarPerformance;
 	private List<String> acoes = new ArrayList<String>();
 	private String acao;
+	private int rHoras, rMinutos, rSegundos, rMilesegundos;
+	private int horasI, minutosI, segundosI, milesegundosI;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,22 +70,17 @@ public class TestePerformanceActivity extends Activity implements
 		spinnerAcoes
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-					public void onItemSelected(AdapterView<?> parent, View v,
-							int posicao, long id) {
+					public void onItemSelected(AdapterView<?> parent, View v,int posicao, long id) {
 						// pega nome pela posição
 						acao = parent.getItemAtPosition(posicao).toString();
-						// imprime um Toast na tela com o nome que foi
-						// selecionado
-						Toast.makeText(TestePerformanceActivity.this,
-								"Nome Selecionado: " + acao, Toast.LENGTH_LONG)
-								.show();
+						// imprime um Toast na tela com o nome que foi selecionado
+						Toast.makeText(TestePerformanceActivity.this,"Nome Selecionado: " + acao, Toast.LENGTH_LONG).show();
 					}
 
 					public void onNothingSelected(AdapterView<?> parent) {
 
 					}
 				});
-		// ///
 	}
 
 	public void onClick(View v) {
@@ -91,21 +90,24 @@ public class TestePerformanceActivity extends Activity implements
 
 			if (acao.equals("cadastrarCliente")) {
 				CadastraCliente cadastraCliente = new CadastraCliente();
-				long startTempo = System.currentTimeMillis();
-				for (int i = 0; i < 100; i++) {
+				java.text.DateFormat tempo = new java.text.SimpleDateFormat("HH:mm:ss.SSS");
+				Calendar dataInicio = Calendar.getInstance();
+				
+				for (int i = 0; i < 10; i++) {
 					Thread threadDocadastraCliente = new Thread(cadastraCliente);
 					threadDocadastraCliente.start();
+				
 				}
-				long finalTime = System.currentTimeMillis();
-				long durou = startTempo - finalTime;
-				Log.i("Teste Carga", "Acesso total: " + durou);
+				Calendar dataFim = Calendar.getInstance();
+				long diferenca = dataFim.getTimeInMillis()- dataInicio.getTimeInMillis();
+				tempo.setTimeZone(TimeZone.getTimeZone("UTC"));
+				System.out.println("TOTAL DE TEMPO PARA REALIZAÇÃO DA TAREFA: "+ tempo.format(diferenca));
 
 			} else {
 				Toast toast = Toast.makeText(TestePerformanceActivity.this,
 						"Ainda não implementado!", Toast.LENGTH_LONG);
 				toast.show();
 			}
-
 			break;
 		}
 	}

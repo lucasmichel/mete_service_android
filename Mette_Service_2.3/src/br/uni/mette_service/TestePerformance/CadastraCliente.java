@@ -34,10 +34,10 @@ public class CadastraCliente implements Runnable {
 		
 		Random rand = new Random();
 
-		usuario.setNome(rand.nextInt(99999) + "Nome Teste");
-		usuario.setCpf(rand.nextInt(99999) + "11223300");
-		usuario.setEmail(rand.nextInt(99999) + "testeperformance@teste.com");
-		usuario.setSenha(rand.nextInt(99999) + "senhateste");
+		usuario.setNome(rand.nextInt(999999999) + "Nome Teste");
+		usuario.setCpf(rand.nextInt(999999999) + "11223300");
+		usuario.setEmail(rand.nextInt(999999999) + "testeperformance@teste.com");
+		usuario.setSenha(rand.nextInt(999999999) + "senhateste");
 
 		listaUsuario.clear();
 
@@ -53,8 +53,8 @@ public class CadastraCliente implements Runnable {
 						+ " - Retorno: " + modeloRetorno.getMensagem());
 		long endTempo = System.currentTimeMillis(); 
 		long durou = startTempo - endTempo ;
-
-		System.out.println("tempo q o acesso durou" + durou);
-		Log.i("Teste Carga", "Acesso durou: " + durou);
+		//Log.i("Teste Carga", "Acesso durou: " + durou);
 	}
+	
+	
 }
