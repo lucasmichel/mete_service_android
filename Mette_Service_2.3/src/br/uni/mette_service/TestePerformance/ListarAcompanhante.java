@@ -35,13 +35,15 @@ public class ListarAcompanhante implements Runnable {
 		modelo.setMensagem("");
 		modelo.setStatus("");
 		
+		modeloRetorno = repositorio.acessarServidor("listarAcompanhante", modelo);
+		
 		Calendar dataFim = Calendar.getInstance();
 		long diferenca = dataFim.getTimeInMillis()- dataInicio.getTimeInMillis();
-		tempo.setTimeZone(TimeZone.getTimeZone("UTC"));		
+		tempo.setTimeZone(TimeZone.getTimeZone("UTC"));
 		
 		Log.i("Teste Carga",
-			  "Tentativa de listarAcompanhante "
-	        + " - Retorno: " + modeloRetorno.getMensagem()	
-			+ " - Acesso durou: " +  tempo.format(diferenca));
+				"Tentativa de listarAcompanhante "
+			+ " - Retorno: " + modeloRetorno.getMensagem()	
+			+ " - Acesso durou: " +  tempo.format(diferenca));		
 	}
 }
