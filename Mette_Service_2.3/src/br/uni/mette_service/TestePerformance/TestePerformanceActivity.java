@@ -31,8 +31,6 @@ public class TestePerformanceActivity extends Activity implements
 	private Button btnTestarPerformance;
 	private List<String> acoes = new ArrayList<String>();
 	private String acao;
-	private int rHoras, rMinutos, rSegundos, rMilesegundos;
-	private int horasI, minutosI, segundosI, milesegundosI;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,60 +51,66 @@ public class TestePerformanceActivity extends Activity implements
 	}
 
 	private void preencherSpinner() {
-
-		acoes.add("cadastrarCliente");
-		acoes.add("excluirCliente");
 		acoes.add("logarAndroid");
-
+		acoes.add("cadastrarAcompanhante");
+		acoes.add("cadastrarCliente");
+		acoes.add("listarAcompanhante");
+		acoes.add("listarServicos");
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_dropdown_item, acoes);
 		ArrayAdapter<String> spinnerArrayAdapter = arrayAdapter;
 		spinnerArrayAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		spinnerAcoes.setAdapter(spinnerArrayAdapter);
-
-		// /
-		// Método do Spinner para capturar o item selecionado
 		spinnerAcoes
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
 					public void onItemSelected(AdapterView<?> parent, View v,int posicao, long id) {
-						// pega nome pela posição
 						acao = parent.getItemAtPosition(posicao).toString();
-						// imprime um Toast na tela com o nome que foi selecionado
 						Toast.makeText(TestePerformanceActivity.this,"Nome Selecionado: " + acao, Toast.LENGTH_LONG).show();
 					}
-
 					public void onNothingSelected(AdapterView<?> parent) {
-
 					}
 				});
 	}
 
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
-
-			if (acao.equals("cadastrarCliente")) {
-				CadastraCliente cadastraCliente = new CadastraCliente();
-				java.text.DateFormat tempo = new java.text.SimpleDateFormat("HH:mm:ss.SSS");
-				Calendar dataInicio = Calendar.getInstance();
-				
-				for (int i = 0; i < 10; i++) {
-					Thread threadDocadastraCliente = new Thread(cadastraCliente);
-					threadDocadastraCliente.start();
-				
+			
+			if (acao.equals("logarAndroid")) {
+				LogarAndroid logarAndroid = new LogarAndroid();
+				for (int i = 0; i < 100; i++) {
+					Thread threadDologarAndroid = new Thread(logarAndroid);
+					threadDologarAndroid.start();
 				}
-				Calendar dataFim = Calendar.getInstance();
-				long diferenca = dataFim.getTimeInMillis()- dataInicio.getTimeInMillis();
-				tempo.setTimeZone(TimeZone.getTimeZone("UTC"));
-				System.out.println("TOTAL DE TEMPO PARA REALIZAÇÃO DA TAREFA: "+ tempo.format(diferenca));
-
-			} else {
-				Toast toast = Toast.makeText(TestePerformanceActivity.this,
-						"Ainda não implementado!", Toast.LENGTH_LONG);
-				toast.show();
+			}
+			if (acao.equals("listarAcompanhante")) {
+				ListarAcompanhante listarAcompanhante = new ListarAcompanhante();
+				for (int i = 0; i < 100; i++) {
+					Thread threadDolistarAcompanhante = new Thread(listarAcompanhante);
+					threadDolistarAcompanhante.start();
+				}
+			}
+			if (acao.equals("listarServicos")) {
+				ListarServicos listarServicos = new ListarServicos();
+				for (int i = 0; i < 100; i++) {
+					Thread threadDolistarServicos = new Thread(listarServicos);
+					threadDolistarServicos.start();
+				}
+			}
+			if (acao.equals("cadastrarCliente")) {
+				CadastrarCliente cadastrarCliente = new CadastrarCliente();
+				for (int i = 0; i < 100; i++) {
+					Thread threadDocadastrarCliente = new Thread(cadastrarCliente);
+					threadDocadastrarCliente.start();
+				}
+			}
+			if (acao.equals("cadastrarAcompanhante")) {
+				CadastrarAcompanhante cadastrarAcompanhante = new CadastrarAcompanhante();
+				for (int i = 0; i < 100; i++) {
+					Thread threadDocadastrarAcompanhante = new Thread(cadastrarAcompanhante);
+					threadDocadastrarAcompanhante.start();
+				}
 			}
 			break;
 		}
