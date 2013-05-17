@@ -11,9 +11,20 @@ import br.uni.mette_service.Model.Repositorio.Repositorio;
 
 public class ListarAcompanhante implements Runnable {
 
+	int tentativa = 0;
+	int qtd_tentativas = 0;
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
 	Repositorio repositorio = new Repositorio();
+	
+	public int getTentativa() {
+		return tentativa;}
+	public void setTentativa(int tentativa) {
+		this.tentativa = tentativa;}
+	public int getQtd_tentativas() {
+		return qtd_tentativas;}
+	public void setQtd_tentativas(int qtd_tentativas) {
+		this.qtd_tentativas = qtd_tentativas;}
 	
 	public void run() {
 
@@ -23,13 +34,14 @@ public class ListarAcompanhante implements Runnable {
 		modelo.setDados(null);
 		modelo.setMensagem("");
 		modelo.setStatus("");
-
-		modeloRetorno = repositorio.acessarServidor("listarAcompanhante", modelo);
-		Log.i("Teste Carga", "Tentativa de listarAcompanhante - Retorno: " + modeloRetorno.getMensagem());
 		
 		Calendar dataFim = Calendar.getInstance();
 		long diferenca = dataFim.getTimeInMillis()- dataInicio.getTimeInMillis();
-		tempo.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Log.i("Teste Carga", "Acesso durou: " +  tempo.format(diferenca));
+		tempo.setTimeZone(TimeZone.getTimeZone("UTC"));		
+		
+		Log.i("Teste Carga",
+			  "Tentativa de listarAcompanhante "
+	        + " - Retorno: " + modeloRetorno.getMensagem()	
+			+ " - Acesso durou: " +  tempo.format(diferenca));
 	}
 }

@@ -1,27 +1,16 @@
 package br.uni.mette_service.TestePerformance;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
-
 import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.EscolhaDoUsuarioActivity;
-import br.uni.mette_service.Controller.LogarAndroidActivity;
-import br.uni.mette_service.Controller.TermoUsoActivity;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class TestePerformanceActivity extends Activity implements
@@ -30,7 +19,7 @@ public class TestePerformanceActivity extends Activity implements
 	private Spinner spinnerAcoes;
 	private Button btnTestarPerformance;
 	private List<String> acoes = new ArrayList<String>();
-	private String acao;
+	String acao;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,41 +66,44 @@ public class TestePerformanceActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.button1:
 			
+			int qtd_tentativas = 100; //Para fazer testes alterar apenas aqui. (Quantidade).
+						
 			if (acao.equals("logarAndroid")) {
 				LogarAndroid logarAndroid = new LogarAndroid();
-				for (int i = 0; i < 100; i++) {
+				for (int i = 0; i < qtd_tentativas; i++) {					
 					Thread threadDologarAndroid = new Thread(logarAndroid);
 					threadDologarAndroid.start();
 				}
 			}
 			if (acao.equals("listarAcompanhante")) {
 				ListarAcompanhante listarAcompanhante = new ListarAcompanhante();
-				for (int i = 0; i < 100; i++) {
+				for (int i = 0; i < qtd_tentativas; i++) {					
 					Thread threadDolistarAcompanhante = new Thread(listarAcompanhante);
 					threadDolistarAcompanhante.start();
 				}
 			}
 			if (acao.equals("listarServicos")) {
 				ListarServicos listarServicos = new ListarServicos();
-				for (int i = 0; i < 100; i++) {
+				for (int i = 0; i < qtd_tentativas; i++) {					
 					Thread threadDolistarServicos = new Thread(listarServicos);
 					threadDolistarServicos.start();
 				}
 			}
 			if (acao.equals("cadastrarCliente")) {
 				CadastrarCliente cadastrarCliente = new CadastrarCliente();
-				for (int i = 0; i < 100; i++) {
+				for (int i = 0; i < qtd_tentativas; i++) {					
 					Thread threadDocadastrarCliente = new Thread(cadastrarCliente);
 					threadDocadastrarCliente.start();
 				}
 			}
 			if (acao.equals("cadastrarAcompanhante")) {
 				CadastrarAcompanhante cadastrarAcompanhante = new CadastrarAcompanhante();
-				for (int i = 0; i < 100; i++) {
+				for (int i = 0; i < qtd_tentativas; i++) {					
 					Thread threadDocadastrarAcompanhante = new Thread(cadastrarAcompanhante);
 					threadDocadastrarAcompanhante.start();
 				}
-			}
+			}		
+								
 			break;
 		}
 	}

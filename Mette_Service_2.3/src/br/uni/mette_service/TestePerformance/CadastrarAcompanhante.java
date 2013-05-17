@@ -14,11 +14,22 @@ import br.uni.mette_service.Model.Repositorio.Repositorio;
 
 public class CadastrarAcompanhante implements Runnable {
 
+	int tentativa = 0;
+	int qtd_tentativas = 0;
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
 	Repositorio repositorio = new Repositorio();
 	List<Object> lista = new ArrayList();
 	Acompanhante acompanhante = new Acompanhante();
+	
+	public int getTentativa() {
+		return tentativa;}
+	public void setTentativa(int tentativa) {
+		this.tentativa = tentativa;}
+	public int getQtd_tentativas() {
+		return qtd_tentativas;}
+	public void setQtd_tentativas(int qtd_tentativas) {
+		this.qtd_tentativas = qtd_tentativas;}
 	
 	public void run() {
 
@@ -52,14 +63,15 @@ public class CadastrarAcompanhante implements Runnable {
 		modelo.setMensagem("");
 		modelo.setStatus("");
 
-		modeloRetorno = repositorio.acessarServidor("cadastrarAcompanhante", modelo);
-		Log.i("Teste Carga",
-				"Tentativa de cadastro de Acompanhante com email " + acompanhante.getEmail()
-						+ " - Retorno: " + modeloRetorno.getMensagem());
+		modeloRetorno = repositorio.acessarServidor("cadastrarAcompanhante", modelo);		
 		
 		Calendar dataFim = Calendar.getInstance();
 		long diferenca = dataFim.getTimeInMillis()- dataInicio.getTimeInMillis();
 		tempo.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Log.i("Teste Carga", "Acesso durou: " +  tempo.format(diferenca));
+		
+		Log.i("Teste Carga",
+			  "Tentativa de cadastrarAcompanhante com email " + acompanhante.getEmail()
+			+ " - Retorno: " + modeloRetorno.getMensagem()	
+			+ " - Acesso durou: " +  tempo.format(diferenca));
 	}
 }

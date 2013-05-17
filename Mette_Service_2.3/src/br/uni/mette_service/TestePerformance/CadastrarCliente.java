@@ -13,11 +13,22 @@ import br.uni.mette_service.Model.Repositorio.Repositorio;
 
 public class CadastrarCliente implements Runnable {
 
+	int tentativa = 0;
+	int qtd_tentativas = 0;
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
 	Repositorio repositorio = new Repositorio();
 	List<Object> lista = new ArrayList();
 	Cliente cliente = new Cliente();
+	
+	public int getTentativa() {
+		return tentativa;}
+	public void setTentativa(int tentativa) {
+		this.tentativa = tentativa;}
+	public int getQtd_tentativas() {
+		return qtd_tentativas;}
+	public void setQtd_tentativas(int qtd_tentativas) {
+		this.qtd_tentativas = qtd_tentativas;}
 	
 	public void run() {
 
@@ -39,13 +50,13 @@ public class CadastrarCliente implements Runnable {
 		modelo.setStatus("");
 
 		modeloRetorno = repositorio.acessarServidor("cadastrarCliente", modelo);
-		Log.i("Teste Carga",
-				"Tentativa de cadastro de Cliente com email " + cliente.getEmail()
-						+ " - Retorno: " + modeloRetorno.getMensagem());
-		
 		Calendar dataFim = Calendar.getInstance();
 		long diferenca = dataFim.getTimeInMillis()- dataInicio.getTimeInMillis();
 		tempo.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Log.i("Teste Carga", "Acesso durou: " +  tempo.format(diferenca));
+		
+		Log.i("Teste Carga",
+		      "Tentativa de cadastrarCliente com email " + cliente.getEmail()
+			+ " - Retorno: " + modeloRetorno.getMensagem()	
+			+ " - Acesso durou: " +  tempo.format(diferenca));		
 	}
 }
