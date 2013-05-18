@@ -66,7 +66,8 @@ public class TestePerformanceActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.button1:
 			
-			int qtd_tentativas = 100; //Para fazer testes alterar apenas aqui. (Quantidade).
+			int qtd_tentativas = 100;
+			//Para fazer testes alterar apenas aqui. (Quantidade).
 						
 			if (acao.equals("logarAndroid")) {
 				LogarAndroid logarAndroid = new LogarAndroid();

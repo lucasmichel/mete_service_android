@@ -39,8 +39,7 @@ public class ListarServicos implements Runnable {
 		tempo.setTimeZone(TimeZone.getTimeZone("UTC"));
 		
 		Log.i("Teste Carga",
-				"Tentativa de listarServicos "
-			+ " - Retorno: " + modeloRetorno.getMensagem()	
+				"Tentativa de listarServicos " + " - Retorno: " + modeloRetorno.getMensagem()	
 			+ " - Acesso durou: " +  tempo.format(diferenca));		
 	}
 }
