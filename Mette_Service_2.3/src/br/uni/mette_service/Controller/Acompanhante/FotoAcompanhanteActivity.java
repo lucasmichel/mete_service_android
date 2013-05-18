@@ -1,6 +1,7 @@
 package br.uni.mette_service.Controller.Acompanhante;
 
 import java.io.DataOutputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.HttpURLConnection;
@@ -9,8 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +23,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,6 +34,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.uni.mette_service.R;
+import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
+import br.uni.mette_service.Controller.Servico.CadastroServicoActivity;
+import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Foto;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -45,8 +55,13 @@ public class FotoAcompanhanteActivity extends Activity implements
 	private TextView txtArquivo;
 	private Usuario usuarioLogado = new Usuario();
 	Modelo modelo = new Modelo();
+	Modelo modeloRetorno = new Modelo();
+	Acompanhante acompanhante = new Acompanhante();
+	Repositorio repositorio = new Repositorio();
+	Acompanhante buscarAcompanhante = new Acompanhante();
 
 	List<Object> listaFoto = new ArrayList();
+	List<Object> listaAcompanhante = new ArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +73,62 @@ public class FotoAcompanhanteActivity extends Activity implements
 
 		adicionarFindView();
 		adicionarListers();
+		buscarAcompanhante(usuarioLogado);
+	}
 
-		Toast.makeText(this, usuarioLogado.getIdUsuario() + "",
-				Toast.LENGTH_LONG).show();
+	private void buscarAcompanhante(Usuario usuarioLogado) {
+		listaAcompanhante.clear();
+		acompanhante.setId(usuarioLogado.getIdUsuario());
+		listaAcompanhante.add(acompanhante);
+
+		modelo.setDados(listaAcompanhante);
+		modelo.setMensagem("");
+		modelo.setStatus("");
+		new buscarAcompanhantePorIdAsyncTask().execute();
+	}
+
+	class buscarAcompanhantePorIdAsyncTask extends
+			AsyncTask<String, String, Modelo> {
+		ProgressDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Modelo doInBackground(String... params) {
+			try {
+				modeloRetorno = repositorio.acessarServidor(
+						"buscarAcompanhantePorIdUsuario", modelo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return modeloRetorno;
+		}
+
+		@Override
+		protected void onPostExecute(Modelo result) {
+			super.onPostExecute(result);
+		
+			if (modeloRetorno.getStatus().equals("1"))
+			{
+				Toast toast = Toast.makeText(FotoAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+			}else{
+			Object dadosObject = modeloRetorno.getDados().get(0);
+			JSONObject jsonObject = null;
+			Gson gson = new Gson();
+			try {
+				jsonObject = new JSONObject(gson.toJson(dadosObject));
+				buscarAcompanhante.setId(jsonObject
+						.getInt("\u0000Acompanhante\u0000id"));
+
+			} catch (JSONException e) {
+				e.getMessage();
+			}
+		}
+	  }
 	}
 
 	private void adicionarFindView() {
@@ -89,8 +157,7 @@ public class FotoAcompanhanteActivity extends Activity implements
 				String[] array = nomeDoCaminho.split("/");
 				String nomeReal = nomeRealfoto(array);
 				Foto foto = new Foto();
-				foto.setId(usuarioLogado.getIdUsuario());
-				// foto.setId(11);
+				foto.setId(buscarAcompanhante.getId());
 				foto.setNome(nomeReal);
 
 				listaFoto.add(foto);
@@ -175,16 +242,7 @@ public class FotoAcompanhanteActivity extends Activity implements
 		return cursor.getString(column_index);
 	}
 
-	public int getMaior(String[] array) {
-		int maior = array.length;
-		for (int i = 0; i < array.length; i++) {
-			if (array.length > maior) {
-				maior = array.length;
-			}
-		}
-		return maior;
-	}
-
+	
 	private String nomeRealfoto(String[] array) {
 		int maior = array.length;
 		String x = null;
@@ -226,19 +284,16 @@ public class FotoAcompanhanteActivity extends Activity implements
 			connection.setRequestMethod("POST");
 			// Adicionando cabeçalhos
 			connection.setRequestProperty("Connection", "Keep-Alive");
-			connection.setRequestProperty("Content-Type",
-					"multipart/form-data;boundary=" + boundary);
+			connection.setRequestProperty("Content-Type","multipart/form-data;boundary=" + boundary);
 			// Escrevendo payload da requisição
-			DataOutputStream outputStream = new DataOutputStream(
-					connection.getOutputStream());
+			DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
 			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
 			outputStream.writeBytes("Content-Disposition: form-data; "
-					+ "name=\"uploadedfile\";filename=\""
-					+ nomeReal + "\"" + lineEnd);
+					+ "name=\"uploadedfile\";filename=\"" +caminhoDoArquivoNoDispositivo + "\""
+					+ lineEnd);
 			outputStream.writeBytes(lineEnd);
 			// Stream para ler o arquivo
-			FileInputStream fileInputStream = new FileInputStream(new File(
-					nomeReal));
+			FileInputStream fileInputStream = new FileInputStream(new File(caminhoDoArquivoNoDispositivo));
 			// Preparando para escrever arquivo
 			bytesAvailable = fileInputStream.available();
 			bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -252,15 +307,11 @@ public class FotoAcompanhanteActivity extends Activity implements
 				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 			}
 			outputStream.writeBytes(lineEnd);
-			outputStream.writeBytes(twoHyphens + boundary + twoHyphens
-					+ lineEnd);
+			outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 			// Obtendo o codigo e a mensagem de resposta do servidor
 			int serverResponseCode = connection.getResponseCode();
 			String serverResponseMessage = connection.getResponseMessage();
-			Toast.makeText(
-					getBaseContext(),
-					"serverResponse : " + serverResponseCode + " = "
-							+ serverResponseMessage, Toast.LENGTH_LONG).show();
+			Toast.makeText(getBaseContext(),"serverResponse : " + serverResponseCode + " = "+ serverResponseMessage, Toast.LENGTH_LONG).show();
 			fileInputStream.close();
 			outputStream.flush();
 			outputStream.close();
