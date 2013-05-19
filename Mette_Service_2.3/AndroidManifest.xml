@@ -88,7 +88,8 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCZo_1fqdr2jpJXHrWCRgjivmtgo8TSTDs" />               
+            android:value="AIzaSyCZo_1fqdr2jpJXHrWCRgjivmtgo8TSTDs" />
+        <activity android:name=".Controller.Comentario.CadastroComentarioActivity"></activity>               
     </application>
 
 </manifest>

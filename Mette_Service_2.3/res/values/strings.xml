@@ -65,6 +65,9 @@
     <string name="btnCadastrarFoto">Cadastrar Foto</string>
     <string name="avaliar">Avaliar</string>
     <string name="avalieacomp">Avalie o Perfil da Acompanhante</string>
+    <string name="salvar">Salvar</string>
+    <string name="comentario">Efetue o comentário sobre a acompanhante</string>
+    <string name="comentarAcompanhante">Comentar</string>
     
     
 

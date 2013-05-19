@@ -191,6 +191,13 @@
             android:layout_height="wrap_content"
             android:text="@string/avaliarAcompanhante" 
             android:layout_weight="1"/>
+        
+        <Button
+            android:id="@+id/btnComentar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comentarAcompanhante" 
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/btnMapa"

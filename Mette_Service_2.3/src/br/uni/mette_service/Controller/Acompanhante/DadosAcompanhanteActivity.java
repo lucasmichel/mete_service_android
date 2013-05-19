@@ -2,6 +2,7 @@ package br.uni.mette_service.Controller.Acompanhante;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Avaliacao.CadastroAvaliacaoActivity;
+import br.uni.mette_service.Controller.Comentario.CadastroComentarioActivity;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Usuario;
 import android.app.Activity;
@@ -20,7 +21,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	atendo, quadril, olhos, pernoite, horario_atent;
 	ImageView status;
 	private Acompanhante dadosAcompanhante;
-	private Button btnAvaliar, btnMapa , btnVoltar;
+	private Button btnAvaliar, btnMapa , btnVoltar, btnComentar;
 	Usuario usuarioLogado = new Usuario();
 	
 @Override
@@ -72,6 +73,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 		this.status = (ImageView) this.findViewById(R.id.imageStatus);
 		//--BOTOES--
 		this.btnAvaliar = (Button) this.findViewById(R.id.btnAvaliar);
+		this.btnComentar = (Button) this.findViewById(R.id.btnComentar);
 		this.btnMapa = (Button) this.findViewById(R.id.btnMapa);
 		this.btnVoltar = (Button) this.findViewById(R.id.btnVoltarDados);
 		
@@ -80,6 +82,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	public void adicionarListers() {
 
 		this.btnAvaliar.setOnClickListener(this);
+		this.btnComentar.setOnClickListener(this);
 		this.btnMapa.setOnClickListener(this);
 		this.btnVoltar.setOnClickListener(this);
 		
@@ -90,6 +93,12 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 		switch (v.getId()) {
 		case R.id.btnAvaliar:
 			it = new Intent(this, CadastroAvaliacaoActivity.class);
+			it.putExtra("acompanhanteSelecionada", dadosAcompanhante);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
+			break;	
+		case R.id.btnComentar:
+			it = new Intent(this, CadastroComentarioActivity.class);
 			it.putExtra("acompanhanteSelecionada", dadosAcompanhante);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
@@ -105,6 +114,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 			break;
 		
 		}
+	
 	}
 
 }

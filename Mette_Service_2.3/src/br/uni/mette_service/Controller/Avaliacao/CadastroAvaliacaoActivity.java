@@ -11,6 +11,7 @@ import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.TermoUsoActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
+import br.uni.mette_service.Controller.Comentario.CadastroComentarioActivity;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.AvaliacaoAcompanhante;
 import br.uni.mette_service.Model.Cliente;
@@ -38,9 +39,12 @@ public class CadastroAvaliacaoActivity extends Activity implements OnClickListen
 	
 	AvaliacaoAcompanhante avaliacaoAcomp = new AvaliacaoAcompanhante();
 	Usuario usuarioLogado = new Usuario();
-	//Acomp
+
 	Acompanhante acompanhanteClicada = new Acompanhante();
 	Acompanhante acompanhanteId = new Acompanhante();
+	float f;
+	
+	
 	
 	public int clienteId; 
 	Cliente cliente = new Cliente();
@@ -69,7 +73,7 @@ public class CadastroAvaliacaoActivity extends Activity implements OnClickListen
 		
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
 		acompanhanteClicada = (Acompanhante) getIntent().getSerializableExtra("acompanhanteSelecionada");
-		executarBuscaCliente(usuarioLogado);
+		//executarBuscaCliente(usuarioLogado);
 		
 	}
 	
@@ -82,6 +86,8 @@ public class CadastroAvaliacaoActivity extends Activity implements OnClickListen
 		}
 
 
+	
+	
 	private void adicionarFindView() {
 		this.btnAvaliarAcompanhante = (Button) findViewById(R.id.btnAvaliarAcomp);
 		this.btnSair = (Button) findViewById(R.id.btnSairAvaliar);		
@@ -106,6 +112,19 @@ public class CadastroAvaliacaoActivity extends Activity implements OnClickListen
 			modelo.setStatus("");									
 			new buscarClientePorIdAsyncTask().execute();
 			
+	}
+	
+	private void executarCadastroAvaliacao(AvaliacaoAcompanhante avaliacao) {
+		
+		listaObj.clear();
+		
+		listaObj.add(avaliacao);
+		modelo.setDados(listaObj);
+		modelo.setMensagem("");
+		modelo.setStatus("");
+		
+		new cadastroAvaliacaoAsyncTask().execute();
+		
 	}
 
 
@@ -176,20 +195,6 @@ class cadastroAvaliacaoAsyncTask extends AsyncTask<String, String, Modelo>  {
 	@Override
 	protected Modelo doInBackground(String... params) {
 
-		AvaliacaoAcompanhante avaliacao = new AvaliacaoAcompanhante();			
-		float f = rtngNota.getRating();
-		
-		avaliacao.setId(0);
-		avaliacao.setNota((int) f);			
-		avaliacao.setIdCliente(clienteId);
-		avaliacao.setIdAcompanhante(acompanhanteClicada.getId());
-		
-		listaObj.clear();
-		
-		listaObj.add(avaliacao);
-		modelo.setDados(listaObj);
-		modelo.setMensagem("");
-		modelo.setStatus("");
 		
 		try
 		{
@@ -208,9 +213,35 @@ class cadastroAvaliacaoAsyncTask extends AsyncTask<String, String, Modelo>  {
 		{
 			Toast toast = Toast.makeText(CadastroAvaliacaoActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 			toast.show();
-		}else{				
-			Intent it = new Intent(CadastroAvaliacaoActivity.this, LogarAndroidActivity.class);
-			startActivity(it);
+		}else{		
+			
+//			android.content.DialogInterface.OnClickListener trataDialog = new android.content.DialogInterface.OnClickListener() 
+//			{
+//				
+//				public void onClick(DialogInterface dialog, int which) 
+//				{
+//					 
+//					Intent it = new Intent(CadastroAvaliacaoActivity.this, CadastroComentarioActivity.class);
+//					it.putExtra("acompanhanteSelecionada", acompanhanteClicada);
+//					startActivity(it);
+//					
+//					
+//					//executarExcluirAcompanhante(idAcompanhanteExcluir);
+//					
+//				}
+//
+//			};
+//			
+//			AlertDialog alert = new AlertDialog.Builder(CadastroAvaliacaoActivity.this)
+//			.setTitle("Confirmação")
+//			.setMessage("Deseja efetuar comentário sobre a acompanhante ?")
+//			.setPositiveButton("Sim", trataDialog)
+//			.setNegativeButton("Não", null).create();
+//		alert.show();
+		
+//		
+//			Intent it = new Intent(CadastroAvaliacaoActivity.this, LogarAndroidActivity.class);
+//			startActivity(it);
 			Toast toast = Toast.makeText(CadastroAvaliacaoActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 			toast.show();
 			finish();
@@ -223,12 +254,21 @@ public void onClick(View v) {
 	switch (v.getId()) {
 	case R.id.btnAvaliarAcomp:	
 		
-		float f = rtngNota.getRating();
+		f = rtngNota.getRating();
 		if (f == 0){
 			Toast toast = Toast.makeText(CadastroAvaliacaoActivity.this, "Avalie a Acompanhante!", Toast.LENGTH_LONG);
 			toast.show();
 		} else {
-			new cadastroAvaliacaoAsyncTask().execute();
+			
+			AvaliacaoAcompanhante avaliacao = new AvaliacaoAcompanhante();			
+			f = rtngNota.getRating();
+			
+			avaliacao.setId(0);
+			avaliacao.setNota((int) f);			
+			avaliacao.setIdCliente(clienteId);
+			avaliacao.setIdAcompanhante(acompanhanteClicada.getId());
+			
+			executarCadastroAvaliacao(avaliacao);
 		}
 		break;
 	case R.id.btnSair:
@@ -236,4 +276,5 @@ public void onClick(View v) {
 		break;
 	}
 	}
+
 }
