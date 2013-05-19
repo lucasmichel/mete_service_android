@@ -48,6 +48,7 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 	private Button btnSair;
 	private Button btnCadastrarServico;
 	private Button btnCadastrarFoto;
+	private Button btnEncontrosAprovados, btnEncontrosPendentes;
 	private int idAcompanhanteExcluir;
 	
 	private TextView txtUsuarioLogado;	
@@ -135,6 +136,8 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 			this.btnAlterarStatus.setOnClickListener(this);
 			this.btnExcluirPerfil.setOnClickListener(this); 
 			this.btnEditarPerfil.setOnClickListener(this); 
+			this.btnEncontrosAprovados.setOnClickListener(this); 
+			this.btnEncontrosPendentes.setOnClickListener(this); 
 			this.btnSair.setOnClickListener(this); 
 			this.btnCadastrarServico.setOnClickListener(this); 
 			
@@ -142,6 +145,8 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 
 		private void adicionarFindView() {
 			this.btnCadastrarFoto = (Button) findViewById(R.id.btnCadastrarFoto);
+			this.btnEncontrosAprovados = (Button) findViewById(R.id.btnEncontrosApr);
+			this.btnEncontrosPendentes = (Button) findViewById(R.id.btnEncontrosPnd);
 			this.btnAlterarStatus = (Button) findViewById(R.id.btnAlterarStatus);
 			this.btnEditarPerfil = (Button) findViewById(R.id.btnEditarPerfil);
 			this.btnExcluirPerfil = (Button) findViewById(R.id.btnExcluirPerfil);
@@ -218,6 +223,22 @@ public class AcompanhanteMenuActivity extends Activity implements OnClickListene
 			it = new Intent(this, CadastroAcompanhanteActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			it.putExtra("eEdicao", eEdicao);	
+			startActivity(it);
+			
+			break;
+		
+		case R.id.btnEncontrosApr:
+			
+			it = new Intent(this, ListarEncontrosAprovados.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
+			
+			break;
+			
+		case R.id.btnEncontrosPnd:
+			
+			it = new Intent(this, ListarEncontrosPendentes.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
 			
 			break;

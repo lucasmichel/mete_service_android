@@ -268,25 +268,6 @@
         android:inputType="number"/>
     
     
-    
-    <TextView
-         android:layout_marginLeft="20dp"
-        android:id="@+id/textFotoAcomp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fotourl"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <EditText
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/editFotoAcomp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:inputType="textUri"/>
-    
     <TextView
         android:layout_marginLeft="20dp"
         android:id="@+id/textEmail"

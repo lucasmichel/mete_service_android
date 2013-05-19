@@ -118,7 +118,6 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 		edtEspecialidadeAcomp = (EditText) findViewById(R.id.editEspecialidadeAcomp);
 		edtHorarioAtendimentoAcomp = (EditText) findViewById(R.id.editHorarioAtentAcomp);
 		edtHorarioAtendimentoAcomp.addTextChangedListener(Mask.insert("##:##", edtHorarioAtendimentoAcomp));
-		edtFotoAcomp = (EditText) findViewById(R.id.editFotoAcomp);
 		edtEmailAcomp = (EditText) findViewById(R.id.editEmailAcomp);
 		edtSenhaAcomp = (EditText) findViewById(R.id.editSenhaAcomp);
 		rdSim = (RadioButton) findViewById(R.id.rdSim);
