@@ -58,11 +58,11 @@ public class LogarAndroidActivity extends Activity implements OnClickListener {
 			adicionarFindView();
 			adicionarListers();
 			
-//			edtEmail.setText("cliente@cliente.com.br");
-//			edtSenha.setText("123456");	
+			edtEmail.setText("cliente@cliente.com.br");
+			edtSenha.setText("123456");	
 			
-			edtEmail.setText("louca@louca.com");
-			edtSenha.setText("testelouca");
+//			edtEmail.setText("louca@louca.com");
+//			edtSenha.setText("testelouca");
 			
 		}
 	}
