@@ -186,6 +186,7 @@ public class GaleriaFotosActivity extends Activity{
 					modelo.setMensagem("");
 					modelo.setStatus("");					
 					modeloRetorno = repositorio.acessarServidor("listarFotosPorIdAcompanhnate", modelo);
+					
 				}						
 			} catch (Exception e) {				
 				e.printStackTrace();
