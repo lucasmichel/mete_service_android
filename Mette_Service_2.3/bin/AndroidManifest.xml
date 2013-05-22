@@ -84,7 +84,8 @@
          <activity android:name=".TestePerformance.TestePerformanceActivity" >
         </activity>
         
-        <activity android:name=".Controller.Avaliacao.CadastroAvaliacaoActivity"></activity>        
+        <activity android:name=".Controller.Avaliacao.CadastroAvaliacaoActivity"></activity>
+        <activity android:name=".Controller.Encontro.CadastroEncontroActivity"></activity>        
         
         
 

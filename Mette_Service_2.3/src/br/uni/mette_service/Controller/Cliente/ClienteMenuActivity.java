@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity.buscarClientePorIdAsyncTask;
+import br.uni.mette_service.Controller.Encontro.CadastroEncontroActivity;
 import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;
@@ -121,6 +122,10 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		case R.id.btnTeste:
 			it = new Intent(this, ListarAcompanhanteActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
+			break;
+		case R.id.btnop2:
+			it = new Intent(this, CadastroEncontroActivity.class);			
 			startActivity(it);
 			break;
 		case R.id.btnListarServicos:
