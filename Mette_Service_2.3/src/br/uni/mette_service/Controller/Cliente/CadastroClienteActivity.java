@@ -37,6 +37,7 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 	boolean eEdicao;
 	int idClienteEditar = 0;
 	Cliente cliente = new Cliente();
+	
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
