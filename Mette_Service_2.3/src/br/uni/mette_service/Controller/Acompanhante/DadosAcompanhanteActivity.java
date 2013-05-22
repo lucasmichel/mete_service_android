@@ -21,7 +21,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	atendo, quadril, olhos, pernoite, horario_atent;
 	ImageView status;
 	private Acompanhante dadosAcompanhante;
-	private Button btnAvaliar, btnMapa , btnVoltar, btnComentar;
+	private Button btnAvaliar, btnServicos , btnVoltar, btnComentar;
 	Usuario usuarioLogado = new Usuario();
 	
 @Override
@@ -74,7 +74,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 		//--BOTOES--
 		this.btnAvaliar = (Button) this.findViewById(R.id.btnAvaliar);
 		this.btnComentar = (Button) this.findViewById(R.id.btnComentar);
-		this.btnMapa = (Button) this.findViewById(R.id.btnMapa);
+		this.btnServicos = (Button) this.findViewById(R.id.btnServicos);
 		this.btnVoltar = (Button) this.findViewById(R.id.btnVoltarDados);
 		
 }
@@ -83,7 +83,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 
 		this.btnAvaliar.setOnClickListener(this);
 		this.btnComentar.setOnClickListener(this);
-		this.btnMapa.setOnClickListener(this);
+		this.btnServicos.setOnClickListener(this);
 		this.btnVoltar.setOnClickListener(this);
 		
 	}
@@ -103,7 +103,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
 			break;	
-		case R.id.btnMapa:
+		case R.id.btnServicos:
 			it = new Intent (this, ListaServicosAcompActivity.class);
 			it.putExtra("acompanhanteSelecionada", dadosAcompanhante);
 			it.putExtra("mapaAcompSelecionada", mapaAcompSelecionada);

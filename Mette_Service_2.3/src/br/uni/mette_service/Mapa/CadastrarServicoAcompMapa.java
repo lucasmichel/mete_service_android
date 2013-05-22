@@ -52,6 +52,7 @@ implements LocationListener{
 	private GoogleMap googleMap;
 	Repositorio repositorio = new Repositorio();
 	Localizacao localizacaoCadastro = new Localizacao();
+//	Localizacao loc1 = new Localizacao();
 	ServicoAcompanhante intentServicoAcomp = new ServicoAcompanhante();
 	Modelo modeloRetorno = new Modelo();
 	List<Object> listaLocalizacoes = new ArrayList();
@@ -92,7 +93,8 @@ implements LocationListener{
 	
 	public void onLocationChanged(final Location location) {
 
-			cadastrarServico();
+//		cadastrarServico();
+			onLongClick();
 
 	}
 		
@@ -155,12 +157,7 @@ implements LocationListener{
 			
 			localizacaoCadastro.setLatitude(String.valueOf(point.latitude));
 			localizacaoCadastro.setLongitude(String.valueOf(point.longitude));
-			
-			
-			markerCadastro	= googleMap.addMarker(new MarkerOptions()  
-			.position(point)  
-			.icon(BitmapDescriptorFactory.fromResource(  
-			  R.drawable.pin)));
+
 
 			Geocoder geocoder = new Geocoder(
 					CadastrarServicoAcompMapa.this, Locale.getDefault());
@@ -188,85 +185,93 @@ implements LocationListener{
 			   					}    	
 			   						localizacaoCadastro.setEnderecoFormatado(
 			   								strReturnedAddress.toString());
+			   				   		confirmarEndreco(localizacaoCadastro);
+			   				   		Log.i("gson", "ende   " + localizacaoCadastro.getEnderecoFormatado());
 			   				}
-
 			   			});
 			   		}
-			   		
-
-	        novaLocalizacao();
-	
 	}
 	
-	private void novaLocalizacao (){
+ 		private void confirmarEndreco (Localizacao localizacao){
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
+
+		    builder.setTitle("Confirmar Endereço");
+
+		    builder.setMessage("Deseja cadastrar seu serviço no endereço : "
+		    		+ localizacao.getEnderecoFormatado() + " ?");
+
+		    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        	
+		        	Double lat = Double.valueOf(localizacaoCadastro.getLatitude());
+		        	Double lng = Double.valueOf(localizacaoCadastro.getLongitude());
+		        	
+		        	LatLng latLng = new LatLng(lat,lng);
+		        	
+		        	markerCadastro	= googleMap.addMarker(new MarkerOptions()  
+					.position(latLng)  
+					.icon(BitmapDescriptorFactory.fromResource(  
+					  R.drawable.pin)));
+
+		        	novaLocalizacao();
+		        }
+		    });
+		    
+		    //define um botão como negativo.
+		    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        
+		        	onLongClick();
+		        	
+
+		        }
+		    });
+		    //cria o AlertDialog
+		    alerta = builder.create();
+		    //Exibe
+		    alerta.show();
+
+		}
 		
-		AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
-	    
-		//define o titulo
-	    builder.setTitle("Localizações");
-	    
-	    //define a mensagem
-	    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
-	    
-	    //define um botão como positivo
-	    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface arg0, int arg1) {
-	        	boolean sim = true;
-	        	adicionarNaLista(sim);
-	        	
-//	        	Localizacao localizacaoLista = new Localizacao();
-//	        	
-//	        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
-//	        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
-//	        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());  	
-//	        	localizacaoLista.setEnderecoFormatado(localizacaoCadastro.getEnderecoFormatado());
-//	        	
-//	        	listaLocalizacoes.add(localizacaoLista);
-
-	        	
-//	        	Gson gson = new Gson();
-//		        String i =	gson.toJson(listaLocalizacoes);
-//		        	System.out.println(i);
-//		        
-//		        	Log.i("gson", i);
-	        	
-	        	
-	        	
-//		        	onLongClick();
-
-	        	
-	        }
-	    });
-	    
-	    //define um botão como negativo.
-	    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface arg0, int arg1) {
-	        	
-	        	boolean nao = false;
-	        	adicionarNaLista(nao);
-	        	
-	        	
-//	        	localizacaoLista.setServicoAcompanhanteId(intentServicoAcomp.getId());
-//	        	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
-//	        	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());  	
-//	        	localizacaoLista.setEnderecoFormatado(localizacaoCadastro.getEnderecoFormatado());
-//	        	
-//	        	listaLocalizacoes.add(localizacaoLista);
-//	        	
-//	        	new	cadastrarServicoMapaAsyncTask().execute();
-	       
-	        }
-	    });
-	    //cria o AlertDialog
-	    alerta = builder.create();
-	    //Exibe
-	    alerta.show();
-
-	}
-};
-		
-	}
+		private void novaLocalizacao (){
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
+		    
+			//define o titulo
+		    builder.setTitle("Localizações");
+		    
+		    //define a mensagem
+		    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
+		    
+		    //define um botão como positivo
+		    builder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        	boolean sim = true;
+		        	adicionarNaLista(sim);
 	
+		        }
+		    });
+		    
+		    //define um botão como negativo.
+		    builder.setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        	
+		        	boolean nao = false;
+		        	adicionarNaLista(nao);
+
+		        }
+		    });
+		    //cria o AlertDialog
+		    alerta = builder.create();
+		    //Exibe
+		    alerta.show();
+
+		}
+	};
+			
+		}
+
 	private void adicionarNaLista(boolean b){
 		Localizacao localizacaoLista = new Localizacao();
 		if(b == true){
@@ -285,9 +290,7 @@ implements LocationListener{
         	localizacaoLista.setLatitude(localizacaoCadastro.getLatitude());
         	localizacaoLista.setLongitude(localizacaoCadastro.getLongitude());  	
         	localizacaoLista.setEnderecoFormatado(localizacaoCadastro.getEnderecoFormatado());
-        	
-        	Toast.makeText(CadastrarServicoAcompMapa.this, "PEDROOOO!! ", Toast.LENGTH_LONG).show();
-        	
+
         	listaLocalizacoes.add(localizacaoLista);
         	
         	new	cadastrarServicoMapaAsyncTask().execute();	
@@ -300,23 +303,14 @@ implements LocationListener{
         	Log.i("gson", i);
 		
 	}
-	
-//	private void sim(boolean b){
-//	
-//		onLongClick();
-//		
-//	}
-	
-	
-	
-	
+
+
 	private void cadastrarServico() {
 	
 		onLongClick();
 
 	}
-	
-//	private void buscarE
+
 		//----
 		//CLASS ASYNCTASK PARA LISTAR TODOS O SERVIÇOS.
 		//----
@@ -336,9 +330,6 @@ implements LocationListener{
 			
 			Modelo locRetorno = new Modelo();
 			Modelo modelo = new Modelo();
-			
-			
-			
 
 			locRetorno = repositorio.acessarServidorMAPA("s/3fxqqgjx9q18kl0/log1.txt", modelo);
 
@@ -384,6 +375,8 @@ implements LocationListener{
 			}catch (Exception e) {
 				e.printStackTrace();			
 			}
+			Toast.makeText(CadastrarServicoAcompMapa.this,
+					modeloRetorno.getMensagem().toString(), Toast.LENGTH_LONG).show();
 			dialog.dismiss();
 		}
 	}

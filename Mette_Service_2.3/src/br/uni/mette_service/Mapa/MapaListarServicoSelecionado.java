@@ -41,8 +41,10 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -57,6 +59,11 @@ implements LocationListener{
 	ServicoAcompanhante intentServicoAcomp = new ServicoAcompanhante();
 	Modelo modeloRetorno = new Modelo();
 	List<Object> listaServicoAcompanhante = new ArrayList();
+	private AlertDialog alerta;
+	
+	
+	List<Object> listaServicoMarker = new ArrayList();
+	
 //	private Location location;
 	
 	protected void onCreate(Bundle savedInstanceState) {  
@@ -66,6 +73,9 @@ implements LocationListener{
 			setContentView(R.layout.activity_mapa); 
 			setUpMap();
 		}
+		
+		intentServicoAcomp = (ServicoAcompanhante) 
+				getIntent().getSerializableExtra("idServicoAcompanante");
 	
 	}
 	
@@ -90,8 +100,13 @@ implements LocationListener{
 	
 	
 	public void onLocationChanged(final Location location) {
+		
 	new mapaListarServicoAcompanhanteAsyncTask().execute();
+
 	}
+	
+	
+	
 	private String toString(InputStream is) throws IOException {
 
 			byte[] bytes = new byte[1024];
@@ -142,6 +157,9 @@ implements LocationListener{
 			
 			googleMap.setOnMapLongClickListener(onLongClick());
 			
+			googleMap.setOnInfoWindowClickListener(windowClickListener());
+
+			
 		}
 	}
 	}
@@ -155,7 +173,51 @@ implements LocationListener{
 	};
 	}
 	
-		class mapaListarServicoAcompanhanteAsyncTask extends AsyncTask<Void, Void, Modelo>{
+	private OnInfoWindowClickListener windowClickListener(){
+		return new OnInfoWindowClickListener() {
+			
+			public void onInfoWindowClick(Marker marker) {
+	
+				AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
+
+			    builder.setTitle("Confirmar Endereço");
+			    
+			    builder.setMessage("O que deseja fazer companheiro ?");
+
+			    builder.setPositiveButton("Criar Uma Rota", new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface arg0, int arg1) {
+			        	
+			        	Toast.makeText(
+			        			MapaListarServicoSelecionado.this, 
+			        			"ROTAAA ", Toast.LENGTH_LONG).show();
+			          
+			        }
+			    });
+			    
+			    //define um botão como negativo.
+			    builder.setNegativeButton("Sair", new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface arg0, int arg1) {
+			        
+			        finish();
+			        	
+
+			        }
+			    });
+			    //cria o AlertDialog
+			    alerta = builder.create();
+			    //Exibe
+			    alerta.show();
+
+				
+				
+				
+			}
+		};
+	}
+
+	
+	
+	class mapaListarServicoAcompanhanteAsyncTask extends AsyncTask<Void, Void, Modelo>{
 
 		
 		ProgressDialog dialog;
@@ -168,9 +230,9 @@ implements LocationListener{
 		}
 		@Override
 		protected Modelo doInBackground(Void... params) {
-			
-			intentServicoAcomp = (ServicoAcompanhante) 
-					getIntent().getSerializableExtra("idServicoAcompanante");
+//			
+//			intentServicoAcomp = (ServicoAcompanhante) 
+//					getIntent().getSerializableExtra("idServicoAcompanante");
 			
 			ServicoAcompanhante idServicoAcompanhante = new ServicoAcompanhante();
 			
@@ -209,73 +271,60 @@ implements LocationListener{
 					Localizacao local = new Localizacao();
 					local.setLatitude(jsonObject.getString("\u0000Localizacao\u0000latitude"));
 					local.setLongitude(jsonObject.getString("\u0000Localizacao\u0000longitude"));
+					local.setEnderecoFormatado(
+							jsonObject.getString("\u0000Localizacao\u0000enderecoFormatado"));
 					
-					double lat = Double.parseDouble(local.getLatitude());
-					double log = Double.parseDouble(local.getLongitude());
-					
-
-					LatLng latLog	= new LatLng(lat, log);
-					googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
-					googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-					
-					meuMarker	= googleMap.addMarker(new MarkerOptions()  
-					.position(latLog)  
-					.icon(BitmapDescriptorFactory.fromResource(  
-					  R.drawable.pin))
-					  .snippet("R$: "+ intentServicoAcomp.getId()));
-					
+					listaServicoMarker.add(local);
+	
 				}
 
 
 			}catch (Exception e) {
 				e.printStackTrace();			
 			}
-			
-			
-			
-			
-////			for ( int i = 0; i < result.getDados().size(); ++i){
-//				
-//			Localizacao local = new Localizacao();
-//			Servico serv = new Servico();
-//			Object dadosObject = result.getDados().get(i);
-//			Gson gson = new Gson();
-//		
-//			JSONObject jsonObject = null;
-//			try {
-//				jsonObject = new JSONObject(gson.toJson(dadosObject));				
-//				serv.setNome(jsonObject.getString("Servico"));
-//				local.setLatitude(jsonObject.getString("Latitude"));
-//				local.setLongitude(jsonObject.getString("Longitude"));
-//				
-//			System.out.println("    "+ jsonObject.getString("Latitude")+ "   "+
-//			jsonObject.getString("Longitude")+ "   " + serv.getNome());
-//			
-//			double lat = Double.parseDouble(local.getLatitude());
-//			double log = Double.parseDouble(local.getLongitude());
-//			
-//			Log.i("envio", " num"+ i +"....latitude" + lat + "...long" + log  );
-//
-//			
-//			LatLng latLog	= new LatLng(lat, log);
-//			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
-//			googleMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-//			
-//			meuMarker	= googleMap.addMarker(new MarkerOptions()  
-//			.position(latLog)  
-//			.icon(BitmapDescriptorFactory.fromResource(  
-//			  R.drawable.pin)).
-//			  title(serv.getNome())  
-//			  .snippet("R$: "+ jsonObject.getString("Valor")));
-//			
-//			}catch (Exception e) {
-//				e.printStackTrace();			
-//			}
+			AddMarkers();
 			dialog.dismiss();
 	}
 }
+	
+		private void AddMarkers (){
+		
+		
+		for(int i = 0; i < listaServicoMarker.size(); i++){
+		Localizacao localizacao = (Localizacao) listaServicoMarker.get(i);
+			
+		double lat = Double.parseDouble(localizacao.getLatitude());
+		double log = Double.parseDouble(localizacao.getLongitude());
+		
 
-
+		LatLng latLog	= new LatLng(lat, log);
+		
+		meuMarker	= googleMap.addMarker(new MarkerOptions()  
+		.position(latLog)  
+		.icon(BitmapDescriptorFactory.fromResource(  
+				 R.drawable.pin)).
+				  title(localizacao.getEnderecoFormatado())  
+				  .snippet("R$: "+ intentServicoAcomp.getValor()));
+		
+		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
+		googleMap.animateCamera(CameraUpdateFactory.newLatLng(meuMarker.getPosition()), 250, null);
+	
+		CameraPosition cameraPosition =   
+			    new CameraPosition.Builder()  
+			      .target(latLog)     
+			      .zoom(17)       
+			      .bearing(90)  
+			      .tilt(45)  
+			      .build();  
+			  googleMap.animateCamera(  
+			    CameraUpdateFactory.newCameraPosition(  
+			      cameraPosition));
+		
+		}
+		
+	}
+	
 
 }
+
 	

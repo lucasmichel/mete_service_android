@@ -9,6 +9,7 @@ import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Servico.ServicoAcompanhante;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,13 +61,27 @@ public class ListarServicoAcompanhanteAdapter extends BaseAdapter {
 			convertView = LayoutInflater.from(ctx).inflate(
 				R.layout.lista_servico_acomp_adapter, null);
 		}
-		TextView txtNomeAcompanhante = (TextView)convertView.
-				findViewById(R.id.txtListaServicoAdapater);
+		TextView txtNomeServicoAdpater = (TextView)convertView.
+				findViewById(R.id.txtNomeServicoAdapater);
+		TextView txtValorServicoAdapter = (TextView)convertView.
+				findViewById(R.id.txtValorServicoAdapater);
 		
 		System.out.println("PEDRO    "+servicoAcompanhanteAdapter.getId());
 		
-		txtNomeAcompanhante.setText(String.valueOf(servicoAcompanhanteAdapter.getId()));
+		if(servicoAcompanhanteAdapter.getServicoId() == 1){
+			txtNomeServicoAdpater.setText("Bolcat");
+			txtNomeServicoAdpater.setBackgroundColor(Color.GREEN);
+		}
+		if(servicoAcompanhanteAdapter.getServicoId() == 2){
+			txtNomeServicoAdpater.setText("Bolinho");
+			txtNomeServicoAdpater.setBackgroundColor(Color.BLUE);
+		}
+		if(servicoAcompanhanteAdapter.getServicoId() == 3){
+			txtNomeServicoAdpater.setText("Rapidinha");
+			txtNomeServicoAdpater.setBackgroundColor(Color.RED);
+		}
 		
+		txtValorServicoAdapter.setText(servicoAcompanhanteAdapter.getValor());
 		
 		
 		return convertView;
