@@ -125,7 +125,8 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			startActivity(it);
 			break;
 		case R.id.btnop2:
-			it = new Intent(this, CadastroEncontroActivity.class);			
+			it = new Intent(this, CadastroEncontroActivity.class);	
+			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
 			break;
 		case R.id.btnListarServicos:
