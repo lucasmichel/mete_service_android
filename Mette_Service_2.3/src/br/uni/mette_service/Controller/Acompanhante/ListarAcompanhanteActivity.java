@@ -147,15 +147,18 @@ implements OnClickListener{
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		
+		super.onListItemClick(l, v, position, id);
+		Acompanhante acompanhante = (Acompanhante) l.getItemAtPosition(position);
+		
 		if (eSolicitacaoDeEncontro)
-		{
-			
+		{			
+			Intent i = new Intent();
+            i.putExtra("ACOMPANHANTE_SELECIONADA", acompanhante);                     
+            setResult(RESULT_OK, i);            
+            finish();            
 		}
 		else
-		{
-			super.onListItemClick(l, v, position, id);
-			Acompanhante acompanhante = (Acompanhante) l.getItemAtPosition(position);
-
+		{			
 			Intent it = new Intent(this, DadosAcompanhanteActivity.class);
 			it.putExtra("acompanhante", acompanhante);
 			it.putExtra("usuarioLogado", usuarioLogado);
