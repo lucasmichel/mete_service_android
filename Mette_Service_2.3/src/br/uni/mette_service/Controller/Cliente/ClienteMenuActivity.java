@@ -118,7 +118,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			
 			new excluirClientePorIdUsuarioAsyncTask().execute();
 			
-			break;	
+			break;
 		case R.id.btnTeste:
 			it = new Intent(this, ListarAcompanhanteActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
