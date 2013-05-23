@@ -9,10 +9,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -26,7 +24,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,15 +31,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity;
-import br.uni.mette_service.Controller.Servico.CadastroServicoActivity;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Foto;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
-
-import com.google.android.gms.internal.ar;
 import com.google.gson.Gson;
 
 public class FotoAcompanhanteActivity extends Activity implements
@@ -110,25 +103,25 @@ public class FotoAcompanhanteActivity extends Activity implements
 		@Override
 		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
-		
-			if (modeloRetorno.getStatus().equals("1"))
-			{
-				Toast toast = Toast.makeText(FotoAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-				toast.show();
-			}else{
-			Object dadosObject = modeloRetorno.getDados().get(0);
-			JSONObject jsonObject = null;
-			Gson gson = new Gson();
-			try {
-				jsonObject = new JSONObject(gson.toJson(dadosObject));
-				buscarAcompanhante.setId(jsonObject
-						.getInt("\u0000Acompanhante\u0000id"));
 
-			} catch (JSONException e) {
-				e.getMessage();
+			if (modeloRetorno.getStatus().equals("1")) {
+				Toast toast = Toast.makeText(FotoAcompanhanteActivity.this,
+						modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+			} else {
+				Object dadosObject = modeloRetorno.getDados().get(0);
+				JSONObject jsonObject = null;
+				Gson gson = new Gson();
+				try {
+					jsonObject = new JSONObject(gson.toJson(dadosObject));
+					buscarAcompanhante.setId(jsonObject
+							.getInt("\u0000Acompanhante\u0000id"));
+
+				} catch (JSONException e) {
+					e.getMessage();
+				}
 			}
 		}
-	  }
 	}
 
 	private void adicionarFindView() {
@@ -242,7 +235,6 @@ public class FotoAcompanhanteActivity extends Activity implements
 		return cursor.getString(column_index);
 	}
 
-	
 	private String nomeRealfoto(String[] array) {
 		int maior = array.length;
 		String x = null;
@@ -261,7 +253,7 @@ public class FotoAcompanhanteActivity extends Activity implements
 		String caminhoDoArquivoNoDispositivo = txtArquivo.getText().toString();
 		String[] array = caminhoDoArquivoNoDispositivo
 				.split(Pattern.quote("/"));
-		String nomeReal = nomeRealfoto(array);
+		nomeRealfoto(array);
 		String urlDoServidor = "http://leonardogalvao.com.br/mete_service/src/subir";
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
@@ -284,16 +276,19 @@ public class FotoAcompanhanteActivity extends Activity implements
 			connection.setRequestMethod("POST");
 			// Adicionando cabeçalhos
 			connection.setRequestProperty("Connection", "Keep-Alive");
-			connection.setRequestProperty("Content-Type","multipart/form-data;boundary=" + boundary);
+			connection.setRequestProperty("Content-Type",
+					"multipart/form-data;boundary=" + boundary);
 			// Escrevendo payload da requisição
-			DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+			DataOutputStream outputStream = new DataOutputStream(
+					connection.getOutputStream());
 			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
 			outputStream.writeBytes("Content-Disposition: form-data; "
-					+ "name=\"uploadedfile\";filename=\"" +caminhoDoArquivoNoDispositivo + "\""
-					+ lineEnd);
+					+ "name=\"uploadedfile\";filename=\""
+					+ caminhoDoArquivoNoDispositivo + "\"" + lineEnd);
 			outputStream.writeBytes(lineEnd);
 			// Stream para ler o arquivo
-			FileInputStream fileInputStream = new FileInputStream(new File(caminhoDoArquivoNoDispositivo));
+			FileInputStream fileInputStream = new FileInputStream(new File(
+					caminhoDoArquivoNoDispositivo));
 			// Preparando para escrever arquivo
 			bytesAvailable = fileInputStream.available();
 			bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -307,11 +302,15 @@ public class FotoAcompanhanteActivity extends Activity implements
 				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 			}
 			outputStream.writeBytes(lineEnd);
-			outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+			outputStream.writeBytes(twoHyphens + boundary + twoHyphens
+					+ lineEnd);
 			// Obtendo o codigo e a mensagem de resposta do servidor
 			int serverResponseCode = connection.getResponseCode();
 			String serverResponseMessage = connection.getResponseMessage();
-			Toast.makeText(getBaseContext(),"serverResponse : " + serverResponseCode + " = "+ serverResponseMessage, Toast.LENGTH_LONG).show();
+			Toast.makeText(
+					getBaseContext(),
+					"serverResponse : " + serverResponseCode + " = "
+							+ serverResponseMessage, Toast.LENGTH_LONG).show();
 			fileInputStream.close();
 			outputStream.flush();
 			outputStream.close();
