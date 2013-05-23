@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/editarPerfilCliente"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="Editar Conta"/>
+
+    <item
+        android:id="@+id/ExcluirPerfilCliente"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Excluir Conta"/>
+
+    <item
+        android:id="@+id/MapaCliente"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="Mapa"/>
+
+    <item
+        android:id="@+id/SairCliente"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="SAIR"/>
+
+</menu>

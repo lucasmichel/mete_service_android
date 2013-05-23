@@ -93,14 +93,12 @@ public class CadastroComentarioActivity extends Activity implements OnClickListe
 				
 				comentario.setIdComentario(comentarioClicado.getIdComentario());
 			}
-			comentario.setComentario(edtComentario.getText().toString());
-			
-			executarCadastroComentario(comentario);
-			
+			comentario.setComentario(edtComentario.getText().toString());			
+			executarCadastroComentario(comentario);			
 			break;
-		case R.id.btnSair:
-			finish();
-			break;
+		/*
+		 * case R.id.btnSair: finish(); break;
+		 */
 		}
 		}
 

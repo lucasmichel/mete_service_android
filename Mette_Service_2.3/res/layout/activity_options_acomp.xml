@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/editarPerfil"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="Editar Conta"/>
+    <item
+        android:id="@+id/ExcluirPerfil"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Excluir Conta"/>
+
+    <item
+        android:id="@+id/enviarFotos"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="Enviar Fotos"/>
+
+    <item
+        android:id="@+id/exibirGaleria"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="Galeria de Fotos"/>
+
+    <item
+        android:id="@+id/Sair"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="SAIR"/>
+
+</menu>

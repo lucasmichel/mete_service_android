@@ -16,6 +16,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -47,17 +50,11 @@ public class AcompanhanteMenuActivity extends Activity implements
 	Usuario editadoUsuarioLogado = new Usuario();
 	private AlertDialog alerta;
 	private Intent itLogin;
-	
-	private Button btnEditarPerfil;
-	private Button btnExcluirPerfil;
 	private Button btnAlterarStatus;
-	private Button btnSair;
 	private Button btnCadastrarServico;
-	private Button btnCadastrarFoto;
 	private Button btnMeusServicos;
-	private Button btnEncontrosAprovados, btnEncontrosPendentes, btnGaleriaFotos;
+	private Button btnEncontrosAprovados, btnEncontrosPendentes;
 	private int idAcompanhante;
-
 	private TextView txtUsuarioLogado;
 	List<Object> listaobj = new ArrayList<Object>();
 	Acompanhante acompanhanteRetorno, acompanhanteLogada;
@@ -77,11 +74,10 @@ public class AcompanhanteMenuActivity extends Activity implements
 		adicionarListers();
 		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, "
 				+ usuarioLogado.getEmail() + "!");
-		
-		 executarBuscarAcompanhante(usuarioLogado);
+
+		executarBuscarAcompanhante(usuarioLogado);
 
 		Log.i("SOSTENES", "ID ACOMPANHANTE EXCLUIR: " + idAcompanhante);
-		
 
 	}
 
@@ -131,29 +127,20 @@ public class AcompanhanteMenuActivity extends Activity implements
 	}
 
 	private void adicionarListers() {
-		this.btnCadastrarFoto.setOnClickListener(this);
-		this.btnAlterarStatus.setOnClickListener(this);
-		this.btnExcluirPerfil.setOnClickListener(this);
-		this.btnEditarPerfil.setOnClickListener(this);
+		this.btnAlterarStatus.setOnClickListener(this);		
 		this.btnEncontrosAprovados.setOnClickListener(this);
 		this.btnEncontrosPendentes.setOnClickListener(this);
-		this.btnSair.setOnClickListener(this);
 		this.btnCadastrarServico.setOnClickListener(this);
-		this.btnGaleriaFotos.setOnClickListener(this);
 		this.btnMeusServicos.setOnClickListener(this);
 	}
 
 	private void adicionarFindView() {
-		this.btnCadastrarFoto = (Button) findViewById(R.id.btnCadastrarFoto);
+
 		this.btnEncontrosAprovados = (Button) findViewById(R.id.btnEncontrosApr);
 		this.btnEncontrosPendentes = (Button) findViewById(R.id.btnEncontrosPnd);
 		this.btnAlterarStatus = (Button) findViewById(R.id.btnAlterarStatus);
-		this.btnEditarPerfil = (Button) findViewById(R.id.btnEditarPerfil);
-		this.btnExcluirPerfil = (Button) findViewById(R.id.btnExcluirPerfil);
-		this.btnSair = (Button) findViewById(R.id.btnSair);
 		this.btnCadastrarServico = (Button) findViewById(R.id.btnCadastrarServico);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogadoAcomp);
-		this.btnGaleriaFotos = (Button) findViewById(R.id.btnGaleria);
 		this.btnMeusServicos = (Button) findViewById(R.id.btnMeusServicos);
 	}
 
@@ -168,17 +155,19 @@ public class AcompanhanteMenuActivity extends Activity implements
 			return null;
 		}
 	}
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		  super.onActivityResult(requestCode, resultCode, intent);
-		  if(resultCode==RESULT_OK && requestCode==1){
-			Usuario editadoUsuarioLogado = (Usuario) intent.getSerializableExtra("editadoUsuarioLogado");
-			  this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario() + " - Olá, "
-						+ editadoUsuarioLogado.getEmail() + "!");
-			  
-			  usuarioLogado = editadoUsuarioLogado; 
-		   
-		  }
+
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+		if (resultCode == RESULT_OK && requestCode == 1) {
+			Usuario editadoUsuarioLogado = (Usuario) intent
+					.getSerializableExtra("editadoUsuarioLogado");
+			this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario()
+					+ " - Olá, " + editadoUsuarioLogado.getEmail() + "!");
+
+			usuarioLogado = editadoUsuarioLogado;
+
+		}
 	}
 
 	// PASSAR O CLICK DOS BOTOES PARA ONCLIKLISTENER
@@ -190,110 +179,28 @@ public class AcompanhanteMenuActivity extends Activity implements
 		Intent it = null;
 		switch (v.getId()) {
 
-		case R.id.btnCadastrarFoto:
-			it = new Intent(this, FotoAcompanhanteActivity.class);
-			it.putExtra("usuarioLogado", usuarioLogado);
-			startActivity(it);
-			break;
-
-		case R.id.btnGaleria:
-			it = new Intent(this, GaleriaFotosActivity.class);
-			it.putExtra("usuarioLogado", usuarioLogado);
-			startActivity(it);
-			break;
 		case R.id.btnAlterarStatus:
 			it = new Intent(this, AlterarStatusActivity.class);
 			startActivity(it);
 			break;
-
-		case R.id.btnExcluirPerfil:
-			android.content.DialogInterface.OnClickListener trataDialog = new android.content.DialogInterface.OnClickListener() {
-
-				public void onClick(DialogInterface dialog, int which) {
-
-					executarExcluirAcompanhantePorIdUsuario(usuarioLogado);
-
-					// executarExcluirAcompanhante(idAcompanhanteExcluir);
-
-				}
-
-			};
-
-			AlertDialog alert = new AlertDialog.Builder(this)
-					.setTitle("Confirmação")
-					.setMessage("Deseja realmente excluir?")
-					.setPositiveButton("Sim", trataDialog)
-					.setNegativeButton("Não", null).create();
-			alert.show();
-
-			break;
-
-		case R.id.btnEditarPerfil:
-
-			it = new Intent(this, CadastroAcompanhanteActivity.class);
-			it.putExtra("usuarioLogado", usuarioLogado);
-			it.putExtra("eEdicao", eEdicao);
-			startActivityForResult(it, 1);
-
-			break;
-
 		case R.id.btnEncontrosApr:
-
 			it = new Intent(this, ListarEncontrosAprovados.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
-
 			break;
-
 		case R.id.btnEncontrosPnd:
-
 			it = new Intent(this, ListarEncontrosPendentes.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
-
 			break;
-
-		case R.id.btnSair:
-			AlertDialog.Builder builder = new AlertDialog.Builder(AcompanhanteMenuActivity.this);
-
-		    builder.setTitle("Já vai sair ? Fique mais um pouco.");
-		    
-		    builder.setMessage("Deseja realmente sair da aplicação?");
-
-		    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface arg0, int arg1) {
-
-		        	itLogin = new Intent(AcompanhanteMenuActivity.this, 
-		        			LogarAndroidActivity.class);
-		        	startActivity(itLogin);		        	
-					Toast.makeText(AcompanhanteMenuActivity.this,
-							"Bye..Bye", Toast.LENGTH_LONG).show();
-					
-					finish();
-		        	
-
-		        }
-		    });
-		    
-
-		    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface arg0, int arg1) {
-
-		        }
-		    });
-		    alerta = builder.create();
-		    alerta.show();
-			break;
-
 		case R.id.btnCadastrarServico:
 			it = new Intent(this, CadastroServicoActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
-
 			break;
 		case R.id.btnMeusServicos:
 			// boolean para saber na tela de listar serviços que chamou
-			boolean listarServicosAcomp = true; 
+			boolean listarServicosAcomp = true;
 			it = new Intent(this, ListaServicosAcompActivity.class);
 			Acompanhante acomp = new Acompanhante();
 			acomp.setId(idAcompanhante);
@@ -303,9 +210,9 @@ public class AcompanhanteMenuActivity extends Activity implements
 
 			break;
 		}
-		
+
 	}
-		  
+
 	class excluirAcompanhanteAsyncTask extends
 			AsyncTask<String, String, Modelo> {
 		ProgressDialog dialog;
@@ -389,9 +296,12 @@ public class AcompanhanteMenuActivity extends Activity implements
 				try {
 					jsonObject = new JSONObject(gson.toJson(dadosObject));
 
-					Log.i("SOSTENES","RETORNO PARA MONTAR NA TELA"+ gson.toJson(dadosObject));
+					Log.i("SOSTENES",
+							"RETORNO PARA MONTAR NA TELA"
+									+ gson.toJson(dadosObject));
 
-					idAcompanhante = jsonObject.getInt("\u0000Acompanhante\u0000id");
+					idAcompanhante = jsonObject
+							.getInt("\u0000Acompanhante\u0000id");
 
 				} catch (JSONException e) {
 				}
@@ -405,4 +315,70 @@ public class AcompanhanteMenuActivity extends Activity implements
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater mi = getMenuInflater();
+		mi.inflate(R.layout.activity_options_acomp, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent it = null;
+		switch (item.getItemId()) {
+		case R.id.editarPerfil:
+			it = new Intent(this, CadastroAcompanhanteActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			it.putExtra("eEdicao", eEdicao);
+			startActivityForResult(it, 1);
+			break;
+		case R.id.ExcluirPerfil:
+			android.content.DialogInterface.OnClickListener trataDialog = new android.content.DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					executarExcluirAcompanhantePorIdUsuario(usuarioLogado);
+				}
+			};
+
+			AlertDialog alert = new AlertDialog.Builder(this)
+					.setTitle("Confirmação")
+					.setMessage("Deseja realmente excluir?")
+					.setPositiveButton("Sim", trataDialog)
+					.setNegativeButton("Não", null).create();
+			alert.show();
+			break;
+		case R.id.enviarFotos:
+			it = new Intent(this, FotoAcompanhanteActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
+			break;
+		case R.id.exibirGaleria:
+			it = new Intent(this, GaleriaFotosActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
+			break;
+		case R.id.Sair:
+			AlertDialog.Builder builder = new AlertDialog.Builder(AcompanhanteMenuActivity.this);
+			builder.setTitle("Já vai sair ? Fique mais um pouco.");
+			builder.setMessage("Deseja realmente sair da aplicação?");
+			builder.setPositiveButton("Sim",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							itLogin = new Intent(AcompanhanteMenuActivity.this,LogarAndroidActivity.class);
+							startActivity(itLogin);
+							Toast.makeText(AcompanhanteMenuActivity.this,"Bye..Bye", Toast.LENGTH_LONG).show();
+							finish();
+						}
+					});
+			builder.setNegativeButton("Não",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+						}
+					});
+			alerta = builder.create();
+			alerta.show();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

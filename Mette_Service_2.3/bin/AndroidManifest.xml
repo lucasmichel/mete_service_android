@@ -32,13 +32,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="br.uni.mette_service.Controller.LogarAndroidActivity"
+            android:name="br.uni.mette_service.Util.SplashActivityRunnable"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="br.uni.mette_service.Controller.LogarAndroidActivity" >
         </activity>
         <activity android:name="br.uni.mette_service.Controller.Acompanhante.FotoAcompanhanteActivity" >
         </activity>

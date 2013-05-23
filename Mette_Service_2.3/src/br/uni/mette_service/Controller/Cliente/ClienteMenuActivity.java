@@ -1,18 +1,11 @@
 package br.uni.mette_service.Controller.Cliente;
 
 import java.util.ArrayList;
+
 import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.google.gson.Gson;
-
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
-import br.uni.mette_service.Controller.Acompanhante.AcompanhanteMenuActivity;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
-import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity.buscarClientePorIdAsyncTask;
 import br.uni.mette_service.Controller.Encontro.CadastroEncontroActivity;
 import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
@@ -20,7 +13,6 @@ import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
-import br.uni.mette_service.Util.PreferencesController;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -46,90 +38,82 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private Button btnEditar;
 	private Intent itLogin;
 	private AlertDialog alerta;
-	
+
 	private Cliente cliente;
-	private EditText txtNome; 
-	private EditText txtCpf; 
-	private EditText txtTelefone; 
-	private EditText txtEmail; 
+	private EditText txtNome;
+	private EditText txtCpf;
+	private EditText txtTelefone;
+	private EditText txtEmail;
 	private EditText txtSenha;
 
-	private TextView txtUsuarioLogado;	
+	private TextView txtUsuarioLogado;
 	private Button btnTeste;
-	private Button btnAvancar;
-	private Button btnVoltar;
-	private Button btnExcluir;
 	private Button btnop2;
-	private Button btnop3;	
-	private Button btnMapa;
-	private Button btnSairCliente;
-	private Button btnListarServicos;	
+	private Button btnListarServicos;
 
 	Modelo modelo = new Modelo();
-	Modelo modeloRetorno = new Modelo();	
+	Modelo modeloRetorno = new Modelo();
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaCliente = new ArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu);		
-		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");										
-		itLogin = new Intent(this, LogarAndroidActivity.class);		
-		adicionarFindView();			
+		setContentView(R.layout.activity_tela_cliente);
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra(
+				"usuarioLogado");
+		itLogin = new Intent(this, LogarAndroidActivity.class);
+		adicionarFindView();
 		adicionarListers();
-		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, " + usuarioLogado.getEmail() + "!");
+		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, "
+				+ usuarioLogado.getEmail() + "!");
 	}
 
 	private void adicionarFindView() {
 		this.txtNome = (EditText) findViewById(R.id.edtNomeCliente);
-		this.txtCpf = (EditText) findViewById(R.id.edtCPFCliente);		
+		this.txtCpf = (EditText) findViewById(R.id.edtCPFCliente);
 		this.txtEmail = (EditText) findViewById(R.id.edtEmailCliente);
-		this.txtSenha = (EditText) findViewById(R.id.edtSenhaCliente);		
+		this.txtSenha = (EditText) findViewById(R.id.edtSenhaCliente);
 		this.btnop2 = (Button) findViewById(R.id.btnop2);
-		this.btnEditar = (Button) findViewById(R.id.btneditar);
-		this.btnExcluir = (Button) findViewById(R.id.btnop4);
-		this.btnMapa = (Button) findViewById(R.id.btnMapa);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogado);
 		this.btnTeste = (Button) findViewById(R.id.btnTeste);
 		this.btnListarServicos = (Button) findViewById(R.id.btnListarServicos);
-		this.btnSairCliente = (Button) findViewById(R.id.btnSairCliente);
+
 	}
 
-	public void adicionarListers() {		
+	public void adicionarListers() {
 		this.btnTeste.setOnClickListener(this);
 		this.btnop2.setOnClickListener(this);
-		this.btnExcluir.setOnClickListener(this);
-		this.btnEditar.setOnClickListener(this);
-		this.btnMapa.setOnClickListener(this);
 		this.btnListarServicos.setOnClickListener(this);
-		this.btnSairCliente.setOnClickListener(this);
 	}
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
-		if(resultCode==RESULT_OK && requestCode==1){
-			Usuario editadoUsuarioLogado = (Usuario) intent.getSerializableExtra("editadoUsuarioLogado");
-			this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario() + " - Olá, "
-					+ editadoUsuarioLogado.getEmail() + "!");			  
-			usuarioLogado = editadoUsuarioLogado; 		   
+		if (resultCode == RESULT_OK && requestCode == 1) {
+			Usuario editadoUsuarioLogado = (Usuario) intent
+					.getSerializableExtra("editadoUsuarioLogado");
+			this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario()
+					+ " - Olá, " + editadoUsuarioLogado.getEmail() + "!");
+			usuarioLogado = editadoUsuarioLogado;
 		}
 	}
 
 	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int which) {
-			switch (which){
-			case DialogInterface.BUTTON_POSITIVE:													
-				listaCliente.clear();			
+			switch (which) {
+			case DialogInterface.BUTTON_POSITIVE:
+				listaCliente.clear();
 				listaCliente.add(usuarioLogado);
 				modelo.setDados(listaCliente);
 				modelo.setMensagem("");
-				modelo.setStatus("");			
-				new excluirClientePorIdUsuarioAsyncTask().execute();				
+				modelo.setStatus("");
+				new excluirClientePorIdUsuarioAsyncTask().execute();
 				break;
 			case DialogInterface.BUTTON_NEGATIVE:
-				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Exclusão Cancelada", Toast.LENGTH_LONG);
-				toast.show();	
+				Toast toast = Toast.makeText(ClienteMenuActivity.this,
+						"Exclusão Cancelada", Toast.LENGTH_LONG);
+				toast.show();
 				break;
 			}
 		}
@@ -138,89 +122,43 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		Intent it = null;
 		switch (v.getId()) {
-		case R.id.btneditar:
-			it = new Intent(this, CadastroClienteActivity.class);		
-			it.putExtra("usuarioLogado", usuarioLogado);	
-			it.putExtra("eEdicao", eEdicao);			
-			startActivityForResult(it, 1);
-			break;		
 
-		case R.id.btnop4:			
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Você realmente deseja excluir sua conta?").setPositiveButton("Sim", dialogClickListener)
-			.setNegativeButton("Não", dialogClickListener).show();				   			
-			break;
 		case R.id.btnTeste:
 			it = new Intent(this, ListarAcompanhanteActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
 			break;
 		case R.id.btnop2:
-			it = new Intent(this, CadastroEncontroActivity.class);	
+			it = new Intent(this, CadastroEncontroActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
 			break;
 		case R.id.btnListarServicos:
-			it = new Intent(this, ListaServicosActivity.class);					
+			it = new Intent(this, ListaServicosActivity.class);
 			startActivity(it);
 			break;
-		case R.id.btnMapa:
-			it = new Intent(this, MapaActivity.class);					
-			startActivity(it);
-			break;
-		case R.id.btnSairCliente:	
-			
-			AlertDialog.Builder builderSair = new AlertDialog.Builder(ClienteMenuActivity.this);
-
-			builderSair.setTitle("Já vai sair ? Fique mais um pouco.");
-		    
-			builderSair.setMessage("Deseja realmente sair da aplicação?");
-
-			builderSair.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface arg0, int arg1) {
-
-		        	startActivity(itLogin);		
-		        	
-					Toast.makeText(ClienteMenuActivity.this,
-							"Bye..Bye", Toast.LENGTH_LONG).show();
-					
-					finish();
-		        	
-
-		        }
-		    });
-		    
-
-			builderSair.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-		        public void onClick(DialogInterface arg0, int arg1) {
-
-		        }
-		    });
-		    alerta = builderSair.create();
-		    alerta.show();
-			
-			break;
-		}				
-	}	
+		}
+	}
 
 	// excluirClientePorIdUsuario
-	class excluirClientePorIdUsuarioAsyncTask extends AsyncTask<String, String, Modelo>  {
+	class excluirClientePorIdUsuarioAsyncTask extends
+			AsyncTask<String, String, Modelo> {
 		ProgressDialog dialog;
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			dialog = ProgressDialog.show(ClienteMenuActivity.this,
-					"Cadastrando...", "Aguarde...",
-					true, false);
+					"Cadastrando...", "Aguarde...", true, false);
 		}
 
 		@Override
-		protected Modelo doInBackground(String... params) {	
-			try
-			{
+		protected Modelo doInBackground(String... params) {
+			try {
 				Log.i("SOSTENES", "excluirClientePorIdUsuario");
-				modeloRetorno = repositorio.acessarServidor("excluirClientePorIdUsuario", modelo);
-			} catch (Exception e) {				
+				modeloRetorno = repositorio.acessarServidor(
+						"excluirClientePorIdUsuario", modelo);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return modeloRetorno;
@@ -230,17 +168,74 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
 			dialog.dismiss();
-			if (modeloRetorno.getStatus().equals("1"))
-			{
-				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Erro no Servidor " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+			if (modeloRetorno.getStatus().equals("1")) {
+				Toast toast = Toast.makeText(ClienteMenuActivity.this,
+						"Erro no Servidor " + modeloRetorno.getMensagem(),
+						Toast.LENGTH_LONG);
 				toast.show();
-			}else{								
-				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Tudo Ok " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-				toast.show();							
-				finish();				
-				startActivity(itLogin);												
-			}	
+			} else {
+				Toast toast = Toast.makeText(ClienteMenuActivity.this,
+						"Tudo Ok " + modeloRetorno.getMensagem(),
+						Toast.LENGTH_LONG);
+				toast.show();
+				finish();
+				startActivity(itLogin);
+			}
 		}
-	}	
-	// Fim / excluirClientePorIdUsuario
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater mi = getMenuInflater();
+		mi.inflate(R.layout.activity_options_cliente, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent it = null;
+		switch (item.getItemId()) {
+		case R.id.editarPerfilCliente:
+			it = new Intent(this, CadastroClienteActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			it.putExtra("eEdicao", eEdicao);
+			startActivityForResult(it, 1);
+			break;
+		case R.id.ExcluirPerfilCliente:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Você realmente deseja excluir sua conta?")
+					.setPositiveButton("Sim", dialogClickListener)
+					.setNegativeButton("Não", dialogClickListener).show();
+			break;
+		case R.id.MapaCliente:
+			it = new Intent(this, MapaActivity.class);
+			startActivity(it);
+			break;
+		case R.id.SairCliente:
+			AlertDialog.Builder builderSair = new AlertDialog.Builder(
+					ClienteMenuActivity.this);
+			builderSair.setTitle("Já vai sair ? Fique mais um pouco.");
+			builderSair.setMessage("Deseja realmente sair da aplicação?");
+			builderSair.setPositiveButton("Sim",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							startActivity(itLogin);
+							Toast.makeText(ClienteMenuActivity.this,
+									"Bye..Bye", Toast.LENGTH_LONG).show();
+							finish();
+
+						}
+					});
+			builderSair.setNegativeButton("Não",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+						}
+					});
+			alerta = builderSair.create();
+			alerta.show();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

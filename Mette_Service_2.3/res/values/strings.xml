@@ -78,6 +78,7 @@
     <string name="excluirPerfilCliente">Excluir Perfil</string>
     <string name="listarServicos">Listar Serviços</string>
     
+    <string name="framework">Framework</string>
     
 
 </resources>

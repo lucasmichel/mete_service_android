@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#CD2626" >
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:id="@+id/imageView1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/mete_service"
+            android:src="@drawable/framework"
             android:layout_gravity="center" />
 
     </LinearLayout>
@@ -100,14 +101,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
             android:text="@string/textoCadastre"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/white"/>
         
         <TextView
             android:id="@+id/txtTestePerformance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
             android:text="Teste Performance"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/red"/>
     </LinearLayout>
 
 </LinearLayout>

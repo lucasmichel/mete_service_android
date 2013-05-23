@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/client"
     android:orientation="vertical" >
 
     <ScrollView
@@ -18,7 +19,9 @@
                 android:id="@+id/txtUsuarioLogadoAcomp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:textColor="@color/white"
+                android:text="TextView"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:id="@+id/btnAlterarStatus"
@@ -30,24 +33,6 @@
                 android:text="@string/alterarstatus" />
 
             <Button
-                android:id="@+id/btnEditarPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/editarperfil" />
-
-            <Button
-                android:id="@+id/btnExcluirPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/excluirperfil" />
-            
-            <Button
                 android:id="@+id/btnEncontrosPnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +40,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/encontrospnd" />
-            
+
             <Button
                 android:id="@+id/btnEncontrosApr"
                 android:layout_width="match_parent"
@@ -82,33 +67,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/MeusServicos" />
-
-            <Button
-                android:id="@+id/btnCadastrarFoto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/btnCadastrarFoto" />
-
-            <Button
-                android:id="@+id/btnGaleria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/Galeria" />
-
-            <Button
-                android:id="@+id/btnSair"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/sair" />
         </LinearLayout>
     </ScrollView>
 
