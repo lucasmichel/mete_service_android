@@ -131,10 +131,11 @@ public class GaleriaFotosActivity extends Activity {
 		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
 
-			Toast toast = Toast.makeText(GaleriaFotosActivity.this, "Tudo Ok",
-					Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(GaleriaFotosActivity.this,
+					"Foto Excluida com SUCESSO!", Toast.LENGTH_LONG);
 			toast.show();
-			// listarFotos();
+			listarFotos();
+			dialog.dismiss();
 		}
 	}
 
@@ -163,7 +164,6 @@ public class GaleriaFotosActivity extends Activity {
 						GetXMLTask task = new GetXMLTask();
 						task.execute(new String[] { URL });
 						idAtual = itensId.get(position);
-						Log.i("SOSTENES", "EAGORAAAAAAAAAAAAAAA: " + idAtual);
 					} catch (Exception e) {
 						Toast.makeText(getApplicationContext(), "Erro! " + e,
 								Toast.LENGTH_SHORT).show();
