@@ -121,7 +121,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 				modelo.setDados(listaCliente);
 				modelo.setMensagem("");
 				modelo.setStatus("");			
-				new excluirClientePorIdUsuarioAsyncTask().execute();
+				new excluirClientePorIdUsuarioAsyncTask().execute();				
 				break;
 			case DialogInterface.BUTTON_NEGATIVE:
 				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Exclusão Cancelada", Toast.LENGTH_LONG);
@@ -206,6 +206,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			}else{								
 				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Tudo Ok " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 				toast.show();					
+				finish();
 			}	
 		}
 	}	
