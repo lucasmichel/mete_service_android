@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import br.uni.mette_service.R;
+import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity.buscarClientePorIdAsyncTask;
 import br.uni.mette_service.Controller.Encontro.CadastroEncontroActivity;
@@ -56,6 +57,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private Button btnop2;
 	private Button btnop3;	
 	private Button btnMapa;
+	private Button btnSairCliente;
 	private Button btnListarServicos;	
 	
 	Modelo modelo = new Modelo();
@@ -85,6 +87,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogado);
 		this.btnTeste = (Button) findViewById(R.id.btnTeste);
 		this.btnListarServicos = (Button) findViewById(R.id.btnListarServicos);
+		this.btnSairCliente = (Button) findViewById(R.id.btnSairCliente);
 	}
 	
 	public void adicionarListers() {		
@@ -94,8 +97,21 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		this.btnEditar.setOnClickListener(this);
 		this.btnMapa.setOnClickListener(this);
 		this.btnListarServicos.setOnClickListener(this);
+		this.btnSairCliente.setOnClickListener(this);
 	}
 
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		  super.onActivityResult(requestCode, resultCode, intent);
+		  if(resultCode==RESULT_OK && requestCode==1){
+			Usuario editadoUsuarioLogado = (Usuario) intent.getSerializableExtra("editadoUsuarioLogado");
+			  this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario() + " - Olá, "
+						+ editadoUsuarioLogado.getEmail() + "!");
+			  
+			  usuarioLogado = editadoUsuarioLogado; 
+		   
+		  }
+	}
+	
 	public void onClick(View v) {
 		Intent it = null;
 		switch (v.getId()) {
@@ -103,8 +119,9 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it = new Intent(this, CadastroClienteActivity.class);		
 			it.putExtra("usuarioLogado", usuarioLogado);	
 			it.putExtra("eEdicao", eEdicao);			
-			startActivity(it);
+			startActivityForResult(it, 1);
 			break;		
+		
 		case R.id.btnop4:			
 			Toast toast = Toast.makeText(ClienteMenuActivity.this, "Chamar Excluir", Toast.LENGTH_LONG);
 			toast.show();			
@@ -135,6 +152,11 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btnMapa:
 			it = new Intent(this, MapaActivity.class);					
+			startActivity(it);
+			break;
+		
+		case R.id.btnSairCliente:
+			it = new Intent(this, LogarAndroidActivity.class);
 			startActivity(it);
 			break;
 		}				

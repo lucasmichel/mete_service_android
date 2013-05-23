@@ -72,6 +72,10 @@
     <string name="comentarAcompanhante">Comentar</string>
     <string name="encontrosapr">Encontros Aprovados</string>
     <string name="encontrospnd">Encontros Pendentes</string>
+    <string name="mapa">Mapa</string>
+    <string name="editarPerfilCliente">Editar Perfil</string>
+    <string name="excluirPerfilCliente">Excluir Perfil</string>
+    <string name="listarServicos">Listar Serviços</string>
     
     
 

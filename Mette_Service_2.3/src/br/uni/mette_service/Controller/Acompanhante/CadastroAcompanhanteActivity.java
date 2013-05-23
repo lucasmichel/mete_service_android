@@ -38,6 +38,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 
 	Acompanhante acompanhante = new Acompanhante();
 	Usuario usuarioLogado = new Usuario();
+	Usuario editadoUsuarioLogado = new Usuario();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
 	Acompanhante acompanhanteRetorno= new Acompanhante();
@@ -449,14 +450,45 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 					{
 						Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 						toast.show();
-					}else{									
+					}else{
+						Object dadosObject = modeloRetorno.getDados().get(1);
+						JSONObject jsonObject = null;
+						Gson gson = new Gson();
+						
+						try {
+							
+							//MONTAR O NOVO USUARIO LOGADO
+							
+							jsonObject = new JSONObject(gson.toJson(dadosObject));
+							
+							Log.i("SOSTENES", "RETORNO USUARIO LOGADO: " + gson.toJson(dadosObject));
+							
+							editadoUsuarioLogado.setEmail(jsonObject.getString("\u0000Usuario\u0000email"));
+							editadoUsuarioLogado.setIdUsuario(jsonObject.getInt("\u0000Usuario\u0000id"));
+							editadoUsuarioLogado.setSenha(jsonObject.getString("\u0000Usuario\u0000senha"));
+							editadoUsuarioLogado.setIdPerfil(usuarioLogado.getIdPerfil());
+							
+							Log.i("SOSTENES", "RETORNO USUARIO LOGADO" + editadoUsuarioLogado.getEmail() + "" + editadoUsuarioLogado.getIdUsuario());
+							
+							// RETORNAR PARA O ONACTIVITYRESULT
+							Intent intent = getIntent();
+							intent.putExtra("editadoUsuarioLogado", editadoUsuarioLogado);
+							setResult(RESULT_OK, intent);
+							finish();
+							
+							
+							
+						}catch (JSONException e) {
+							
+						
 						Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-						toast.show();	
+						toast.show();
 						finish();
+						
 					}	
 				}
 			}	
-			
+			}
 			//////	
 		
 

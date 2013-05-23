@@ -40,7 +40,8 @@ public class AcompanhanteMenuActivity extends Activity implements
 
 	boolean eEdicao = true;
 	Usuario usuarioLogado = new Usuario();
-
+	Usuario editadoUsuarioLogado = new Usuario();
+	
 	private Button btnEditarPerfil;
 	private Button btnExcluirPerfil;
 	private Button btnAlterarStatus;
@@ -157,6 +158,18 @@ public class AcompanhanteMenuActivity extends Activity implements
 			return null;
 		}
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		  super.onActivityResult(requestCode, resultCode, intent);
+		  if(resultCode==RESULT_OK && requestCode==1){
+			Usuario editadoUsuarioLogado = (Usuario) intent.getSerializableExtra("editadoUsuarioLogado");
+			  this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario() + " - Olá, "
+						+ editadoUsuarioLogado.getEmail() + "!");
+			  
+			  usuarioLogado = editadoUsuarioLogado; 
+		   
+		  }
+	}
 
 	// PASSAR O CLICK DOS BOTOES PARA ONCLIKLISTENER
 
@@ -210,7 +223,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 			it = new Intent(this, CadastroAcompanhanteActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			it.putExtra("eEdicao", eEdicao);
-			startActivity(it);
+			startActivityForResult(it, 1);
 
 			break;
 
@@ -243,8 +256,9 @@ public class AcompanhanteMenuActivity extends Activity implements
 
 			break;
 		}
+		
 	}
-
+		  
 	class excluirAcompanhanteAsyncTask extends
 			AsyncTask<String, String, Modelo> {
 		ProgressDialog dialog;
