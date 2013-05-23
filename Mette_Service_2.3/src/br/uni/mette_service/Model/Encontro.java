@@ -6,6 +6,8 @@ public class Encontro implements Serializable{
 
 	private int clienteId;
 	private String dataHora;
+		
+	public Encontro(){}
 	
 	public Encontro(int clienteId, String dataHora) {
 		super();

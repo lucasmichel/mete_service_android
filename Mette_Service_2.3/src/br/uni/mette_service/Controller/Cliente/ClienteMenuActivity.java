@@ -43,7 +43,8 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	boolean eEdicao = true;
 	Usuario usuarioLogado = new Usuario();
 	private Button btnEditar;
-
+	private Intent itLogin;
+	
 	private Cliente cliente;
 	private EditText txtNome; 
 	private EditText txtCpf; 
@@ -72,6 +73,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);		
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");										
+		itLogin = new Intent(this, LogarAndroidActivity.class);		
 		adicionarFindView();			
 		adicionarListers();
 		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, " + usuarioLogado.getEmail() + "!");
@@ -164,10 +166,8 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it = new Intent(this, MapaActivity.class);					
 			startActivity(it);
 			break;
-
-		case R.id.btnSairCliente:
-			it = new Intent(this, LogarAndroidActivity.class);
-			startActivity(it);
+		case R.id.btnSairCliente:			
+			startActivity(itLogin);
 			break;
 		}				
 	}	
@@ -205,8 +205,9 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 				toast.show();
 			}else{								
 				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Tudo Ok " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-				toast.show();					
-				finish();
+				toast.show();							
+				finish();				
+				startActivity(itLogin);												
 			}	
 		}
 	}	
