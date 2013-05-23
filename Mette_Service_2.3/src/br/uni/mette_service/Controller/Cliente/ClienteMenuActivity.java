@@ -21,7 +21,9 @@ import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
 import br.uni.mette_service.Util.PreferencesController;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,14 +43,14 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	boolean eEdicao = true;
 	Usuario usuarioLogado = new Usuario();
 	private Button btnEditar;
-	
+
 	private Cliente cliente;
 	private EditText txtNome; 
 	private EditText txtCpf; 
 	private EditText txtTelefone; 
 	private EditText txtEmail; 
 	private EditText txtSenha;
-		
+
 	private TextView txtUsuarioLogado;	
 	private Button btnTeste;
 	private Button btnAvancar;
@@ -59,12 +61,12 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private Button btnMapa;
 	private Button btnSairCliente;
 	private Button btnListarServicos;	
-	
+
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();	
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaCliente = new ArrayList();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,7 +76,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		adicionarListers();
 		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, " + usuarioLogado.getEmail() + "!");
 	}
-	
+
 	private void adicionarFindView() {
 		this.txtNome = (EditText) findViewById(R.id.edtNomeCliente);
 		this.txtCpf = (EditText) findViewById(R.id.edtCPFCliente);		
@@ -89,7 +91,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		this.btnListarServicos = (Button) findViewById(R.id.btnListarServicos);
 		this.btnSairCliente = (Button) findViewById(R.id.btnSairCliente);
 	}
-	
+
 	public void adicionarListers() {		
 		this.btnTeste.setOnClickListener(this);
 		this.btnop2.setOnClickListener(this);
@@ -101,17 +103,34 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		  super.onActivityResult(requestCode, resultCode, intent);
-		  if(resultCode==RESULT_OK && requestCode==1){
+		super.onActivityResult(requestCode, resultCode, intent);
+		if(resultCode==RESULT_OK && requestCode==1){
 			Usuario editadoUsuarioLogado = (Usuario) intent.getSerializableExtra("editadoUsuarioLogado");
-			  this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario() + " - Olá, "
-						+ editadoUsuarioLogado.getEmail() + "!");
-			  
-			  usuarioLogado = editadoUsuarioLogado; 
-		   
-		  }
+			this.txtUsuarioLogado.setText(editadoUsuarioLogado.getIdUsuario() + " - Olá, "
+					+ editadoUsuarioLogado.getEmail() + "!");			  
+			usuarioLogado = editadoUsuarioLogado; 		   
+		}
 	}
-	
+
+	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int which) {
+			switch (which){
+			case DialogInterface.BUTTON_POSITIVE:													
+				listaCliente.clear();			
+				listaCliente.add(usuarioLogado);
+				modelo.setDados(listaCliente);
+				modelo.setMensagem("");
+				modelo.setStatus("");			
+				new excluirClientePorIdUsuarioAsyncTask().execute();
+				break;
+			case DialogInterface.BUTTON_NEGATIVE:
+				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Exclusão Cancelada", Toast.LENGTH_LONG);
+				toast.show();	
+				break;
+			}
+		}
+	};
+
 	public void onClick(View v) {
 		Intent it = null;
 		switch (v.getId()) {
@@ -121,20 +140,11 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it.putExtra("eEdicao", eEdicao);			
 			startActivityForResult(it, 1);
 			break;		
-		
+
 		case R.id.btnop4:			
-			Toast toast = Toast.makeText(ClienteMenuActivity.this, "Chamar Excluir", Toast.LENGTH_LONG);
-			toast.show();			
-			
-			listaCliente.clear();			
-			listaCliente.add(usuarioLogado);
-			
-			modelo.setDados(listaCliente);
-			modelo.setMensagem("");
-			modelo.setStatus("");			
-			
-			new excluirClientePorIdUsuarioAsyncTask().execute();
-			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Você realmente deseja excluir sua conta?").setPositiveButton("Sim", dialogClickListener)
+			.setNegativeButton("Não", dialogClickListener).show();				   			
 			break;
 		case R.id.btnTeste:
 			it = new Intent(this, ListarAcompanhanteActivity.class);
@@ -154,50 +164,50 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it = new Intent(this, MapaActivity.class);					
 			startActivity(it);
 			break;
-		
+
 		case R.id.btnSairCliente:
 			it = new Intent(this, LogarAndroidActivity.class);
 			startActivity(it);
 			break;
 		}				
 	}	
-	
+
 	// excluirClientePorIdUsuario
-		class excluirClientePorIdUsuarioAsyncTask extends AsyncTask<String, String, Modelo>  {
-			ProgressDialog dialog;
-			@Override
-			protected void onPreExecute() {
-				super.onPreExecute();
-				dialog = ProgressDialog.show(ClienteMenuActivity.this,
-						"Cadastrando...", "Aguarde...",
-						true, false);
-			}
+	class excluirClientePorIdUsuarioAsyncTask extends AsyncTask<String, String, Modelo>  {
+		ProgressDialog dialog;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = ProgressDialog.show(ClienteMenuActivity.this,
+					"Cadastrando...", "Aguarde...",
+					true, false);
+		}
 
-			@Override
-			protected Modelo doInBackground(String... params) {	
-				try
-				{
-					Log.i("SOSTENES", "excluirClientePorIdUsuario");
-					modeloRetorno = repositorio.acessarServidor("excluirClientePorIdUsuario", modelo);
-				} catch (Exception e) {				
-					e.printStackTrace();
-				}
-				return modeloRetorno;
+		@Override
+		protected Modelo doInBackground(String... params) {	
+			try
+			{
+				Log.i("SOSTENES", "excluirClientePorIdUsuario");
+				modeloRetorno = repositorio.acessarServidor("excluirClientePorIdUsuario", modelo);
+			} catch (Exception e) {				
+				e.printStackTrace();
 			}
+			return modeloRetorno;
+		}
 
-			@Override
-			protected void onPostExecute(Modelo result) {
-				super.onPostExecute(result);
-				dialog.dismiss();
-				if (modeloRetorno.getStatus().equals("1"))
-				{
-					Toast toast = Toast.makeText(ClienteMenuActivity.this, "Erro no Servidor " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-					toast.show();
-				}else{								
-					Toast toast = Toast.makeText(ClienteMenuActivity.this, "Tudo Ok " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-					toast.show();					
-				}	
-			}
-		}	
-		// Fim / excluirClientePorIdUsuario
+		@Override
+		protected void onPostExecute(Modelo result) {
+			super.onPostExecute(result);
+			dialog.dismiss();
+			if (modeloRetorno.getStatus().equals("1"))
+			{
+				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Erro no Servidor " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+			}else{								
+				Toast toast = Toast.makeText(ClienteMenuActivity.this, "Tudo Ok " + modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();					
+			}	
+		}
+	}	
+	// Fim / excluirClientePorIdUsuario
 }
