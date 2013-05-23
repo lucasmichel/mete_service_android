@@ -42,6 +42,7 @@
     <string name="cadastarServico">Cadastre um Serviço</string>
      <string name="ServicosAcompanhante">Serviços</string>
     <string name="ListarAcompanhante">Listar Acompanhantes</string>
+    <string name="MeusServicos">Meus Serviços</string>
    
     <string name="encontro_paraselecionar"> - Para Incluir </string>
     <string name="encontro_cliqueaqui">Clique Aqui</string>

@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
+import br.uni.mette_service.Controller.Acompanhante.AcompanhanteMenuActivity;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Cliente.CadastroClienteActivity.buscarClientePorIdAsyncTask;
 import br.uni.mette_service.Controller.Encontro.CadastroEncontroActivity;
@@ -44,6 +45,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	Usuario usuarioLogado = new Usuario();
 	private Button btnEditar;
 	private Intent itLogin;
+	private AlertDialog alerta;
 	
 	private Cliente cliente;
 	private EditText txtNome; 
@@ -166,8 +168,37 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it = new Intent(this, MapaActivity.class);					
 			startActivity(it);
 			break;
-		case R.id.btnSairCliente:			
-			startActivity(itLogin);
+		case R.id.btnSairCliente:	
+			
+			AlertDialog.Builder builderSair = new AlertDialog.Builder(ClienteMenuActivity.this);
+
+			builderSair.setTitle("Já vai sair ? Fique mais um pouco.");
+		    
+			builderSair.setMessage("Deseja realmente sair da aplicação?");
+
+			builderSair.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+
+		        	startActivity(itLogin);		
+		        	
+					Toast.makeText(ClienteMenuActivity.this,
+							"Bye..Bye", Toast.LENGTH_LONG).show();
+					
+					finish();
+		        	
+
+		        }
+		    });
+		    
+
+			builderSair.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+
+		        }
+		    });
+		    alerta = builderSair.create();
+		    alerta.show();
+			
 			break;
 		}				
 	}	

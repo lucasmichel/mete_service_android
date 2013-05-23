@@ -60,6 +60,7 @@ implements LocationListener{
 	Modelo modeloRetorno = new Modelo();
 	List<Object> listaServicoAcompanhante = new ArrayList();
 	private AlertDialog alerta;
+	boolean chamadaAcompanhante;
 	
 	
 	List<Object> listaServicoMarker = new ArrayList();
@@ -178,11 +179,19 @@ implements LocationListener{
 			
 			public void onInfoWindowClick(Marker marker) {
 	
+				chamadaAcompanhante = 
+						getIntent().getBooleanExtra("chamadaAcompanhante",false);
+				 
+				 if(chamadaAcompanhante){
+					 Toast.makeText(MapaListarServicoSelecionado.this,
+							 "acomp", Toast.LENGTH_LONG).show();
+				 }else{
+	
 				AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
 
-			    builder.setTitle("Confirmar Endereço");
+			    builder.setTitle("ALERT!");
 			    
-			    builder.setMessage("O que deseja fazer companheiro ?");
+			    builder.setMessage("O que deseja fazer ?");
 
 			    builder.setPositiveButton("Criar Uma Rota", new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface arg0, int arg1) {
@@ -197,10 +206,6 @@ implements LocationListener{
 			    //define um botão como negativo.
 			    builder.setNegativeButton("Sair", new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface arg0, int arg1) {
-			        
-			        finish();
-			        	
-
 			        }
 			    });
 			    //cria o AlertDialog
@@ -208,10 +213,9 @@ implements LocationListener{
 			    //Exibe
 			    alerta.show();
 
-				
-				
-				
 			}
+			}
+			
 		};
 	}
 

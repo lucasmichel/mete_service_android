@@ -69,19 +69,19 @@ public class ListarServicoAcompanhanteAdapter extends BaseAdapter {
 		System.out.println("PEDRO    "+servicoAcompanhanteAdapter.getId());
 		
 		if(servicoAcompanhanteAdapter.getServicoId() == 1){
-			txtNomeServicoAdpater.setText("Bolcat");
-			txtNomeServicoAdpater.setBackgroundColor(Color.GREEN);
+			txtNomeServicoAdpater.setText("Ballcat");
+			txtNomeServicoAdpater.setTextColor(Color.GREEN);
 		}
 		if(servicoAcompanhanteAdapter.getServicoId() == 2){
 			txtNomeServicoAdpater.setText("Bolinho");
-			txtNomeServicoAdpater.setBackgroundColor(Color.BLUE);
+			txtNomeServicoAdpater.setTextColor(Color.MAGENTA);
 		}
 		if(servicoAcompanhanteAdapter.getServicoId() == 3){
 			txtNomeServicoAdpater.setText("Rapidinha");
-			txtNomeServicoAdpater.setBackgroundColor(Color.RED);
+			txtNomeServicoAdpater.setTextColor(Color.BLUE);
 		}
 		
-		txtValorServicoAdapter.setText(servicoAcompanhanteAdapter.getValor());
+		txtValorServicoAdapter.setText("R$: " + servicoAcompanhanteAdapter.getValor());
 		
 		
 		return convertView;

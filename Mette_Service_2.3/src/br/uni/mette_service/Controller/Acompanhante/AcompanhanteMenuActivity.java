@@ -2,7 +2,10 @@ package br.uni.mette_service.Controller.Acompanhante;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
+import br.uni.mette_service.Controller.Acompanhante.ListaServicosAcompActivity.excluirServico;
 import br.uni.mette_service.Controller.Servico.CadastroServicoActivity;
+import br.uni.mette_service.Controller.Servico.ServicoAcompanhante;
+import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -26,6 +29,7 @@ import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.ls.LSInput;
 
 import com.google.gson.Gson;
 
@@ -41,6 +45,8 @@ public class AcompanhanteMenuActivity extends Activity implements
 	boolean eEdicao = true;
 	Usuario usuarioLogado = new Usuario();
 	Usuario editadoUsuarioLogado = new Usuario();
+	private AlertDialog alerta;
+	private Intent itLogin;
 	
 	private Button btnEditarPerfil;
 	private Button btnExcluirPerfil;
@@ -48,8 +54,9 @@ public class AcompanhanteMenuActivity extends Activity implements
 	private Button btnSair;
 	private Button btnCadastrarServico;
 	private Button btnCadastrarFoto;
+	private Button btnMeusServicos;
 	private Button btnEncontrosAprovados, btnEncontrosPendentes, btnGaleriaFotos;
-	private int idAcompanhanteExcluir;
+	private int idAcompanhante;
 
 	private TextView txtUsuarioLogado;
 	List<Object> listaobj = new ArrayList<Object>();
@@ -70,10 +77,11 @@ public class AcompanhanteMenuActivity extends Activity implements
 		adicionarListers();
 		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, "
 				+ usuarioLogado.getEmail() + "!");
+		
+		 executarBuscarAcompanhante(usuarioLogado);
 
-		// executarBuscarAcompanhante(usuarioLogado);
-
-		Log.i("SOSTENES", "ID ACOMPANHANTE EXCLUIR: " + idAcompanhanteExcluir);
+		Log.i("SOSTENES", "ID ACOMPANHANTE EXCLUIR: " + idAcompanhante);
+		
 
 	}
 
@@ -107,10 +115,10 @@ public class AcompanhanteMenuActivity extends Activity implements
 
 	}
 
-	private void executarExcluirAcompanhante(int idAcompanhanteExcluir) {
+	private void executarExcluirAcompanhante(int idAcompanhante) {
 
 		acompExcluir = new Acompanhante();
-		acompExcluir.setId(idAcompanhanteExcluir);
+		acompExcluir.setId(idAcompanhante);
 
 		listaobj.clear();
 		listaobj.add(acompExcluir);
@@ -132,6 +140,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 		this.btnSair.setOnClickListener(this);
 		this.btnCadastrarServico.setOnClickListener(this);
 		this.btnGaleriaFotos.setOnClickListener(this);
+		this.btnMeusServicos.setOnClickListener(this);
 	}
 
 	private void adicionarFindView() {
@@ -145,6 +154,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 		this.btnCadastrarServico = (Button) findViewById(R.id.btnCadastrarServico);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogadoAcomp);
 		this.btnGaleriaFotos = (Button) findViewById(R.id.btnGaleria);
+		this.btnMeusServicos = (Button) findViewById(R.id.btnMeusServicos);
 	}
 
 	// //// MÉTODO PARA CARREGAR URL - FUTURAMENTE SERÁ RETIRADO
@@ -244,14 +254,51 @@ public class AcompanhanteMenuActivity extends Activity implements
 			break;
 
 		case R.id.btnSair:
-			Toast.makeText(this, "Saindo", Toast.LENGTH_LONG).show();
-			finish();
+			AlertDialog.Builder builder = new AlertDialog.Builder(AcompanhanteMenuActivity.this);
 
+		    builder.setTitle("Já vai sair ? Fique mais um pouco.");
+		    
+		    builder.setMessage("Deseja realmente sair da aplicação?");
+
+		    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+
+		        	itLogin = new Intent(AcompanhanteMenuActivity.this, 
+		        			LogarAndroidActivity.class);
+		        	startActivity(itLogin);		        	
+					Toast.makeText(AcompanhanteMenuActivity.this,
+							"Bye..Bye", Toast.LENGTH_LONG).show();
+					
+					finish();
+		        	
+
+		        }
+		    });
+		    
+
+		    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+
+		        }
+		    });
+		    alerta = builder.create();
+		    alerta.show();
 			break;
 
 		case R.id.btnCadastrarServico:
 			it = new Intent(this, CadastroServicoActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
+			startActivity(it);
+
+			break;
+		case R.id.btnMeusServicos:
+			// boolean para saber na tela de listar serviços que chamou
+			boolean listarServicosAcomp = true; 
+			it = new Intent(this, ListaServicosAcompActivity.class);
+			Acompanhante acomp = new Acompanhante();
+			acomp.setId(idAcompanhante);
+			it.putExtra("idAcompanhante", acomp);
+			it.putExtra("acompanhanteListarServicos", listarServicosAcomp);
 			startActivity(it);
 
 			break;
@@ -344,7 +391,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 
 					Log.i("SOSTENES","RETORNO PARA MONTAR NA TELA"+ gson.toJson(dadosObject));
 
-					idAcompanhanteExcluir = jsonObject.getInt("\u0000Acompanhante\u0000id");
+					idAcompanhante = jsonObject.getInt("\u0000Acompanhante\u0000id");
 
 				} catch (JSONException e) {
 				}

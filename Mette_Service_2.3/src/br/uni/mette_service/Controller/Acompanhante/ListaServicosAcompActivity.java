@@ -8,9 +8,12 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.ls.LSInput;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,25 +38,39 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 
 	private Button btnVoltar;
 	boolean acompanhanteSelecionada;
+	boolean acompanhanteListarSeusServicos;
 	Acompanhante acompanhanteBuscar = new Acompanhante();
 	List<Object> listaAcompanhante = new ArrayList();
+	ServicoAcompanhante idServicoAcompanante;
+	List<Object> listaobj = new ArrayList<Object>();
+	Modelo modelo = new Modelo();
+	Modelo modeloRetorno = new Modelo();
+	private AlertDialog alerta;
 	
 	Repositorio repositorio = new Repositorio();
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
         
-//        acompanhanteSelecionada = getIntent().getBooleanExtra("mapaAcompSelecionada",false);
-        new listarLocalizacaoServicoAcompanhante().execute();
+        /*PEGAR O BOOLEAN ENVIANDO PELA ACOMPANHANTE PARA LISTAR
+         * SEUS SERVIÇOS */
+        acompanhanteListarSeusServicos = 
+        		getIntent().getBooleanExtra("acompanhanteListarServicos",false);
         
-        //AVISO PARA OS INTEGRANTES QUE FOREM TESTAR
-        
-        Toast.makeText(this, "SO O SERVICO ANAL SE ENCONTRA CADASTRADO EM MAPA",
-        		Toast.LENGTH_LONG).show();
+        /*DEPENDENDO DE QUEM CHAMOU A ACTIVITY UMA ASYNCTASK 
+         * ESPECIFICA É CHAMADA */
+        if(acompanhanteListarSeusServicos){
+        new listarMeusServicosAcompanhante().execute();
+        }else{
+        new listarServicoAcompanhante().execute();
+        }
+    
     }
+
     private void adicionarFindView() {
 		this.btnVoltar = (Button) findViewById(R.id.btnVoltar);
 	}
+   
     public void adicionarListers() {
 		this.btnVoltar.setOnClickListener(this);
 
@@ -68,7 +85,110 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 		}
 	}
     
-	class listarLocalizacaoServicoAcompanhante extends AsyncTask<Void, Void, Modelo>{
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+	super.onListItemClick(l, v, position, id);
+	idServicoAcompanante = (ServicoAcompanhante) l.getItemAtPosition(position);
+	
+	/*CASO SEJA A ACOMPANHANTE A CLICAR EM UM DE SEUS SERVIÇOS*/
+	if(acompanhanteListarSeusServicos){
+		AlertDialog.Builder builder = new AlertDialog.Builder(ListaServicosAcompActivity.this);
+
+	    builder.setTitle("Escolha uma ação...");
+	    
+	    builder.setMessage("O que deseja fazer ?");
+
+	    builder.setPositiveButton("Excluir meu Servico.", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+	        	
+	        	AlertDialog.Builder builder = new AlertDialog.Builder(ListaServicosAcompActivity.this);
+
+			    builder.setTitle(" CUIDADO !! ");
+			    
+			    builder.setMessage("Deseja realmente excluir seu servico?");
+			    
+			    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface arg0, int arg1) {
+			        
+			        	ServicoAcompanhante servico1 = new ServicoAcompanhante();
+			    		servico1.setId(idServicoAcompanante.getId());
+
+			    		listaobj.add(servico1);
+			    		modelo.setDados(listaobj);
+			    		modelo.setMensagem("");
+			    		modelo.setStatus("");
+			    		
+			    		Gson g = new Gson();
+			    		
+			    		Log.i("PEDRO" , g.toJson(modelo));
+			    		
+			    		new excluirServico().execute();
+			        	
+			        }
+			    });
+			    
+			    
+			    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface arg0, int arg1) {
+			        
+
+			        }
+			    });
+			    
+			    alerta = builder.create();
+			    
+			    alerta.show();
+
+	        }
+	    });
+	    
+	    builder.setNeutralButton("Listar Locais do meu Serviço.", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+	        	Boolean chamadaAcompanhante = true ;
+	        	Intent it = new Intent(ListaServicosAcompActivity.this,
+	        							MapaListarServicoSelecionado.class);
+	        	it.putExtra("idServicoAcompanante", idServicoAcompanante);
+	        	it.putExtra("chamadaAcompanhante", chamadaAcompanhante);
+//	        	it.putExtra("listarServicoAcomapanhteSelecionado", listarServicoAcomapanhteSelecionado);
+	        	startActivity(it);
+	        	
+	        }
+	    });
+	    
+	    
+	    builder.setNegativeButton("Sair", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+
+	        	Toast.makeText(ListaServicosAcompActivity.this,
+	        			"Sair", Toast.LENGTH_LONG).show();
+	        }
+	    });
+	    alerta = builder.create();
+	    alerta.show();
+		
+		
+	}/*FIM DO IF CASO TENHA SIDO A ACOMPANHANTE A CLICAR NO SERVIÇO*/
+	else{
+	
+	Intent it = new Intent(this, MapaListarServicoSelecionado.class);
+	it.putExtra("idServicoAcompanante", idServicoAcompanante);
+	startActivity(it);
+	
+	}
+}
+
+	private String toString1(InputStream is) throws IOException {
+
+	byte[] bytes = new byte[1024];
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	int lidos;
+	while ((lidos = is.read(bytes)) > 0) {
+		baos.write(bytes, 0, lidos);
+	}
+	return new String(baos.toByteArray());
+}
+
+	/*ASYNCTASK CHAMADA PELO CLIENTE */
+	class listarServicoAcompanhante extends AsyncTask<Void, Void, Modelo>{
 		
 		ProgressDialog dialog;
 		
@@ -145,30 +265,119 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 		}
 	}
 	
-	
-	
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-	// TODO Auto-generated method stub
-	super.onListItemClick(l, v, position, id);
-	
-	ServicoAcompanhante idServicoAcompanante = (ServicoAcompanhante) l.getItemAtPosition(position);
-//	boolean listarServicoAcomapanhteSelecionado = true;
-	
-	Intent it = new Intent(this, MapaListarServicoSelecionado.class);
-	it.putExtra("idServicoAcompanante", idServicoAcompanante);
-//	it.putExtra("listarServicoAcomapanhteSelecionado", listarServicoAcomapanhteSelecionado);
-	startActivity(it);
-}
+	/*ASYNCTASK CHAMADA PELA A ACOMPANHANTE */
+	class listarMeusServicosAcompanhante extends AsyncTask<Void, Void, Modelo>{
+		
+		ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = ProgressDialog.show(ListaServicosAcompActivity.this, "LOADING:",
+					"Carregando pontos do mapa!", true, false);
+			super.onPreExecute();
+		}
+		@Override
+		protected Modelo doInBackground(Void... params) {
+			
+			Modelo locRetorno = new Modelo();
+			Modelo modelo = new Modelo();
+			
+			Acompanhante acomp = new Acompanhante();
+			
+			acompanhanteBuscar = (Acompanhante)getIntent().getSerializableExtra("idAcompanhante");
+			acomp.setId(acompanhanteBuscar.getId());
+			listaAcompanhante.add(acomp);
+			
+			modelo.setDados(listaAcompanhante);
+			modelo.setMensagem("");
+			modelo.setStatus("");
+			
+			locRetorno = repositorio.acessarServidor("listarServicoAcompanhante", modelo);
 
-	private String toString1(InputStream is) throws IOException {
+			return locRetorno;
+		}
+		
+		protected void onPostExecute(Modelo result) {
+			super.onPostExecute(result);
 
-	byte[] bytes = new byte[1024];
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	int lidos;
-	while ((lidos = is.read(bytes)) > 0) {
-		baos.write(bytes, 0, lidos);
+//			for ( int i = 0; i < result.getDados().size(); ++i){
+			
+//				Object dadosObject = result.getDados().get(0);	
+			Object dadosObject = result.getDados();	
+			Gson gson = new Gson();
+			String w = gson.toJson(dadosObject);
+			System.out.println(w);
+			JSONObject jsonObject = null;
+			List<ServicoAcompanhante> addServico = new ArrayList<ServicoAcompanhante>();
+
+			try {
+				JSONArray jsonArray = new JSONArray(gson.toJson(dadosObject));
+				for ( int x = 0; x < jsonArray.length(); ++x){
+					jsonObject = jsonArray.getJSONObject(x);
+					
+					ServicoAcompanhante servicoAcompanhante = new ServicoAcompanhante();
+					
+					servicoAcompanhante.setId(
+							jsonObject.getInt("\u0000ServicosAcompanhante\u0000id"));
+					servicoAcompanhante.setServicoId(
+							jsonObject.getInt("\u0000ServicosAcompanhante\u0000servicoId"));
+					servicoAcompanhante.setValor(
+							jsonObject.getString("\u0000ServicosAcompanhante\u0000valor"));
+    				Log.i("PEDRO", x +"..." + servicoAcompanhante.getId());
+    				
+    				addServico.add(servicoAcompanhante);
+				}
+				setListAdapter(
+    					new ListarServicoAcompanhanteAdapter(ListaServicosAcompActivity.this, 
+    							addServico));
+
+
+			}catch (Exception e) {
+				e.printStackTrace();			
+			}
+		
+			
+//			}
+			
+			dialog.dismiss();
+		}
 	}
-	return new String(baos.toByteArray());
-}
+	
+	/*ASYNCTASK CHAMADA PELA A ACOMPANHANTE PARA EXCLUIR UM SERVIÇO */
+	class excluirServico extends AsyncTask<Void, Void, Modelo>{
+		
+		ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = ProgressDialog.show(ListaServicosAcompActivity.this, "LOADING:",
+					"Excluindo seu Servico.", true, false);
+			super.onPreExecute();
+		}
+		@Override
+		protected Modelo doInBackground(Void... params) {
+			
+			modeloRetorno = repositorio.acessarServidor(
+					"excluirServicoAcompanhante", modelo);
+
+			return modeloRetorno;
+		}
+		
+		protected void onPostExecute(Modelo result) {
+			super.onPostExecute(result);
+
+			if (result.getStatus().equals("1"))
+			{
+				Toast toast = Toast.makeText(ListaServicosAcompActivity.this, result.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+			}else{									
+				Toast toast = Toast.makeText(ListaServicosAcompActivity.this, result.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();	
+				finish();
+			}	
+			
+			dialog.dismiss();
+		}
+	}
 
 }
