@@ -38,7 +38,7 @@ implements OnClickListener{
 	Repositorio repositorio = new Repositorio();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lista);
+		setContentView(R.layout.activity_lista_acomp);
 		eSolicitacaoDeEncontro = getIntent().getBooleanExtra("eSolicitacaoDeEncontro",false);
 				
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");

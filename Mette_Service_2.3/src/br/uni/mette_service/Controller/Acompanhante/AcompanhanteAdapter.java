@@ -49,9 +49,9 @@ public class AcompanhanteAdapter extends BaseAdapter {
 				findViewById(R.id.txtEspecialidadesAcompanhante);
 		
 						
-		txtNomeAcompanhante.setText(acompanhante.getNome());
-		txtIdadeAcompanhante.setText(acompanhante.getIdade());
-		txtEspecialidadesAcompanhante.setText(acompanhante.getEspecialidade());
+		txtNomeAcompanhante.setText("Nome: " + acompanhante.getNome());
+		txtIdadeAcompanhante.setText("Idade: "+ acompanhante.getIdade());
+		txtEspecialidadesAcompanhante.setText("Especialidade: " + acompanhante.getEspecialidade());
 					
 		return convertView;
 	}

@@ -4,19 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#CD2626" >
+    android:background="#FF0000" >
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.34"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/framework"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/logo"
             android:layout_gravity="center" />
 
     </LinearLayout>
