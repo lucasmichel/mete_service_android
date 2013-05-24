@@ -21,7 +21,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 	atendo, quadril, olhos, pernoite, horario_atent;
 	ImageView status;
 	private Acompanhante dadosAcompanhante;
-	private Button btnAvaliar, btnServicos , btnVoltar, btnComentar;
+	private Button btnAvaliar, btnServicos , btnGaleria, btnComentar;
 	Usuario usuarioLogado = new Usuario();
 	
 @Override
@@ -75,7 +75,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 		this.btnAvaliar = (Button) this.findViewById(R.id.btnAvaliar);
 		this.btnComentar = (Button) this.findViewById(R.id.btnComentar);
 		this.btnServicos = (Button) this.findViewById(R.id.btnServicos);
-		this.btnVoltar = (Button) this.findViewById(R.id.btnVoltarDados);
+		this.btnGaleria = (Button) this.findViewById(R.id.btnExibirGaleria);
 		
 }
 	
@@ -84,7 +84,7 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 		this.btnAvaliar.setOnClickListener(this);
 		this.btnComentar.setOnClickListener(this);
 		this.btnServicos.setOnClickListener(this);
-		this.btnVoltar.setOnClickListener(this);
+		this.btnGaleria.setOnClickListener(this);
 		
 	}
 
@@ -109,8 +109,11 @@ public class DadosAcompanhanteActivity extends Activity implements OnClickListen
 			it.putExtra("mapaAcompSelecionada", mapaAcompSelecionada);
 			startActivity(it);
 			break;	
-		case R.id.btnVoltar:
-			finish();
+		case R.id.btnExibirGaleria:
+			it = new Intent( this, GaleriaFotosActivity.class);
+			it.putExtra("exibirfotos", dadosAcompanhante);
+			it.putExtra("exibirFotosTipo", true);
+			startActivity(it);
 			break;
 		
 		}

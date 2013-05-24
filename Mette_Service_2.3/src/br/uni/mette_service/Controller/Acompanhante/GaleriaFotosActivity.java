@@ -41,6 +41,7 @@ public class GaleriaFotosActivity extends Activity {
 	ArrayList<String> gallery_list = new ArrayList<String>();
 	ArrayList<String> itensId = new ArrayList<String>();
 	private String idAtual = "0";
+	private boolean cliente;
 
 	private Usuario usuarioLogado = new Usuario();
 	List<Object> listaAcompanhante = new ArrayList();
@@ -49,12 +50,15 @@ public class GaleriaFotosActivity extends Activity {
 	Modelo modeloRetorno = new Modelo();
 	Repositorio repositorio = new Repositorio();
 	Acompanhante buscarAcompanhante = new Acompanhante();
+	Acompanhante Acomp = new Acompanhante();
+	Acompanhante AcompRes = new Acompanhante();
 	List<Object> listaFotos = new ArrayList();
 	List<Object> listaExclusao = new ArrayList();
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_foto);
+		cliente = getIntent().getBooleanExtra("exibirFotosTipo", false);
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra(
 				"usuarioLogado");
 		adicionarFindView();
@@ -70,37 +74,41 @@ public class GaleriaFotosActivity extends Activity {
 
 	private View.OnLongClickListener vLong = new View.OnLongClickListener() {
 		public boolean onLongClick(View view) {
-			fto.setId(Integer.parseInt(idAtual));
-			listaExclusao.clear();
-			listaExclusao.add(fto);
+			if (cliente) {
+				Toast toast = Toast.makeText(GaleriaFotosActivity.this,"Calma ao ver as fotos", Toast.LENGTH_LONG);
+				toast.show();
+			} else {
+				fto.setId(Integer.parseInt(idAtual));
+				listaExclusao.clear();
+				listaExclusao.add(fto);
 
-			modelo.setDados(listaExclusao);
-			modelo.setMensagem("");
-			modelo.setStatus("");
+				modelo.setDados(listaExclusao);
+				modelo.setMensagem("");
+				modelo.setStatus("");
 
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					context);
-			alertDialogBuilder.setTitle("EXCLUIR Fotos");
-			alertDialogBuilder
-					.setMessage("Deseja excluir a fotos!")
-					.setCancelable(false)
-					.setPositiveButton("Não",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-								}
-							})
-					.setNegativeButton("Sim",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									new excluirFotoIdUsuarioAsyncTask()
-											.execute();
-								}
-							});
-			AlertDialog alertDialog = alertDialogBuilder.create();
-			alertDialog.show();
-
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
+				alertDialogBuilder.setTitle("EXCLUIR Fotos");
+				alertDialogBuilder
+						.setMessage("Deseja excluir a fotos!")
+						.setCancelable(false)
+						.setPositiveButton("Não",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+									}
+								})
+						.setNegativeButton("Sim",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										new excluirFotoIdUsuarioAsyncTask()
+												.execute();
+									}
+								});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+			}
 			return true;
 		}
 	};
@@ -141,86 +149,26 @@ public class GaleriaFotosActivity extends Activity {
 
 	private void listarFotos() {
 
-		gallery_list.clear();
-		listaAcompanhante.clear();
-		acompanhante.setId(usuarioLogado.getIdUsuario());
-		listaAcompanhante.add(acompanhante);
+		if (cliente) {
+			Acomp = (Acompanhante) getIntent().getSerializableExtra(
+					"exibirfotos");
+			AcompRes.setId(Acomp.getId());
+			listaAcompanhante.add(AcompRes);
 
-		modelo.setDados(listaAcompanhante);
-		modelo.setMensagem("");
-		modelo.setStatus("");
-		new listarFotosAsyncTask().execute();
-	}
+			modelo.setDados(listaAcompanhante);
+			modelo.setMensagem("");
+			modelo.setStatus("");
+			new listarFtoClienteAsyncTask().execute();
+		} else {
+			gallery_list.clear();
+			listaAcompanhante.clear();
+			acompanhante.setId(usuarioLogado.getIdUsuario());
+			listaAcompanhante.add(acompanhante);
 
-	protected void onResume() {
-		super.onResume();
-		gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-
-				if (!itensId.equals(gallery_list.get(position)))
-					try {
-						String URL = gallery_list.get(position);
-						GetXMLTask task = new GetXMLTask();
-						task.execute(new String[] { URL });
-						idAtual = itensId.get(position);
-					} catch (Exception e) {
-						Toast.makeText(getApplicationContext(), "Erro! " + e,
-								Toast.LENGTH_SHORT).show();
-						e.printStackTrace();
-					}
-			}
-		});
-	}
-
-	// listarUnicaMaximizada
-	private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
-		@Override
-		protected Bitmap doInBackground(String... urls) {
-			Bitmap map = null;
-			for (String url : urls) {
-				map = downloadImage(url);
-			}
-			return map;
-		}
-
-		@Override
-		protected void onPostExecute(Bitmap result) {
-			imgView.setImageBitmap(result);
-		}
-
-		private Bitmap downloadImage(String url) {
-			Bitmap bitmap = null;
-			InputStream stream = null;
-			BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-			bmOptions.inSampleSize = 1;
-
-			try {
-				stream = getHttpConnection(url);
-				bitmap = BitmapFactory.decodeStream(stream, null, bmOptions);
-				stream.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			return bitmap;
-		}
-
-		private InputStream getHttpConnection(String urlString)
-				throws IOException {
-			InputStream stream = null;
-			URL url = new URL(urlString);
-			URLConnection connection = url.openConnection();
-			try {
-				HttpURLConnection httpConnection = (HttpURLConnection) connection;
-				httpConnection.setRequestMethod("GET");
-				httpConnection.connect();
-				if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-					stream = httpConnection.getInputStream();
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			return stream;
+			modelo.setDados(listaAcompanhante);
+			modelo.setMensagem("");
+			modelo.setStatus("");
+			new listarFotosAsyncTask().execute();
 		}
 	}
 
@@ -280,6 +228,142 @@ public class GaleriaFotosActivity extends Activity {
 						"100%: " + modeloRetorno.getMensagem(),
 						Toast.LENGTH_LONG);
 				toast.show();
+				Object dadosObject = result.getDados();
+				Gson gson = new Gson();
+				JSONObject jsonObject = null;
+				try {
+					JSONArray jsonArray = new JSONArray(
+							gson.toJson(dadosObject));
+					for (int x = 0; x < jsonArray.length(); ++x) {
+						jsonObject = jsonArray.getJSONObject(x);
+						gallery_list
+								.add("http://leonardogalvao.com.br/mete_service/src/img/foto/"
+										+ jsonObject
+												.getString("\u0000Fotos\u0000nome"));
+						itensId.add(jsonObject.getString("\u0000Fotos\u0000id"));
+					}
+					String URL = gallery_list.get(0);
+					GetXMLTask task = new GetXMLTask();
+					task.execute(new String[] { URL });
+					Context contexto = getApplicationContext();
+					gallery.setAdapter(new GalleryAdapter(contexto,
+							gallery_list));
+					dialog.dismiss();
+					Log.i("SOSTENES",
+							"Test in GaleriaFotosActivity: "
+									+ gson.toJson(gallery_list));
+					Log.i("SOSTENES",
+							"Test in ID FOTOS: " + gson.toJson(itensId));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	protected void onResume() {
+		super.onResume();
+		gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+
+				if (!itensId.equals(gallery_list.get(position)))
+					try {
+						String URL = gallery_list.get(position);
+						GetXMLTask task = new GetXMLTask();
+						task.execute(new String[] { URL });
+						idAtual = itensId.get(position);
+					} catch (Exception e) {
+						Toast.makeText(getApplicationContext(), "Erro! " + e,
+								Toast.LENGTH_SHORT).show();
+						e.printStackTrace();
+					}
+			}
+		});
+	}
+
+	private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
+		@Override
+		protected Bitmap doInBackground(String... urls) {
+			Bitmap map = null;
+			for (String url : urls) {
+				map = downloadImage(url);
+			}
+			return map;
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			imgView.setImageBitmap(result);
+		}
+
+		private Bitmap downloadImage(String url) {
+			Bitmap bitmap = null;
+			InputStream stream = null;
+			BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+			bmOptions.inSampleSize = 1;
+
+			try {
+				stream = getHttpConnection(url);
+				bitmap = BitmapFactory.decodeStream(stream, null, bmOptions);
+				stream.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			return bitmap;
+		}
+
+		private InputStream getHttpConnection(String urlString)
+				throws IOException {
+			InputStream stream = null;
+			URL url = new URL(urlString);
+			URLConnection connection = url.openConnection();
+			try {
+				HttpURLConnection httpConnection = (HttpURLConnection) connection;
+				httpConnection.setRequestMethod("GET");
+				httpConnection.connect();
+				if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+					stream = httpConnection.getInputStream();
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return stream;
+		}
+	}
+
+	class listarFtoClienteAsyncTask extends AsyncTask<String, String, Modelo> {
+		ProgressDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = ProgressDialog.show(GaleriaFotosActivity.this,
+					"Listando...", "Aguarde...", true, false);
+		}
+
+		@Override
+		protected Modelo doInBackground(String... params) {
+			try {
+				modeloRetorno = repositorio.acessarServidor(
+						"listarFotosPorIdAcompanhnate", modelo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return modeloRetorno;
+		}
+
+		@Override
+		protected void onPostExecute(Modelo result) {
+			super.onPostExecute(result);
+
+			if (modeloRetorno.getStatus().equals("1")) {
+				Toast toast = Toast.makeText(GaleriaFotosActivity.this,
+						"ERRO: " + modeloRetorno.getMensagem(),
+						Toast.LENGTH_LONG);
+				toast.show();
+			} else {
+
 				Object dadosObject = result.getDados();
 				Gson gson = new Gson();
 				JSONObject jsonObject = null;
