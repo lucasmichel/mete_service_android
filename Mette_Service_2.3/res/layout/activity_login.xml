@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FF0000" >
+    android:background="#000000" >
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:src="@drawable/logo"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@drawable/logonova"
             android:layout_gravity="center" />
 
     </LinearLayout>
@@ -40,7 +40,8 @@
         	android:layout_marginTop="10dp"   
         	android:layout_height="wrap_content"
         	android:layout_width="wrap_content"            
-            android:text="Email" />
+            android:text="Email"
+            android:textColor="@color/red" />
 
         <EditText
             android:layout_marginLeft="20dp"
@@ -57,7 +58,8 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Senha" />
+            android:text="Senha" 
+            android:textColor="@color/red"/>
 
         <EditText
             android:layout_marginLeft="20dp"
