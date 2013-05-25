@@ -15,6 +15,7 @@
 
         <ImageButton
             android:id="@+id/mulher"
+            style="@style/btnStyleOrange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mulher" />
@@ -29,6 +30,7 @@
 
         <ImageButton
             android:id="@+id/homem"
+            style="@style/btnStyleOrange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/homem" />

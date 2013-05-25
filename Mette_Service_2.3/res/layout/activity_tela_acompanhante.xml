@@ -19,12 +19,13 @@
                 android:id="@+id/txtUsuarioLogadoAcomp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:text="TextView"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnAlterarStatus"
+                style="@style/btnStyleOrange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -34,6 +35,7 @@
 
             <Button
                 android:id="@+id/btnEncontrosPnd"
+                style="@style/btnStyleOrange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -43,24 +45,29 @@
 
             <Button
                 android:id="@+id/btnEncontrosApr"
+                style="@style/btnStyleOrange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
+
                 android:text="@string/encontrosapr" />
 
             <Button
                 android:id="@+id/btnCadastrarServico"
+                style="@style/btnStyleOrange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
+ 
                 android:text="@string/cadastarServico" />
 
             <Button
                 android:id="@+id/btnMeusServicos"
+                style="@style/btnStyleOrange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

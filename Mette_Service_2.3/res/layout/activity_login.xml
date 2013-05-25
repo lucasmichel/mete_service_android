@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#000000" >
-    
+    android:background="#000000"
+    android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,11 +15,10 @@
             android:id="@+id/imageView1"
             android:layout_width="300dp"
             android:layout_height="200dp"
-            android:src="@drawable/logonova"
-            android:layout_gravity="center" />
-
+            android:layout_gravity="center"
+            android:src="@drawable/logonova" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,43 +31,43 @@
             android:layout_weight="0.56"
             android:orientation="vertical" >
         </LinearLayout>
-        
+
         <TextView
             android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-        	android:layout_marginTop="10dp"   
-        	android:layout_height="wrap_content"
-        	android:layout_width="wrap_content"            
+            android:layout_marginTop="10dp"
             android:text="Email"
             android:textColor="@color/red" />
 
         <EditText
-            android:layout_marginLeft="20dp"
-        	android:layout_marginRight="20dp"
-        	android:layout_marginTop="10dp"
             android:id="@+id/loginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="textEmailAddress" />
 
         <TextView
-            android:layout_marginLeft="20dp"
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Senha" 
-            android:textColor="@color/red"/>
+            android:layout_marginLeft="20dp"
+            android:text="Senha"
+            android:textColor="@color/red" />
 
         <EditText
-            android:layout_marginLeft="20dp"
-        	android:layout_marginRight="20dp"
-        	android:layout_marginTop="10dp"
             android:id="@+id/loginSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:password="true"
-            android:ems="10" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:password="true" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,16 +77,15 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-
         <Button
-            android:layout_marginLeft="20dp"
-        	android:layout_marginRight="20dp"
-        	android:layout_marginTop="10dp"
             android:id="@+id/btnEntrar"
+            style="@style/btnStyleOrange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:text="Entrar" />
-              
     </LinearLayout>
 
     <LinearLayout
@@ -101,16 +98,16 @@
         <TextView
             android:id="@+id/textoCadastre"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
+            android:layout_height="wrap_content"
             android:text="@string/textoCadastre"
-            android:textColor="@color/white"/>
-        
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/txtTestePerformance"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
+            android:layout_height="wrap_content"
             android:text="Teste Performance"
-            android:textColor="@color/red"/>
+            android:textColor="@color/red" />
     </LinearLayout>
 
 </LinearLayout>

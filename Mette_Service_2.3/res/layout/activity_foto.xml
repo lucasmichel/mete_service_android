@@ -17,6 +17,7 @@
 
         <ImageButton
             android:id="@+id/IMAGEM"
+            style="@style/btnStyleOrange"
             android:layout_width="match_parent"
             android:layout_height="352dp"
             android:layout_gravity="center"
@@ -31,7 +32,7 @@
 
         <Button
             android:id="@+id/enviarArquivo"
-            style="@style/AppTheme"
+            style="@style/btnStyleOrange"
             android:layout_width="98dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
