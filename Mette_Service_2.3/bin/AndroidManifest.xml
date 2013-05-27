@@ -95,8 +95,7 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCZo_1fqdr2jpJXHrWCRgjivmtgo8TSTDs" />
         <activity android:name=".Controller.Comentario.CadastroComentarioActivity"></activity>
-        <activity android:name=".Controller.Acompanhante.ListarEncontrosAprovados"></activity>
-        <activity android:name=".Controller.Acompanhante.ListarEncontrosPendentes"></activity>               
+        <activity android:name=".Controller.Comentario.ListarComentarioActivity"></activity>               
     </application>
 
 </manifest>

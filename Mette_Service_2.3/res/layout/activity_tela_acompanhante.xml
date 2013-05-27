@@ -34,25 +34,24 @@
                 android:text="@string/alterarstatus" />
 
             <Button
-                android:id="@+id/btnEncontrosPnd"
+                android:id="@+id/btnEncontros"
                 style="@style/btnStyleOrange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/encontrospnd" />
-
-            <Button
-                android:id="@+id/btnEncontrosApr"
+                android:text="@string/encontros" />
+            
+             <Button
+                android:id="@+id/btnListarComentarios"
                 style="@style/btnStyleOrange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-
-                android:text="@string/encontrosapr" />
+                android:text="@string/listarcomentarios" />
 
             <Button
                 android:id="@+id/btnCadastrarServico"

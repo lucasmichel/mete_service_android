@@ -1,23 +1,31 @@
 package br.uni.mette_service.Model;
 
-public class Comentario {
+import java.io.Serializable;
 
+public class Comentario implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int idComentario;
 	private String comentario;
 	private int idAcompanhante;
+	private int idCliente;
 	
 	public Comentario(){
 		
 	}
 	
 	public Comentario(int id, int idComentario, String comentario,
-			int idAcompanhante) {
+			int idAcompanhante, int idCliente) {
 		super();
 		this.id = id;
 		this.idComentario = idComentario;
 		this.comentario = comentario;
 		this.idAcompanhante = idAcompanhante;
+		this.idCliente = idCliente;
 	}
 	public int getId() {
 		return id;
@@ -44,6 +52,11 @@ public class Comentario {
 		this.idAcompanhante = idAcompanhante;
 	}
 	
-	
+	public int getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
 	
 }

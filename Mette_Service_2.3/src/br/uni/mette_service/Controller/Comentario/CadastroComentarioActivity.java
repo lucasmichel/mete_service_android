@@ -11,7 +11,9 @@ import br.uni.mette_service.Model.Cliente;
 import br.uni.mette_service.Model.Comentario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
 import br.uni.mette_service.Model.Repositorio.Repositorio;
+import br.uni.mette_service.Util.Validar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -78,27 +80,33 @@ public class CadastroComentarioActivity extends Activity implements OnClickListe
 	public void onClick(DialogInterface arg0, int arg1) {}
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnComentarioSalvar:	
+		case R.id.btnComentarioSalvar:
 			
+			Validar validar = new Validar();
 			comentario = new Comentario();
 			
-			comentario.setId(0);
-			comentario.setIdAcompanhante(acompanhanteClicada.getId());
-			
-			if (comentarioClicado == null) {
+			if (validar.validarCampo(edtComentario) == true) {
 				
-				comentario.setIdComentario(0);
+				comentario.setId(0);
+				comentario.setIdAcompanhante(acompanhanteClicada.getId());
 				
-			}else{
+				if (comentarioClicado == null) {
+					
+					comentario.setIdComentario(0);
+					
+				}else{
+					
+					comentario.setIdComentario(comentarioClicado.getIdComentario());
+				}
 				
-				comentario.setIdComentario(comentarioClicado.getIdComentario());
+				comentario.setComentario(edtComentario.getText().toString());			
+				executarCadastroComentario(comentario);		
 			}
-			comentario.setComentario(edtComentario.getText().toString());			
-			executarCadastroComentario(comentario);			
-			break;
-		/*
-		 * case R.id.btnSair: finish(); break;
-		 */
+		break;
+		case R.id.btnSairComentario:
+			finish();
+		break;
+		
 		}
 		}
 

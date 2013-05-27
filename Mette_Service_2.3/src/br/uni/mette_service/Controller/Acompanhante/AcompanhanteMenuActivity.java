@@ -2,10 +2,12 @@ package br.uni.mette_service.Controller.Acompanhante;
 
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
-import br.uni.mette_service.Controller.Acompanhante.ListaServicosAcompActivity.excluirServico;
+
+import br.uni.mette_service.Controller.Comentario.CadastroComentarioActivity;
+import br.uni.mette_service.Controller.Comentario.ListarComentarioActivity;
+import br.uni.mette_service.Controller.Encontro.ListarEncontrosActivity;
 import br.uni.mette_service.Controller.Servico.CadastroServicoActivity;
-import br.uni.mette_service.Controller.Servico.ServicoAcompanhante;
-import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
+
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -53,7 +55,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 	private Button btnAlterarStatus;
 	private Button btnCadastrarServico;
 	private Button btnMeusServicos;
-	private Button btnEncontrosAprovados, btnEncontrosPendentes;
+	private Button btnEncontros, btnListarComentarios;
 	private int idAcompanhante;
 	private TextView txtUsuarioLogado;
 	List<Object> listaobj = new ArrayList<Object>();
@@ -127,33 +129,23 @@ public class AcompanhanteMenuActivity extends Activity implements
 	}
 
 	private void adicionarListers() {
+		
 		this.btnAlterarStatus.setOnClickListener(this);		
-		this.btnEncontrosAprovados.setOnClickListener(this);
-		this.btnEncontrosPendentes.setOnClickListener(this);
+		this.btnEncontros.setOnClickListener(this);
+		this.btnListarComentarios.setOnClickListener(this);
 		this.btnCadastrarServico.setOnClickListener(this);
 		this.btnMeusServicos.setOnClickListener(this);
 	}
 
 	private void adicionarFindView() {
 
-		this.btnEncontrosAprovados = (Button) findViewById(R.id.btnEncontrosApr);
-		this.btnEncontrosPendentes = (Button) findViewById(R.id.btnEncontrosPnd);
+		
+		this.btnEncontros = (Button) findViewById(R.id.btnEncontros);
+		this.btnListarComentarios = (Button) findViewById(R.id.btnListarComentarios);
 		this.btnAlterarStatus = (Button) findViewById(R.id.btnAlterarStatus);
 		this.btnCadastrarServico = (Button) findViewById(R.id.btnCadastrarServico);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogadoAcomp);
 		this.btnMeusServicos = (Button) findViewById(R.id.btnMeusServicos);
-	}
-
-	// //// MÉTODO PARA CARREGAR URL - FUTURAMENTE SERÁ RETIRADO
-	private Drawable LoadImageFromWebOperations(String url) {
-		try {
-			InputStream is = (InputStream) new URL(url).getContent();
-			Drawable d = Drawable.createFromStream(is, "src name");
-			return d;
-		} catch (Exception e) {
-			System.out.println("Exc=" + e);
-			return null;
-		}
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode,
@@ -178,21 +170,24 @@ public class AcompanhanteMenuActivity extends Activity implements
 	public void onClick(View v) {
 		Intent it = null;
 		switch (v.getId()) {
-
 		case R.id.btnAlterarStatus:
 			it = new Intent(this, AlterarStatusActivity.class);
 			startActivity(it);
 			break;
-		case R.id.btnEncontrosApr:
-			it = new Intent(this, ListarEncontrosAprovados.class);
-			it.putExtra("usuarioLogado", usuarioLogado);
+		case R.id.btnListarComentarios:
+			
+			Log.i("SOSTENES", "Entrou no listar");
+			Acompanhante acomp1 = new Acompanhante();
+			acomp1.setId(idAcompanhante);
+			it = new Intent(this, ListarComentarioActivity.class);
+			it.putExtra("idAcompanhante", acomp1);
 			startActivity(it);
 			break;
-		case R.id.btnEncontrosPnd:
-			it = new Intent(this, ListarEncontrosPendentes.class);
+		case R.id.btnEncontros:
+			it = new Intent(this, ListarEncontrosActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
 			startActivity(it);
-			break;
+			break;		
 		case R.id.btnCadastrarServico:
 			it = new Intent(this, CadastroServicoActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
