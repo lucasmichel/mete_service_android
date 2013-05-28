@@ -115,7 +115,7 @@ public class FotoAcompanhanteActivity extends Activity implements
 				try {
 					jsonObject = new JSONObject(gson.toJson(dadosObject));
 					buscarAcompanhante.setId(jsonObject
-							.getInt("\u0000Acompanhante\u0000id"));
+							.getInt("id"));
 
 				} catch (JSONException e) {
 					e.getMessage();

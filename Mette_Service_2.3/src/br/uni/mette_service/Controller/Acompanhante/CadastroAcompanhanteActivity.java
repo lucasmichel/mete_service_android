@@ -373,16 +373,16 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 						
 						Log.i("SOSTENES", "idAcomp" + idAcompanhanteEditar);
 						
-						edtNomeAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000nome"));
-						edtIdadeAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000idade"));
-						edtAlturaAcomp.setText(jsonObject.getString	("\u0000Acompanhante\u0000altura"));
-						edtBustoAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000busto"));
-						edtPesoAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000peso"));
-						edtCinturaAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000peso"));
-						edtQuadrilAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000quadril"));
-						edtOlhosAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000olhos"));
+						edtNomeAcomp.setText(jsonObject.getString("nome"));
+						edtIdadeAcomp.setText(jsonObject.getString("idade"));
+						edtAlturaAcomp.setText(jsonObject.getString	("altura"));
+						edtBustoAcomp.setText(jsonObject.getString("busto"));
+						edtPesoAcomp.setText(jsonObject.getString("peso"));
+						edtCinturaAcomp.setText(jsonObject.getString("peso"));
+						edtQuadrilAcomp.setText(jsonObject.getString("quadril"));
+						edtOlhosAcomp.setText(jsonObject.getString("olhos"));
 				
-						String atendo = jsonObject.getString("\u0000Acompanhante\u0000atendo");
+						String atendo = jsonObject.getString("atendo");
 						
 						if (atendo.equalsIgnoreCase("Homens")){
 						rdhomem.setChecked(true);
@@ -395,7 +395,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 							
 						}
 						
-						int pernoite = jsonObject.getInt("\u0000Acompanhante\u0000pernoite");
+						int pernoite = jsonObject.getInt("pernoite");
 						if (pernoite == 1){
 							rdSim.setChecked(true);
 						}else if (pernoite == 0){
@@ -403,10 +403,10 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 						}
 					
 
-						edtEspecialidadeAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000especialidade"));
-						edtHorarioAtendimentoAcomp.setText(jsonObject.getString("\u0000Acompanhante\u0000horarioAtendimento"));
+						edtEspecialidadeAcomp.setText(jsonObject.getString("especialidade"));
+						edtHorarioAtendimentoAcomp.setText(jsonObject.getString("horarioAtendimento"));
 						edtEmailAcomp.setText(usuarioLogado.getEmail());
-						usuarioIdTeste = jsonObject.getInt("\u0000Acompanhante\u0000usuarioId");
+						usuarioIdTeste = jsonObject.getInt("usuarioId");
 						
 					} catch (JSONException e) {
 					}				
@@ -463,9 +463,9 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 							
 							Log.i("SOSTENES", "RETORNO USUARIO LOGADO: " + gson.toJson(dadosObject));
 							
-							editadoUsuarioLogado.setEmail(jsonObject.getString("\u0000Usuario\u0000email"));
-							editadoUsuarioLogado.setIdUsuario(jsonObject.getInt("\u0000Usuario\u0000id"));
-							editadoUsuarioLogado.setSenha(jsonObject.getString("\u0000Usuario\u0000senha"));
+							editadoUsuarioLogado.setEmail(jsonObject.getString("email"));
+							editadoUsuarioLogado.setIdUsuario(jsonObject.getInt("id"));
+							editadoUsuarioLogado.setSenha(jsonObject.getString("senha"));
 							editadoUsuarioLogado.setIdPerfil(usuarioLogado.getIdPerfil());
 							
 							Log.i("SOSTENES", "RETORNO USUARIO LOGADO" + editadoUsuarioLogado.getEmail() + "" + editadoUsuarioLogado.getIdUsuario());

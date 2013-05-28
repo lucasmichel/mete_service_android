@@ -200,7 +200,9 @@ public class AcompanhanteMenuActivity extends Activity implements
 			break;		
 		case R.id.btnCadastrarServico:
 			it = new Intent(this, CadastroServicoActivity.class);
-			it.putExtra("usuarioLogado", usuarioLogado);
+			Acompanhante acompCadasServico = new Acompanhante();
+			acompCadasServico.setId(idAcompanhante);
+			it.putExtra("acompanhanteLogada", acompCadasServico);
 			startActivity(it);
 			break;
 		case R.id.btnMeusServicos:
@@ -305,8 +307,8 @@ public class AcompanhanteMenuActivity extends Activity implements
 							"RETORNO PARA MONTAR NA TELA"
 									+ gson.toJson(dadosObject));
 
-					idAcompanhante = jsonObject
-							.getInt("\u0000Acompanhante\u0000id");
+					idAcompanhante = jsonObject.getInt("id");
+					
 
 				} catch (JSONException e) {
 				}

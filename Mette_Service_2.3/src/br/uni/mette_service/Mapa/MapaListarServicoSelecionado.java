@@ -273,10 +273,10 @@ implements LocationListener{
 					jsonObject = jsonArray.getJSONObject(x);
 					
 					Localizacao local = new Localizacao();
-					local.setLatitude(jsonObject.getString("\u0000Localizacao\u0000latitude"));
-					local.setLongitude(jsonObject.getString("\u0000Localizacao\u0000longitude"));
+					local.setLatitude(jsonObject.getString("latitude"));
+					local.setLongitude(jsonObject.getString("longitude"));
 					local.setEnderecoFormatado(
-							jsonObject.getString("\u0000Localizacao\u0000enderecoFormatado"));
+							jsonObject.getString("enderecoFormatado"));
 					
 					listaServicoMarker.add(local);
 	

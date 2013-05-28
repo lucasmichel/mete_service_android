@@ -198,7 +198,7 @@ public class GaleriaFotosActivity extends Activity {
 					Gson gson = new Gson();
 					jsonObject = new JSONObject(gson.toJson(dadosObject));
 					int idAcompanhanteListarFotos = jsonObject
-							.getInt("\u0000Acompanhante\u0000id");
+							.getInt("id");
 					listaAcompanhante.clear();
 					acompanhante.setId(idAcompanhanteListarFotos);
 					listaAcompanhante.add(acompanhante);
@@ -239,8 +239,8 @@ public class GaleriaFotosActivity extends Activity {
 						gallery_list
 								.add("http://leonardogalvao.com.br/mete_service/src/img/foto/"
 										+ jsonObject
-												.getString("\u0000Fotos\u0000nome"));
-						itensId.add(jsonObject.getString("\u0000Fotos\u0000id"));
+												.getString("nome"));
+						itensId.add(jsonObject.getString("id"));
 					}
 					String URL = gallery_list.get(0);
 					GetXMLTask task = new GetXMLTask();
@@ -375,8 +375,8 @@ public class GaleriaFotosActivity extends Activity {
 						gallery_list
 								.add("http://leonardogalvao.com.br/mete_service/src/img/foto/"
 										+ jsonObject
-												.getString("\u0000Fotos\u0000nome"));
-						itensId.add(jsonObject.getString("\u0000Fotos\u0000id"));
+												.getString("nome"));
+						itensId.add(jsonObject.getString("id"));
 					}
 					String URL = gallery_list.get(0);
 					GetXMLTask task = new GetXMLTask();

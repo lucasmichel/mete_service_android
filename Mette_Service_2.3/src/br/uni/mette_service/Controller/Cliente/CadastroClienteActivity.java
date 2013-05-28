@@ -260,9 +260,9 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 					jsonObject = new JSONObject(gson.toJson(dadosObject));
 					
 					Log.i("SOSTENES", "RETORNO PARA MONTAR NA TELA" + gson.toJson(dadosObject));
-					CCnome.setText(jsonObject.getString("\u0000Cliente\u0000nome"));					
-					CCcpf.setText(jsonObject.getString("\u0000Cliente\u0000cpf"));
-					idClienteEditar = jsonObject.getInt("\u0000Cliente\u0000id");
+					CCnome.setText(jsonObject.getString("nome"));					
+					CCcpf.setText(jsonObject.getString("cpf"));
+					idClienteEditar = jsonObject.getInt("id");
 					CCemail.setText(usuarioLogado.getEmail());
 					checkTermoUso.setChecked(true);					
 					} catch (JSONException e) {
@@ -319,9 +319,9 @@ public class CadastroClienteActivity extends Activity implements OnClickListener
 						
 						Log.i("SOSTENES", "RETORNO USUARIO LOGADO: " + gson.toJson(dadosObject));
 						
-						editadoUsuarioLogado.setEmail(jsonObject.getString("\u0000Usuario\u0000email"));
-						editadoUsuarioLogado.setIdUsuario(jsonObject.getInt("\u0000Usuario\u0000id"));
-						editadoUsuarioLogado.setSenha(jsonObject.getString("\u0000Usuario\u0000senha"));
+						editadoUsuarioLogado.setEmail(jsonObject.getString("email"));
+						editadoUsuarioLogado.setIdUsuario(jsonObject.getInt("id"));
+						editadoUsuarioLogado.setSenha(jsonObject.getString("senha"));
 						editadoUsuarioLogado.setIdPerfil(usuarioLogado.getIdPerfil());
 						
 						Log.i("SOSTENES", "RETORNO USUARIO LOGADO" + editadoUsuarioLogado.getEmail() + "" + editadoUsuarioLogado.getIdUsuario());

@@ -114,8 +114,8 @@ public class ListaServicosActivity extends ListActivity implements OnClickListen
     					
     					Servico serv = new Servico();
     					
-    					serv.setNome(jsonObject.getString("\u0000Servico\u0000nome"));
-        				serv.setId(jsonObject.getInt("\u0000Servico\u0000id"));
+    					serv.setNome(jsonObject.getString("nome"));
+        				serv.setId(jsonObject.getInt("id"));
 
         				Log.i("PEDRO", x +"..." + serv.getId() + "..."+ serv.getNome());
         				

@@ -131,7 +131,7 @@ public class CadastroEncontroActivity extends Activity implements OnClickListene
 					JSONObject jsonObject = null;
 					Gson gson = new Gson();					
 					jsonObject = new JSONObject(gson.toJson(dadosObject));
-					int idClienteLogado = jsonObject.getInt("\u0000Cliente\u0000id");					
+					int idClienteLogado = jsonObject.getInt("id");					
 
 					listaApoio.clear();		
 					encontro.setClienteId(idClienteLogado);		

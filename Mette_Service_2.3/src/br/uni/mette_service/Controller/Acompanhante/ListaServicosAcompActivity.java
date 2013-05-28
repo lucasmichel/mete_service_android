@@ -240,11 +240,11 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 					ServicoAcompanhante servicoAcompanhante = new ServicoAcompanhante();
 					
 					servicoAcompanhante.setId(
-							jsonObject.getInt("\u0000ServicosAcompanhante\u0000id"));
+							jsonObject.getInt("id"));
 					servicoAcompanhante.setServicoId(
-							jsonObject.getInt("\u0000ServicosAcompanhante\u0000servicoId"));
+							jsonObject.getInt("servicoId"));
 					servicoAcompanhante.setValor(
-							jsonObject.getString("\u0000ServicosAcompanhante\u0000valor"));
+							jsonObject.getString("valor"));
     				Log.i("PEDRO", x +"..." + servicoAcompanhante.getId());
     				
     				addServico.add(servicoAcompanhante);
@@ -318,11 +318,11 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 					ServicoAcompanhante servicoAcompanhante = new ServicoAcompanhante();
 					
 					servicoAcompanhante.setId(
-							jsonObject.getInt("\u0000ServicosAcompanhante\u0000id"));
+							jsonObject.getInt("id"));
 					servicoAcompanhante.setServicoId(
-							jsonObject.getInt("\u0000ServicosAcompanhante\u0000servicoId"));
+							jsonObject.getInt("servicoId"));
 					servicoAcompanhante.setValor(
-							jsonObject.getString("\u0000ServicosAcompanhante\u0000valor"));
+							jsonObject.getString("valor"));
     				Log.i("PEDRO", x +"..." + servicoAcompanhante.getId());
     				
     				addServico.add(servicoAcompanhante);

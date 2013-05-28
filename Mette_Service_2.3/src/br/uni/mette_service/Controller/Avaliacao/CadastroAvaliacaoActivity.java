@@ -163,7 +163,7 @@ public class CadastroAvaliacaoActivity extends Activity implements
 							"RETORNO PARA MONTAR NA TELA"
 									+ gson.toJson(dadosObject));
 
-					clienteId = jsonObject.getInt("\u0000Cliente\u0000id");
+					clienteId = jsonObject.getInt("id");
 
 				} catch (JSONException e) {
 				}

@@ -52,19 +52,19 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
 	Servico servico = new Servico();
-	Acompanhante buscarAcompanhante = new Acompanhante();
+	Acompanhante acompanhanteLogada = new Acompanhante();
 	List<Object> listaServicoAcompanhante = new ArrayList();
 	private AlertDialog alerta;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
+//		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
 		
 		setContentView(R.layout.activity_cadastro_servico);
 		
 		preencherSpinner();
-		buscarAcompanhate(usuarioLogado);
+//		buscarAcompanhate(usuarioLogado);
 		adicionarFindView();
 		adicionarListers();
 //		Double.valueOf(editValor.getText().toString()).doubleValue();
@@ -94,18 +94,18 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 	}
 	
-	private void buscarAcompanhate(Usuario usuarioLogado) {
-		Toast toast = Toast.makeText(CadastroServicoActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
-		toast.show();						
-		listaAcompanhante.clear();
-		acompanhante.setId(usuarioLogado.getIdUsuario());						
-		listaAcompanhante.add(acompanhante);		
-		
-		modelo.setDados(listaAcompanhante);
-		modelo.setMensagem("");
-		modelo.setStatus("");									
-		new buscarAcompanhantePorIdAsyncTask().execute();
-	}
+//	private void buscarAcompanhate(Usuario usuarioLogado) {
+//		Toast toast = Toast.makeText(CadastroServicoActivity.this, "Activity FOI chamada para Edição.", Toast.LENGTH_LONG);
+//		toast.show();						
+//		listaAcompanhante.clear();
+//		acompanhante.setId(usuarioLogado.getIdUsuario());						
+//		listaAcompanhante.add(acompanhante);		
+//		
+//		modelo.setDados(listaAcompanhante);
+//		modelo.setMensagem("");
+//		modelo.setStatus("");									
+//		new buscarAcompanhantePorIdAsyncTask().execute();
+//	}
 
 	private void adicionarFindView() {
 		this.btnVoltar = (Button) findViewById(R.id.btnVoltar);
@@ -239,8 +239,8 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
     					
     					Servico serv = new Servico();
     					
-    					serv.setNome(jsonObject.getString("\u0000Servico\u0000nome"));
-        				serv.setId(jsonObject.getInt("\u0000Servico\u0000id"));
+    					serv.setNome(jsonObject.getString("nome"));
+        				serv.setId(jsonObject.getInt("id"));
 
         				Log.i("PEDRO", x +"..." + serv.getId() + "..."+ serv.getNome());
         				
@@ -270,59 +270,59 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 			//	CLASS ASYNC TASK PARA BUSCAR ACOMPANHANTE
 			//	--
 		
-		class buscarAcompanhantePorIdAsyncTask extends AsyncTask<String, String, Modelo>  {
-			ProgressDialog dialog;
-			@Override
-			protected void onPreExecute() {
-				super.onPreExecute();
-				dialog = ProgressDialog.show(CadastroServicoActivity.this,
-						"Cadastrando...", "Aguarde...",
-						true, false);
-			}
-
-			@Override
-			protected Modelo doInBackground(String... params) {	
-				try
-				{
-					modeloRetorno = repositorio.acessarServidor("buscarAcompanhantePorIdUsuario", modelo);
-				} catch (Exception e) {				
-					e.printStackTrace();
-				}
-				return modeloRetorno;
-			}
-
-			@Override
-			protected void onPostExecute(Modelo result) {
-				super.onPostExecute(result);
-				dialog.dismiss();
-				if (modeloRetorno.getStatus().equals("1"))
-				{
-					Toast toast = Toast.makeText(CadastroServicoActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
-					toast.show();
-				}else{				
-					Object dadosObject = modeloRetorno.getDados().get(0);
-					JSONObject jsonObject = null;
-					Gson gson = new Gson();
-					
-					try {
-						jsonObject = new JSONObject(gson.toJson(dadosObject));
-						
-						Log.i("SOSTENES", "RETORNO PARA MONTAR NA TELA" + gson.toJson(dadosObject));
-						
-						buscarAcompanhante.setId(jsonObject.getInt("\u0000Acompanhante\u0000id"));
-					
-						servicoAcompanhante.setAcompanhanteId(buscarAcompanhante.getId());
-						
-						String i = String.valueOf(buscarAcompanhante.getId());
-						Log.i("teste", i);
-						
-					} catch (JSONException e) {
-					}				
-
-					
-				}	
-			}
-		}	
+//		class buscarAcompanhantePorIdAsyncTask extends AsyncTask<String, String, Modelo>  {
+//			ProgressDialog dialog;
+//			@Override
+//			protected void onPreExecute() {
+//				super.onPreExecute();
+//				dialog = ProgressDialog.show(CadastroServicoActivity.this,
+//						"Cadastrando...", "Aguarde...",
+//						true, false);
+//			}
+//
+//			@Override
+//			protected Modelo doInBackground(String... params) {	
+//				try
+//				{
+//					modeloRetorno = repositorio.acessarServidor("buscarAcompanhantePorIdUsuario", modelo);
+//				} catch (Exception e) {				
+//					e.printStackTrace();
+//				}
+//				return modeloRetorno;
+//			}
+//
+//			@Override
+//			protected void onPostExecute(Modelo result) {
+//				super.onPostExecute(result);
+//				dialog.dismiss();
+//				if (modeloRetorno.getStatus().equals("1"))
+//				{
+//					Toast toast = Toast.makeText(CadastroServicoActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+//					toast.show();
+//				}else{				
+//					Object dadosObject = modeloRetorno.getDados().get(0);
+//					JSONObject jsonObject = null;
+//					Gson gson = new Gson();
+//					
+//					try {
+//						jsonObject = new JSONObject(gson.toJson(dadosObject));
+//						
+//						Log.i("SOSTENES", "RETORNO PARA MONTAR NA TELA" + gson.toJson(dadosObject));
+//						
+//						buscarAcompanhante.setId(jsonObject.getInt("\u0000Acompanhante\u0000id"));
+//					
+//						servicoAcompanhante.setAcompanhanteId(buscarAcompanhante.getId());
+//						
+//						String i = String.valueOf(buscarAcompanhante.getId());
+//						Log.i("teste", i);
+//						
+//					} catch (JSONException e) {
+//					}				
+//
+//					
+//				}	
+//			}
+//		}	
 	
 		//		------
 		//	CLASS ASYNC TASK PARA CADASTRAR O SERVICO.
@@ -340,12 +340,13 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 
 			@Override
 			protected Modelo doInBackground(String... params) {
-
+				acompanhanteLogada = (Acompanhante) getIntent().getSerializableExtra("acompanhanteLogada");
+				
 				ServicoAcompanhante servAcomp = new ServicoAcompanhante();
 				
 				servAcomp.setServicoId(servicoAcompanhante.getServicoId());
 				servAcomp.setValor(servicoAcompanhante.getValor());
-				servAcomp.setAcompanhanteId(servicoAcompanhante.getAcompanhanteId());
+				servAcomp.setAcompanhanteId(acompanhanteLogada.getId());
 				
 				listaServicoAcompanhante.add(servAcomp);
 				modelo.setDados(listaServicoAcompanhante);
@@ -386,7 +387,7 @@ public class CadastroServicoActivity extends Activity implements OnClickListener
 					ServicoAcompanhante servicoAcompanhanteRetorno = new ServicoAcompanhante();
 			
 					servicoAcompanhanteRetorno.setId(
-						jsonObject.getInt("\u0000ServicosAcompanhante\u0000id"));
+						jsonObject.getInt("id"));
 				
 						//INTENT PARA PASSAR AO MAPA PARA CADASTRO DA LOCALIZAÇÃO
 						Intent it = new Intent(CadastroServicoActivity.this, CadastrarServicoAcompMapa.class);
