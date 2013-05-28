@@ -74,9 +74,9 @@ implements LocationListener{
 			setContentView(R.layout.activity_mapa); 
 			setUpMap();
 		}
-		
-		intentServicoAcomp = (ServicoAcompanhante) 
-				getIntent().getSerializableExtra("idServicoAcompanante");
+//		
+//		intentServicoAcomp = (ServicoAcompanhante) 
+//				getIntent().getSerializableExtra("idServicoAcompanante");
 	
 	}
 	
@@ -101,7 +101,8 @@ implements LocationListener{
 	
 	
 	public void onLocationChanged(final Location location) {
-		
+		Toast.makeText(MapaListarServicoSelecionado.this,
+				"OIIIIIIIIIIIIIII", Toast.LENGTH_LONG).show();
 	new mapaListarServicoAcompanhanteAsyncTask().execute();
 
 	}
@@ -235,8 +236,8 @@ implements LocationListener{
 		@Override
 		protected Modelo doInBackground(Void... params) {
 //			
-//			intentServicoAcomp = (ServicoAcompanhante) 
-//					getIntent().getSerializableExtra("idServicoAcompanante");
+			intentServicoAcomp = (ServicoAcompanhante) 
+					getIntent().getSerializableExtra("idServicoAcompanante");
 			
 			ServicoAcompanhante idServicoAcompanhante = new ServicoAcompanhante();
 			
@@ -251,7 +252,8 @@ implements LocationListener{
 			modelo.setMensagem("");
 			modelo.setStatus("");
 			
-			
+			Gson g = new Gson();
+			Log.i("GSON", "PEDRO   " + g.toJson(modelo));
 			
 
 			locRetorno = repositorio.acessarServidor("listarLocalizacaoServicoAcompanhante", modelo);
@@ -273,10 +275,10 @@ implements LocationListener{
 					jsonObject = jsonArray.getJSONObject(x);
 					
 					Localizacao local = new Localizacao();
-					local.setLatitude(jsonObject.getString("latitude"));
-					local.setLongitude(jsonObject.getString("longitude"));
+					local.setLatitude(jsonObject.getString("\u0000Localizacao\u0000latitude"));
+					local.setLongitude(jsonObject.getString("\u0000Localizacao\u0000longitude"));
 					local.setEnderecoFormatado(
-							jsonObject.getString("enderecoFormatado"));
+							jsonObject.getString("\u0000Localizacao\u0000enderecoFormatado"));
 					
 					listaServicoMarker.add(local);
 	

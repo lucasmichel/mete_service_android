@@ -51,20 +51,26 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
-        
+        adicionarFindView();
+        adicionarListers();
         /*PEGAR O BOOLEAN ENVIANDO PELA ACOMPANHANTE PARA LISTAR
          * SEUS SERVIÇOS */
         acompanhanteListarSeusServicos = 
         		getIntent().getBooleanExtra("acompanhanteListarServicos",false);
         
-        /*DEPENDENDO DE QUEM CHAMOU A ACTIVITY UMA ASYNCTASK 
+       chamarAsyncTask();
+    
+    }
+    
+    private void chamarAsyncTask(){
+    	
+    	 /*DEPENDENDO DE QUEM CHAMOU A ACTIVITY UMA ASYNCTASK 
          * ESPECIFICA É CHAMADA */
         if(acompanhanteListarSeusServicos){
         new listarMeusServicosAcompanhante().execute();
         }else{
         new listarServicoAcompanhante().execute();
         }
-    
     }
 
     private void adicionarFindView() {
@@ -195,7 +201,7 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 		@Override
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(ListaServicosAcompActivity.this, "LOADING:",
-					"Carregando pontos do mapa!", true, false);
+					"Carregando serviços da acompanhante", true, false);
 			super.onPreExecute();
 		}
 		@Override
@@ -213,6 +219,9 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 			modelo.setDados(listaAcompanhante);
 			modelo.setMensagem("");
 			modelo.setStatus("");
+			
+			Gson g = new Gson();
+			Log.i("GSON", "PEDRO   " + g.toJson(modelo));
 			
 			locRetorno = repositorio.acessarServidor("listarServicoAcompanhante", modelo);
 
