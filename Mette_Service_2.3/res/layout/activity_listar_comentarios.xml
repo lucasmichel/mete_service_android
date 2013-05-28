@@ -29,13 +29,20 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="@string/responder" />
+        
+         <Button
+            android:id="@+id/btnExcluirComentario"
+            style="@style/btnStyleOrange"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/excluircomentario" />
 
-    <Button
-        android:id="@+id/btnVoltarComentarios"
-        style="@style/btnStyleOrange"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="@string/voltar" />
+	    <Button
+	        android:id="@+id/btnVoltarComentarios"
+	        style="@style/btnStyleOrange"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:text="@string/voltar" />
     
     </LinearLayout>
     

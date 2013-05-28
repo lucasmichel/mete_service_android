@@ -3,6 +3,7 @@ package br.uni.mette_service.Controller.Acompanhante;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 
+import br.uni.mette_service.Controller.Avaliacao.ListarAvaliacaoActivity;
 import br.uni.mette_service.Controller.Comentario.CadastroComentarioActivity;
 import br.uni.mette_service.Controller.Comentario.ListarComentarioActivity;
 import br.uni.mette_service.Controller.Encontro.ListarEncontrosActivity;
@@ -55,7 +56,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 	private Button btnAlterarStatus;
 	private Button btnCadastrarServico;
 	private Button btnMeusServicos;
-	private Button btnEncontros, btnListarComentarios;
+	private Button btnEncontros, btnListarAvaliacoes, btnListarComentarios;
 	private int idAcompanhante;
 	private TextView txtUsuarioLogado;
 	List<Object> listaobj = new ArrayList<Object>();
@@ -132,7 +133,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 		
 		this.btnAlterarStatus.setOnClickListener(this);		
 		this.btnEncontros.setOnClickListener(this);
-		this.btnListarComentarios.setOnClickListener(this);
+		this.btnListarAvaliacoes.setOnClickListener(this);
 		this.btnCadastrarServico.setOnClickListener(this);
 		this.btnMeusServicos.setOnClickListener(this);
 	}
@@ -142,6 +143,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 		
 		this.btnEncontros = (Button) findViewById(R.id.btnEncontros);
 		this.btnListarComentarios = (Button) findViewById(R.id.btnListarComentarios);
+		this.btnListarAvaliacoes = (Button) findViewById(R.id.btnListarAvaliacoes);
 		this.btnAlterarStatus = (Button) findViewById(R.id.btnAlterarStatus);
 		this.btnCadastrarServico = (Button) findViewById(R.id.btnCadastrarServico);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogadoAcomp);
@@ -181,6 +183,14 @@ public class AcompanhanteMenuActivity extends Activity implements
 			acomp1.setId(idAcompanhante);
 			it = new Intent(this, ListarComentarioActivity.class);
 			it.putExtra("idAcompanhante", acomp1);
+			startActivity(it);
+			break;
+		case R.id.btnListarAvaliacoes:		
+			Log.i("SOSTENES", "Entrou no listarAvaliacoes");
+			Acompanhante acomp3 = new Acompanhante();
+			acomp3.setId(idAcompanhante);
+			it = new Intent(this, ListarAvaliacaoActivity.class);
+			it.putExtra("idAcompanhante", acomp3);
 			startActivity(it);
 			break;
 		case R.id.btnEncontros:

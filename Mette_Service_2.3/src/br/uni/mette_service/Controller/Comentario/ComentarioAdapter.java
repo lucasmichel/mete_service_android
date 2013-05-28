@@ -17,7 +17,7 @@ public class ComentarioAdapter extends BaseAdapter {
 	private Context ctx;
 	private List<Comentario> comentarioAdapter;
 	
-	public ComentarioAdapter(Context ctx, List<Comentario> comentairoAdapter) {
+	public ComentarioAdapter(Context ctx, List<Comentario> comentarioAdapter) {
 		this.ctx = ctx;
 		this.comentarioAdapter = comentarioAdapter;
 	}

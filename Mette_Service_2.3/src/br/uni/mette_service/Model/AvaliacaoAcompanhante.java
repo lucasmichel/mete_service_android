@@ -1,8 +1,12 @@
 package br.uni.mette_service.Model;
 
+import java.io.Serializable;
 
-public class AvaliacaoAcompanhante {
 
+public class AvaliacaoAcompanhante implements Serializable {
+
+	
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int nota;
 	private int idCliente;

@@ -81,6 +81,9 @@
     <string name="framework">Framework</string>
     <string name="responder">Responder</string>
     <string name="listarcomentarios">Listar Comentarios</string>
+    <string name="listaravaliacoes">Listar Avaliaçoes</string>
+    <string name="excluircomentario">Excluir Comentario</string>
+    <string name="excluiravaliacao">Excluir Avaliacao</string>
     
 
 </resources>

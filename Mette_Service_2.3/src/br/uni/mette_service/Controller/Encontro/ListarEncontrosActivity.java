@@ -1,5 +1,7 @@
 package br.uni.mette_service.Controller.Encontro;
 
-public class ListarEncontrosActivity {
+import android.app.ListActivity;
+
+public class ListarEncontrosActivity extends ListActivity {
 
 }
