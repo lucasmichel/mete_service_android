@@ -232,7 +232,7 @@ containing a value of this type.
         public static final int Status=0x7f050061;
         public static final int TermoUso=0x7f0500a5;
         public static final int TextView01=0x7f050084;
-        public static final int action_settings=0x7f0500aa;
+        public static final int action_settings=0x7f0500ac;
         public static final int btnAlterarStatus=0x7f050096;
         public static final int btnAvaliar=0x7f050063;
         public static final int btnAvaliarAcomp=0x7f05000b;
@@ -344,6 +344,8 @@ containing a value of this type.
         public static final int textView4=0x7f05009e;
         public static final int textView5=0x7f05009c;
         public static final int textViewAdicionarAcompanhante=0x7f05000d;
+        public static final int textViewTitulo=0x7f0500a8;
+        public static final int textViewValor=0x7f0500a9;
         public static final int textoCadastre=0x7f050088;
         public static final int textoTermoUso=0x7f050040;
         public static final int txt=0x7f050069;
@@ -368,7 +370,7 @@ containing a value of this type.
         public static final int txtNomeAcompanhante=0x7f05006d;
         public static final int txtNomeCliente=0x7f050034;
         public static final int txtNomeListarServicos=0x7f050079;
-        public static final int txtNomeServicoAdapater=0x7f0500a8;
+        public static final int txtNomeServicoAdapater=0x7f0500aa;
         public static final int txtNota=0x7f050075;
         public static final int txtOlhosAcomp=0x7f050058;
         public static final int txtPernoiteAcomp=0x7f05005a;
@@ -379,7 +381,7 @@ containing a value of this type.
         public static final int txtTestePerformance=0x7f050089;
         public static final int txtUsuarioLogado=0x7f0500a1;
         public static final int txtUsuarioLogadoAcomp=0x7f050095;
-        public static final int txtValorServicoAdapater=0x7f0500a9;
+        public static final int txtValorServicoAdapater=0x7f0500ab;
     }
     public static final class layout {
         public static final int activity_alterar_status=0x7f030000;
@@ -414,8 +416,9 @@ containing a value of this type.
         public static final int activity_tela_cliente=0x7f03001d;
         public static final int activity_termo_uso=0x7f03001e;
         public static final int activity_testeperformance=0x7f03001f;
-        public static final int lista_servico_acomp_adapter=0x7f030020;
-        public static final int splash=0x7f030021;
+        public static final int info_windows=0x7f030020;
+        public static final int lista_servico_acomp_adapter=0x7f030021;
+        public static final int splash=0x7f030022;
     }
     public static final class menu {
         public static final int main=0x7f090000;

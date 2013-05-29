@@ -25,6 +25,8 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
@@ -41,6 +43,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -61,8 +64,11 @@ implements LocationListener{
 	List<Object> listaServicoAcompanhante = new ArrayList();
 	private AlertDialog alerta;
 	boolean chamadaAcompanhante;
-	
-	
+	Handler handler = new Handler();
+	Localizacao localizacaoExcluir;
+	List<Object> listaLocalizacaoExcluir = new ArrayList<Object>();
+	Modelo modeloExcluirLocalizacao = new Modelo();
+
 	List<Object> listaServicoMarker = new ArrayList();
 	
 //	private Location location;
@@ -74,9 +80,6 @@ implements LocationListener{
 			setContentView(R.layout.activity_mapa); 
 			setUpMap();
 		}
-//		
-//		intentServicoAcomp = (ServicoAcompanhante) 
-//				getIntent().getSerializableExtra("idServicoAcompanante");
 	
 	}
 	
@@ -101,14 +104,11 @@ implements LocationListener{
 	
 	
 	public void onLocationChanged(final Location location) {
-		Toast.makeText(MapaListarServicoSelecionado.this,
-				"OIIIIIIIIIIIIIII", Toast.LENGTH_LONG).show();
-	new mapaListarServicoAcompanhanteAsyncTask().execute();
+
+		new mapaListarServicoAcompanhanteAsyncTask().execute();
 
 	}
-	
-	
-	
+
 	private String toString(InputStream is) throws IOException {
 
 			byte[] bytes = new byte[1024];
@@ -182,10 +182,46 @@ implements LocationListener{
 	
 				chamadaAcompanhante = 
 						getIntent().getBooleanExtra("chamadaAcompanhante",false);
+				
+				String acompanhante = marker.getSnippet();
+				localizacaoExcluir = new Localizacao();
+				
+				localizacaoExcluir.setId(Integer.valueOf(acompanhante));
+				
+				Toast.makeText(MapaListarServicoSelecionado.this,
+						acompanhante, Toast.LENGTH_LONG).show();
 				 
 				 if(chamadaAcompanhante){
+					 
 					 Toast.makeText(MapaListarServicoSelecionado.this,
 							 "acomp", Toast.LENGTH_LONG).show();
+				
+					 AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
+
+					    builder.setTitle("ALERT!");
+					    
+					    builder.setMessage("O que deseja fazer ?");
+
+					    builder.setPositiveButton("Excluir esse ponto de localização.", new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface arg0, int arg1) {
+					        	
+					        	Toast.makeText(MapaListarServicoSelecionado.this,
+					        			"exlui: " + localizacaoExcluir.getId(), Toast.LENGTH_LONG).show();
+					        	
+					        	//EXECULTAR UM ALERT PARA PERGUNTAR SE DESEJA REALMENTE EXCLUIR.
+					        	execultarExcluir();
+					        }
+					    });
+					    
+					    builder.setNegativeButton("Sair", new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface arg0, int arg1) {
+					        }
+					    });
+					    //CRIAR O ALERT.
+					    alerta = builder.create();
+					    //EXIBI O ALERT.
+					    alerta.show();
+
 				 }else{
 	
 				AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
@@ -204,14 +240,13 @@ implements LocationListener{
 			        }
 			    });
 			    
-			    //define um botão como negativo.
 			    builder.setNegativeButton("Sair", new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface arg0, int arg1) {
 			        }
 			    });
-			    //cria o AlertDialog
+			    //CRIAR ALERT.
 			    alerta = builder.create();
-			    //Exibe
+			    //EXIBE O ALERT.
 			    alerta.show();
 
 			}
@@ -219,8 +254,40 @@ implements LocationListener{
 			
 		};
 	}
-
 	
+	//METODO PARA CONFIRMAR A EXCLUSÃO.
+	public void execultarExcluir(){
+		 AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
+
+		    builder.setTitle("Calma !!! ");
+		    
+		    builder.setMessage("Deseja realmente excluir esse ponto de seu serviço ?");
+
+		    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+	
+		        	listaLocalizacaoExcluir.add(localizacaoExcluir);		
+		        	modeloExcluirLocalizacao.setDados(listaLocalizacaoExcluir);
+		        	modeloExcluirLocalizacao.setMensagem("");
+		        	modeloExcluirLocalizacao.setStatus("");
+		        	
+		        	//EXECULTAR ASYNCTASK PARA REALIZAR A EXCLUSÃO
+		          new excluirLocalizacaoAsyncTask().execute();
+		        }
+		    });
+		    
+		    //define um botão como negativon.
+		    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        }
+		    });
+		    //cria o AlertDialog
+		    alerta = builder.create();
+		    //Exibe
+		    alerta.show();
+		
+		
+	}
 	
 	class mapaListarServicoAcompanhanteAsyncTask extends AsyncTask<Void, Void, Modelo>{
 
@@ -275,6 +342,7 @@ implements LocationListener{
 					jsonObject = jsonArray.getJSONObject(x);
 					
 					Localizacao local = new Localizacao();
+					local.setId(jsonObject.getInt("\u0000Localizacao\u0000id"));
 					local.setLatitude(jsonObject.getString("\u0000Localizacao\u0000latitude"));
 					local.setLongitude(jsonObject.getString("\u0000Localizacao\u0000longitude"));
 					local.setEnderecoFormatado(
@@ -284,7 +352,6 @@ implements LocationListener{
 	
 				}
 
-
 			}catch (Exception e) {
 				e.printStackTrace();			
 			}
@@ -293,43 +360,141 @@ implements LocationListener{
 	}
 }
 	
+	//ADICIONAR OS MARKER AO MAPA.
 		private void AddMarkers (){
 		
 		
-		for(int i = 0; i < listaServicoMarker.size(); i++){
-		Localizacao localizacao = (Localizacao) listaServicoMarker.get(i);
-			
-		double lat = Double.parseDouble(localizacao.getLatitude());
-		double log = Double.parseDouble(localizacao.getLongitude());
-		
+			for(int i = 0; i < listaServicoMarker.size(); i++){
+				Localizacao localizacao = (Localizacao) listaServicoMarker.get(i);
+					
+				double lat = Double.parseDouble(localizacao.getLatitude());
+				double log = Double.parseDouble(localizacao.getLongitude());
+				
+				LatLng latLog	= new LatLng(lat, log);
+				
+				meuMarker	= googleMap.addMarker(new MarkerOptions()  
+				.position(latLog)  
+				.icon(BitmapDescriptorFactory.fromResource(  
+						 R.drawable.pin)).
+						 title(localizacao.getEnderecoFormatado())
+						  .snippet(String.valueOf(localizacao.getId())));
 
-		LatLng latLog	= new LatLng(lat, log);
-		
-		meuMarker	= googleMap.addMarker(new MarkerOptions()  
-		.position(latLog)  
-		.icon(BitmapDescriptorFactory.fromResource(  
-				 R.drawable.pin)).
-				  title(localizacao.getEnderecoFormatado())  
-				  .snippet("R$: "+ intentServicoAcomp.getValor()));
-		
-		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLog));
-		googleMap.animateCamera(CameraUpdateFactory.newLatLng(meuMarker.getPosition()), 250, null);
+				
+				googleMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+				
+				public View getInfoWindow(Marker marker) {
+					// TODO Auto-generated method stub
+					
+					
+					   		
+					return null;
+				}
+
+				public View getInfoContents(Marker markerAdapter) {
+					
+		            View v = getLayoutInflater().inflate(R.layout.info_windows, null);
 	
-		CameraPosition cameraPosition =   
-			    new CameraPosition.Builder()  
-			      .target(latLog)     
-			      .zoom(17)       
-			      .bearing(90)  
-			      .tilt(45)  
-			      .build();  
-			  googleMap.animateCamera(  
-			    CameraUpdateFactory.newCameraPosition(  
-			      cameraPosition));
-		
-		}
-		
+		          
+
+		            TextView txtEndereco = (TextView) v.findViewById(R.id.textViewTitulo);
+
+		            TextView txtValor = (TextView) v.findViewById(R.id.textViewValor);
+		            
+		            LatLng latLngo = markerAdapter.getPosition();
+		            
+		            Localizacao l = new Localizacao();
+		            Geocoder geocoder = new Geocoder(
+							MapaListarServicoSelecionado.this, Locale.getDefault());
+					List<Address> addresses = null;
+		            try {
+						addresses = geocoder.getFromLocation(latLngo.latitude,latLngo.longitude,1);
+						
+						final Address endereco = addresses.get(0);
+						StringBuilder strReturnedAddress = new StringBuilder();
+						for (int i = 0; i < endereco.getMaxAddressLineIndex(); i++) {
+							strReturnedAddress.append(endereco.getAddressLine(i));
+								} 
+								
+								l.setEnderecoFormatado(
+									strReturnedAddress.toString());
+									Log.i("gson", "ende   " + localizacaoCadastro.getEnderecoFormatado());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+		            txtEndereco.setText("Endereço: " + l.getEnderecoFormatado());
+
+		            txtValor.setText("Valor: R$ "+ intentServicoAcomp.getValor());
+
+		            return v;
+
+				}
+				});
+			}
 	}
 	
+		class excluirLocalizacaoAsyncTask extends AsyncTask<Void, Void, Modelo>{
+
+			
+			ProgressDialog dialog;
+			
+			@Override
+			protected void onPreExecute() {
+				dialog = ProgressDialog.show(MapaListarServicoSelecionado.this, "LOADING:",
+						"Carregando pontos do mapa!", true, false);
+				super.onPreExecute();
+			}
+			@Override
+			protected Modelo doInBackground(Void... params) {
+
+				
+				Modelo locRetorno = new Modelo();
+
+				
+				Gson g = new Gson();
+				Log.i("GSON", "PEDRO   " + g.toJson(modeloExcluirLocalizacao));
+				
+
+				locRetorno = repositorio.acessarServidor("excluirLocalizacaoServicoAcompanhante",
+															modeloExcluirLocalizacao);
+
+				return locRetorno;
+			}
+			
+			protected void onPostExecute(Modelo result) {
+				super.onPostExecute(result);
+		
+//				Object dadosObject = result.getDados();
+//				Gson gson = new Gson();
+//				JSONObject jsonObject = null;
+//				List<Servico> addServico = new ArrayList<Servico>();
+//
+//				try {
+//					JSONArray jsonArray = new JSONArray(gson.toJson(dadosObject));
+//					for ( int x = 0; x < jsonArray.length(); ++x){
+//						jsonObject = jsonArray.getJSONObject(x);
+//						
+//						Localizacao local = new Localizacao();
+//						local.setId(jsonObject.getInt("\u0000Localizacao\u0000id"));
+//						local.setLatitude(jsonObject.getString("\u0000Localizacao\u0000latitude"));
+//						local.setLongitude(jsonObject.getString("\u0000Localizacao\u0000longitude"));
+//						local.setEnderecoFormatado(
+//								jsonObject.getString("\u0000Localizacao\u0000enderecoFormatado"));
+//						
+//						listaServicoMarker.add(local);
+//		
+//					}
+//
+//				}catch (Exception e) {
+//					e.printStackTrace();			
+//				}
+//				AddMarkers();
+				Toast.makeText(MapaListarServicoSelecionado.this,
+						"RESULT: " + result.getMensagem(), Toast.LENGTH_LONG).show();
+				dialog.dismiss();
+		}
+	}	
 
 }
 

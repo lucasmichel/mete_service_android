@@ -159,18 +159,59 @@ implements LocationListener{
 			localizacaoCadastro.setLongitude(String.valueOf(point.longitude));
 
 
+//			Geocoder geocoder = new Geocoder(
+//					CadastrarServicoAcompMapa.this, Locale.getDefault());
+//			List<Address> addresses = null;
+//			Toast.makeText(CadastrarServicoAcompMapa.this, "oiii", Toast.LENGTH_LONG).show();
+//			   try {
+//
+//				   addresses = geocoder.getFromLocation(
+//					Double.parseDouble(localizacaoCadastro.getLatitude()),
+//					Double.parseDouble(localizacaoCadastro.getLongitude()),1);
+//				   
+//			   } catch (final IOException e) {}
+//			  
+//			   
+//			   		if (addresses != null) {
+//			   			final Address endereco = addresses.get(0);
+//
+//			   			handler.post(new Runnable() {
+//			   				public void run() {
+//
+//			   					StringBuilder strReturnedAddress = new StringBuilder();
+//			   					for (int i = 0; i < endereco.getMaxAddressLineIndex(); i++) {
+//			   						
+//			   						strReturnedAddress.append(endereco.getAddressLine(i));
+//			   					}    	
+//			   						localizacaoCadastro.setEnderecoFormatado(
+//			   								strReturnedAddress.toString());
+//			   				   		confirmarEndreco(localizacaoCadastro);
+//			   				   		Log.i("GSON", "ende   " + localizacaoCadastro.getEnderecoFormatado());
+//			   				}
+//			   			});
+//			   		}
 			Geocoder geocoder = new Geocoder(
 					CadastrarServicoAcompMapa.this, Locale.getDefault());
 			List<Address> addresses = null;
 			
-			   try {
 
-				   addresses = geocoder.getFromLocation(
-					Double.parseDouble(localizacaoCadastro.getLatitude()),
-					Double.parseDouble(localizacaoCadastro.getLongitude()),1);
-				   
-			   } catch (final IOException e) {}
-			  
+			Toast.makeText(CadastrarServicoAcompMapa.this,
+					"OIIIIIII2",Toast.LENGTH_LONG).show();
+				   try {
+					addresses = geocoder.getFromLocation(
+						Double.parseDouble(localizacaoCadastro.getLatitude()),
+						Double.parseDouble(localizacaoCadastro.getLongitude()),1);
+				} catch (NumberFormatException e) {
+					Log.i("ERRO" ,String.valueOf(e));
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					Log.i("ERRO" ,String.valueOf(e));
+					e.printStackTrace();
+				}
+
+				   Toast.makeText(CadastrarServicoAcompMapa.this,
+							"OIIIIIII3",Toast.LENGTH_LONG).show();
 			   
 			   		if (addresses != null) {
 			   			final Address endereco = addresses.get(0);

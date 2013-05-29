@@ -101,7 +101,7 @@ int id SairCliente 0x7f050093
 int id Status 0x7f050061
 int id TermoUso 0x7f0500a5
 int id TextView01 0x7f050084
-int id action_settings 0x7f0500aa
+int id action_settings 0x7f0500ac
 int id btnAlterarStatus 0x7f050096
 int id btnAvaliar 0x7f050063
 int id btnAvaliarAcomp 0x7f05000b
@@ -213,6 +213,8 @@ int id textView2 0x7f05000e
 int id textView4 0x7f05009e
 int id textView5 0x7f05009c
 int id textViewAdicionarAcompanhante 0x7f05000d
+int id textViewTitulo 0x7f0500a8
+int id textViewValor 0x7f0500a9
 int id textoCadastre 0x7f050088
 int id textoTermoUso 0x7f050040
 int id txt 0x7f050069
@@ -237,7 +239,7 @@ int id txtNomeAcomp 0x7f05004c
 int id txtNomeAcompanhante 0x7f05006d
 int id txtNomeCliente 0x7f050034
 int id txtNomeListarServicos 0x7f050079
-int id txtNomeServicoAdapater 0x7f0500a8
+int id txtNomeServicoAdapater 0x7f0500aa
 int id txtNota 0x7f050075
 int id txtOlhosAcomp 0x7f050058
 int id txtPernoiteAcomp 0x7f05005a
@@ -248,7 +250,7 @@ int id txtSpinnerNome 0x7f050094
 int id txtTestePerformance 0x7f050089
 int id txtUsuarioLogado 0x7f0500a1
 int id txtUsuarioLogadoAcomp 0x7f050095
-int id txtValorServicoAdapater 0x7f0500a9
+int id txtValorServicoAdapater 0x7f0500ab
 int layout activity_alterar_status 0x7f030000
 int layout activity_avaliar_acompanhante 0x7f030001
 int layout activity_cadastrar_encontro 0x7f030002
@@ -281,8 +283,9 @@ int layout activity_tela_cadastro_encontro 0x7f03001c
 int layout activity_tela_cliente 0x7f03001d
 int layout activity_termo_uso 0x7f03001e
 int layout activity_testeperformance 0x7f03001f
-int layout lista_servico_acomp_adapter 0x7f030020
-int layout splash 0x7f030021
+int layout info_windows 0x7f030020
+int layout lista_servico_acomp_adapter 0x7f030021
+int layout splash 0x7f030022
 int menu main 0x7f090000
 int string Conf_senha 0x7f060034
 int string Galeria 0x7f06002b

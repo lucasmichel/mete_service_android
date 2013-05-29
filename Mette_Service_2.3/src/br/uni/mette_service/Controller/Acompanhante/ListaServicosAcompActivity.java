@@ -282,7 +282,7 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 		@Override
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(ListaServicosAcompActivity.this, "LOADING:",
-					"Carregando pontos do mapa!", true, false);
+					"Carregando seus serviços!", true, false);
 			super.onPreExecute();
 		}
 		@Override
