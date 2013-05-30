@@ -369,7 +369,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 						Log.i("SOSTENES", "RETORNO PARA MONTAR NA TELA" + gson.toJson(dadosObject));
 						
 						
-						idAcompanhanteEditar = jsonObject.getInt("\u0000Acompanhante\u0000id");
+						idAcompanhanteEditar = jsonObject.getInt("id");
 						
 						Log.i("SOSTENES", "idAcomp" + idAcompanhanteEditar);
 						
@@ -451,7 +451,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 						Toast toast = Toast.makeText(CadastroAcompanhanteActivity.this, modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 						toast.show();
 					}else{
-						Object dadosObject = modeloRetorno.getDados().get(1);
+						Object dadosObject = modeloRetorno.getDados().get(0);
 						JSONObject jsonObject = null;
 						Gson gson = new Gson();
 						
