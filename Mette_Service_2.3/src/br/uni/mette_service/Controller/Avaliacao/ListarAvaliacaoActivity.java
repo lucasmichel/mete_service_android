@@ -42,6 +42,7 @@ implements OnClickListener{
 	List<Object> listaObj = new ArrayList<Object>();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
+	Modelo avaliacaoRetorno = new Modelo();
 	Acompanhante acompanhante = new Acompanhante();
 	Acompanhante acompBuscar = new Acompanhante();
 
@@ -118,6 +119,14 @@ implements OnClickListener{
 		new excluirAvaliacaoPorIdAsyncTask().execute();
 		
 	}
+	
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		
+		super.onListItemClick(l, v, position, id);
+		avaliacaoClicado = (AvaliacaoAcompanhante) l.getItemAtPosition(position);
+		
+	}
 
 	class excluirAvaliacaoPorIdAsyncTask extends AsyncTask<String, String, Modelo> {
 	ProgressDialog dialog;
@@ -133,7 +142,7 @@ implements OnClickListener{
 	protected Modelo doInBackground(String... params) {
 		try {
 			modeloRetorno = repositorio.acessarServidor(
-					"excluirComentarioPorId", modelo);
+					"excluirComentario", modelo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -179,7 +188,7 @@ implements OnClickListener{
 
 			Modelo avaliacaoRetorno = new Modelo();
 
-			avaliacaoRetorno = repositorio.acessarServidor("listarAvaliacoesPorIdAcompanhante", modelo);
+			avaliacaoRetorno = repositorio.acessarServidor("listarAvaliacaoPorIdAcompanhante", modelo);
 
 			return avaliacaoRetorno;
 		}
@@ -188,7 +197,13 @@ implements OnClickListener{
 		protected void onPostExecute(Modelo result) {
 			super.onPostExecute(result);
 
-
+			if (avaliacaoRetorno.getStatus().equals("1"))
+			{
+				Toast toast = Toast.makeText(ListarAvaliacaoActivity.this, avaliacaoRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+				finish();
+			
+			}else{
 
 			for ( int i = 0; i < result.getDados().size(); ++i){
 
@@ -203,18 +218,18 @@ implements OnClickListener{
 					for ( int x = 0; x < jsonArray.length(); ++x){
 						jsonObject = jsonArray.getJSONObject(x);
 
-						AvaliacaoAcompanhante avaliacaoRetorno = new AvaliacaoAcompanhante();
+						AvaliacaoAcompanhante avaliacaoItem = new AvaliacaoAcompanhante();
 
-						avaliacaoRetorno.setId(jsonObject.getInt("id"));
-						avaliacaoRetorno.setIdCliente(jsonObject.getInt("idCliente"));
-						avaliacaoRetorno.setIdAcompanhante(jsonObject.getInt("idAcompanhante"));
-						avaliacaoRetorno.setNota(jsonObject.getInt("nota"));
+						avaliacaoItem.setId(jsonObject.getInt("id"));
+						avaliacaoItem.setIdCliente(jsonObject.getInt("idCliente"));
+						avaliacaoItem.setIdAcompanhante(jsonObject.getInt("idAcompanhante"));
+						avaliacaoItem.setNota(jsonObject.getInt("nota"));
 						
 
 
-						Log.i("SOSTENES", i +"..." + avaliacaoRetorno.getId() + "..."+ avaliacaoRetorno.getNota());
+						Log.i("SOSTENES", i +"..." + avaliacaoItem.getId() + "..."+ avaliacaoItem.getNota());
 
-						addAvaliacao.add(avaliacaoRetorno);
+						addAvaliacao.add(avaliacaoItem);
 					}
 					//----
 					// FAZ UMA LISTA DOS SERVIÇOS PASSANDO A LISTA DE SERVIÇOS ADICIONADA.
@@ -234,13 +249,6 @@ implements OnClickListener{
 	}
 
 
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		
-		super.onListItemClick(l, v, position, id);
-		avaliacaoClicado = (AvaliacaoAcompanhante) l.getItemAtPosition(position);
-		
-	}
 
 	private String toString1(InputStream is) throws IOException {
 
@@ -253,3 +261,4 @@ implements OnClickListener{
 		return new String(baos.toByteArray());
 	}
 }
+	}

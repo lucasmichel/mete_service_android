@@ -74,7 +74,8 @@ public class CadastroAvaliacaoActivity extends Activity implements
 				"usuarioLogado");
 		acompanhanteClicada = (Acompanhante) getIntent().getSerializableExtra(
 				"acompanhanteSelecionada");
-		// executarBuscaCliente(usuarioLogado);
+		
+		executarBuscaCliente(usuarioLogado);
 
 	}
 
@@ -98,13 +99,16 @@ public class CadastroAvaliacaoActivity extends Activity implements
 		// toast.show();
 
 		listaObj.clear();
-
+		cliente = new Cliente();
+		
+		
 		cliente.setId(usuarioLogado.getIdUsuario());
 		listaObj.add(cliente);
 
 		modelo.setDados(listaObj);
 		modelo.setMensagem("");
 		modelo.setStatus("");
+		
 		new buscarClientePorIdAsyncTask().execute();
 
 	}
@@ -210,37 +214,6 @@ public class CadastroAvaliacaoActivity extends Activity implements
 				toast.show();
 			} else {
 
-				// android.content.DialogInterface.OnClickListener trataDialog =
-				// new android.content.DialogInterface.OnClickListener()
-				// {
-				//
-				// public void onClick(DialogInterface dialog, int which)
-				// {
-				//
-				// Intent it = new Intent(CadastroAvaliacaoActivity.this,
-				// CadastroComentarioActivity.class);
-				// it.putExtra("acompanhanteSelecionada", acompanhanteClicada);
-				// startActivity(it);
-				//
-				//
-				// //executarExcluirAcompanhante(idAcompanhanteExcluir);
-				//
-				// }
-				//
-				// };
-				//
-				// AlertDialog alert = new
-				// AlertDialog.Builder(CadastroAvaliacaoActivity.this)
-				// .setTitle("Confirmação")
-				// .setMessage("Deseja efetuar comentário sobre a acompanhante ?")
-				// .setPositiveButton("Sim", trataDialog)
-				// .setNegativeButton("Não", null).create();
-				// alert.show();
-
-				//
-				// Intent it = new Intent(CadastroAvaliacaoActivity.this,
-				// LogarAndroidActivity.class);
-				// startActivity(it);
 				Toast toast = Toast.makeText(CadastroAvaliacaoActivity.this,
 						modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
 				toast.show();

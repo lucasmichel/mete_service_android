@@ -45,6 +45,7 @@ implements OnClickListener{
 	List<Object> listaObj = new ArrayList<Object>();
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
+	Modelo comentarioRetorno = new Modelo();
 	Acompanhante acompanhante = new Acompanhante();
 	Acompanhante acompBuscar = new Acompanhante();
 
@@ -156,7 +157,7 @@ implements OnClickListener{
 		protected Modelo doInBackground(String... params) {
 			try {
 				modeloRetorno = repositorio.acessarServidor(
-						"excluirComentarioPorId", modelo);
+						"excluirComentario", modelo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -200,9 +201,9 @@ implements OnClickListener{
 		@Override
 		protected Modelo doInBackground(Void... params) {
 
-			Modelo comentarioRetorno = new Modelo();
+			comentarioRetorno = new Modelo();
 
-			comentarioRetorno = repositorio.acessarServidor("listarComentariosPorIdAcompanhante", modelo);
+			comentarioRetorno = repositorio.acessarServidor("listarComentarioPorIdAcompanhante", modelo);
 
 			return comentarioRetorno;
 		}
@@ -212,7 +213,15 @@ implements OnClickListener{
 			super.onPostExecute(result);
 
 
-
+			if (comentarioRetorno.getStatus().equals("1"))
+			{
+				Toast toast = Toast.makeText(ListarComentarioActivity.this, comentarioRetorno.getMensagem(), Toast.LENGTH_LONG);
+				toast.show();
+				finish();
+			
+			}else{
+				
+			
 			for ( int i = 0; i < result.getDados().size(); ++i){
 
 
@@ -253,6 +262,8 @@ implements OnClickListener{
 
 			}
 			dialog.dismiss();
+		}
+			
 		}
 	}
 

@@ -133,6 +133,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 		
 		this.btnAlterarStatus.setOnClickListener(this);		
 		this.btnEncontros.setOnClickListener(this);
+		this.btnListarComentarios.setOnClickListener(this);
 		this.btnListarAvaliacoes.setOnClickListener(this);
 		this.btnCadastrarServico.setOnClickListener(this);
 		this.btnMeusServicos.setOnClickListener(this);
@@ -172,10 +173,10 @@ public class AcompanhanteMenuActivity extends Activity implements
 	public void onClick(View v) {
 		Intent it = null;
 		switch (v.getId()) {
-		case R.id.btnAlterarStatus:
-			it = new Intent(this, AlterarStatusActivity.class);
-			startActivity(it);
-			break;
+//		case R.id.btnAlterarStatus:
+//			it = new Intent(this, AlterarStatusActivity.class);
+//			startActivity(it);
+//			break;
 		case R.id.btnListarComentarios:
 			
 			Log.i("SOSTENES", "Entrou no listar");

@@ -98,6 +98,7 @@ public class CadastroAcompanhanteActivity extends Activity implements OnClickLis
 		modelo.setDados(listaAcompanhante);
 		modelo.setMensagem("");
 		modelo.setStatus("");									
+		
 		new buscarAcompanhantePorIdAsyncTask().execute();
 		
 	}
