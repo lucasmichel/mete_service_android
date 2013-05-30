@@ -80,6 +80,7 @@ implements LocationListener{
 			setContentView(R.layout.activity_mapa); 
 			setUpMap();
 		}
+		new mapaListarServicoAcompanhanteAsyncTask().execute();
 	
 	}
 	
@@ -105,7 +106,7 @@ implements LocationListener{
 	
 	public void onLocationChanged(final Location location) {
 
-		new mapaListarServicoAcompanhanteAsyncTask().execute();
+//		new mapaListarServicoAcompanhanteAsyncTask().execute();
 
 	}
 
