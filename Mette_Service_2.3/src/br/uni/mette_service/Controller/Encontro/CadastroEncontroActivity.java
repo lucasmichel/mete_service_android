@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -75,6 +76,7 @@ public class CadastroEncontroActivity extends Activity implements OnClickListene
 		this.listViewAcompanhanteEncontro = (ListView) findViewById(R.id.listaAcompanhanteEncontro);	
 		this.listViewServicoEncontro = (ListView) findViewById(R.id.listaServicoAcompanhanteEncontro);
 		this.txtDataHoraEncontro = (TextView) findViewById(R.id.editEncontroDataHora);
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}		
 
 	public void adicionarListers() {

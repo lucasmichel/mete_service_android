@@ -52,7 +52,8 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp" >
+                android:layout_marginTop="20dp"
+                android:layout_weight="1" >
 
             </ListView>
 
@@ -70,7 +71,8 @@
                 android:layout_height="80dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp" >
+                android:layout_marginTop="20dp" 
+                android:layout_weight="1">
 
             </ListView>
 
@@ -88,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:ems="10" >
+                android:ems="10" 
+                android:inputType="number">
 
                 <requestFocus />
             </EditText>
