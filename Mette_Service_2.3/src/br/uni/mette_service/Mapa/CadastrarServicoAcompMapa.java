@@ -92,7 +92,9 @@ implements LocationListener{
 	
 	
 	public void onLocationChanged(final Location location) {
-
+		LatLng latLong = new LatLng(location.getLatitude(), location.getLongitude());
+		googleMap.moveCamera(  
+				   CameraUpdateFactory.newLatLngZoom(latLong, 15));
 //		cadastrarServico();
 			onLongClick();
 

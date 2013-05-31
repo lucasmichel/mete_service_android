@@ -82,6 +82,7 @@ implements LocationListener{
 		}
 		new mapaListarServicoAcompanhanteAsyncTask().execute();
 	
+		
 	}
 	
 	@Override
@@ -380,9 +381,13 @@ implements LocationListener{
 						 title(localizacao.getEnderecoFormatado())
 						  .snippet(String.valueOf(localizacao.getId())));
 
+				googleMap.moveCamera(  
+						   CameraUpdateFactory.newLatLngZoom(latLog, 15));
 				
 				googleMap.setInfoWindowAdapter(new InfoWindowAdapter() {
-				
+					 
+					
+					
 				public View getInfoWindow(Marker marker) {
 					// TODO Auto-generated method stub
 					
@@ -468,7 +473,7 @@ implements LocationListener{
 		
 				Toast.makeText(MapaListarServicoSelecionado.this,
 						"RESULT: " + result.getMensagem(), Toast.LENGTH_LONG).show();
-				onRestart();
+								
 				dialog.dismiss();
 		}
 	}	
