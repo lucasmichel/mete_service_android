@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:layout_weight="1.24" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/textViewAdicionarAcompanhante"
@@ -32,27 +32,89 @@
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:layout_width="317dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-            <Button
-                android:id="@+id/btnEncontroVoltar"
-                style="@style/btnStyleOrange"
+
+
+
+
+
+
+
+
+            <ListView
+                android:id="@+id/listaAcompanhanteEncontro"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp" >
+
+            </ListView>
+
+            <TextView
+                android:id="@+id/listaServicosRelacionados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Serviços Relacionados:" />
+
+
+            <ListView
+                android:id="@+id/listaServicoAcompanhanteEncontro"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp" >
+
+            </ListView>
+
+            <TextView
+            android:id="@+id/textDataHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Adicione Data/Hora abaixo:" />            
+
+            <EditText
+                android:id="@+id/editEncontroDataHora"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_weight="1"
-                android:text="@string/voltar" />
-
-            <Button
-                android:id="@+id/btnEncontroAvancar"
-                style="@style/btnStyleOrange"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:text="Marcar Encontro" />
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+            
+            <LinearLayout
+                android:layout_width="317dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnEncontroVoltar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/voltar" />
+
+                <Button
+                    android:id="@+id/btnEncontroAvancar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="Marcar Encontro" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

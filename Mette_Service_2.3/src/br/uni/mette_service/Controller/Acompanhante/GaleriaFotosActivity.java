@@ -236,11 +236,8 @@ public class GaleriaFotosActivity extends Activity {
 							gson.toJson(dadosObject));
 					for (int x = 0; x < jsonArray.length(); ++x) {
 						jsonObject = jsonArray.getJSONObject(x);
-						gallery_list
-								.add("http://leonardogalvao.com.br/mete_service/src/img/foto/"
-										+ jsonObject
-												.getString("nome"));
-						itensId.add(jsonObject.getString("id"));
+						gallery_list.add("http://leonardogalvao.com.br/mete_service/src/img/foto/"+ jsonObject.getString("\u0000Fotos\u0000nome"));
+						itensId.add(jsonObject.getString("\u0000Fotos\u0000id"));
 					}
 					String URL = gallery_list.get(0);
 					GetXMLTask task = new GetXMLTask();
@@ -283,6 +280,7 @@ public class GaleriaFotosActivity extends Activity {
 	}
 
 	private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
+		
 		@Override
 		protected Bitmap doInBackground(String... urls) {
 			Bitmap map = null;

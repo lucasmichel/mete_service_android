@@ -25,8 +25,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Servico.ServicoAcompanhante;
-import br.uni.mette_service.Mapa.MapaActivity;
-import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
+//import br.uni.mette_service.Mapa.MapaActivity;
+//import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Servico;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -39,6 +39,7 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	private Button btnVoltar;
 	boolean acompanhanteSelecionada;
 	boolean acompanhanteListarSeusServicos;
+	boolean eEncontro;
 	Acompanhante acompanhanteBuscar = new Acompanhante();
 	List<Object> listaAcompanhante = new ArrayList();
 	ServicoAcompanhante idServicoAcompanante;
@@ -51,26 +52,22 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
-        adicionarFindView();
-        adicionarListers();
+        
+        eEncontro = getIntent().getBooleanExtra("eEncontro",false);
+        
         /*PEGAR O BOOLEAN ENVIANDO PELA ACOMPANHANTE PARA LISTAR
          * SEUS SERVIÇOS */
         acompanhanteListarSeusServicos = 
         		getIntent().getBooleanExtra("acompanhanteListarServicos",false);
         
-       chamarAsyncTask();
-    
-    }
-    
-    private void chamarAsyncTask(){
-    	
-    	 /*DEPENDENDO DE QUEM CHAMOU A ACTIVITY UMA ASYNCTASK 
+        /*DEPENDENDO DE QUEM CHAMOU A ACTIVITY UMA ASYNCTASK 
          * ESPECIFICA É CHAMADA */
         if(acompanhanteListarSeusServicos){
         new listarMeusServicosAcompanhante().execute();
         }else{
         new listarServicoAcompanhante().execute();
         }
+    
     }
 
     private void adicionarFindView() {
@@ -92,8 +89,16 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	}
     
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-	super.onListItemClick(l, v, position, id);
+	super.onListItemClick(l, v, position, id);		
+	
 	idServicoAcompanante = (ServicoAcompanhante) l.getItemAtPosition(position);
+	
+	if (eEncontro){		
+		Intent i = new Intent();
+        i.putExtra("SERVICO_SELECIONADO", idServicoAcompanante);                     
+        setResult(RESULT_OK, i);
+        finish();
+	}
 	
 	/*CASO SEJA A ACOMPANHANTE A CLICAR EM UM DE SEUS SERVIÇOS*/
 	if(acompanhanteListarSeusServicos){
@@ -150,12 +155,12 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	    builder.setNeutralButton("Listar Locais do meu Serviço.", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface arg0, int arg1) {
 	        	Boolean chamadaAcompanhante = true ;
-	        	Intent it = new Intent(ListaServicosAcompActivity.this,
-	        							MapaListarServicoSelecionado.class);
-	        	it.putExtra("idServicoAcompanante", idServicoAcompanante);
-	        	it.putExtra("chamadaAcompanhante", chamadaAcompanhante);
+	    //    	Intent it = new Intent(ListaServicosAcompActivity.this,
+	     //   							MapaListarServicoSelecionado.class);
+	      //  	it.putExtra("idServicoAcompanante", idServicoAcompanante);
+	       // 	it.putExtra("chamadaAcompanhante", chamadaAcompanhante);
 //	        	it.putExtra("listarServicoAcomapanhteSelecionado", listarServicoAcomapanhteSelecionado);
-	        	startActivity(it);
+	       // 	startActivity(it);
 	        	
 	        }
 	    });
@@ -175,9 +180,9 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	}/*FIM DO IF CASO TENHA SIDO A ACOMPANHANTE A CLICAR NO SERVIÇO*/
 	else{
 	
-	Intent it = new Intent(this, MapaListarServicoSelecionado.class);
-	it.putExtra("idServicoAcompanante", idServicoAcompanante);
-	startActivity(it);
+//	Intent it = new Intent(this, MapaListarServicoSelecionado.class);
+//	it.putExtra("idServicoAcompanante", idServicoAcompanante);
+//	startActivity(it);
 	
 	}
 }
@@ -201,7 +206,7 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 		@Override
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(ListaServicosAcompActivity.this, "LOADING:",
-					"Carregando serviços da acompanhante", true, false);
+					"Carregando pontos do mapa!", true, false);
 			super.onPreExecute();
 		}
 		@Override
@@ -219,9 +224,6 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 			modelo.setDados(listaAcompanhante);
 			modelo.setMensagem("");
 			modelo.setStatus("");
-			
-			Gson g = new Gson();
-			Log.i("GSON", "PEDRO   " + g.toJson(modelo));
 			
 			locRetorno = repositorio.acessarServidor("listarServicoAcompanhante", modelo);
 
@@ -247,13 +249,14 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 					jsonObject = jsonArray.getJSONObject(x);
 					
 					ServicoAcompanhante servicoAcompanhante = new ServicoAcompanhante();
-					
+										
 					servicoAcompanhante.setId(
 							jsonObject.getInt("id"));
 					servicoAcompanhante.setServicoId(
 							jsonObject.getInt("servicoId"));
 					servicoAcompanhante.setValor(
-							jsonObject.getString("valor"));
+							jsonObject.getString("valor"));										
+					
     				Log.i("PEDRO", x +"..." + servicoAcompanhante.getId());
     				
     				addServico.add(servicoAcompanhante);
@@ -282,7 +285,7 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 		@Override
 		protected void onPreExecute() {
 			dialog = ProgressDialog.show(ListaServicosAcompActivity.this, "LOADING:",
-					"Carregando seus serviços!", true, false);
+					"Carregando pontos do mapa!", true, false);
 			super.onPreExecute();
 		}
 		@Override
@@ -327,11 +330,11 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 					ServicoAcompanhante servicoAcompanhante = new ServicoAcompanhante();
 					
 					servicoAcompanhante.setId(
-							jsonObject.getInt("id"));
+							jsonObject.getInt("\u0000ServicosAcompanhante\u0000id"));
 					servicoAcompanhante.setServicoId(
-							jsonObject.getInt("servicoId"));
+							jsonObject.getInt("\u0000ServicosAcompanhante\u0000servicoId"));
 					servicoAcompanhante.setValor(
-							jsonObject.getString("valor"));
+							jsonObject.getString("\u0000ServicosAcompanhante\u0000valor"));
     				Log.i("PEDRO", x +"..." + servicoAcompanhante.getId());
     				
     				addServico.add(servicoAcompanhante);
