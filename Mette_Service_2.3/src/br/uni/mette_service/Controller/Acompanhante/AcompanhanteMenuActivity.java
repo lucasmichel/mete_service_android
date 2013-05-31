@@ -6,7 +6,7 @@ import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.Avaliacao.ListarAvaliacaoActivity;
 import br.uni.mette_service.Controller.Comentario.CadastroComentarioActivity;
 import br.uni.mette_service.Controller.Comentario.ListarComentarioActivity;
-import br.uni.mette_service.Controller.Encontro.ListarEncontrosActivity;
+import br.uni.mette_service.Controller.Encontro.ListarEncontrosAcompanhanteActivity;
 import br.uni.mette_service.Controller.Servico.CadastroServicoActivity;
 
 import br.uni.mette_service.Model.Acompanhante;
@@ -56,7 +56,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 	private Button btnAlterarStatus;
 	private Button btnCadastrarServico;
 	private Button btnMeusServicos;
-	private Button btnEncontros, btnListarAvaliacoes, btnListarComentarios;
+	private Button btnListarEncontros, btnListarAvaliacoes, btnListarComentarios;
 	private int idAcompanhante;
 	private TextView txtUsuarioLogado;
 	List<Object> listaobj = new ArrayList<Object>();
@@ -73,8 +73,10 @@ public class AcompanhanteMenuActivity extends Activity implements
 
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra(
 				"usuarioLogado");
+		
 		adicionarFindView();
 		adicionarListers();
+		
 		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, "
 				+ usuarioLogado.getEmail() + "!");
 
@@ -130,9 +132,8 @@ public class AcompanhanteMenuActivity extends Activity implements
 	}
 
 	private void adicionarListers() {
-		
-		this.btnAlterarStatus.setOnClickListener(this);		
-		this.btnEncontros.setOnClickListener(this);
+			
+		this.btnListarEncontros.setOnClickListener(this);
 		this.btnListarComentarios.setOnClickListener(this);
 		this.btnListarAvaliacoes.setOnClickListener(this);
 		this.btnCadastrarServico.setOnClickListener(this);
@@ -142,10 +143,9 @@ public class AcompanhanteMenuActivity extends Activity implements
 	private void adicionarFindView() {
 
 		
-		this.btnEncontros = (Button) findViewById(R.id.btnEncontros);
+		this.btnListarEncontros = (Button) findViewById(R.id.btnListarEncontros);
 		this.btnListarComentarios = (Button) findViewById(R.id.btnListarComentarios);
 		this.btnListarAvaliacoes = (Button) findViewById(R.id.btnListarAvaliacoes);
-		this.btnAlterarStatus = (Button) findViewById(R.id.btnAlterarStatus);
 		this.btnCadastrarServico = (Button) findViewById(R.id.btnCadastrarServico);
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogadoAcomp);
 		this.btnMeusServicos = (Button) findViewById(R.id.btnMeusServicos);
@@ -178,7 +178,6 @@ public class AcompanhanteMenuActivity extends Activity implements
 //			startActivity(it);
 //			break;
 		case R.id.btnListarComentarios:
-			
 			Log.i("SOSTENES", "Entrou no listar");
 			Acompanhante acomp1 = new Acompanhante();
 			acomp1.setId(idAcompanhante);
@@ -186,7 +185,8 @@ public class AcompanhanteMenuActivity extends Activity implements
 			it.putExtra("idAcompanhante", acomp1);
 			startActivity(it);
 			break;
-		case R.id.btnListarAvaliacoes:		
+			
+		case R.id.btnListarAvaliacoes:	
 			Log.i("SOSTENES", "Entrou no listarAvaliacoes");
 			Acompanhante acomp3 = new Acompanhante();
 			acomp3.setId(idAcompanhante);
@@ -194,11 +194,16 @@ public class AcompanhanteMenuActivity extends Activity implements
 			it.putExtra("idAcompanhante", acomp3);
 			startActivity(it);
 			break;
-		case R.id.btnEncontros:
-			it = new Intent(this, ListarEncontrosActivity.class);
+			
+		case R.id.btnListarEncontros:
+			Acompanhante acomp4 = new Acompanhante();
+			acomp4.setId(idAcompanhante);
+			it = new Intent(this, ListarEncontrosAcompanhanteActivity.class);
 			it.putExtra("usuarioLogado", usuarioLogado);
+			it.putExtra("idAcompanhante", acomp4);
 			startActivity(it);
-			break;		
+			break;
+			
 		case R.id.btnCadastrarServico:
 			it = new Intent(this, CadastroServicoActivity.class);
 			Acompanhante acompCadasServico = new Acompanhante();
@@ -206,6 +211,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 			it.putExtra("acompanhanteLogada", acompCadasServico);
 			startActivity(it);
 			break;
+			
 		case R.id.btnMeusServicos:
 			// boolean para saber na tela de listar serviços que chamou
 			boolean listarServicosAcomp = true;

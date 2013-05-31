@@ -98,7 +98,9 @@
         <activity android:name=".Controller.Comentario.CadastroComentarioActivity"></activity>
         <activity android:name=".Controller.Comentario.ListarComentarioActivity"></activity>
         <activity android:name=".Controller.Encontro.ListarEncontrosActivity"></activity>
-        <activity android:name=".Controller.Avaliacao.ListarAvaliacaoActivity"></activity>               
+        <activity android:name=".Controller.Avaliacao.ListarAvaliacaoActivity"></activity>
+        <activity android:name=".Controller.Encontro.ListarEncontrosAcompanhanteActivity"></activity>
+        <activity android:name=".Controller.Encontro.ListarEncontrosClienteActivity"></activity>             
     </application>
 
 </manifest>

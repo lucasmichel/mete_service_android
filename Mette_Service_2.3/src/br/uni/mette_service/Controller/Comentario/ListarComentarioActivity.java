@@ -10,9 +10,6 @@ import br.uni.mette_service.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import br.uni.mette_service.R;
-import br.uni.mette_service.Controller.LogarAndroidActivity;
-import br.uni.mette_service.Controller.Acompanhante.AcompanhanteMenuActivity;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Comentario;
 import br.uni.mette_service.Model.Usuario;
@@ -50,11 +47,15 @@ implements OnClickListener{
 	Acompanhante acompBuscar = new Acompanhante();
 
 	Repositorio repositorio = new Repositorio();
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_listar_comentarios);
 	
 				
+		adicionarFindView();
+		adicionarListers();
+		
 		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
 		acompanhante = (Acompanhante) getIntent().getSerializableExtra("idAcompanhante");
 		
@@ -239,8 +240,9 @@ implements OnClickListener{
 
 						comentarioRetorno.setId(jsonObject.getInt("id"));
 						comentarioRetorno.setComentario(jsonObject.getString("comentario"));
-						comentarioRetorno.setIdAcompanhante(jsonObject.getInt("idAcompanhante"));
-						comentarioRetorno.setIdComentario(jsonObject.getInt("idComentario"));
+						comentarioRetorno.setAcompanhanteId(jsonObject.getInt("acompanhanteId"));
+//						comentarioRetorno.setComentarioId(jsonObject.getInt("comentarioId"));
+						comentarioRetorno.setClienteId(jsonObject.getInt("clienteId"));
 						
 
 

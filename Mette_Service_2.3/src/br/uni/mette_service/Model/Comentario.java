@@ -9,23 +9,23 @@ public class Comentario implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private int idComentario;
+//	private int comentarioId;
 	private String comentario;
-	private int idAcompanhante;
-	private int idCliente;
+	private int acompanhanteId;
+	private int clienteId;
 	
 	public Comentario(){
 		
 	}
 	
-	public Comentario(int id, int idComentario, String comentario,
-			int idAcompanhante, int idCliente) {
+	public Comentario(int id, String comentario,
+			int acompanhanteId, int clienteId) {
 		super();
 		this.id = id;
-		this.idComentario = idComentario;
+//		this.comentarioId = comentarioId;
 		this.comentario = comentario;
-		this.idAcompanhante = idAcompanhante;
-		this.idCliente = idCliente;
+		this.acompanhanteId = acompanhanteId;
+		this.clienteId = clienteId;
 	}
 	public int getId() {
 		return id;
@@ -33,30 +33,30 @@ public class Comentario implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdComentario() {
-		return idComentario;
-	}
-	public void setIdComentario(int idComentario) {
-		this.idComentario = idComentario;
-	}
+//	public int getComentarioId() {
+//		return comentarioId;
+//	}
+//	public void setComentarioId(int comentarioId) {
+//		this.comentarioId = comentarioId;
+//	}
 	public String getComentario() {
 		return comentario;
 	}
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	public int getIdAcompanhante() {
-		return idAcompanhante;
+	public int getAcompanhanteId() {
+		return acompanhanteId;
 	}
-	public void setIdAcompanhante(int idAcompanhante) {
-		this.idAcompanhante = idAcompanhante;
+	public void setAcompanhanteId(int acompanhanteId) {
+		this.acompanhanteId = acompanhanteId;
 	}
 	
 	public int getIdCliente() {
-		return idCliente;
+		return clienteId;
 	}
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setClienteId(int clienteId) {
+		this.clienteId = clienteId;
 	}
 	
 }

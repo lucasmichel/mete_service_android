@@ -72,7 +72,7 @@
     <string name="salvar">Salvar</string>
     <string name="comentario">Efetue o comentário sobre a acompanhante</string>
     <string name="comentarAcompanhante">Comentar</string>
-    <string name="encontros">Encontros</string>
+    <string name="encontros">Listar Encontros</string>
     <string name="mapa">Mapa</string>
     <string name="editarPerfilCliente">Editar Perfil</string>
     <string name="excluirPerfilCliente">Excluir Perfil</string>
@@ -84,6 +84,8 @@
     <string name="listaravaliacoes">Listar Avaliaçoes</string>
     <string name="excluircomentario">Excluir Comentario</string>
     <string name="excluiravaliacao">Excluir Avaliacao</string>
+    <string name="gerenciarencontro">Gerenciar Encontro</string>
+    <string name="excluirencontro">Cancelar Encontro</string>
     
 
 </resources>

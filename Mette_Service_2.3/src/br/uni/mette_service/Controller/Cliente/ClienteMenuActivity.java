@@ -3,10 +3,17 @@ package br.uni.mette_service.Controller.Cliente;
 import java.util.ArrayList;
 
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.LogarAndroidActivity;
 import br.uni.mette_service.Controller.Acompanhante.ListarAcompanhanteActivity;
 import br.uni.mette_service.Controller.Encontro.CadastroEncontroActivity;
+import br.uni.mette_service.Controller.Encontro.ListarEncontrosClienteActivity;
 import br.uni.mette_service.Controller.Servico.ListaServicosActivity;
 import br.uni.mette_service.Mapa.MapaActivity;
 import br.uni.mette_service.Model.Cliente;
@@ -38,7 +45,9 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private Button btnEditar;
 	private Intent itLogin;
 	private AlertDialog alerta;
-
+	private int idCliente;
+	
+	
 	private Cliente cliente;
 	private EditText txtNome;
 	private EditText txtCpf;
@@ -49,24 +58,45 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 	private TextView txtUsuarioLogado;
 	private Button btnTeste;
 	private Button btnop2;
-	private Button btnListarServicos;
+	private Button btnListarServicos, btnListarEncontros;
 
 	Modelo modelo = new Modelo();
 	Modelo modeloRetorno = new Modelo();
 	Repositorio repositorio = new Repositorio();
 	List<Object> listaCliente = new ArrayList();
+	List<Object> listaObj = new ArrayList<Object>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_cliente);
-		usuarioLogado = (Usuario) getIntent().getSerializableExtra(
-				"usuarioLogado");
+		usuarioLogado = (Usuario) getIntent().getSerializableExtra("usuarioLogado");
 		itLogin = new Intent(this, LogarAndroidActivity.class);
+		
 		adicionarFindView();
 		adicionarListers();
+		
 		this.txtUsuarioLogado.setText(usuarioLogado.getIdUsuario() + " - Olá, "
 				+ usuarioLogado.getEmail() + "!");
+		
+		executarBuscarCliente(usuarioLogado);
+	}
+	
+	private void executarBuscarCliente(Usuario usuarioLogado) {
+
+	
+		listaObj.clear();
+		cliente = new Cliente();
+		
+		cliente.setId(usuarioLogado.getIdUsuario());
+		listaObj.add(cliente);
+
+		modelo.setDados(listaObj);
+		modelo.setMensagem("");
+		modelo.setStatus("");
+
+		new buscarClientePorIdAsyncTask().execute();
+
 	}
 
 	private void adicionarFindView() {
@@ -78,6 +108,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		this.txtUsuarioLogado = (TextView) findViewById(R.id.txtUsuarioLogado);
 		this.btnTeste = (Button) findViewById(R.id.btnTeste);
 		this.btnListarServicos = (Button) findViewById(R.id.btnListarServicos);
+		this.btnListarEncontros = (Button) findViewById(R.id.btnListarEncontrosCliente);
 
 	}
 
@@ -85,6 +116,7 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 		this.btnTeste.setOnClickListener(this);
 		this.btnop2.setOnClickListener(this);
 		this.btnListarServicos.setOnClickListener(this);
+		this.btnListarEncontros.setOnClickListener(this);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode,
@@ -137,8 +169,75 @@ public class ClienteMenuActivity extends Activity implements OnClickListener {
 			it = new Intent(this, ListaServicosActivity.class);
 			startActivity(it);
 			break;
+		case R.id.btnListarEncontrosCliente:
+			Cliente clienteListar = new Cliente();
+			clienteListar.setId(idCliente);
+			it = new Intent(this, ListarEncontrosClienteActivity.class);
+			it.putExtra("usuarioLogado", usuarioLogado);
+			it.putExtra("idClienteLogado", clienteListar);
+			startActivity(it);
+			break;
 		}
 	}
+	
+	//BUSCAR CLIENTE POR ID USUARIO
+	class buscarClientePorIdAsyncTask extends AsyncTask<String, String, Modelo> {
+	ProgressDialog dialog;
+	
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		dialog = ProgressDialog.show(ClienteMenuActivity.this,
+				"Carregando Dados...", "Aguarde...", true, false);
+	}
+	
+	@Override
+	protected Modelo doInBackground(String... params) {
+		try {
+			modeloRetorno = repositorio.acessarServidor(
+					"buscarClientePorIdUsuario", modelo);
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return modeloRetorno;
+	}
+	
+	@Override
+	protected void onPostExecute(Modelo result) {
+		super.onPostExecute(result);
+		dialog.dismiss();
+		if (modeloRetorno.getStatus().equals("1")) {
+			Toast toast = Toast.makeText(ClienteMenuActivity.this,
+					modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+			toast.show();
+		} else {
+			Object dadosObject = modeloRetorno.getDados().get(0);
+			JSONObject jsonObject = null;
+			Gson gson = new Gson();
+	
+			try {
+				jsonObject = new JSONObject(gson.toJson(dadosObject));
+	
+				Log.i("SOSTENES",
+						"RETORNO PARA MONTAR NA TELA"
+								+ gson.toJson(dadosObject));
+	
+				idCliente = jsonObject.getInt("id");
+				
+	
+			} catch (JSONException e) {
+			}
+	
+			Toast toast = Toast.makeText(ClienteMenuActivity.this,
+					modeloRetorno.getMensagem(), Toast.LENGTH_LONG);
+			toast.show();
+	
+		}
+	}
+	
+	}
+
 
 	// excluirClientePorIdUsuario
 	class excluirClientePorIdUsuarioAsyncTask extends

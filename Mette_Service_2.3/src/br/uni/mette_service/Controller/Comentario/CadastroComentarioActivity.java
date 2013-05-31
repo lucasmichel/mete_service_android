@@ -115,17 +115,17 @@ public class CadastroComentarioActivity extends Activity implements OnClickListe
 			if (validar.validarCampo(edtComentario) == true) {
 				
 				comentario.setId(0);
-				comentario.setIdAcompanhante(acompanhanteClicada.getId());
-				comentario.setIdCliente(idCliente);
+				comentario.setAcompanhanteId(acompanhanteClicada.getId());
+				comentario.setClienteId(idCliente);
 				
-				if (comentarioClicado == null) {
-					
-					comentario.setIdComentario(0);
-					
-				}else{
-					
-					comentario.setIdComentario(comentarioClicado.getIdComentario());
-				}
+//				if (comentarioClicado == null) {
+//					
+////					comentario.setComentarioId(0);
+//					
+//				}else{
+//					
+//					comentario.setComentarioId(comentarioClicado.getComentarioId());
+//				}
 				
 				comentario.setComentario(edtComentario.getText().toString());	
 				executarCadastroComentario(comentario);		
