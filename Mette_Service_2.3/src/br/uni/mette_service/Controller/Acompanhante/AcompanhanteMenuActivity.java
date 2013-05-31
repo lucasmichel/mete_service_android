@@ -373,7 +373,7 @@ public class AcompanhanteMenuActivity extends Activity implements
 			break;
 		case R.id.Sair:
 			AlertDialog.Builder builder = new AlertDialog.Builder(AcompanhanteMenuActivity.this);
-			builder.setTitle("Já vai sair ? Fique mais um pouco.");
+			builder.setTitle("Já vai sair ? Fique mais um pouco.").setIcon(R.drawable.dialog_stop);
 			builder.setMessage("Deseja realmente sair da aplicação?");
 			builder.setPositiveButton("Sim",
 					new DialogInterface.OnClickListener() {

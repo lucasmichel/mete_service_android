@@ -15,6 +15,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import br.uni.mette_service.R;
 import br.uni.mette_service.Controller.Servico.ServicoAcompanhante;
+import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
 //import br.uni.mette_service.Mapa.MapaActivity;
 //import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
 import br.uni.mette_service.Model.Acompanhante;
@@ -94,17 +96,39 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	idServicoAcompanante = (ServicoAcompanhante) l.getItemAtPosition(position);
 	
 	if (eEncontro){		
-		Intent i = new Intent();
-        i.putExtra("SERVICO_SELECIONADO", idServicoAcompanante);                     
-        setResult(RESULT_OK, i);
-        finish();
+		
+		AlertDialog.Builder builder = 
+				new AlertDialog.Builder(ListaServicosAcompActivity.this);
+
+	    builder.setTitle("ALERT!").setIcon(R.drawable.dialog_stop);
+	    
+	    builder.setMessage("Deseja realmente adicionar esse serviço?");
+
+	    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+
+	    		Intent i = new Intent();
+	            i.putExtra("SERVICO_SELECIONADO", idServicoAcompanante);                     
+	            setResult(RESULT_OK, i);
+	            finish();
+	        	
+	        }
+	    });
+	    
+	    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+	        }
+	    });
+	    alerta = builder.create();
+	    alerta.show();
+	
 	}
 	
 	/*CASO SEJA A ACOMPANHANTE A CLICAR EM UM DE SEUS SERVIÇOS*/
 	if(acompanhanteListarSeusServicos){
 		AlertDialog.Builder builder = new AlertDialog.Builder(ListaServicosAcompActivity.this);
 
-	    builder.setTitle("Escolha uma ação...");
+	    builder.setTitle("Escolha uma ação...").setIcon(R.drawable.dialog_stop);
 	    
 	    builder.setMessage("O que deseja fazer ?");
 
@@ -113,7 +137,7 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	        	
 	        	AlertDialog.Builder builder = new AlertDialog.Builder(ListaServicosAcompActivity.this);
 
-			    builder.setTitle(" CUIDADO !! ");
+			    builder.setTitle(" CUIDADO !! ").setIcon(R.drawable.dialog_stop);
 			    
 			    builder.setMessage("Deseja realmente excluir seu servico?");
 			    
@@ -155,12 +179,12 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 	    builder.setNeutralButton("Listar Locais do meu Serviço.", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface arg0, int arg1) {
 	        	Boolean chamadaAcompanhante = true ;
-	    //    	Intent it = new Intent(ListaServicosAcompActivity.this,
-	     //   							MapaListarServicoSelecionado.class);
-	      //  	it.putExtra("idServicoAcompanante", idServicoAcompanante);
-	       // 	it.putExtra("chamadaAcompanhante", chamadaAcompanhante);
+	        	Intent it = new Intent(ListaServicosAcompActivity.this,
+	        							MapaListarServicoSelecionado.class);
+	        	it.putExtra("idServicoAcompanante", idServicoAcompanante);
+	        	it.putExtra("chamadaAcompanhante", chamadaAcompanhante);
 //	        	it.putExtra("listarServicoAcomapanhteSelecionado", listarServicoAcomapanhteSelecionado);
-	       // 	startActivity(it);
+	        	startActivity(it);
 	        	
 	        }
 	    });
@@ -330,11 +354,11 @@ public class ListaServicosAcompActivity extends ListActivity implements OnClickL
 					ServicoAcompanhante servicoAcompanhante = new ServicoAcompanhante();
 					
 					servicoAcompanhante.setId(
-							jsonObject.getInt("\u0000ServicosAcompanhante\u0000id"));
+							jsonObject.getInt("id"));
 					servicoAcompanhante.setServicoId(
-							jsonObject.getInt("\u0000ServicosAcompanhante\u0000servicoId"));
+							jsonObject.getInt("servicoId"));
 					servicoAcompanhante.setValor(
-							jsonObject.getString("\u0000ServicosAcompanhante\u0000valor"));
+							jsonObject.getString("valor"));
     				Log.i("PEDRO", x +"..." + servicoAcompanhante.getId());
     				
     				addServico.add(servicoAcompanhante);

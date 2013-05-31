@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.uni.mette_service.R;
+import br.uni.mette_service.Mapa.MapaListarServicoSelecionado;
 import br.uni.mette_service.Model.Acompanhante;
 import br.uni.mette_service.Model.Usuario;
 import br.uni.mette_service.Model.Repositorio.Modelo;
@@ -17,8 +18,10 @@ import br.uni.mette_service.Model.Repositorio.Repositorio;
 
 import com.google.gson.Gson;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +30,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ListarAcompanhanteActivity extends ListActivity 
 implements OnClickListener{
@@ -34,6 +38,8 @@ implements OnClickListener{
 	private Button btnVoltar;
 	Usuario usuarioLogado = new Usuario();
 	boolean eSolicitacaoDeEncontro = false;
+	private AlertDialog alerta;
+	private Acompanhante acompanhante;
 
 	Repositorio repositorio = new Repositorio();
 	public void onCreate(Bundle savedInstanceState) {
@@ -148,14 +154,37 @@ implements OnClickListener{
 		// TODO Auto-generated method stub
 		
 		super.onListItemClick(l, v, position, id);
-		Acompanhante acompanhante = (Acompanhante) l.getItemAtPosition(position);
+			acompanhante = (Acompanhante) l.getItemAtPosition(position);
 		
 		if (eSolicitacaoDeEncontro)
 		{			
-			Intent i = new Intent();
-            i.putExtra("ACOMPANHANTE_SELECIONADA", acompanhante);                     
-            setResult(RESULT_OK, i);            
-            finish();            
+			
+			AlertDialog.Builder builder = 
+					new AlertDialog.Builder(ListarAcompanhanteActivity.this);
+
+		    builder.setTitle("ALERT!").setIcon(R.drawable.dialog_stop);
+		    
+		    builder.setMessage("Deseja realmente adicionar essa acompanhante?");
+
+		    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        		
+					Intent i = new Intent();
+		            i.putExtra("ACOMPANHANTE_SELECIONADA", acompanhante);                     
+		            setResult(RESULT_OK, i);            
+		            finish();            
+				
+		        	
+		        }
+		    });
+		    
+		    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface arg0, int arg1) {
+		        }
+		    });
+		    alerta = builder.create();
+		    alerta.show();
+
 		}
 		else
 		{			

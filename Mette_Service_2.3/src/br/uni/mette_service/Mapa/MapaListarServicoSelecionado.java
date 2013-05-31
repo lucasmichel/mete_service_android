@@ -199,7 +199,7 @@ implements LocationListener{
 				
 					 AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
 
-					    builder.setTitle("ALERT!");
+					    builder.setTitle("ALERT!").setIcon(R.drawable.dialog_stop);
 					    
 					    builder.setMessage("O que deseja fazer ?");
 
@@ -227,7 +227,7 @@ implements LocationListener{
 	
 				AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
 
-			    builder.setTitle("ALERT!");
+			    builder.setTitle("ALERT!").setIcon(R.drawable.dialog_stop);
 			    
 			    builder.setMessage("O que deseja fazer ?");
 
@@ -260,7 +260,7 @@ implements LocationListener{
 	public void execultarExcluir(){
 		 AlertDialog.Builder builder = new AlertDialog.Builder(MapaListarServicoSelecionado.this);
 
-		    builder.setTitle("Calma !!! ");
+		    builder.setTitle("Calma !!! ").setIcon(R.drawable.dialog_stop);
 		    
 		    builder.setMessage("Deseja realmente excluir esse ponto de seu serviço ?");
 
@@ -466,33 +466,9 @@ implements LocationListener{
 			protected void onPostExecute(Modelo result) {
 				super.onPostExecute(result);
 		
-//				Object dadosObject = result.getDados();
-//				Gson gson = new Gson();
-//				JSONObject jsonObject = null;
-//				List<Servico> addServico = new ArrayList<Servico>();
-//
-//				try {
-//					JSONArray jsonArray = new JSONArray(gson.toJson(dadosObject));
-//					for ( int x = 0; x < jsonArray.length(); ++x){
-//						jsonObject = jsonArray.getJSONObject(x);
-//						
-//						Localizacao local = new Localizacao();
-//						local.setId(jsonObject.getInt("\u0000Localizacao\u0000id"));
-//						local.setLatitude(jsonObject.getString("\u0000Localizacao\u0000latitude"));
-//						local.setLongitude(jsonObject.getString("\u0000Localizacao\u0000longitude"));
-//						local.setEnderecoFormatado(
-//								jsonObject.getString("\u0000Localizacao\u0000enderecoFormatado"));
-//						
-//						listaServicoMarker.add(local);
-//		
-//					}
-//
-//				}catch (Exception e) {
-//					e.printStackTrace();			
-//				}
-//				AddMarkers();
 				Toast.makeText(MapaListarServicoSelecionado.this,
 						"RESULT: " + result.getMensagem(), Toast.LENGTH_LONG).show();
+				onRestart();
 				dialog.dismiss();
 		}
 	}	

@@ -237,7 +237,7 @@ implements LocationListener{
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
 
-		    builder.setTitle("Confirmar Endereço");
+		    builder.setTitle("Confirmar Endereço").setIcon(R.drawable.dialog_stop);
 
 		    builder.setMessage("Deseja cadastrar seu serviço no endereço : "
 		    		+ localizacao.getEnderecoFormatado() + " ?");
@@ -280,7 +280,7 @@ implements LocationListener{
 			AlertDialog.Builder builder = new AlertDialog.Builder(CadastrarServicoAcompMapa.this);
 		    
 			//define o titulo
-		    builder.setTitle("Localizações");
+		    builder.setTitle("Localizações").setIcon(R.drawable.dialog_stop);
 		    
 		    //define a mensagem
 		    builder.setMessage("Deseja cadastrar um nova localização para esse serviço?");
